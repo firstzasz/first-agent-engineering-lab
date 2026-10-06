@@ -81,3 +81,12 @@ The merged fixture is executable, the public baseline is green, and the evaluato
 ## Recommendation
 
 Use the frozen merge commit as the only pilot starting state. Build the treatment runner and execute neutral controls in fresh evaluator-blind contexts before any named methodology treatment.
+
+
+## Start-state supersession
+
+The fixture implementation itself was verified at `3a3315c3647474a03842d9405bb9a23aa41681b6`.
+
+Before any LLM treatment, EXP-0007 discovered that one public S01 test contradicted the intended target behavior. The corrected benchmark start state is now Pilot Start State v0.1 at `2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`.
+
+The original implementation evidence remains valid historical evidence; v0.1 is the required treatment base.
