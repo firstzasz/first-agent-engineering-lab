@@ -74,6 +74,22 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1A: Static skill anatomy
+
+Status: **IMPLEMENTED, verification pending merge**
+
+The first mechanism-level analysis is complete:
+
+- [Skill Anatomy Matrix v0](./docs/comparisons/skill-anatomy-matrix-v0.md)
+- [Reusable Skill Anatomy Template](./docs/SKILL_ANATOMY_TEMPLATE.md)
+- [EXP-0001 static analysis record](./docs/experiments/0001-static-skill-anatomy-analysis.md)
+
+The analysis normalizes representative upstream workflows into:
+
+`Trigger -> Context -> Procedure -> Tools -> State -> Verification -> Output Contract`
+
+It identifies mechanism-level hypotheses for requirement discovery, architecture, decomposition, debugging, verification, continuity, autonomy, orchestration, and portability. Runtime quality is not yet claimed.
+
 Primary question:
 
 > Which techniques improve agent engineering outcomes for different task classes, and which combination best fits FIRST workflows without unnecessary process overhead?
@@ -86,8 +102,8 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Build a skill-anatomy matrix for representative pstack and Matt Pocock workflows before changing either upstream source.
-2. Design one small synthetic system capable of supporting multiple frozen scenarios rather than treating one task as universally representative.
+1. Convert the matrix's highest-value hypotheses into mechanism-first synthetic scenarios.
+2. Design one small synthetic system capable of supporting those frozen scenarios rather than treating one task as universally representative.
 3. Define scoring rubrics and machine-checkable acceptance tests before running any methodology treatment.
 4. Include operator interruption and process-overhead measurements alongside correctness and verification.
 5. Run neutral baselines before pstack and Matt Pocock treatments.
