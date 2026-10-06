@@ -5,6 +5,7 @@ on:
     paths:
       - "fixtures/relayboard/**"
       - "experiments/relayboard/evaluator/**"
+      - "experiments/relayboard/runner/**"
       - ".github/workflows/relayboard-harness.yml"
   push:
     branches:
@@ -12,6 +13,7 @@ on:
     paths:
       - "fixtures/relayboard/**"
       - "experiments/relayboard/evaluator/**"
+      - "experiments/relayboard/runner/**"
       - ".github/workflows/relayboard-harness.yml"
 
 jobs:
@@ -36,3 +38,16 @@ jobs:
       - name: Verify frozen scenarios are red on base fixture
         run: |
           PYTHONPATH=fixtures/relayboard           python experiments/relayboard/evaluator/harness_selftest.py
+
+  treatment-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify isolated treatment workspace preparation
+        run: |
+          python experiments/relayboard/runner/selftest.py
