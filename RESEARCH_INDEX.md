@@ -1,6 +1,6 @@
 # Research Index
 
-Last updated: 2026-10-06
+Last updated: 2026-10-07
 
 ## Status legend
 
@@ -86,11 +86,17 @@ Status: **PLANNED**
 
 ### Phase 1G: Evaluator positive-path validation
 
-Status: **IMPLEMENTED, CI verification pending**
+Status: **IMPLEMENTED and VERIFIED**
 
 Reference solutions now test that the evaluator can accept a valid implementation for S01-v0, S02-v0.1, and S04-v0, not merely detect the unsolved base.
 
 A pre-treatment harness defect was also corrected: the public S01 baseline test had frozen the old heading and would have failed the intended solution. No treatment run had started, so this correction is being versioned before the pilot start state is updated.
+
+Verification evidence:
+
+- PR #9 merged to `main` as `2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`.
+- Push workflow run `37547999430` passed public tests, red-capability, treatment-runner, and reference-solution checks.
+- The corrected treatment base is frozen as [Pilot Start State v0.1](./docs/benchmarks/PILOT_START_STATE_V0_1.md).
 
 See [EXP-0007](./docs/experiments/0007-evaluator-positive-path.md).
 
@@ -110,7 +116,7 @@ Verification evidence:
 - PR #8 merged to `main` as `42138f0907b2ff15e6a10c8ea41c4737a0351488`.
 - Push workflow run `37470330930` completed successfully on that exact merged commit.
 - `public-tests`, `evaluator-red-capability`, and `treatment-runner` all passed.
-- The runner self-test prepared clean evaluator-blind workspaces from frozen start SHA `3a3315c3647474a03842d9405bb9a23aa41681b6` and re-ran the 5 public tests successfully.
+- The initial runner self-test prepared clean evaluator-blind workspaces from `3a3315c3647474a03842d9405bb9a23aa41681b6`; the runner is now repinned to Pilot Start State v0.1 `2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f` before treatment execution.
 
 The runner does not execute an LLM itself. Controlled runs still require a fresh agent context with evaluator material excluded.
 
@@ -130,7 +136,8 @@ Verification evidence:
 - Push workflow run `37469311303` completed successfully on that exact merged commit.
 - `public-tests` passed all 5 public fixture tests.
 - `evaluator-red-capability` confirmed the expected red signals for S01-v0, S02-v0.1, and S04-v0.
-- The common treatment starting SHA is frozen in [Pilot Start State v0](./docs/benchmarks/PILOT_START_STATE_V0.md).
+- The original candidate start state is recorded in [Pilot Start State v0](./docs/benchmarks/PILOT_START_STATE_V0.md) and was superseded before treatment.
+- The required pilot treatment base is [Pilot Start State v0.1](./docs/benchmarks/PILOT_START_STATE_V0_1.md) at `2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`.
 
 See [EXP-0005](./docs/experiments/0005-relayboard-fixture-implementation.md).
 
@@ -226,7 +233,7 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Verify evaluator reference solutions in CI and version the corrected pilot start state before any treatment run.
+1. Verify the treatment runner against Pilot Start State v0.1 in CI.
 2. Execute the prepared neutral-control pilot runs for S01-v0, S02-v0.1, and S04-v0 in fresh evaluator-blind contexts.
 3. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
 4. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
