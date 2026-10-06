@@ -10,9 +10,9 @@ A small runner can create comparable evaluator-blind workspaces from the frozen 
 
 ## Setup
 
-Frozen start commit:
+Frozen start commit (repinned to Pilot Start State v0.1 before any LLM treatment):
 
-`3a3315c3647474a03842d9405bb9a23aa41681b6`
+`2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`
 
 Pilot scenarios:
 
@@ -85,3 +85,12 @@ The runner can reproducibly prepare clean evaluator-blind workspaces from the fr
 ## Recommendation
 
 Execute the neutral-control pilot next, one fresh evaluator-blind context per scenario, and preserve every run even if it fails.
+
+
+## Start-state repin
+
+The original runner was verified against `3a3315c3647474a03842d9405bb9a23aa41681b6`.
+
+EXP-0007 then found a contradictory public S01 assertion before any LLM treatment ran. The corrected, fully red/green-validated start state is `2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`, and the runner is repinned to that SHA.
+
+This is a pre-treatment harness correction, not a result-driven methodology change.
