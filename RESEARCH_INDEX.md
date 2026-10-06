@@ -74,6 +74,14 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1B: Mechanism benchmark design
+
+Status: **IMPLEMENTED, verification pending merge**
+
+The benchmark design is documented in [Mechanism Benchmark Design v0](./docs/comparisons/mechanism-benchmark-design-v0.md), with [EXP-0002](./docs/experiments/0002-mechanism-benchmark-design.md) recording the design result.
+
+The shared synthetic system is provisionally named **RelayBoard**. Eight scenarios are defined, but implementation is intentionally staged. The first fixture slice will support S01 tiny reversible change, S02 ambiguous requirement, and S04 deterministic hard bug before broader orchestration scenarios are built.
+
 ### Phase 1A: Static skill anatomy
 
 Status: **IMPLEMENTED and VERIFIED**
@@ -109,11 +117,11 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Convert the matrix's highest-value hypotheses into mechanism-first synthetic scenarios.
-2. Design one small synthetic system capable of supporting those frozen scenarios rather than treating one task as universally representative.
-3. Define scoring rubrics and machine-checkable acceptance tests before running any methodology treatment.
-4. Include operator interruption and process-overhead measurements alongside correctness and verification.
-5. Run neutral baselines before pstack and Matt Pocock treatments.
-6. Compare evidence by scenario and mechanism rather than declaring an overall winner.
-7. Test a minimal hybrid only after individual strengths are demonstrated.
-8. Document promising patterns as proposals, not production decisions.
+1. Freeze the RelayBoard domain glossary and S01/S02/S04 prompts.
+2. Define public acceptance tests, hidden-oracle intent, and scoring rubrics for S01/S02/S04 before treatment runs.
+3. Implement only the minimal fixture needed for those three scenarios.
+4. Pilot neutral baselines before pstack and Matt Pocock treatments.
+5. Calibrate operator-interruption and process-overhead measurements.
+6. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
+7. Compare evidence by scenario and mechanism rather than declaring an overall winner.
+8. Test a minimal hybrid only after individual strengths are demonstrated.
