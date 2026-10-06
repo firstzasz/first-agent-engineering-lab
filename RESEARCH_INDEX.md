@@ -86,7 +86,7 @@ Status: **PLANNED**
 
 ### Phase 1F: Treatment runner
 
-Status: **IMPLEMENTED, CI verification pending**
+Status: **IMPLEMENTED and VERIFIED**
 
 A reproducible treatment runner now prepares evaluator-blind standalone workspaces from the exact frozen fixture SHA and captures comparable post-run evidence.
 
@@ -94,6 +94,13 @@ See:
 
 - [Treatment runner](./experiments/relayboard/runner/README.md)
 - [EXP-0006](./docs/experiments/0006-relayboard-treatment-runner.md)
+
+Verification evidence:
+
+- PR #8 merged to `main` as `42138f0907b2ff15e6a10c8ea41c4737a0351488`.
+- Push workflow run `37470330930` completed successfully on that exact merged commit.
+- `public-tests`, `evaluator-red-capability`, and `treatment-runner` all passed.
+- The runner self-test prepared clean evaluator-blind workspaces from frozen start SHA `3a3315c3647474a03842d9405bb9a23aa41681b6` and re-ran the 5 public tests successfully.
 
 The runner does not execute an LLM itself. Controlled runs still require a fresh agent context with evaluator material excluded.
 
@@ -209,10 +216,10 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Get the treatment-runner self-test green in CI.
-2. Freeze the runner merge commit and prepare neutral-control run manifests for S01-v0, S02-v0.1, and S04-v0.
-3. Execute neutral baselines only in fresh, evaluator-blind agent contexts.
-4. Calibrate operator-interruption and process-overhead measurements from the pilot runs.
-5. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral runner protocol is proven.
+1. Execute the prepared neutral-control pilot runs for S01-v0, S02-v0.1, and S04-v0 in fresh evaluator-blind contexts.
+2. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
+3. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
+4. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral execution protocol is proven.
+5. Keep full-workflow and mechanism-isolation conclusions separate.
 6. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
 7. Compare evidence by scenario and mechanism rather than declaring an overall winner.
