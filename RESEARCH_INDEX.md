@@ -76,13 +76,20 @@ Status: **PLANNED**
 
 ### Phase 1A: Static skill anatomy
 
-Status: **IMPLEMENTED, verification pending merge**
+Status: **IMPLEMENTED and VERIFIED**
 
 The first mechanism-level analysis is complete:
 
 - [Skill Anatomy Matrix v0](./docs/comparisons/skill-anatomy-matrix-v0.md)
 - [Reusable Skill Anatomy Template](./docs/SKILL_ANATOMY_TEMPLATE.md)
 - [EXP-0001 static analysis record](./docs/experiments/0001-static-skill-anatomy-analysis.md)
+
+Verification evidence:
+
+- PR #2 merged to `main` as `d22d6a381907907c202dfbf5a2af0998d851ddf3`.
+- The merged matrix, template, and EXP-0001 record were re-read from `main` after merge.
+- The official upstream latest-commit queries were repeated before merge and still matched the pinned registry SHAs.
+- PR #2 had no configured commit-status checks, so this verifies repository state and source provenance, not runtime workflow quality.
 
 The analysis normalizes representative upstream workflows into:
 
