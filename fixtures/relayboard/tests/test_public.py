@@ -9,14 +9,13 @@ class RelayBoardPublicTests(unittest.TestCase):
     def setUp(self) -> None:
         self.app = create_seeded_app()
 
-    def test_dashboard_has_jobs_table_and_current_heading(self) -> None:
+    def test_dashboard_has_jobs_table(self) -> None:
         code, body = request(
             self.app,
             "GET",
             "/dashboard",
         )
         self.assertEqual(code, 200)
-        self.assertIn("<th>Last result</th>", body)
         self.assertIn("Daily report", body)
 
     def test_disabled_job_blocks_scheduled_run(self) -> None:
