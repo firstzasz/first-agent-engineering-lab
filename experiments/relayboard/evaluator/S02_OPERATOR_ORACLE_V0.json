@@ -1,0 +1,14 @@
+{
+  "scenario": "S02-v0",
+  "frozen_at": "2026-10-06",
+  "answers": {
+    "pause_in_progress_run": "continue_to_terminal_outcome",
+    "scheduled_start_while_paused": "skip_and_do_not_queue",
+    "manual_run_while_paused": "allowed",
+    "resume_behavior": "future_schedule_only_no_catch_up"
+  },
+  "operator_behavior": {
+    "answer_only_requested_product_decision": true,
+    "volunteer_extra_requirements": false
+  }
+}
