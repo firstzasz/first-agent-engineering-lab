@@ -10,6 +10,32 @@ observe -> understand -> experiment -> measure -> compare -> document -> propose
 
 Popular or authoritative approaches are inputs, not conclusions. We separate principles, implementation details, vendor-specific behavior, and portable patterns.
 
+## Long-term research thesis
+
+A central research pillar is **skill engineering as reusable procedural knowledge**.
+
+The lab does not assume that `SKILL.md`, any current plugin format, or any current agent host will be permanent. Instead it studies how reusable engineering know-how should be represented across:
+
+```text
+Model
+  ↓
+Context / Knowledge
+  ↓
+Skills / Procedures
+  ↓
+Tools / Actions
+  ↓
+State / Memory
+  ↓
+Verification
+  ↓
+Environment
+```
+
+The target is to learn what should be a skill, what should be a tool, what should be memory or persistent task state, what should be a larger workflow, and what should be enforced by executable verification rather than prose alone.
+
+See [docs/SKILL_ENGINEERING.md](./docs/SKILL_ENGINEERING.md) and [ADR-0002](./docs/adrs/0002-skill-engineering-as-portable-procedural-knowledge.md).
+
 ## Current scope
 
 Phase 0 bootstraps the research system and performs a read-only architecture inspection of:
@@ -22,6 +48,7 @@ No upstream code is copied or modified during bootstrap.
 ## Repository map
 
 - [RESEARCH_INDEX.md](./RESEARCH_INDEX.md): current research state and next work
+- [docs/SKILL_ENGINEERING.md](./docs/SKILL_ENGINEERING.md): long-term skill-engineering research thesis
 - [docs/sources/](./docs/sources/): upstream registry and architecture notes
 - [docs/experiments/](./docs/experiments/): experiment method and template
 - [docs/comparisons/](./docs/comparisons/): comparison plans and results
