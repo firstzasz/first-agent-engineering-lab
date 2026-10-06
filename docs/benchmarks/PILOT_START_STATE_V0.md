@@ -1,6 +1,6 @@
 # RelayBoard Pilot Start State v0
 
-Status: FROZEN AND VERIFIED
+Status: SUPERSEDED BEFORE TREATMENT
 
 Date frozen: 2026-10-06
 
@@ -8,7 +8,7 @@ Date frozen: 2026-10-06
 
 `3a3315c3647474a03842d9405bb9a23aa41681b6`
 
-This commit is the common starting state for the first controlled RelayBoard treatment round.
+This commit was the first candidate starting state. It was superseded before any LLM treatment ran because positive-path validation found a contradictory public S01 assertion. See `PILOT_START_STATE_V0_1.md`.
 
 Scenario versions:
 
@@ -84,4 +84,4 @@ Do not mutate this starting commit.
 
 Any fixture correction after a controlled treatment begins requires a new start-state version and a new comparison round.
 
-Treatment outputs must be based on this exact SHA or be explicitly marked as a different experiment version.
+No controlled treatment should use this superseded state.
