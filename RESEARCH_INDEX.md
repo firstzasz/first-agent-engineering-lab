@@ -76,9 +76,15 @@ Status: **PLANNED**
 
 ### Phase 1B: Mechanism benchmark design
 
-Status: **IMPLEMENTED, verification pending merge**
+Status: **IMPLEMENTED and VERIFIED**
 
 The benchmark design is documented in [Mechanism Benchmark Design v0](./docs/comparisons/mechanism-benchmark-design-v0.md), with [EXP-0002](./docs/experiments/0002-mechanism-benchmark-design.md) recording the design result.
+
+Verification evidence:
+
+- PR #3 merged to `main` as `b28a076bf4615303a85910c2941441e7a2f833c4`.
+- The merged benchmark design and EXP-0002 record were re-read from `main` after merge.
+- PR #3 had no configured commit-status checks, so this verifies repository state and design persistence, not runtime treatment behavior.
 
 The shared synthetic system is provisionally named **RelayBoard**. Eight scenarios are defined, but implementation is intentionally staged. The first fixture slice will support S01 tiny reversible change, S02 ambiguous requirement, and S04 deterministic hard bug before broader orchestration scenarios are built.
 
