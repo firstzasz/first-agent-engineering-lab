@@ -1,6 +1,6 @@
 # EXP-0007: Evaluator positive-path validation
 
-Status: IMPLEMENTED, CI verification pending
+Status: VERIFIED
 
 Date: 2026-10-07
 
@@ -17,7 +17,7 @@ Testing only the red path could leave an impossible or contradictory benchmark.
 
 No LLM treatment is executed.
 
-Reference patches live under evaluator-only material and are excluded from treatment workspaces.
+Reference solutions live under evaluator-only material and are excluded from treatment workspaces.
 
 ## Implementation
 
@@ -30,7 +30,7 @@ Added reference solutions for:
 Added `solution_selftest.py`, which:
 
 1. copies the current fixture into a temporary workspace;
-2. applies the evaluator-only reference patch;
+2. applies the evaluator-only reference solution overlay;
 3. runs public tests;
 4. runs the matching evaluator oracle;
 5. requires both to pass.
@@ -48,18 +48,27 @@ CI must show:
 
 ## Evidence
 
-Pending CI.
+- PR #9
+- merge commit: `2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`
+- GitHub Actions run: `37547999430`
+- `public-tests`: PASS
+- `evaluator-red-capability`: PASS
+- `treatment-runner`: PASS
+- `reference-solutions`: PASS
+- reference-solutions log confirmed all three frozen reference implementations were accepted
 
 ## Limitations
 
 Reference implementations prove evaluator satisfiability, not uniqueness or methodology quality.
 
-Because the repository is public, reference patches are protected by treatment workspace isolation and contamination rules rather than secrecy.
+Because the repository is public, reference solution overlayes are protected by treatment workspace isolation and contamination rules rather than secrecy.
 
 ## Result
 
-Pending CI verification.
+SUPPORTED.
+
+The evaluator is both red-capable on the unsolved base and green-capable on known-good implementations for all three pilot scenarios.
 
 ## Recommendation
 
-If green, version the corrected fixture as Pilot Start State v0.1 before executing any neutral treatment.
+Use Pilot Start State v0.1 for all first-round treatment workspaces. Do not use the superseded v0 state.
