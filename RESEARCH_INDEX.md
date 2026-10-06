@@ -96,6 +96,12 @@ Three evaluator-blind neutral treatment branches are prepared from Pilot Start S
 
 Their current Git trees were inspected and contain no evaluator/oracle/reference-solution paths.
 
+Verification/execution-prep evidence:
+
+- PR #11 merged to `main` as `c991b46ffa7aeb5f94c0cbeebcd478c79c2d4d7d`.
+- Neutral execution issues are staged as #12 (S01), #13 (S02), and #14 (S04).
+- The issues point only to evaluator-blind treatment branches and do not expose hidden oracle material.
+
 The current research chat cannot execute the neutral arm because it has already inspected hidden benchmark material. Actual execution must occur in fresh contexts.
 
 See:
