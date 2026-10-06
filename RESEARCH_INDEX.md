@@ -86,13 +86,21 @@ Status: **PLANNED**
 
 ### Phase 1E: RelayBoard executable pilot fixture
 
-Status: **IMPLEMENTED, CI verification pending**
+Status: **IMPLEMENTED and VERIFIED**
 
 The minimal S01/S02/S04 fixture is implemented under `fixtures/relayboard/`.
 
 It uses Python standard library + SQLite + WSGI so the harness has no external runtime dependency. Public baseline tests and evaluator red-capability probes are wired into `.github/workflows/relayboard-harness.yml`.
 
 Fixture implementation exposed one pre-run benchmark design issue: S02-v0 did not define a stable evaluator seam. Before any treatment run it was versioned to **S02-v0.1**, freezing `POST /api/jobs/{id}/pause` and `POST /api/jobs/{id}/resume` while keeping all four product decisions unchanged.
+
+Verification evidence:
+
+- PR #7 merged to `main` as `3a3315c3647474a03842d9405bb9a23aa41681b6`.
+- Push workflow run `37469311303` completed successfully on that exact merged commit.
+- `public-tests` passed all 5 public fixture tests.
+- `evaluator-red-capability` confirmed the expected red signals for S01-v0, S02-v0.1, and S04-v0.
+- The common treatment starting SHA is frozen in [Pilot Start State v0](./docs/benchmarks/PILOT_START_STATE_V0.md).
 
 See [EXP-0005](./docs/experiments/0005-relayboard-fixture-implementation.md).
 
@@ -188,10 +196,10 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Get RelayBoard public tests and evaluator red-capability checks green in CI.
-2. Freeze the verified fixture merge commit as the common starting SHA for S01/S02-v0.1/S04.
-3. Verify the harness from the merged commit before any treatment run.
-4. Pilot neutral baselines before pstack, Matt Pocock, and FIRST-mode v0 treatments.
-6. Calibrate operator-interruption and process-overhead measurements.
-7. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
-8. Compare evidence by scenario and mechanism rather than declaring an overall winner.
+1. Implement a treatment-runner protocol that prepares isolated workspaces from the frozen start SHA and captures comparable run evidence.
+2. Prepare neutral-control run manifests for S01-v0, S02-v0.1, and S04-v0.
+3. Execute neutral baselines only in fresh, evaluator-blind agent contexts.
+4. Calibrate operator-interruption and process-overhead measurements from the pilot runs.
+5. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral runner protocol is proven.
+6. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
+7. Compare evidence by scenario and mechanism rather than declaring an overall winner.
