@@ -42,6 +42,16 @@ See [docs/sources/registry.yaml](./docs/sources/registry.yaml) for provenance an
 
 ## Research methodology decisions
 
+**ADR-0003: capability-adaptive, legible autonomy.**  
+Agent autonomy should vary by measured model/task capability and risk, but verification remains external. Long or important runs should expose concise engineering checkpoints so the operator can audit and learn without becoming a blocking approval gate.
+
+See:
+
+- [ADR-0003](./docs/adrs/0003-capability-adaptive-legible-autonomy.md)
+- [Legible Autonomy Research Framework](./docs/LEGIBLE_AUTONOMY.md)
+
+
+
 **ADR-0001: contextual fit over a universal methodology winner.**  
 Compare approaches by task class, host constraints, evidence strength, process overhead, and operator fit. Evidence-supported hybrids are allowed.
 
@@ -123,7 +133,7 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Freeze the RelayBoard domain glossary and S01/S02/S04 prompts.
+1. Freeze the RelayBoard domain glossary and S01/S02/S04 prompts, including model-capability and legibility treatment metadata.
 2. Define public acceptance tests, hidden-oracle intent, and scoring rubrics for S01/S02/S04 before treatment runs.
 3. Implement only the minimal fixture needed for those three scenarios.
 4. Pilot neutral baselines before pstack and Matt Pocock treatments.

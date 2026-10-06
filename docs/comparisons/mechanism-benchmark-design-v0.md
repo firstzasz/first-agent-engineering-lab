@@ -351,6 +351,28 @@ A feature with:
 
 Dependency state should choose what can run, while orchestration shape should choose how it runs.
 
+## Model capability and legibility axis
+
+Selected scenarios should be repeated across different model capability levels where practical.
+
+The workflow is allowed to adapt to measured model/task capability, but the acceptance oracle must not change.
+
+Record:
+
+- model and host;
+- calibration status on that task class;
+- procedure/scaffolding enabled;
+- independent review requirements;
+- checkpoint frequency;
+- operator-visible rationale artifacts;
+- acceptance and false-green outcomes.
+
+Do not use model self-confidence as the only calibration signal.
+
+At least one treatment should test **legible autonomy**: the agent continues without approval after reversible decisions while emitting concise checkpoints containing evidence, decision, alternatives materially considered, verification result, remaining uncertainty, and next step.
+
+This allows the benchmark to ask whether stronger models can safely use lighter scaffolding while retaining external verification and operator learning value.
+
 ## Cross-scenario metrics
 
 Every scenario records:
