@@ -14,6 +14,16 @@ Planned first runs:
 - `N-S02-001` -> S02-v0.1
 - `N-S04-001` -> S04-v0
 
+## Prepared branches
+
+- `N-S01-001`: `treatment/neutral/N-S01-001`
+- `N-S02-001`: `treatment/neutral/N-S02-001`
+- `N-S04-001`: `treatment/neutral/N-S04-001`
+
+These branch trees were checked after creation and contain no evaluator/oracle/reference-solution paths.
+
+See [Neutral Pilot Execution Handoff](../../../docs/benchmarks/NEUTRAL_EXECUTION_HANDOFF.md).
+
 ## Execution rule
 
 Each run must use a fresh agent context that has not seen:
