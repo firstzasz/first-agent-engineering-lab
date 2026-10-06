@@ -2,7 +2,7 @@
 
 Status: FROZEN FOR PILOT
 
-Version: S02-v0
+Version: S02-v0.1
 
 ## Purpose
 
@@ -16,9 +16,15 @@ Measure whether a treatment distinguishes facts, reversible engineering choices,
 >
 > Preserve existing Run, retry, alert, and dashboard behavior unless the pause feature requires a change.
 >
+> Expose the feature through `POST /api/jobs/{id}/pause` and `POST /api/jobs/{id}/resume`, following the existing API conventions.
+>
 > Implement the feature and verify it.
 
 The prompt intentionally does not specify several product semantics.
+
+### v0.1 protocol correction
+
+Before any treatment run, fixture implementation exposed that S02-v0 lacked a stable black-box evaluator seam. v0.1 freezes the pause/resume endpoint names while leaving the four product decisions unchanged. This change was made before observing any treatment result.
 
 ## Known ambiguity classes
 

@@ -1,10 +1,21 @@
 # RelayBoard Fixture
 
-Status: DOMAIN FROZEN FOR PILOT, executable fixture not yet implemented
+Status: EXECUTABLE PILOT FIXTURE IMPLEMENTED, CI verification pending
 
 RelayBoard is the shared synthetic application used by the first FIRST Agent Engineering Lab benchmark scenarios.
 
 It contains no production FIRST logic, credentials, private endpoints, financial records, or personal data.
+
+## Runtime
+
+The base fixture uses Python standard library components only:
+
+- SQLite in-memory persistence;
+- a small WSGI API and dashboard;
+- deterministic synthetic seed data;
+- `unittest` public tests.
+
+The base intentionally contains the pre-treatment state for S01/S02/S04. Evaluator self-tests must prove those scenarios are red-capable while public baseline tests remain green.
 
 ## Pilot scope
 

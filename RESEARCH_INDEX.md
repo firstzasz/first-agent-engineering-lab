@@ -84,6 +84,18 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1E: RelayBoard executable pilot fixture
+
+Status: **IMPLEMENTED, CI verification pending**
+
+The minimal S01/S02/S04 fixture is implemented under `fixtures/relayboard/`.
+
+It uses Python standard library + SQLite + WSGI so the harness has no external runtime dependency. Public baseline tests and evaluator red-capability probes are wired into `.github/workflows/relayboard-harness.yml`.
+
+Fixture implementation exposed one pre-run benchmark design issue: S02-v0 did not define a stable evaluator seam. Before any treatment run it was versioned to **S02-v0.1**, freezing `POST /api/jobs/{id}/pause` and `POST /api/jobs/{id}/resume` while keeping all four product decisions unchanged.
+
+See [EXP-0005](./docs/experiments/0005-relayboard-fixture-implementation.md).
+
 ### Phase 1D: RelayBoard pilot scenario freeze
 
 Status: **IMPLEMENTED and VERIFIED**
@@ -176,11 +188,10 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Implement only the minimal RelayBoard fixture needed for S01/S02/S04.
-2. Add executable public tests and evaluator-only tests that implement the frozen oracle intent.
-3. Add CI for the fixture and evaluator harness.
-4. Verify the harness from a clean checkout before any treatment run.
-5. Pilot neutral baselines before pstack, Matt Pocock, and FIRST-mode v0 treatments.
+1. Get RelayBoard public tests and evaluator red-capability checks green in CI.
+2. Freeze the verified fixture merge commit as the common starting SHA for S01/S02-v0.1/S04.
+3. Verify the harness from the merged commit before any treatment run.
+4. Pilot neutral baselines before pstack, Matt Pocock, and FIRST-mode v0 treatments.
 6. Calibrate operator-interruption and process-overhead measurements.
 7. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
 8. Compare evidence by scenario and mechanism rather than declaring an overall winner.

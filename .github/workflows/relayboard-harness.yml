@@ -1,0 +1,38 @@
+name: RelayBoard harness
+
+on:
+  pull_request:
+    paths:
+      - "fixtures/relayboard/**"
+      - "experiments/relayboard/evaluator/**"
+      - ".github/workflows/relayboard-harness.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "fixtures/relayboard/**"
+      - "experiments/relayboard/evaluator/**"
+      - ".github/workflows/relayboard-harness.yml"
+
+jobs:
+  public-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run public fixture tests
+        run: |
+          PYTHONPATH=fixtures/relayboard           python -m unittest discover             -s fixtures/relayboard/tests             -v
+
+  evaluator-red-capability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify frozen scenarios are red on base fixture
+        run: |
+          PYTHONPATH=fixtures/relayboard           python experiments/relayboard/evaluator/harness_selftest.py
