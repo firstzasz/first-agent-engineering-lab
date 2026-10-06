@@ -1,6 +1,6 @@
 # EXP-0006: RelayBoard treatment-runner protocol
 
-Status: IMPLEMENTED, CI verification pending
+Status: VERIFIED
 
 Date: 2026-10-06
 
@@ -61,7 +61,13 @@ CI should prove that:
 
 ## Evidence
 
-Pending CI.
+- PR #8
+- merge commit: `42138f0907b2ff15e6a10c8ea41c4737a0351488`
+- GitHub Actions run: `37470330930`
+- `public-tests`: PASS
+- `evaluator-red-capability`: PASS
+- `treatment-runner`: PASS
+- runner self-test output confirmed clean evaluator-blind workspaces from frozen base SHA and passing public tests
 
 ## Limitations
 
@@ -72,8 +78,10 @@ Pending CI.
 
 ## Result
 
-Pending CI verification.
+SUPPORTED.
+
+The runner can reproducibly prepare clean evaluator-blind workspaces from the frozen fixture SHA and preserve a stable evaluation boundary.
 
 ## Recommendation
 
-After runner CI is verified, create neutral-control run manifests and execute each scenario only in a fresh context that has not seen evaluator material.
+Execute the neutral-control pilot next, one fresh evaluator-blind context per scenario, and preserve every run even if it fails.
