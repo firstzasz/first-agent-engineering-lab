@@ -58,6 +58,8 @@ Prepared commits:
 
 ## Evidence
 
+- PR #11 merged as `c991b46ffa7aeb5f94c0cbeebcd478c79c2d4d7d`;
+- neutral execution issues #12, #13, and #14;
 - prepared treatment branches above;
 - [Neutral Pilot Execution Handoff](../benchmarks/NEUTRAL_EXECUTION_HANDOFF.md);
 - Pilot Start State v0.1;
