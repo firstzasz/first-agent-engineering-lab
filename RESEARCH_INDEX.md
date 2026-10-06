@@ -10,7 +10,7 @@ Last updated: 2026-10-06
 
 ## Phase 0: Lab bootstrap
 
-Status: **IMPLEMENTED, verification pending merge**
+Status: **IMPLEMENTED and VERIFIED**
 
 Scope:
 
@@ -21,7 +21,15 @@ Scope:
 - read-only architecture inspection for pstack and Matt Pocock skills
 - Research Phase 1 comparison plan
 
-Important constraint: no pstack or Matt Pocock skill source has been copied into this repository during Phase 0.
+Important constraint: no pstack or Matt Pocock skill source was copied into this repository during Phase 0.
+
+Verification evidence:
+
+- Bootstrap PR #1 was merged to `main` as `41be211bd46799ff1bd0f3a37b17f9c2cfe8ce52`.
+- The merged `main` tree was re-read from GitHub and the required root directories/files were present.
+- The official upstream snapshots were re-queried after merge and still matched the registry.
+- PR #1 had no configured commit-status checks. Phase 0 verification is therefore repository-state/provenance verification, not runtime behavior verification.
+- Detailed record: [docs/experiments/0000-bootstrap.md](./docs/experiments/0000-bootstrap.md).
 
 ## Upstream snapshots inspected
 
