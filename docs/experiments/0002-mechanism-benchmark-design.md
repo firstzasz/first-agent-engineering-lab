@@ -48,6 +48,8 @@ The static mechanism hypotheses map cleanly to distinct scenarios. The design ca
 
 - `docs/comparisons/mechanism-benchmark-design-v0.md`
 - `docs/comparisons/skill-anatomy-matrix-v0.md`
+- PR #3
+- merge commit: `b28a076bf4615303a85910c2941441e7a2f833c4`
 
 ## Limitations
 
