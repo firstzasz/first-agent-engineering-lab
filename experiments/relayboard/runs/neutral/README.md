@@ -4,9 +4,9 @@ Status: READY TO EXECUTE
 
 Treatment: `neutral-v0`
 
-Frozen base SHA:
+Frozen base SHA (Pilot Start State v0.1):
 
-`3a3315c3647474a03842d9405bb9a23aa41681b6`
+`2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`
 
 Planned first runs:
 
