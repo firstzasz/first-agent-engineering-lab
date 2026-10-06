@@ -86,13 +86,19 @@ Status: **PLANNED**
 
 ### Phase 1C: FIRST-mode v0 treatment freeze
 
-Status: **IMPLEMENTED, verification pending merge**
+Status: **IMPLEMENTED and VERIFIED**
 
 FIRST-mode v0 is now specified as a frozen experimental treatment:
 
 - [FIRST-mode v0](./docs/approaches/FIRST_MODE_V0.md)
 - [ADR-0004](./docs/adrs/0004-freeze-first-mode-v0.md)
 - [EXP-0003](./docs/experiments/0003-first-mode-v0-freeze.md)
+
+Verification evidence:
+
+- PR #5 merged to `main` as `0cd8eaa5bc0708f6dc1ad507591579016dc91758`.
+- The merged FIRST-mode v0 spec, ADR-0004, EXP-0003 record, and benchmark treatment list were re-read from `main` after merge.
+- PR #5 had no configured commit-status checks, so this verifies repository state and treatment freeze, not runtime effectiveness.
 
 The planned full-workflow comparison now has four arms:
 
