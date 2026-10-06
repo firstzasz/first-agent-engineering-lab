@@ -1,6 +1,6 @@
 # EXP-0005: RelayBoard pilot fixture implementation
 
-Status: IMPLEMENTED, CI verification pending
+Status: VERIFIED
 
 Date: 2026-10-06
 
@@ -58,7 +58,12 @@ CI should demonstrate two properties simultaneously:
 
 ## Evidence
 
-Pending PR and CI evidence.
+- PR #7
+- merge commit: `3a3315c3647474a03842d9405bb9a23aa41681b6`
+- GitHub Actions run: `37469311303`
+- public test job: PASS, 5 tests
+- evaluator red-capability job: PASS
+- frozen start-state record: `docs/benchmarks/PILOT_START_STATE_V0.md`
 
 ## Limitations
 
@@ -69,8 +74,10 @@ Pending PR and CI evidence.
 
 ## Result
 
-Pending CI verification.
+SUPPORTED.
+
+The merged fixture is executable, the public baseline is green, and the evaluator independently demonstrates that S01-v0, S02-v0.1, and S04-v0 begin in detectable unsolved states.
 
 ## Recommendation
 
-If CI is green, freeze the fixture merge commit as the common starting SHA and begin the neutral pilot before any named methodology treatment.
+Use the frozen merge commit as the only pilot starting state. Build the treatment runner and execute neutral controls in fresh evaluator-blind contexts before any named methodology treatment.
