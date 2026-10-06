@@ -49,6 +49,7 @@ No upstream code is copied or modified during bootstrap.
 
 - [RESEARCH_INDEX.md](./RESEARCH_INDEX.md): current research state and next work
 - [docs/SKILL_ENGINEERING.md](./docs/SKILL_ENGINEERING.md): long-term skill-engineering research thesis
+- [docs/approaches/FIRST_MODE_V0.md](./docs/approaches/FIRST_MODE_V0.md): frozen FIRST-specific experimental operating contract
 - [docs/sources/](./docs/sources/): upstream registry and architecture notes
 - [docs/experiments/](./docs/experiments/): experiment method and template
 - [docs/comparisons/](./docs/comparisons/): comparison plans and results
