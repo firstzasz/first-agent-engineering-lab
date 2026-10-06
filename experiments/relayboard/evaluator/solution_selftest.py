@@ -95,6 +95,25 @@ def main() -> int:
             init_workspace(fixture, workspace)
             apply_patch(workspace, patches / patch_name)
 
+            metadata = workspace / ".experiment"
+            metadata.mkdir(exist_ok=True)
+            (metadata / "RUN_MANIFEST.json").write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "base_sha": "pre-treatment-positive-path-selftest",
+                        "scenario": scenario,
+                        "treatment": "reference-solution",
+                        "host": "ci-selftest",
+                        "model": "none",
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
             result = evaluate(
                 root,
                 scenario,
