@@ -54,6 +54,8 @@ The analysis also exposed several plausible complementary mechanisms, especially
 - `docs/comparisons/skill-anatomy-matrix-v0.md`
 - `docs/SKILL_ANATOMY_TEMPLATE.md`
 - pinned upstream SHAs in `docs/sources/registry.yaml`
+- PR #2
+- merge commit: `d22d6a381907907c202dfbf5a2af0998d851ddf3`
 
 ## Limitations
 
