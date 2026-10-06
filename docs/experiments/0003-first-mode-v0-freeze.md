@@ -62,6 +62,8 @@ The current research decisions can be expressed as an inspectable operating cont
 - `docs/approaches/FIRST_MODE_V0.md`
 - `docs/adrs/0004-freeze-first-mode-v0.md`
 - `docs/comparisons/mechanism-benchmark-design-v0.md`
+- PR #5
+- merge commit: `0cd8eaa5bc0708f6dc1ad507591579016dc91758`
 
 ## Limitations
 
