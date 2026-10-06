@@ -84,6 +84,16 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1G: Evaluator positive-path validation
+
+Status: **IMPLEMENTED, CI verification pending**
+
+Reference solutions now test that the evaluator can accept a valid implementation for S01-v0, S02-v0.1, and S04-v0, not merely detect the unsolved base.
+
+A pre-treatment harness defect was also corrected: the public S01 baseline test had frozen the old heading and would have failed the intended solution. No treatment run had started, so this correction is being versioned before the pilot start state is updated.
+
+See [EXP-0007](./docs/experiments/0007-evaluator-positive-path.md).
+
 ### Phase 1F: Treatment runner
 
 Status: **IMPLEMENTED and VERIFIED**
@@ -216,10 +226,11 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Execute the prepared neutral-control pilot runs for S01-v0, S02-v0.1, and S04-v0 in fresh evaluator-blind contexts.
-2. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
-3. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
-4. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral execution protocol is proven.
-5. Keep full-workflow and mechanism-isolation conclusions separate.
+1. Verify evaluator reference solutions in CI and version the corrected pilot start state before any treatment run.
+2. Execute the prepared neutral-control pilot runs for S01-v0, S02-v0.1, and S04-v0 in fresh evaluator-blind contexts.
+3. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
+4. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
+5. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral execution protocol is proven.
+6. Keep full-workflow and mechanism-isolation conclusions separate.
 6. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
 7. Compare evidence by scenario and mechanism rather than declaring an overall winner.
