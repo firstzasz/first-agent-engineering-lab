@@ -404,26 +404,42 @@ This turns "annoying vs not annoying" into evidence.
 
 ## Treatment strategy
 
-Do not begin with repository-vs-repository full-stack comparisons.
+Use two complementary comparison layers.
+
+### Layer 1: mechanism isolation
+
+Do not begin by attributing outcomes to repository brands.
 
 For each scenario:
 
 1. run a neutral baseline;
 2. test the smallest isolated mechanism likely to matter;
-3. only then run the upstream-native workflow;
-4. if two mechanisms look complementary, test the minimal hybrid;
-5. keep treatment labels blinded during subjective review where practical.
+3. combine mechanisms only after individual effects are observable;
+4. keep treatment labels blinded during subjective review where practical.
 
 Example for S04 debugging:
 
 - A: neutral baseline;
 - B: feedback-loop-first only;
 - C: same-surface verification only;
-- D: combined mechanism;
-- E: pinned upstream-native pstack;
-- F: pinned upstream-native Matt workflow.
+- D: combined mechanism.
 
-This lets the lab identify **why** an outcome improved.
+This layer asks **why** an outcome improved.
+
+### Layer 2: full-workflow comparison
+
+After the scenario harness is stable, compare the four frozen system-level arms from the same starting state:
+
+1. **Neutral/plain agent control**
+2. **Pinned pstack workflow**
+3. **Pinned Matt Pocock workflow**
+4. **FIRST-mode v0**
+
+The canonical FIRST treatment is [FIRST-mode v0](../approaches/FIRST_MODE_V0.md).
+
+This layer asks how the complete operating systems behave in practice.
+
+Do not edit FIRST-mode v0, upstream snapshots, scenario prompts, oracle intent, or scoring rules after a controlled round begins. A substantive FIRST treatment change requires a new version and a new round.
 
 ## FIRST-fit weighting
 
