@@ -16,9 +16,9 @@ Planned first runs:
 
 ## Prepared branches
 
-- `N-S01-001`: `treatment/neutral/N-S01-001`
-- `N-S02-001`: `treatment/neutral/N-S02-001`
-- `N-S04-001`: `treatment/neutral/N-S04-001`
+- `N-S01-001`: `treatment/neutral/N-S01-001` — Issue #12
+- `N-S02-001`: `treatment/neutral/N-S02-001` — Issue #13
+- `N-S04-001`: `treatment/neutral/N-S04-001` — Issue #14
 
 These branch trees were checked after creation and contain no evaluator/oracle/reference-solution paths.
 
