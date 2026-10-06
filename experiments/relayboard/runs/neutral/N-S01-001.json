@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "run_id": "N-S01-001",
+  "scenario": "S01-v0",
+  "treatment": "neutral-v0",
+  "base_sha": "3a3315c3647474a03842d9405bb9a23aa41681b6",
+  "host": "",
+  "model": "",
+  "status": "READY",
+  "contaminated": false,
+  "evaluation_path": "",
+  "notes": "Fresh evaluator-blind context required."
+}
