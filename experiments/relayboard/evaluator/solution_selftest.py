@@ -7,11 +7,11 @@ import sys
 import tempfile
 from pathlib import Path
 
-SCENARIOS = {
-    "S01-v0": "S01.patch",
-    "S02-v0.1": "S02.patch",
-    "S04-v0": "S04.patch",
-}
+SCENARIOS = (
+    "S01-v0",
+    "S02-v0.1",
+    "S04-v0",
+)
 
 
 def repo_root() -> Path:
@@ -55,11 +55,17 @@ def init_workspace(source: Path, workspace: Path) -> None:
     )
 
 
-def apply_patch(workspace: Path, patch: Path) -> None:
-    subprocess.run(
-        ["git", "-C", str(workspace), "apply", str(patch)],
-        check=True,
-    )
+def apply_reference_solution(
+    workspace: Path,
+    solution: Path,
+) -> None:
+    for source in solution.rglob("*"):
+        if not source.is_file():
+            continue
+        relative = source.relative_to(solution)
+        destination = workspace / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
 
 
 def evaluate(root: Path, scenario: str, workspace: Path, output: Path) -> dict:
@@ -83,17 +89,26 @@ def evaluate(root: Path, scenario: str, workspace: Path, output: Path) -> dict:
 def main() -> int:
     root = repo_root()
     fixture = root / "fixtures" / "relayboard"
-    patches = root / "experiments" / "relayboard" / "evaluator" / "reference_patches"
+    solutions = (
+        root
+        / "experiments"
+        / "relayboard"
+        / "evaluator"
+        / "reference_solutions"
+    )
 
     failures: list[str] = []
 
     with tempfile.TemporaryDirectory() as temp_name:
         temp = Path(temp_name)
 
-        for scenario, patch_name in SCENARIOS.items():
+        for scenario in SCENARIOS:
             workspace = temp / scenario
             init_workspace(fixture, workspace)
-            apply_patch(workspace, patches / patch_name)
+            apply_reference_solution(
+                workspace,
+                solutions / scenario,
+            )
 
             metadata = workspace / ".experiment"
             metadata.mkdir(exist_ok=True)
