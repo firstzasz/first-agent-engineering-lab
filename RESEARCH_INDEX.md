@@ -84,6 +84,25 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1H: Neutral execution preparation
+
+Status: **IMPLEMENTED and VERIFIED for workspace preparation; execution pending**
+
+Three evaluator-blind neutral treatment branches are prepared from Pilot Start State v0.1:
+
+- `treatment/neutral/N-S01-001`
+- `treatment/neutral/N-S02-001`
+- `treatment/neutral/N-S04-001`
+
+Their current Git trees were inspected and contain no evaluator/oracle/reference-solution paths.
+
+The current research chat cannot execute the neutral arm because it has already inspected hidden benchmark material. Actual execution must occur in fresh contexts.
+
+See:
+
+- [Neutral Pilot Execution Handoff](./docs/benchmarks/NEUTRAL_EXECUTION_HANDOFF.md)
+- [EXP-0008](./docs/experiments/0008-neutral-workspace-preparation.md)
+
 ### Phase 1G: Evaluator positive-path validation
 
 Status: **IMPLEMENTED and VERIFIED**
@@ -233,11 +252,11 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Verify the treatment runner against Pilot Start State v0.1 in CI.
-2. Execute the prepared neutral-control pilot runs for S01-v0, S02-v0.1, and S04-v0 in fresh evaluator-blind contexts.
+1. Execute N-S01-001, N-S02-001, and N-S04-001 in fresh evaluator-blind coding-agent contexts using the prepared treatment branches.
+2. Evaluate each completed run outside its treatment context and persist the evidence.
 3. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
 4. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
 5. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral execution protocol is proven.
 6. Keep full-workflow and mechanism-isolation conclusions separate.
-6. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
-7. Compare evidence by scenario and mechanism rather than declaring an overall winner.
+7. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
+8. Compare evidence by scenario and mechanism rather than declaring an overall winner.
