@@ -8,7 +8,7 @@ A treatment that deliberately reads these files during a run is marked CONTAMINA
 
 Frozen pilot evaluator artifacts:
 
-- `S02_OPERATOR_ORACLE_V0.json`
+- `S02_OPERATOR_ORACLE_V0_1.json`
 - `S04_ROOT_CAUSE_ORACLE_V0.md`
 
 Later executable evaluator tests must implement these frozen intents without changing them after treatment results are observed.
