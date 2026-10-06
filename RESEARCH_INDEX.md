@@ -40,34 +40,32 @@ Verification evidence:
 
 See [docs/sources/registry.yaml](./docs/sources/registry.yaml) for provenance and licensing.
 
+## Research methodology decision
+
+ADR-0001 adopts **contextual fit over a universal methodology winner**.
+
+The lab will compare approaches by task class, host constraints, evidence strength, process overhead, and operator fit. Evidence-supported hybrid patterns are explicitly allowed.
+
+See [docs/adrs/0001-contextual-fit-over-universal-winner.md](./docs/adrs/0001-contextual-fit-over-universal-winner.md).
+
 ## Phase 1: Comparative experiments
 
 Status: **PLANNED**
 
 Primary question:
 
-> Which techniques from pstack and Matt Pocock's skills improve agent engineering outcomes under controlled synthetic tasks, and which benefits depend on a specific host or runtime?
+> Which techniques improve agent engineering outcomes for different task classes, and which combination best fits FIRST workflows without unnecessary process overhead?
 
-Comparison dimensions:
-
-1. requirement discovery
-2. architecture/specification
-3. task decomposition
-4. execution
-5. debugging
-6. verification
-7. session continuity
-8. autonomy
-9. multi-agent orchestration
-10. portability
+Scenario families include requirement discovery, architecture, feature work, debugging, verification, handoff, autonomous work, multi-agent execution, product iteration, and deliberately small changes.
 
 The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs/comparisons/phase-1-plan.md).
 
 ## Next work
 
-1. Design one small synthetic application and ambiguity-rich change request as the common benchmark fixture.
-2. Define scoring rubrics and machine-checkable acceptance tests before running either approach.
-3. Run a neutral baseline without pstack or Matt Pocock skills.
-4. Run pstack and Matt Pocock treatments separately without modifying their source.
-5. Compare evidence, not agent self-reports.
-6. Document any promising hybrid pattern as a proposal, not as a production decision.
+1. Design one small synthetic system capable of supporting multiple frozen scenarios rather than treating one task as universally representative.
+2. Define scoring rubrics and machine-checkable acceptance tests before running any methodology treatment.
+3. Include operator interruption and process-overhead measurements alongside correctness and verification.
+4. Run neutral baselines before pstack and Matt Pocock treatments.
+5. Compare evidence by scenario rather than declaring an overall winner.
+6. Test a minimal hybrid only after individual strengths are demonstrated.
+7. Document promising patterns as proposals, not production decisions.
