@@ -461,6 +461,15 @@ The weights must be declared before scoring treatments.
 
 ## Fixture implementation gates
 
+Pilot freeze artifacts now exist for S01, S02, and S04:
+
+- [RelayBoard glossary](../../fixtures/relayboard/GLOSSARY.md)
+- [S01-v0](../benchmarks/S01_TINY_CHANGE.md)
+- [S02-v0](../benchmarks/S02_AMBIGUOUS_REQUIREMENT.md)
+- [S04-v0](../benchmarks/S04_HARD_BUG.md)
+- [Scoring v0](../benchmarks/SCORING_V0.md)
+- [Evaluator protocol v0](../benchmarks/EVALUATOR_PROTOCOL_V0.md)
+
 RelayBoard implementation begins only after these are frozen:
 
 - domain glossary;
@@ -471,6 +480,8 @@ RelayBoard implementation begins only after these are frozen:
 - treatment isolation rules.
 
 The hidden tests themselves may be implemented later, but what they are intended to detect must be written first to avoid tuning the oracle after seeing results.
+
+For the pilot, those intent and scoring artifacts are now frozen. The next permitted step is fixture and evaluator implementation without changing the frozen semantics.
 
 ## Next implementation slice
 

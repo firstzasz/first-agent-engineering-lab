@@ -84,6 +84,21 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1D: RelayBoard pilot scenario freeze
+
+Status: **IMPLEMENTED, verification pending merge**
+
+The first three pilot scenarios are frozen before fixture implementation:
+
+- [S01 Tiny Reversible Change](./docs/benchmarks/S01_TINY_CHANGE.md)
+- [S02 Ambiguous Requirement](./docs/benchmarks/S02_AMBIGUOUS_REQUIREMENT.md)
+- [S04 Deterministic Hard Bug](./docs/benchmarks/S04_HARD_BUG.md)
+- [Scoring v0](./docs/benchmarks/SCORING_V0.md)
+- [Evaluator Protocol v0](./docs/benchmarks/EVALUATOR_PROTOCOL_V0.md)
+- [EXP-0004](./docs/experiments/0004-relayboard-pilot-freeze.md)
+
+The exact S02 operator answer sheet and S04 root-cause oracle are committed under `experiments/relayboard/evaluator/` and are excluded from treatment workspaces by protocol.
+
 ### Phase 1C: FIRST-mode v0 treatment freeze
 
 Status: **IMPLEMENTED and VERIFIED**
@@ -155,11 +170,11 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Freeze the RelayBoard domain glossary and S01/S02/S04 prompts, including model-capability and legibility treatment metadata.
-2. Define public acceptance tests, hidden-oracle intent, and scoring rubrics for S01/S02/S04 before treatment runs.
-3. Implement only the minimal fixture needed for those three scenarios.
-4. Pilot neutral baselines before pstack, Matt Pocock, and FIRST-mode v0 treatments.
-5. Calibrate operator-interruption and process-overhead measurements.
-6. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
-7. Compare evidence by scenario and mechanism rather than declaring an overall winner.
-8. Test a minimal hybrid only after individual strengths are demonstrated.
+1. Implement only the minimal RelayBoard fixture needed for S01/S02/S04.
+2. Add executable public tests and evaluator-only tests that implement the frozen oracle intent.
+3. Add CI for the fixture and evaluator harness.
+4. Verify the harness from a clean checkout before any treatment run.
+5. Pilot neutral baselines before pstack, Matt Pocock, and FIRST-mode v0 treatments.
+6. Calibrate operator-interruption and process-overhead measurements.
+7. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
+8. Compare evidence by scenario and mechanism rather than declaring an overall winner.
