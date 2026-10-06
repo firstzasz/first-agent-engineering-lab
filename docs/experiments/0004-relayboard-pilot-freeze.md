@@ -51,6 +51,8 @@ The three pilot scenarios can share one small synthetic domain while stressing d
 - `docs/benchmarks/S02_AMBIGUOUS_REQUIREMENT.md`
 - `docs/benchmarks/S04_HARD_BUG.md`
 - `experiments/relayboard/evaluator/`
+- PR #6
+- merge commit: `4cc72de0c88a70195d05ed2d9ae05ba73656102c`
 
 ## Limitations
 
