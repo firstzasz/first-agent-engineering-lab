@@ -84,6 +84,22 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1C: FIRST-mode v0 treatment freeze
+
+Status: **IMPLEMENTED, verification pending merge**
+
+FIRST-mode v0 is now specified as a frozen experimental treatment:
+
+- [FIRST-mode v0](./docs/approaches/FIRST_MODE_V0.md)
+- [ADR-0004](./docs/adrs/0004-freeze-first-mode-v0.md)
+- [EXP-0003](./docs/experiments/0003-first-mode-v0-freeze.md)
+
+The planned full-workflow comparison now has four arms:
+
+`Neutral control vs pstack vs Matt Pocock vs FIRST-mode v0`
+
+Mechanism-isolation experiments remain primary for explaining causality. The four-arm comparison tests complete operating approaches.
+
 ### Phase 1B: Mechanism benchmark design
 
 Status: **IMPLEMENTED and VERIFIED**
@@ -136,7 +152,7 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 1. Freeze the RelayBoard domain glossary and S01/S02/S04 prompts, including model-capability and legibility treatment metadata.
 2. Define public acceptance tests, hidden-oracle intent, and scoring rubrics for S01/S02/S04 before treatment runs.
 3. Implement only the minimal fixture needed for those three scenarios.
-4. Pilot neutral baselines before pstack and Matt Pocock treatments.
+4. Pilot neutral baselines before pstack, Matt Pocock, and FIRST-mode v0 treatments.
 5. Calibrate operator-interruption and process-overhead measurements.
 6. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
 7. Compare evidence by scenario and mechanism rather than declaring an overall winner.
