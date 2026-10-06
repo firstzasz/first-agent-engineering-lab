@@ -84,6 +84,19 @@ The common analysis frame is:
 
 Status: **PLANNED**
 
+### Phase 1F: Treatment runner
+
+Status: **IMPLEMENTED, CI verification pending**
+
+A reproducible treatment runner now prepares evaluator-blind standalone workspaces from the exact frozen fixture SHA and captures comparable post-run evidence.
+
+See:
+
+- [Treatment runner](./experiments/relayboard/runner/README.md)
+- [EXP-0006](./docs/experiments/0006-relayboard-treatment-runner.md)
+
+The runner does not execute an LLM itself. Controlled runs still require a fresh agent context with evaluator material excluded.
+
 ### Phase 1E: RelayBoard executable pilot fixture
 
 Status: **IMPLEMENTED and VERIFIED**
@@ -196,8 +209,8 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Implement a treatment-runner protocol that prepares isolated workspaces from the frozen start SHA and captures comparable run evidence.
-2. Prepare neutral-control run manifests for S01-v0, S02-v0.1, and S04-v0.
+1. Get the treatment-runner self-test green in CI.
+2. Freeze the runner merge commit and prepare neutral-control run manifests for S01-v0, S02-v0.1, and S04-v0.
 3. Execute neutral baselines only in fresh, evaluator-blind agent contexts.
 4. Calibrate operator-interruption and process-overhead measurements from the pilot runs.
 5. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral runner protocol is proven.
