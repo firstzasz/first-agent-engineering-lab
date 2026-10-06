@@ -10,6 +10,27 @@ The objective is not to crown a universal winner. The objective is to isolate po
 
 See [ADR-0001](../adrs/0001-contextual-fit-over-universal-winner.md).
 
+## Mechanism extraction before benchmarking
+
+Before judging outcomes, decompose representative workflows from each upstream into the same anatomy:
+
+`Trigger -> Context -> Procedure -> Tools -> State -> Verification -> Output Contract`
+
+For each workflow, also record:
+
+- explicit vs implicit invocation;
+- host-specific assumptions;
+- operator interruption policy;
+- persistence mechanism;
+- failure and retry behavior;
+- composability;
+- process overhead;
+- whether important behavior is merely instructed or actually enforced by executable checks.
+
+This prevents the study from attributing a result to a repository name when the real cause is a reusable mechanism such as persistent task state, a dependency graph, adversarial review, or executable verification.
+
+See [Skill Engineering Research Thesis](../SKILL_ENGINEERING.md) and [ADR-0002](../adrs/0002-skill-engineering-as-portable-procedural-knowledge.md).
+
 ## Benchmark design
 
 Use one small synthetic system as the shared world where practical, but exercise it through multiple scenarios rather than treating one task as representative of all agent work.
