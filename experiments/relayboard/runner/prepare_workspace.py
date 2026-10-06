@@ -9,7 +9,7 @@ import tarfile
 import tempfile
 from pathlib import Path
 
-BASE_SHA = "3a3315c3647474a03842d9405bb9a23aa41681b6"
+BASE_SHA = "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f"
 
 SCENARIOS = {
     "S01-v0": "docs/benchmarks/S01_TINY_CHANGE.md",
