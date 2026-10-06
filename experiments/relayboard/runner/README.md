@@ -6,7 +6,9 @@ This runner prepares evaluator-blind workspaces from the frozen RelayBoard start
 
 ## Frozen start
 
-`3a3315c3647474a03842d9405bb9a23aa41681b6`
+Pilot start-state version: `v0.1`
+
+`2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`
 
 Supported pilot scenarios:
 
