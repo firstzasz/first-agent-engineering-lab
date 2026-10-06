@@ -180,6 +180,15 @@ def prepare(
             encoding="utf-8",
         )
 
+    gitignore = output / ".gitignore"
+    if not gitignore.exists():
+        gitignore.write_text(
+            "__pycache__/\n"
+            "*.py[cod]\n"
+            ".pytest_cache/\n",
+            encoding="utf-8",
+        )
+
     metadata_dir = output / ".experiment"
     metadata_dir.mkdir()
 
