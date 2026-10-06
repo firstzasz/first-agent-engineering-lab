@@ -1,0 +1,128 @@
+diff --git a/relayboard/models.py b/relayboard/models.py
+--- a/relayboard/models.py
++++ b/relayboard/models.py
+@@ -9,6 +9,7 @@ class Job:
+     name: str
+     enabled: bool
+     max_attempts: int
++    paused: bool = False
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/relayboard/store.py b/relayboard/store.py
+--- a/relayboard/store.py
++++ b/relayboard/store.py
+@@ -17,6 +17,7 @@ class Store:
+                 id TEXT PRIMARY KEY,
+                 name TEXT NOT NULL,
+                 enabled INTEGER NOT NULL,
++                paused INTEGER NOT NULL DEFAULT 0,
+                 max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+             );
+             CREATE TABLE IF NOT EXISTS runs (
+@@ -55,6 +56,7 @@ class Store:
+             row["name"],
+             bool(row["enabled"]),
+             row["max_attempts"],
++            bool(row["paused"]),
+         )
+ 
+     def list_jobs(self) -> list[Job]:
+@@ -63,7 +65,13 @@ class Store:
+             "SELECT * FROM jobs ORDER BY id"
+         ).fetchall()
+         return [
+-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
++            Job(
++                r["id"],
++                r["name"],
++                bool(r["enabled"]),
++                r["max_attempts"],
++                bool(r["paused"]),
++            )
+             for r in rows
+         ]
+ 
+@@ -79,6 +87,17 @@ class Store:
+         self.connection.commit()
+         return self.get_job(job_id)
+ 
++    def set_job_paused(self, job_id: str, paused: bool) -> Job:
++        self.get_job(job_id)
++        self.connection.execute(
++            "UPDATE jobs SET paused = ? WHERE id = ?",
++            (int(paused), job_id),
++        )
++        self.connection.commit()
++        return self.get_job(job_id)
++
+     def next_run_id(self) -> str:
+         row = self.connection.execute(
+             "SELECT COUNT(*) AS n FROM runs"
+diff --git a/relayboard/service.py b/relayboard/service.py
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -24,10 +24,20 @@ class RelayBoardService:
+         job = self.store.get_job(job_id)
+         if not job.enabled:
+             raise JobNotSchedulable(f"job {job_id} is disabled")
++        if job.paused:
++            raise JobNotSchedulable(f"job {job_id} is paused")
+         return self.store.create_run(job_id, "scheduled")
+ 
+     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
+         self.store.set_job_enabled(job_id, enabled)
+ 
++    def pause_job(self, job_id: str) -> None:
++        self.store.set_job_paused(job_id, True)
++
++    def resume_job(self, job_id: str) -> None:
++        self.store.set_job_paused(job_id, False)
++
+     def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
+         run = self.store.get_run(run_id)
+         if run.status != "running":
+diff --git a/relayboard/web.py b/relayboard/web.py
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -53,6 +53,32 @@ class RelayBoardApp:
+                     },
+                 )
+ 
++            if (
++                method == "POST"
++                and path.startswith("/api/jobs/")
++                and path.endswith("/pause")
++            ):
++                job_id = path.split("/")[3]
++                self.service.pause_job(job_id)
++                return self._json(
++                    start_response,
++                    200,
++                    {"job": self._job_json(self.store.get_job(job_id))},
++                )
++
++            if (
++                method == "POST"
++                and path.startswith("/api/jobs/")
++                and path.endswith("/resume")
++            ):
++                job_id = path.split("/")[3]
++                self.service.resume_job(job_id)
++                return self._json(
++                    start_response,
++                    200,
++                    {"job": self._job_json(self.store.get_job(job_id))},
++                )
++
+             if (
+                 method == "POST"
+                 and path.startswith("/api/jobs/")
+@@ -132,6 +158,7 @@ class RelayBoardApp:
+             "name": job.name,
+             "enabled": job.enabled,
+             "max_attempts": job.max_attempts,
++            "paused": job.paused,
+         }
+ 
+     @staticmethod
