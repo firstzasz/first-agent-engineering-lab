@@ -86,7 +86,13 @@ Status: **PLANNED**
 
 ### Phase 1D: RelayBoard pilot scenario freeze
 
-Status: **IMPLEMENTED, verification pending merge**
+Status: **IMPLEMENTED and VERIFIED**
+
+Verification evidence:
+
+- PR #6 merged to `main` as `4cc72de0c88a70195d05ed2d9ae05ba73656102c`.
+- The merged S01/S02/S04 specs, scoring rubric, evaluator protocol, and evaluator oracle files were re-read from `main` after merge.
+- PR #6 had no configured commit-status checks, so this verifies the scenario freeze and repository state, not runtime benchmark behavior.
 
 The first three pilot scenarios are frozen before fixture implementation:
 
