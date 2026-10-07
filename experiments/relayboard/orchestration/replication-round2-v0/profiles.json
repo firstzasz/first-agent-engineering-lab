@@ -190,6 +190,60 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": ""
+    },
+    {
+      "run_id": "F-S01-002",
+      "treatment": "first-mode-v0",
+      "scenario": "S01-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "helper_context_count": 0,
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 26,
+        "new_process_artifact_file_count": 11,
+        "all_diff_stat": " .experiment/REPORT.json             | 129 ++++++++++++++++++++++++++++++++++++\n .experiment/WORK_LOG.md             |  36 ++++++++++\n .experiment/baseline-responses.json |  31 +++++++++\n .experiment/baseline.log            |   1 +\n .experiment/commands.json           |  62 +++++++++++++++++\n .experiment/dashboard.html          |   1 +\n .experiment/final-diff.patch        |  13 ++++\n .experiment/public-tests.log        |  10 +++\n .experiment/verification.log        |   2 +\n .experiment/verified-responses.json |  31 +++++++++\n .experiment/verify.py               |  37 +++++++++++\n relayboard/web.py                   |   2 +-\n 12 files changed, 354 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/web.py",
+            "added": 1,
+            "removed": 1
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T13:22:05.072449+00:00",
+        "frozen_at": "2026-10-07T13:25:34.860490+00:00",
+        "wall_clock_seconds": 209.788,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }

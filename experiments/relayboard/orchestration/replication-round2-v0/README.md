@@ -1,13 +1,13 @@
 # Benchmark Replication Round 2
 
-Status: RUNNING; 2/12 dispositions. 2 public/evaluator PASS, 0 FAIL, 0 excluded. New independent replication, never a retry of Round 1.
+Status: RUNNING; 3/12 dispositions. 3 public/evaluator PASS, 0 FAIL, 0 excluded. New independent replication, never a retry of Round 1.
 
 | Fixed order | Run | Treatment | Status | Evidence |
 | --- | --- | --- | --- | --- |
 | 1 | F-S04-002 | first-mode-v0 | COMPLETED_EVALUATED_PASS | [record](./results/F-S04-002/run.json) |
 | 2 | F-S02-002 | first-mode-v0 | COMPLETED_EVALUATED_PASS | [record](./results/F-S02-002/run.json) |
-| 3 | F-S01-002 | first-mode-v0 | RUNNING | pending |
-| 4 | M-S04-002 | matt-codex-port-v0 | READY_PROCEDURAL | pending |
+| 3 | F-S01-002 | first-mode-v0 | COMPLETED_EVALUATED_PASS | [record](./results/F-S01-002/run.json) |
+| 4 | M-S04-002 | matt-codex-port-v0 | RUNNING | pending |
 | 5 | M-S02-002 | matt-codex-port-v0 | READY_PROCEDURAL | pending |
 | 6 | M-S01-002 | matt-codex-port-v0 | READY_PROCEDURAL | pending |
 | 7 | P-S04-002 | pstack-codex-port-v0 | READY_PROCEDURAL | pending |
