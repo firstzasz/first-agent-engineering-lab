@@ -3,17 +3,12 @@
   "run_id": "M-S02-001",
   "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
   "scenario": "S02-v0.1",
-  "scenario_source": "docs/benchmarks/S02_AMBIGUOUS_REQUIREMENT.md",
-  "treatment": "matt-pinned",
-  "host": "",
-  "model": "",
-  "method_source": null,
-  "upstream": {
-    "repository": "mattpocock/skills",
-    "sha": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
-    "native_install_required": true
-  },
-  "evaluator_material_in_workspace": false,
-  "contamination_rule": "Do not fetch or inspect lab evaluator material, other branches, prior outcomes, or unassigned methodology.",
-  "status": "STAGED_NOT_EXECUTED"
+  "treatment": "matt-codex-port-v0",
+  "host": "Codex shared managed cloud; procedural isolation",
+  "model_request": "gpt-6.1-sol",
+  "reasoning_request": "high",
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "evaluator_material_supplied": false,
+  "peer_results_supplied": false,
+  "contamination_rule": "Deliberate retrieval of evaluator/oracle/reference-solution material invalidates the run; report and preserve evidence."
 }
