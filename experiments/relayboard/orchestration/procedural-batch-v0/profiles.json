@@ -651,6 +651,104 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": ""
+    },
+    {
+      "run_id": "F-S02-001",
+      "treatment": "first-mode-v0",
+      "scenario": "S02-v0.1",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 3,
+        "total": 4,
+        "silent_assumptions": 1,
+        "basis": "Unique requested/answered frozen product semantics. Frozen rubric counts unasked oracle guesses as silent assumptions; correctness is separate.",
+        "exchanges": [
+          {
+            "run_id": "F-S02-001",
+            "round": 1,
+            "observed_at": "2026-10-07 12:10:50 UTC",
+            "question": "The task and glossary leave pause semantics unresolved. Existing scheduling uses enabled; manual runs ignore enabled, retries and alerts proceed for active Runs. Please decide: (1) should pause block only new scheduled Runs, or also manual Runs? (2) should in-progress Runs/retries/alerts continue unchanged? (3) should resume preserve a Job's prior enabled/disabled state? My recommendation is an independent paused flag: block new scheduled Runs only, allow manual Runs, preserve in-progress Run/retry/alert behavior, and leave enabled unchanged on pause/resume. If dashboard presentation has a specific requirement, please supply it; otherwise I will expose a separate Paused column while preserving Enabled and Last result.",
+            "answer": "(1) A scheduled start while paused is skipped and is not queued. Manual Runs remain allowed while paused. (2) An in-progress Run continues to terminal outcome; preserve retries/alerts. (3) No additional guidance on enabled representation/dashboard presentation; TASK preservation, public interfaces and reversible judgment. No other product requirements supplied.",
+            "classification": "MIXED",
+            "product_decisions_answered": [
+              "scheduled_start_while_paused",
+              "manual_run_while_paused",
+              "pause_in_progress_run"
+            ],
+            "engineering_items": [
+              "enabled-state representation",
+              "dashboard presentation"
+            ],
+            "volunteered_requirements": false,
+            "answer_sheet_supplied": false
+          }
+        ]
+      },
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 29,
+        "all_diff_stat": " .experiment/REPORT.json                 | 100 +++++++++++++++++\n .experiment/STATE.md                    |  17 +++\n .experiment/action-path-log.json        |  68 ++++++++++++\n .experiment/artifact-review.txt         | 189 ++++++++++++++++++++++++++++++++\n .experiment/baseline-tests.txt          |  10 ++\n .experiment/commands.jsonl              |   5 +\n .experiment/final-check.txt             |  12 ++\n .experiment/green-tests.txt             |  18 +++\n .experiment/implementation-commit.txt   |   4 +\n .experiment/initial-command-record.json |  34 ++++++\n .experiment/operator-interactions.json  |   8 ++\n .experiment/red-tests.txt               |  97 ++++++++++++++++\n .experiment/run_logged.py               |  18 +++\n README.md                               |  16 +++\n relayboard/models.py                    |   1 +\n relayboard/service.py                   |   8 ++\n relayboard/store.py                     |  27 ++++-\n relayboard/web.py                       |  22 +++-\n tests/test_pause.py                     | 137 +++++++++++++++++++++++\n 19 files changed, 788 insertions(+), 3 deletions(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/models.py",
+            "added": 1,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/service.py",
+            "added": 8,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/store.py",
+            "added": 25,
+            "removed": 2
+          },
+          {
+            "path": "relayboard/web.py",
+            "added": 21,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_pause.py",
+            "added": 137,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 1,
+        "start_at": "2026-10-07T12:09:30.403126+00:00",
+        "frozen_at": "2026-10-07T12:15:20.911189+00:00",
+        "wall_clock_seconds": 350.508,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }
