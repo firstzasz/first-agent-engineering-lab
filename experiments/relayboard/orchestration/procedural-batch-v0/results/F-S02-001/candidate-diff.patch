@@ -1,0 +1,984 @@
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..aaacf43
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,100 @@
++{
++  "schema_version": 1,
++  "run_id": "F-S02-001",
++  "status": "VERIFIED",
++  "implementation_status": "IMPLEMENTED",
++  "verification_status": "VERIFIED",
++  "method": {
++    "name": "FIRST-mode v0",
++    "source_path": "METHOD.md",
++    "source_sha256": "b4f4caa030da9a979097d3c21b225c50bef70572723352fef2a693a6e9a6b2e5",
++    "route": [
++      "L1 grounded reversible implementation",
++      "L3 product question; operator answered before dependent work",
++      "L1 executable red/green verification and persisted local evidence"
++    ],
++    "helpers": [],
++    "independent_evidence": "Executable WSGI API and storage assertions, existing public regressions, and preserved machine-generated outputs; no independent human or agent review claimed."
++  },
++  "success_predicate": "Pause/resume are persistent, idempotent API controls; paused scheduled starts create no Run/queue and return 409, manual Runs remain allowed, active retry/alert behavior is preserved, resume does not start work or override enabled, and dashboard/API expose paused without changing existing fields.",
++  "local_commits": [
++    {
++      "sha": "87b90adc0538b9a29784d065076106475360ff8f",
++      "role": "supplied initial independent commit"
++    },
++    {
++      "sha": "236fc3e6033c261b44a8a970e08a8629ed7e7e5c",
++      "role": "verified implementation, documentation and tests"
++    }
++  ],
++  "evidence_commit": "The local commit containing this REPORT and evidence follows the implementation commit; resolve its SHA with git rev-parse HEAD after finalization. Self-referential SHA not embedded.",
++  "testcommands": [
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "phase": "baseline",
++      "exit_code": 0,
++      "result": "5 passed",
++      "outputpath": ".experiment/baseline-tests.txt",
++      "provenance": "transcribed available tool output"
++    },
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "phase": "pre-implementation new checks",
++      "exit_code": 1,
++      "result": "13 tests; 8 failures including subtests and 1 error; existing public tests green",
++      "outputpath": ".experiment/red-tests.txt"
++    },
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "phase": "post-implementation",
++      "exit_code": 0,
++      "result": "13 passed",
++      "outputpath": ".experiment/green-tests.txt"
++    },
++    {
++      "command": "git diff --check && git diff --stat && git diff -- relayboard README.md",
++      "phase": "artifact review",
++      "exit_code": 0,
++      "result": "Whitespace check passed and application/documentation diff inspected",
++      "outputpath": ".experiment/artifact-review.txt"
++    },
++    {
++      "command": "git diff --check && git status --short",
++      "phase": "pre-evidence-commit final check",
++      "exit_code": 0,
++      "result": "No whitespace errors or outstanding application changes; only new experiment evidence remained to commit.",
++      "outputpath": ".experiment/final-check.txt"
++    }
++  ],
++  "operator_interactions": {
++    "count": 1,
++    "path": ".experiment/operator-interactions.json",
++    "outcome": "Manual Runs allowed; scheduled work skipped without queue; active Run retries and alerts preserved; enabled/dashboard implementation left to reversible engineering judgment."
++  },
++  "action_path_log": ".experiment/action-path-log.json",
++  "command_logs": [
++    ".experiment/initial-command-record.json",
++    ".experiment/commands.jsonl"
++  ],
++  "evaluator_or_peer_material_accessed": false,
++  "contamination": null,
++  "observed_model_identity": "unknown",
++  "observed_reasoning_setting": "unknown",
++  "observed_usage": "unknown",
++  "requested_configuration": {
++    "model": "gpt-6.1-sol",
++    "reasoning": "high",
++    "source": ".experiment/RUN_MANIFEST.json"
++  },
++  "evidence_gaps": [
++    "Hidden evaluation was not available or accessed; claims cover public checks only.",
++    "No independent agent or human reviewer; verification is reproducible executable evidence.",
++    "Real WSGI application was exercised through the supplied request harness; no network-hosted browser/deployment check was performed.",
++    "Initial command outputs were available in tool responses; initial records and baseline output were reconstructed explicitly rather than contemporaneously logged.",
++    "Actual model identity, reasoning setting, token usage, and cost were not independently observable."
++  ],
++  "known_limitations": [
++    "Concurrency semantics remain those of the existing synchronous SQLite fixture; no new distributed scheduler or queue added."
++  ],
++  "remaining_application_work": []
++}
+diff --git a/.experiment/STATE.md b/.experiment/STATE.md
+new file mode 100644
+index 0000000..d210678
+--- /dev/null
++++ b/.experiment/STATE.md
+@@ -0,0 +1,17 @@
++# Run state
++
++Method: FIRST-mode v0, exact frozen canonical text supplied in METHOD.md (no separately named FIRST_MODE_V0.md in supplied area). Route: L1 legible autonomous engineering, L3 only for unresolved product semantics; operator answer received before implementation. No helpers assigned.
++
++Goal / success predicate: POST pause/resume persists a separate Job pause state, repeated operations are safe, unknown Jobs follow 404 conventions; a paused scheduled start returns the existing scheduling-conflict response and creates no Run or queue; manual Runs remain allowed; active Runs continue retries and terminal outcomes with existing alerts unchanged; resume restores scheduling only for enabled Jobs; dashboard and existing enabled/last-result fields retain their meaning. Verify using executable public regression and WSGI API tests, including a red/green cycle.
++
++Grounding: TASK.md, METHOD.md, GLOSSARY.md, README.md, pyproject.toml; relayboard models/store/service/web/testing/main and tests/test_public.py. Existing schedule block uses JobNotSchedulable -> HTTP 409. Existing retries emit failure alerts before terminal failure; preserve this behavior rather than fix the unrelated behavior.
++
++Decisions: PRODUCT_PREFERENCE manual/active Run semantics were escalated to operator, recorded in operator-interactions.json. REVERSIBLE_ENGINEERING: independent persisted paused flag preserves enabled/disabled state; resume does not automatically run anything; default false preserves old Job constructors; paused indicator is a separate dashboard column retaining enabled and last result. Store schema initialization will migrate existing jobs tables to add default-false paused state. FACT: existing synchronous execution has no queued-work subsystem.
++
++Blast radius: Job model, SQLite store, scheduling service, JSON API, dashboard. Integration tests will use the actual WSGI application surface. Independent executable evidence uses deterministic assertions and preserved command outputs; no second agent required for this small reversible fixture. No architectural alternative trigger beyond inspecting those boundaries; conflating pause with enabled would destroy prior disabled state, so a separate flag is selected.
++
++Initial verification: five baseline public tests passed. Remaining: add red tests, implement, run public suite and inspect artifact diff, commit locally.
++
++Boundary: only this supplied area inspected; no evaluator, oracle, reference solution, peer status, lab history or credentials accessed. Manifest model/reasoning fields are requested configuration, not observed identity or usage; actual identity/usage unknown.
++
++Completion: IMPLEMENTED and VERIFIED under the public success predicate. New tests were red (8 failures including subtests, 1 error) before implementation while five baseline tests stayed green; all 13 tests passed after implementation. Artifact diff and whitespace check passed. Implementation commit: 236fc3e6033c261b44a8a970e08a8629ed7e7e5c. No application work remains; evidence is being finalized and committed separately.
+diff --git a/.experiment/action-path-log.json b/.experiment/action-path-log.json
+new file mode 100644
+index 0000000..81b7b20
+--- /dev/null
++++ b/.experiment/action-path-log.json
+@@ -0,0 +1,68 @@
++{
++  "workdir": "/workspace/relayboard-active/F-S02-001",
++  "read_paths": [
++    "TASK.md",
++    "METHOD.md",
++    "README.md",
++    "GLOSSARY.md",
++    "pyproject.toml",
++    "relayboard/models.py",
++    "relayboard/store.py",
++    "relayboard/service.py",
++    "relayboard/web.py",
++    "relayboard/testing.py",
++    "relayboard/__main__.py",
++    "tests/test_public.py",
++    ".experiment/RUN_MANIFEST.json",
++    ".gitignore"
++  ],
++  "edited_paths": [
++    "README.md",
++    "relayboard/models.py",
++    "relayboard/store.py",
++    "relayboard/service.py",
++    "relayboard/web.py"
++  ],
++  "created_paths": [
++    "tests/test_pause.py",
++    ".experiment/run_logged.py",
++    ".experiment/initial-command-record.json",
++    ".experiment/operator-interactions.json",
++    ".experiment/STATE.md",
++    ".experiment/commands.jsonl",
++    ".experiment/red-tests.txt",
++    ".experiment/green-tests.txt",
++    ".experiment/artifact-review.txt",
++    ".experiment/implementation-commit.txt",
++    ".experiment/baseline-tests.txt",
++    ".experiment/action-path-log.json",
++    ".experiment/REPORT.json",
++    ".experiment/final-check.txt"
++  ],
++  "actions": [
++    "Read task and full frozen treatment text supplied as METHOD.md; enumerated only files under current run area (git directories excluded).",
++    "Read supplied application/public tests and fixture documentation; read requested identity from local manifest, not actual identity.",
++    "Inspected local clean status and supplied initial HEAD only; no history, sibling paths, external repositories or network requests.",
++    "Ran initial public tests; sent one product question to /root and received answer before dependent work.",
++    "Created local logging wrapper, initial command record, state, and operator exchange using a Python heredoc.",
++    "Created tests/test_pause.py using a shell heredoc and executed failing tests before implementation.",
++    "Applied model/store/service/web patches using apply_patch; preserved retry and alert implementation unchanged.",
++    "Ran passing public checks; applied README API documentation patch using apply_patch; inspected application diff and whitespace.",
++    "Committed implementation/tests/docs locally through the logging wrapper.",
++    "Created final evidence records with a Python heredoc; final check and evidence commit are recorded as commands below."
++  ],
++  "commands": [
++    "See initial-command-record.json for commands issued before wrapper initialization",
++    "See commands.jsonl and referenced output files for logged checks and implementation commit",
++    "Python heredoc: create logging/state/operator artifacts",
++    "Shell heredoc: create tests/test_pause.py",
++    "apply_patch: models/store/service/web implementation",
++    "apply_patch: README API semantics",
++    "Python heredoc: finalize baseline/state/path log/REPORT",
++    "python .experiment/run_logged.py: final git diff/status checks",
++    "git add .experiment && git commit -m \"Record FIRST-mode decisions and public verification evidence\" && git status --short && git rev-parse HEAD"
++  ],
++  "git_metadata": "Local git status/diff/index/commits only; implicit .git metadata accesses through these commands.",
++  "outside_run_area_accessed": false,
++  "finalization_note": "Final evidence commit command result and SHA delivered in final response; not written into its own committed artifacts."
++}
+diff --git a/.experiment/artifact-review.txt b/.experiment/artifact-review.txt
+new file mode 100644
+index 0000000..4012ac5
+--- /dev/null
++++ b/.experiment/artifact-review.txt
+@@ -0,0 +1,189 @@
++ README.md             | 16 ++++++++++++++++
++ relayboard/models.py  |  1 +
++ relayboard/service.py |  8 ++++++++
++ relayboard/store.py   | 27 +++++++++++++++++++++++++--
++ relayboard/web.py     | 22 +++++++++++++++++++++-
++ 5 files changed, 71 insertions(+), 3 deletions(-)
++diff --git a/README.md b/README.md
++index cf475bf..254b070 100644
++--- a/README.md
+++++ b/README.md
++@@ -41,6 +41,22 @@ RelayBoard is a small job-control application with:
++ 
++ The implementation should remain small enough that a reviewer can inspect the whole system.
++ 
+++## Pausing Jobs
+++
+++`POST /api/jobs/{id}/pause` and `POST /api/jobs/{id}/resume` require no
+++request body. Both return HTTP 200 with the updated `job`, including its
+++boolean `paused` field; repeating either operation is safe. Unknown Jobs
+++return HTTP 404 using the existing API error format.
+++
+++Pause is separate from `enabled`. While paused, new scheduled starts return
+++HTTP 409 and are skipped without queuing work. Manual Runs remain allowed,
+++and active Runs continue with their existing retry and alert behavior.
+++Resume clears pause without changing `enabled` or starting any work, so a
+++disabled Job remains unschedulable. The dashboard shows pause separately
+++from enabled state and last result.
+++
+++Run the public checks with `python -m unittest discover -s tests -v`.
+++
++ ## Treatment isolation
++ 
++ Treatment agents receive the fixture workspace and scenario prompt.
++diff --git a/relayboard/models.py b/relayboard/models.py
++index c9c800a..e973fd9 100644
++--- a/relayboard/models.py
+++++ b/relayboard/models.py
++@@ -9,6 +9,7 @@ class Job:
++     name: str
++     enabled: bool
++     max_attempts: int
+++    paused: bool = False
++ 
++ 
++ @dataclass(frozen=True)
++diff --git a/relayboard/service.py b/relayboard/service.py
++index e924be0..5be763f 100644
++--- a/relayboard/service.py
+++++ b/relayboard/service.py
++@@ -24,11 +24,19 @@ class RelayBoardService:
++         job = self.store.get_job(job_id)
++         if not job.enabled:
++             raise JobNotSchedulable(f"job {job_id} is disabled")
+++        if job.paused:
+++            raise JobNotSchedulable(f"job {job_id} is paused")
++         return self.store.create_run(job_id, "scheduled")
++ 
++     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
++         self.store.set_job_enabled(job_id, enabled)
++ 
+++    def pause_job(self, job_id: str) -> None:
+++        self.store.set_job_paused(job_id, True)
+++
+++    def resume_job(self, job_id: str) -> None:
+++        self.store.set_job_paused(job_id, False)
+++
++     def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
++         run = self.store.get_run(run_id)
++         if run.status != "running":
++diff --git a/relayboard/store.py b/relayboard/store.py
++index 3a49cc1..b90b91e 100644
++--- a/relayboard/store.py
+++++ b/relayboard/store.py
++@@ -18,7 +18,8 @@ class Store:
++                 id TEXT PRIMARY KEY,
++                 name TEXT NOT NULL,
++                 enabled INTEGER NOT NULL,
++-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+++                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
+++                paused INTEGER NOT NULL DEFAULT 0
++             );
++             CREATE TABLE IF NOT EXISTS runs (
++                 id TEXT PRIMARY KEY,
++@@ -41,6 +42,15 @@ class Store:
++             );
++             """
++         )
+++        # Preserve existing Job configuration when opening an older database.
+++        columns = {
+++            row["name"]
+++            for row in self.connection.execute("PRAGMA table_info(jobs)")
+++        }
+++        if "paused" not in columns:
+++            self.connection.execute(
+++                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL DEFAULT 0"
+++            )
++         self.connection.commit()
++ 
++     def add_job(
++@@ -70,6 +80,7 @@ class Store:
++             row["name"],
++             bool(row["enabled"]),
++             row["max_attempts"],
+++            bool(row["paused"]),
++         )
++ 
++     def list_jobs(self) -> list[Job]:
++@@ -77,7 +88,10 @@ class Store:
++             "SELECT * FROM jobs ORDER BY id"
++         ).fetchall()
++         return [
++-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
+++            Job(
+++                r["id"], r["name"], bool(r["enabled"]),
+++                r["max_attempts"], bool(r["paused"]),
+++            )
++             for r in rows
++         ]
++ 
++@@ -90,6 +104,15 @@ class Store:
++         self.connection.commit()
++         return self.get_job(job_id)
++ 
+++    def set_job_paused(self, job_id: str, paused: bool) -> Job:
+++        self.get_job(job_id)
+++        self.connection.execute(
+++            "UPDATE jobs SET paused = ? WHERE id = ?",
+++            (int(paused), job_id),
+++        )
+++        self.connection.commit()
+++        return self.get_job(job_id)
+++
++     def next_run_id(self) -> str:
++         row = self.connection.execute(
++             "SELECT COUNT(*) AS n FROM runs"
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..0317641 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -51,6 +51,24 @@ class RelayBoardApp:
++                     },
++                 )
++ 
+++            parts = path.split("/")
+++            if (
+++                method == "POST"
+++                and len(parts) == 5
+++                and parts[:3] == ["", "api", "jobs"]
+++                and parts[4] in ("pause", "resume")
+++            ):
+++                job_id = parts[3]
+++                if parts[4] == "pause":
+++                    self.service.pause_job(job_id)
+++                else:
+++                    self.service.resume_job(job_id)
+++                return self._json(
+++                    start_response,
+++                    200,
+++                    {"job": self._job_json(self.store.get_job(job_id))},
+++                )
+++
++             if (
++                 method == "POST"
++                 and path.startswith("/api/jobs/")
++@@ -141,6 +159,7 @@ class RelayBoardApp:
++                 "<tr>"
++                 f"<td>{html.escape(job.name)}</td>"
++                 f"<td>{'yes' if job.enabled else 'no'}</td>"
+++                f"<td>{'yes' if job.paused else 'no'}</td>"
++                 f"<td>{html.escape(last)}</td>"
++                 "</tr>"
++             )
++@@ -150,7 +169,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
++@@ -163,6 +182,7 @@ class RelayBoardApp:
++             "name": job.name,
++             "enabled": job.enabled,
++             "max_attempts": job.max_attempts,
+++            "paused": job.paused,
++         }
++ 
++     @staticmethod
+diff --git a/.experiment/baseline-tests.txt b/.experiment/baseline-tests.txt
+new file mode 100644
+index 0000000..9404821
+--- /dev/null
++++ b/.experiment/baseline-tests.txt
+@@ -0,0 +1,10 @@
++Available initial public unittest output, transcribed from tool response:
++
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++Ran 5 tests in 0.004s
++OK
+diff --git a/.experiment/commands.jsonl b/.experiment/commands.jsonl
+new file mode 100644
+index 0000000..23201b4
+--- /dev/null
++++ b/.experiment/commands.jsonl
+@@ -0,0 +1,5 @@
++{"time_utc": "2026-10-07T12:12:16.959330+00:00", "command": "python -m unittest discover -s tests -v", "workdir": "/workspace/relayboard-active/F-S02-001", "exit_code": 1, "output_path": ".experiment/red-tests.txt"}
++{"time_utc": "2026-10-07T12:12:47.638538+00:00", "command": "python -m unittest discover -s tests -v", "workdir": "/workspace/relayboard-active/F-S02-001", "exit_code": 0, "output_path": ".experiment/green-tests.txt"}
++{"time_utc": "2026-10-07T12:13:18.468739+00:00", "command": "git diff --check && git diff --stat && git diff -- relayboard README.md", "workdir": "/workspace/relayboard-active/F-S02-001", "exit_code": 0, "output_path": ".experiment/artifact-review.txt"}
++{"time_utc": "2026-10-07T12:13:31.410855+00:00", "command": "git add README.md relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py tests/test_pause.py && git commit -m \"Add independent Job pause and resume controls\" && git rev-parse HEAD", "workdir": "/workspace/relayboard-active/F-S02-001", "exit_code": 0, "output_path": ".experiment/implementation-commit.txt"}
++{"time_utc": "2026-10-07T12:14:43.898320+00:00", "command": "git diff --check && git status --short", "workdir": "/workspace/relayboard-active/F-S02-001", "exit_code": 0, "output_path": ".experiment/final-check.txt"}
+diff --git a/.experiment/final-check.txt b/.experiment/final-check.txt
+new file mode 100644
+index 0000000..f447931
+--- /dev/null
++++ b/.experiment/final-check.txt
+@@ -0,0 +1,12 @@
++?? .experiment/REPORT.json
++?? .experiment/STATE.md
++?? .experiment/action-path-log.json
++?? .experiment/artifact-review.txt
++?? .experiment/baseline-tests.txt
++?? .experiment/commands.jsonl
++?? .experiment/green-tests.txt
++?? .experiment/implementation-commit.txt
++?? .experiment/initial-command-record.json
++?? .experiment/operator-interactions.json
++?? .experiment/red-tests.txt
++?? .experiment/run_logged.py
+diff --git a/.experiment/green-tests.txt b/.experiment/green-tests.txt
+new file mode 100644
+index 0000000..26743e7
+--- /dev/null
++++ b/.experiment/green-tests.txt
+@@ -0,0 +1,18 @@
++test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) ... ok
++test_enabled_changes_do_not_clear_pause (test_pause.JobPauseTests.test_enabled_changes_do_not_clear_pause) ... ok
++test_existing_schema_defaults_to_unpaused_and_preserves_configuration (test_pause.JobPauseTests.test_existing_schema_defaults_to_unpaused_and_preserves_configuration) ... ok
++test_pause_allows_manual_run_and_preserves_disabled_state (test_pause.JobPauseTests.test_pause_allows_manual_run_and_preserves_disabled_state) ... ok
++test_pause_skips_scheduled_start_and_resume_does_not_queue_work (test_pause.JobPauseTests.test_pause_skips_scheduled_start_and_resume_does_not_queue_work) ... ok
++test_pause_state_visible_and_last_result_preserved (test_pause.JobPauseTests.test_pause_state_visible_and_last_result_preserved) ... ok
++test_state_survives_store_reconstruction (test_pause.JobPauseTests.test_state_survives_store_reconstruction) ... ok
++test_unknown_job_actions_follow_not_found_convention (test_pause.JobPauseTests.test_unknown_job_actions_follow_not_found_convention) ... ok
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 13 tests in 0.014s
++
++OK
+diff --git a/.experiment/implementation-commit.txt b/.experiment/implementation-commit.txt
+new file mode 100644
+index 0000000..4c19458
+--- /dev/null
++++ b/.experiment/implementation-commit.txt
+@@ -0,0 +1,4 @@
++[candidate/F-S02-001 236fc3e] Add independent Job pause and resume controls
++ 6 files changed, 208 insertions(+), 3 deletions(-)
++ create mode 100644 tests/test_pause.py
++236fc3e6033c261b44a8a970e08a8629ed7e7e5c
+diff --git a/.experiment/initial-command-record.json b/.experiment/initial-command-record.json
+new file mode 100644
+index 0000000..ee6565d
+--- /dev/null
++++ b/.experiment/initial-command-record.json
+@@ -0,0 +1,34 @@
++{
++  "source": "Available tool outputs; initial records reconstructed before logging wrapper creation",
++  "workdir": "/workspace/relayboard-active/F-S02-001",
++  "commands": [
++    {
++      "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'FIRST_MODE_V0.md' -g 'AGENTS.md' -g '!node_modules' -g '!vendor' .",
++      "exit_code": 0,
++      "finding": "cwd matches run area; TASK.md and METHOD.md found; no separate FIRST_MODE_V0.md or AGENTS.md found"
++    },
++    {
++      "command": "cat TASK.md METHOD.md",
++      "exit_code": 0,
++      "finding": "Task and canonical full frozen FIRST-mode v0 text read from METHOD.md"
++    },
++    {
++      "command": "rg --files -g '!node_modules' -g '!vendor' -g '!.git' . && git status --short && git rev-parse HEAD",
++      "exit_code": 0,
++      "finding": "supplied application and public test paths only; clean worktree; HEAD 87b90adc0538b9a29784d065076106475360ff8f"
++    },
++    {
++      "command": "cat README.md GLOSSARY.md pyproject.toml relayboard/models.py relayboard/store.py relayboard/service.py",
++      "exit_code": 0
++    },
++    {
++      "command": "cat relayboard/web.py relayboard/testing.py relayboard/__main__.py tests/test_public.py && rg --files --hidden -g '!.git' -g '!__pycache__' -g '!node_modules' .",
++      "exit_code": 0
++    },
++    {
++      "command": "cat .experiment/RUN_MANIFEST.json .gitignore && python -m unittest discover -s tests -v",
++      "exit_code": 0,
++      "finding": "manifest read; baseline all 5 public tests passed"
++    }
++  ]
++}
+diff --git a/.experiment/operator-interactions.json b/.experiment/operator-interactions.json
+new file mode 100644
+index 0000000..1c435f1
+--- /dev/null
++++ b/.experiment/operator-interactions.json
+@@ -0,0 +1,8 @@
++[
++  {
++    "channel": "collaboration.send_message",
++    "target": "/root",
++    "question": "OPERATOR QUESTION: The task and glossary leave pause semantics unresolved. Existing scheduling uses enabled; manual runs ignore enabled, retries and alerts proceed for active Runs. Please decide: (1) should pause block only new scheduled Runs, or also manual Runs? (2) should in-progress Runs/retries/alerts continue unchanged? (3) should resume preserve a Job's prior enabled/disabled state? My recommendation is an independent paused flag: block new scheduled Runs only, allow manual Runs, preserve in-progress Run/retry/alert behavior, and leave enabled unchanged on pause/resume. If dashboard presentation has a specific requirement, please supply it; otherwise I will expose a separate Paused column while preserving Enabled and Last result.",
++    "answer": "OPERATOR ANSWER: (1) A scheduled start while paused is skipped and is not queued. Manual Runs remain allowed while paused. (2) An in-progress Run continues to its terminal outcome; preserve existing retries and alerts. (3) No additional product guidance is supplied on enabled-state representation or dashboard presentation; use TASK.md's preservation requirements, the supplied public interfaces and reversible engineering judgment. These answers cover only the product decisions requested; no other product requirements are supplied."
++  }
++]
+diff --git a/.experiment/red-tests.txt b/.experiment/red-tests.txt
+new file mode 100644
+index 0000000..dab34c2
+--- /dev/null
++++ b/.experiment/red-tests.txt
+@@ -0,0 +1,97 @@
++test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) ... 
++  test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, True)) ... FAIL
++  test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, False)) ... FAIL
++test_enabled_changes_do_not_clear_pause (test_pause.JobPauseTests.test_enabled_changes_do_not_clear_pause) ... FAIL
++test_existing_schema_defaults_to_unpaused_and_preserves_configuration (test_pause.JobPauseTests.test_existing_schema_defaults_to_unpaused_and_preserves_configuration) ... ERROR
++test_pause_allows_manual_run_and_preserves_disabled_state (test_pause.JobPauseTests.test_pause_allows_manual_run_and_preserves_disabled_state) ... FAIL
++test_pause_skips_scheduled_start_and_resume_does_not_queue_work (test_pause.JobPauseTests.test_pause_skips_scheduled_start_and_resume_does_not_queue_work) ... FAIL
++test_pause_state_visible_and_last_result_preserved (test_pause.JobPauseTests.test_pause_state_visible_and_last_result_preserved) ... FAIL
++test_state_survives_store_reconstruction (test_pause.JobPauseTests.test_state_survives_store_reconstruction) ... FAIL
++test_unknown_job_actions_follow_not_found_convention (test_pause.JobPauseTests.test_unknown_job_actions_follow_not_found_convention) ... FAIL
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++======================================================================
++ERROR: test_existing_schema_defaults_to_unpaused_and_preserves_configuration (test_pause.JobPauseTests.test_existing_schema_defaults_to_unpaused_and_preserves_configuration)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 129, in test_existing_schema_defaults_to_unpaused_and_preserves_configuration
++    self.assertFalse(job.paused)
++                     ^^^^^^^^^^
++AttributeError: 'Job' object has no attribute 'paused'
++
++======================================================================
++FAIL: test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, True))
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 76, in test_active_runs_retries_and_alerts_match_unpaused_behavior
++    self.assertEqual(code, 200)
++AssertionError: 404 != 200
++
++======================================================================
++FAIL: test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, False))
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 76, in test_active_runs_retries_and_alerts_match_unpaused_behavior
++    self.assertEqual(code, 200)
++AssertionError: 404 != 200
++
++======================================================================
++FAIL: test_enabled_changes_do_not_clear_pause (test_pause.JobPauseTests.test_enabled_changes_do_not_clear_pause)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 57, in test_enabled_changes_do_not_clear_pause
++    self.assertEqual(self.action("daily-report", "pause")[0], 200)
++AssertionError: 404 != 200
++
++======================================================================
++FAIL: test_pause_allows_manual_run_and_preserves_disabled_state (test_pause.JobPauseTests.test_pause_allows_manual_run_and_preserves_disabled_state)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 47, in test_pause_allows_manual_run_and_preserves_disabled_state
++    self.assertEqual(self.action(job_id, "pause")[0], 200)
++AssertionError: 404 != 200
++
++======================================================================
++FAIL: test_pause_skips_scheduled_start_and_resume_does_not_queue_work (test_pause.JobPauseTests.test_pause_skips_scheduled_start_and_resume_does_not_queue_work)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 21, in test_pause_skips_scheduled_start_and_resume_does_not_queue_work
++    self.assertEqual(code, 200)
++AssertionError: 404 != 200
++
++======================================================================
++FAIL: test_pause_state_visible_and_last_result_preserved (test_pause.JobPauseTests.test_pause_state_visible_and_last_result_preserved)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 89, in test_pause_state_visible_and_last_result_preserved
++    self.assertEqual(self.action("daily-report", "pause")[0], 200)
++AssertionError: 404 != 200
++
++======================================================================
++FAIL: test_state_survives_store_reconstruction (test_pause.JobPauseTests.test_state_survives_store_reconstruction)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 114, in test_state_survives_store_reconstruction
++    self.assertEqual(request(app, "POST", "/api/jobs/saved/pause")[0], 200)
++AssertionError: 404 != 200
++
++======================================================================
++FAIL: test_unknown_job_actions_follow_not_found_convention (test_pause.JobPauseTests.test_unknown_job_actions_follow_not_found_convention)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 107, in test_unknown_job_actions_follow_not_found_convention
++    self.assertEqual(payload, {"error": "not found: missing"})
++AssertionError: {'error': 'not found'} != {'error': 'not found: missing'}
++- {'error': 'not found'}
+++ {'error': 'not found: missing'}
++?                     +++++++++
++
++
++----------------------------------------------------------------------
++Ran 13 tests in 0.025s
++
++FAILED (failures=8, errors=1)
+diff --git a/.experiment/run_logged.py b/.experiment/run_logged.py
+new file mode 100644
+index 0000000..2503685
+--- /dev/null
++++ b/.experiment/run_logged.py
+@@ -0,0 +1,18 @@
++import datetime
++import json
++import pathlib
++import subprocess
++import sys
++
++root = pathlib.Path.cwd()
++if root != pathlib.Path("/workspace/relayboard-active/F-S02-001"):
++    raise SystemExit("unexpected workdir")
++command = sys.argv[1]
++name = sys.argv[2]
++result = subprocess.run(command, shell=True, executable="/bin/bash", text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=root)
++output = root / ".experiment" / name
++output.write_text(result.stdout)
++with (root / ".experiment" / "commands.jsonl").open("a") as log:
++    log.write(json.dumps({"time_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(), "command": command, "workdir": str(root), "exit_code": result.returncode, "output_path": str(output.relative_to(root))}) + "\n")
++print(result.stdout, end="")
++raise SystemExit(result.returncode)
+diff --git a/README.md b/README.md
+index cf475bf..254b070 100644
+--- a/README.md
++++ b/README.md
+@@ -41,6 +41,22 @@ RelayBoard is a small job-control application with:
+ 
+ The implementation should remain small enough that a reviewer can inspect the whole system.
+ 
++## Pausing Jobs
++
++`POST /api/jobs/{id}/pause` and `POST /api/jobs/{id}/resume` require no
++request body. Both return HTTP 200 with the updated `job`, including its
++boolean `paused` field; repeating either operation is safe. Unknown Jobs
++return HTTP 404 using the existing API error format.
++
++Pause is separate from `enabled`. While paused, new scheduled starts return
++HTTP 409 and are skipped without queuing work. Manual Runs remain allowed,
++and active Runs continue with their existing retry and alert behavior.
++Resume clears pause without changing `enabled` or starting any work, so a
++disabled Job remains unschedulable. The dashboard shows pause separately
++from enabled state and last result.
++
++Run the public checks with `python -m unittest discover -s tests -v`.
++
+ ## Treatment isolation
+ 
+ Treatment agents receive the fixture workspace and scenario prompt.
+diff --git a/relayboard/models.py b/relayboard/models.py
+index c9c800a..e973fd9 100644
+--- a/relayboard/models.py
++++ b/relayboard/models.py
+@@ -9,6 +9,7 @@ class Job:
+     name: str
+     enabled: bool
+     max_attempts: int
++    paused: bool = False
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..5be763f 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -24,11 +24,19 @@ class RelayBoardService:
+         job = self.store.get_job(job_id)
+         if not job.enabled:
+             raise JobNotSchedulable(f"job {job_id} is disabled")
++        if job.paused:
++            raise JobNotSchedulable(f"job {job_id} is paused")
+         return self.store.create_run(job_id, "scheduled")
+ 
+     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
+         self.store.set_job_enabled(job_id, enabled)
+ 
++    def pause_job(self, job_id: str) -> None:
++        self.store.set_job_paused(job_id, True)
++
++    def resume_job(self, job_id: str) -> None:
++        self.store.set_job_paused(job_id, False)
++
+     def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
+         run = self.store.get_run(run_id)
+         if run.status != "running":
+diff --git a/relayboard/store.py b/relayboard/store.py
+index 3a49cc1..b90b91e 100644
+--- a/relayboard/store.py
++++ b/relayboard/store.py
+@@ -18,7 +18,8 @@ class Store:
+                 id TEXT PRIMARY KEY,
+                 name TEXT NOT NULL,
+                 enabled INTEGER NOT NULL,
+-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
++                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
++                paused INTEGER NOT NULL DEFAULT 0
+             );
+             CREATE TABLE IF NOT EXISTS runs (
+                 id TEXT PRIMARY KEY,
+@@ -41,6 +42,15 @@ class Store:
+             );
+             """
+         )
++        # Preserve existing Job configuration when opening an older database.
++        columns = {
++            row["name"]
++            for row in self.connection.execute("PRAGMA table_info(jobs)")
++        }
++        if "paused" not in columns:
++            self.connection.execute(
++                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL DEFAULT 0"
++            )
+         self.connection.commit()
+ 
+     def add_job(
+@@ -70,6 +80,7 @@ class Store:
+             row["name"],
+             bool(row["enabled"]),
+             row["max_attempts"],
++            bool(row["paused"]),
+         )
+ 
+     def list_jobs(self) -> list[Job]:
+@@ -77,7 +88,10 @@ class Store:
+             "SELECT * FROM jobs ORDER BY id"
+         ).fetchall()
+         return [
+-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
++            Job(
++                r["id"], r["name"], bool(r["enabled"]),
++                r["max_attempts"], bool(r["paused"]),
++            )
+             for r in rows
+         ]
+ 
+@@ -90,6 +104,15 @@ class Store:
+         self.connection.commit()
+         return self.get_job(job_id)
+ 
++    def set_job_paused(self, job_id: str, paused: bool) -> Job:
++        self.get_job(job_id)
++        self.connection.execute(
++            "UPDATE jobs SET paused = ? WHERE id = ?",
++            (int(paused), job_id),
++        )
++        self.connection.commit()
++        return self.get_job(job_id)
++
+     def next_run_id(self) -> str:
+         row = self.connection.execute(
+             "SELECT COUNT(*) AS n FROM runs"
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..0317641 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -51,6 +51,24 @@ class RelayBoardApp:
+                     },
+                 )
+ 
++            parts = path.split("/")
++            if (
++                method == "POST"
++                and len(parts) == 5
++                and parts[:3] == ["", "api", "jobs"]
++                and parts[4] in ("pause", "resume")
++            ):
++                job_id = parts[3]
++                if parts[4] == "pause":
++                    self.service.pause_job(job_id)
++                else:
++                    self.service.resume_job(job_id)
++                return self._json(
++                    start_response,
++                    200,
++                    {"job": self._job_json(self.store.get_job(job_id))},
++                )
++
+             if (
+                 method == "POST"
+                 and path.startswith("/api/jobs/")
+@@ -141,6 +159,7 @@ class RelayBoardApp:
+                 "<tr>"
+                 f"<td>{html.escape(job.name)}</td>"
+                 f"<td>{'yes' if job.enabled else 'no'}</td>"
++                f"<td>{'yes' if job.paused else 'no'}</td>"
+                 f"<td>{html.escape(last)}</td>"
+                 "</tr>"
+             )
+@@ -150,7 +169,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"
+@@ -163,6 +182,7 @@ class RelayBoardApp:
+             "name": job.name,
+             "enabled": job.enabled,
+             "max_attempts": job.max_attempts,
++            "paused": job.paused,
+         }
+ 
+     @staticmethod
+diff --git a/tests/test_pause.py b/tests/test_pause.py
+new file mode 100644
+index 0000000..15b8e7b
+--- /dev/null
++++ b/tests/test_pause.py
+@@ -0,0 +1,137 @@
++import sqlite3
++import unittest
++
++from relayboard.models import Job
++from relayboard.service import JobNotSchedulable
++from relayboard.store import Store
++from relayboard.testing import request
++from relayboard.web import RelayBoardApp, create_seeded_app
++
++
++class JobPauseTests(unittest.TestCase):
++    def setUp(self):
++        self.app = create_seeded_app()
++
++    def action(self, job_id, action):
++        return request(self.app, "POST", f"/api/jobs/{job_id}/{action}")
++
++    def test_pause_skips_scheduled_start_and_resume_does_not_queue_work(self):
++        for _ in range(2):
++            code, payload = self.action("daily-report", "pause")
++            self.assertEqual(code, 200)
++            self.assertTrue(payload["job"]["paused"])
++            self.assertTrue(payload["job"]["enabled"])
++        code, payload = request(
++            self.app, "POST", "/api/jobs/daily-report/runs", {"source": "scheduled"}
++        )
++        self.assertEqual(code, 409)
++        self.assertIn("paused", payload["error"])
++        self.assertEqual(self.app.store.connection.execute("SELECT COUNT(*) FROM runs").fetchone()[0], 0)
++        with self.assertRaises(JobNotSchedulable):
++            self.app.service.begin_scheduled_run("daily-report")
++        for _ in range(2):
++            code, payload = self.action("daily-report", "resume")
++            self.assertEqual(code, 200)
++            self.assertFalse(payload["job"]["paused"])
++        self.assertEqual(self.app.store.connection.execute("SELECT COUNT(*) FROM runs").fetchone()[0], 0)
++        code, payload = request(
++            self.app, "POST", "/api/jobs/daily-report/runs", {"source": "scheduled"}
++        )
++        self.assertEqual(code, 201)
++        self.assertEqual(payload["run"]["id"], "run-001")
++        self.assertEqual(payload["run"]["source"], "scheduled")
++
++    def test_pause_allows_manual_run_and_preserves_disabled_state(self):
++        for job_id in ("daily-report", "cleanup"):
++            before = self.app.store.get_job(job_id)
++            self.assertEqual(self.action(job_id, "pause")[0], 200)
++            code, payload = request(self.app, "POST", f"/api/jobs/{job_id}/runs")
++            self.assertEqual(code, 201)
++            self.assertEqual(payload["run"]["source"], "manual")
++            self.assertEqual(self.action(job_id, "resume")[0], 200)
++            self.assertEqual(self.app.store.get_job(job_id).enabled, before.enabled)
++        with self.assertRaises(JobNotSchedulable):
++            self.app.service.begin_scheduled_run("cleanup")
++
++    def test_enabled_changes_do_not_clear_pause(self):
++        self.assertEqual(self.action("daily-report", "pause")[0], 200)
++        for enabled in (False, True):
++            code, payload = request(
++                self.app, "POST", "/api/jobs/daily-report/enabled", {"enabled": enabled}
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["job"]["enabled"], enabled)
++            self.assertTrue(payload["job"]["paused"])
++            with self.assertRaises(JobNotSchedulable):
++                self.app.service.begin_scheduled_run("daily-report")
++
++    def test_active_runs_retries_and_alerts_match_unpaused_behavior(self):
++        for outcomes in ((False, True), (False, False)):
++            with self.subTest(outcomes=outcomes):
++                reference = create_seeded_app()
++                paused = create_seeded_app()
++                run1 = reference.service.begin_scheduled_run("daily-report")
++                run2 = paused.service.begin_scheduled_run("daily-report")
++                code, _ = request(paused, "POST", "/api/jobs/daily-report/pause")
++                self.assertEqual(code, 200)
++                self.assertEqual(paused.store.get_run(run2.id).status, "running")
++                for outcome in outcomes:
++                    expected = request(reference, "POST", f"/api/runs/{run1.id}/attempts", {"succeeded": outcome})
++                    actual = request(paused, "POST", f"/api/runs/{run2.id}/attempts", {"succeeded": outcome})
++                    self.assertEqual(actual, expected)
++                    self.assertEqual(paused.store.list_alerts(), reference.store.list_alerts())
++                self.assertEqual(paused.store.list_attempts(run2.id), reference.store.list_attempts(run1.id))
++                self.assertEqual(paused.store.last_result_for_job("daily-report"), reference.store.last_result_for_job("daily-report"))
++
++    def test_pause_state_visible_and_last_result_preserved(self):
++        run = self.app.service.begin_manual_run("daily-report")
++        self.app.service.record_attempt(run.id, succeeded=True)
++        self.assertEqual(self.action("daily-report", "pause")[0], 200)
++        code, payload = request(self.app, "GET", "/api/jobs")
++        self.assertEqual(code, 200)
++        job = next(job for job in payload["jobs"] if job["id"] == "daily-report")
++        self.assertTrue(job["paused"])
++        code, markup = request(self.app, "GET", "/dashboard")
++        self.assertEqual(code, 200)
++        self.assertIn("<th>Enabled</th>", markup)
++        self.assertIn("<th>Paused</th>", markup)
++        self.assertIn("<th>Last result</th>", markup)
++        self.assertIn("<td>Daily report</td><td>yes</td><td>yes</td><td>succeeded</td>", markup)
++        self.assertEqual(self.action("daily-report", "resume")[0], 200)
++        self.assertEqual(self.app.store.last_result_for_job("daily-report"), "succeeded")
++
++    def test_unknown_job_actions_follow_not_found_convention(self):
++        for action in ("pause", "resume"):
++            code, payload = self.action("missing", action)
++            self.assertEqual(code, 404)
++            self.assertEqual(payload, {"error": "not found: missing"})
++        self.assertEqual(request(self.app, "GET", "/api/jobs/daily-report/pause")[0], 404)
++
++    def test_state_survives_store_reconstruction(self):
++        connection = sqlite3.connect(":memory:")
++        app = RelayBoardApp(Store(connection))
++        app.store.add_job("saved", "Saved", enabled=False)
++        self.assertEqual(request(app, "POST", "/api/jobs/saved/pause")[0], 200)
++        reconstructed = RelayBoardApp(Store(connection))
++        self.assertTrue(reconstructed.store.get_job("saved").paused)
++        self.assertFalse(reconstructed.store.get_job("saved").enabled)
++        self.assertEqual(request(reconstructed, "POST", "/api/jobs/saved/resume")[0], 200)
++        self.assertFalse(app.store.get_job("saved").paused)
++        self.assertFalse(app.store.get_job("saved").enabled)
++
++    def test_existing_schema_defaults_to_unpaused_and_preserves_configuration(self):
++        connection = sqlite3.connect(":memory:")
++        connection.execute("CREATE TABLE jobs (id TEXT PRIMARY KEY, name TEXT NOT NULL, enabled INTEGER NOT NULL, max_attempts INTEGER NOT NULL)")
++        connection.execute("INSERT INTO jobs VALUES ('legacy', 'Legacy', 0, 3)")
++        connection.commit()
++        store = Store(connection)
++        job = store.get_job("legacy")
++        self.assertFalse(job.paused)
++        self.assertFalse(job.enabled)
++        self.assertEqual(job.max_attempts, 3)
++        self.assertEqual(store.list_jobs(), [job])
++        self.assertFalse(Job("old", "Old", True, 1).paused)
++
++
++if __name__ == "__main__":
++    unittest.main()
