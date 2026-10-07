@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "run_id": "M-S01-002",
+  "status": "COMPLETE",
+  "method": "matt-codex-port-v0",
+  "method_source": "METHOD.md unchanged",
+  "upstream_source_commit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+  "routes_invoked": [
+    "implement",
+    "tdd",
+    "code-review"
+  ],
+  "assigned_root": "/workspace/relayboard-round2-active/M-S01-002",
+  "model_request": {
+    "requested": "gpt-6.1-sol",
+    "reasoning_requested": "high",
+    "observed_lead": "unknown: no runtime identity introspection available"
+  },
+  "result": "Jobs table header changed from Last result to Latest result. Sole application modification is relayboard/web.py:153.",
+  "commits": [
+    {
+      "role": "fixed_start",
+      "sha": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
+    },
+    {
+      "role": "reviewed_candidate",
+      "sha": "2ed94605b31620784656a3c6c551daa6a341e417",
+      "message": "Update Jobs dashboard heading to Latest result"
+    },
+    {
+      "role": "final_evidence",
+      "ref": "HEAD after final evidence-only commit",
+      "parent": "2ed94605b31620784656a3c6c551daa6a341e417",
+      "sha": "Not yet knowable inside this commit; exact final SHA recorded in final tool output and response."
+    }
+  ],
+  "test_commands_results": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "environment_override": {
+        "PYTHONPATH": "."
+      },
+      "exit_code": 0,
+      "output_path": ".experiment/baseline.txt"
+    },
+    {
+      "command": [
+        "python",
+        ".experiment/check_dashboard.py"
+      ],
+      "environment_override": {
+        "PYTHONPATH": "."
+      },
+      "exit_code": 1,
+      "output_path": ".experiment/heading-red.txt"
+    },
+    {
+      "command": [
+        "python",
+        ".experiment/check_dashboard.py"
+      ],
+      "environment_override": {
+        "PYTHONPATH": "."
+      },
+      "exit_code": 0,
+      "output_path": ".experiment/heading-green.txt"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "environment_override": {
+        "PYTHONPATH": "."
+      },
+      "exit_code": 0,
+      "output_path": ".experiment/public-full.txt"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "environment_override": {
+        "PYTHONPATH": "."
+      },
+      "exit_code": 0,
+      "output_path": ".experiment/diff-check.txt"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--",
+        "relayboard/web.py"
+      ],
+      "environment_override": {
+        "PYTHONPATH": "."
+      },
+      "exit_code": 0,
+      "output_path": ".experiment/application-diff.txt"
+    }
+  ],
+  "review_commands_results": [
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/review-fixed-point.txt"
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/review-candidate.txt"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8...HEAD"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/review-diff.txt"
+    },
+    {
+      "command": [
+        "git",
+        "log",
+        "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8..HEAD",
+        "--oneline"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/review-commits.txt"
+    }
+  ],
+  "review": {
+    "fixed_start": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8",
+    "reviewed_candidate": "2ed94605b31620784656a3c6c551daa6a341e417",
+    "standards": {
+      "findings": 0,
+      "report": ".experiment/standards-review.txt",
+      "helper": "/root/contestant_m_s01_002/standards_review",
+      "status": "completed",
+      "model_requested": "gpt-6.1-sol/high",
+      "model_observed": "unknown"
+    },
+    "spec": {
+      "findings": 0,
+      "report": ".experiment/spec-review.txt",
+      "helper": "/root/contestant_m_s01_002/spec_review",
+      "status": "completed",
+      "model_requested": "gpt-6.1-sol/high",
+      "model_observed": "unknown"
+    },
+    "execution": "Strictly serial, fork_turns=none, no descendants, read-only; both completed as observed with scoped list_agents.",
+    "fixes_needed": [],
+    "final_artifact_commit_scope": "Adds evidence and this report only; application candidate remains reviewed version."
+  },
+  "spec_ticket_status": {
+    "spec": "TASK.md",
+    "unit": "single mechanical implementation unit complete",
+    "additional_spec_or_tickets": "Not useful for explicit narrow heading change; rationale recorded in DECISIONS.json"
+  },
+  "decision_record": ".experiment/DECISIONS.json",
+  "operator_exchanges": [],
+  "adaptations": [
+    "Local files replace tracker; TASK.md is originating spec for this tiny unit.",
+    "Existing public seam and reversible ticket-shape authorization replace approval round trips.",
+    "Two fresh same-model reviews run serially on local integration branch.",
+    "No language-specific typechecker is introduced."
+  ],
+  "action_path_evidence": ".experiment/ACTION_PATHS.json",
+  "evaluator_or_peer_material_accessed": false,
+  "external_actions": [],
+  "gaps_and_limitations": [
+    "Lead/helper actual runtime model identity and usage are unknown; requested settings recorded, no native model-diversity or throughput claim.",
+    "Initial read outputs and exact helper tool transcripts remain in available orchestration transcript; summaries, commands, and final helper reports preserved here.",
+    "Reviews inspected recorded checks without rerunning; lead ran the focused seam check and public suite.",
+    "No hidden evaluation was accessed or run. Public tests cover five existing behaviors; preserved one-line application diff establishes change scope.",
+    "No permanent test added for reversible wording edit; red/green public-seam check preserved in .experiment.",
+    "No language-specific typechecker configured or invented for stdlib fixture.",
+    "Final evidence-only commit SHA becomes available only after report is committed."
+  ]
+}

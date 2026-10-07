@@ -1,0 +1,81 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "environment_override": {
+      "PYTHONPATH": "."
+    },
+    "exit_code": 0,
+    "output_path": ".experiment/baseline.txt"
+  },
+  {
+    "command": [
+      "python",
+      ".experiment/check_dashboard.py"
+    ],
+    "environment_override": {
+      "PYTHONPATH": "."
+    },
+    "exit_code": 1,
+    "output_path": ".experiment/heading-red.txt"
+  },
+  {
+    "command": [
+      "python",
+      ".experiment/check_dashboard.py"
+    ],
+    "environment_override": {
+      "PYTHONPATH": "."
+    },
+    "exit_code": 0,
+    "output_path": ".experiment/heading-green.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "environment_override": {
+      "PYTHONPATH": "."
+    },
+    "exit_code": 0,
+    "output_path": ".experiment/public-full.txt"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "environment_override": {
+      "PYTHONPATH": "."
+    },
+    "exit_code": 0,
+    "output_path": ".experiment/diff-check.txt"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--",
+      "relayboard/web.py"
+    ],
+    "environment_override": {
+      "PYTHONPATH": "."
+    },
+    "exit_code": 0,
+    "output_path": ".experiment/application-diff.txt"
+  }
+]

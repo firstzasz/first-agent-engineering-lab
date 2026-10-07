@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "git",
+      "rev-parse",
+      "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
+    ],
+    "exit_code": 0,
+    "output_path": ".experiment/review-fixed-point.txt"
+  },
+  {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "output_path": ".experiment/review-candidate.txt"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8...HEAD"
+    ],
+    "exit_code": 0,
+    "output_path": ".experiment/review-diff.txt"
+  },
+  {
+    "command": [
+      "git",
+      "log",
+      "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8..HEAD",
+      "--oneline"
+    ],
+    "exit_code": 0,
+    "output_path": ".experiment/review-commits.txt"
+  }
+]
