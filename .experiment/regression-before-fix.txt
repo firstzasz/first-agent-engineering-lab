@@ -1,0 +1,79 @@
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+test_distinct_failed_runs_each_emit_an_alert (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_each_emit_an_alert) ... FAIL
+test_failure_alert_waits_for_exhausted_retries (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_exhausted_retries) ... 
+  test_failure_alert_waits_for_exhausted_retries (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_exhausted_retries) (max_attempts=2) ... FAIL
+  test_failure_alert_waits_for_exhausted_retries (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_exhausted_retries) (max_attempts=4) ... FAIL
+test_success_after_failed_attempts_has_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_failed_attempts_has_no_failure_alert) ... FAIL
+test_terminal_run_rejects_further_attempts_without_another_alert (test_retry_alerts.RetryAlertTests.test_terminal_run_rejects_further_attempts_without_another_alert) ... FAIL
+
+======================================================================
+FAIL: test_distinct_failed_runs_each_emit_an_alert (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_each_emit_an_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/N-S04-001/tests/test_retry_alerts.py", line 87, in test_distinct_failed_runs_each_emit_an_alert
+    self.assertEqual(
+AssertionError: Lists differ: ['run-001', 'run-002', 'run-003', 'run-001', 'run-002', 'run-003'] != ['run-001', 'run-002', 'run-003']
+
+First list contains 3 additional elements.
+First extra element 3:
+'run-001'
+
+- ['run-001', 'run-002', 'run-003', 'run-001', 'run-002', 'run-003']
++ ['run-001', 'run-002', 'run-003']
+
+======================================================================
+FAIL: test_failure_alert_waits_for_exhausted_retries (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_exhausted_retries) (max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/N-S04-001/tests/test_retry_alerts.py", line 29, in test_failure_alert_waits_for_exhausted_retries
+    self.assertEqual(len(self.store.list_alerts()), alerts_before)
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_failure_alert_waits_for_exhausted_retries (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_exhausted_retries) (max_attempts=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/N-S04-001/tests/test_retry_alerts.py", line 29, in test_failure_alert_waits_for_exhausted_retries
+    self.assertEqual(len(self.store.list_alerts()), alerts_before)
+AssertionError: 3 != 2
+
+======================================================================
+FAIL: test_success_after_failed_attempts_has_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_failed_attempts_has_no_failure_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/N-S04-001/tests/test_retry_alerts.py", line 66, in test_success_after_failed_attempts_has_no_failure_alert
+    self.assertEqual(self.store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='ret[181 chars]01')] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='retry', kind='run_failed', message='Job Retry job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='retry',
+-        kind='run_failed',
+-        message='Job Retry job failed for run run-001'),
+-  Alert(id=2,
+-        run_id='run-001',
+-        job_id='retry',
+-        kind='run_failed',
+-        message='Job Retry job failed for run run-001')]
+
+======================================================================
+FAIL: test_terminal_run_rejects_further_attempts_without_another_alert (test_retry_alerts.RetryAlertTests.test_terminal_run_rejects_further_attempts_without_another_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/N-S04-001/tests/test_retry_alerts.py", line 103, in test_terminal_run_rejects_further_attempts_without_another_alert
+    self.assertEqual(len(alerts), 1)
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.008s
+
+FAILED (failures=5)

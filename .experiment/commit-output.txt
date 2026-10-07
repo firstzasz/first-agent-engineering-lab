@@ -1,0 +1,3 @@
+[candidate/N-S04-001 a0aae4f] Fix failure alerts emitted before retry exhaustion
+ 2 files changed, 109 insertions(+), 1 deletion(-)
+ create mode 100644 tests/test_retry_alerts.py
