@@ -1,0 +1,18 @@
+test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) ... ok
+test_enabled_changes_do_not_clear_pause (test_pause.JobPauseTests.test_enabled_changes_do_not_clear_pause) ... ok
+test_existing_schema_defaults_to_unpaused_and_preserves_configuration (test_pause.JobPauseTests.test_existing_schema_defaults_to_unpaused_and_preserves_configuration) ... ok
+test_pause_allows_manual_run_and_preserves_disabled_state (test_pause.JobPauseTests.test_pause_allows_manual_run_and_preserves_disabled_state) ... ok
+test_pause_skips_scheduled_start_and_resume_does_not_queue_work (test_pause.JobPauseTests.test_pause_skips_scheduled_start_and_resume_does_not_queue_work) ... ok
+test_pause_state_visible_and_last_result_preserved (test_pause.JobPauseTests.test_pause_state_visible_and_last_result_preserved) ... ok
+test_state_survives_store_reconstruction (test_pause.JobPauseTests.test_state_survives_store_reconstruction) ... ok
+test_unknown_job_actions_follow_not_found_convention (test_pause.JobPauseTests.test_unknown_job_actions_follow_not_found_convention) ... ok
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.014s
+
+OK

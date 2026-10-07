@@ -41,6 +41,22 @@ RelayBoard is a small job-control application with:
 
 The implementation should remain small enough that a reviewer can inspect the whole system.
 
+## Pausing Jobs
+
+`POST /api/jobs/{id}/pause` and `POST /api/jobs/{id}/resume` require no
+request body. Both return HTTP 200 with the updated `job`, including its
+boolean `paused` field; repeating either operation is safe. Unknown Jobs
+return HTTP 404 using the existing API error format.
+
+Pause is separate from `enabled`. While paused, new scheduled starts return
+HTTP 409 and are skipped without queuing work. Manual Runs remain allowed,
+and active Runs continue with their existing retry and alert behavior.
+Resume clears pause without changing `enabled` or starting any work, so a
+disabled Job remains unschedulable. The dashboard shows pause separately
+from enabled state and last result.
+
+Run the public checks with `python -m unittest discover -s tests -v`.
+
 ## Treatment isolation
 
 Treatment agents receive the fixture workspace and scenario prompt.
