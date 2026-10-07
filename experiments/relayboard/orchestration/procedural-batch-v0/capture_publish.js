@@ -5,6 +5,9 @@ const sizeR=await tools.exec_command({cmd:"python - <<'PY'\nfrom pathlib import 
 for(let offset=0;offset<size;offset+=18000)pieces.push({offset,cmd:"python - <<'PY'\nfrom pathlib import Path\nimport sys\nsys.stdout.write(Path('"+id+"-capture.json').read_text()["+offset+":"+Math.min(offset+18000,size)+"])\nPY"});
 const chunks=await Promise.allSettled(pieces.map(async p=>{const r=await tools.exec_command({cmd:p.cmd,workdir:"/workspace/relayboard-batch-control",max_output_tokens:18000});if(r.exit_code!==0||r.output.startsWith("Warning:"))throw Error("Capture read failed");return {offset:p.offset,text:r.output};}));
 const capture=JSON.parse(chunks.map(r=>{if(r.status==="rejected")throw r.reason;return r.value;}).sort((a,b)=>a.offset-b.offset).map(r=>r.text).join(""));
+let accessReport=null;try{accessReport=JSON.parse(capture.files.find(f=>f.path===".experiment/REPORT.json"||f.path==="REPORT.json")?.content||"null");}catch{}
+const accessKeys=["evaluator_or_peer_material_accessed","evaluator_material_accessed","peer_material_accessed","peer_or_control_material_accessed","hidden_reference_solution_accessed","oracle_reference_material_accessed","peer_other_run_material_accessed","deliberate_hidden_material_retrieval"];
+if(accessReport?.contaminated===true||accessReport?.contamination===true||[accessReport,accessReport?.access_declaration,accessReport?.boundary].filter(Boolean).some(obj=>accessKeys.some(k=>obj[k]===true)))store("observed_contamination:"+id,true);
 capture.local_commits=capture.local_commits.map(({patch,...meta})=>meta);store("capture:"+id,capture);
 if(capture.immutable_packet_drift.length)notify({invalid_packet_drift:capture.immutable_packet_drift});
 const tree=await tools.mcp__codex_apps__github_create_tree({repository_full_name:repo,tree_elements:capture.files});if(tree.isError)throw Error(JSON.stringify(tree));

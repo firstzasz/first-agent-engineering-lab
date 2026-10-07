@@ -2,7 +2,9 @@
 const id=load("active_run_id"),repo=load("repo"),c=load("capture:"+id),ev=load("evaluation:"+id),run=load("procedural_runs").find(r=>r.run_id===id),remote=load("remote_candidate:"+id);
 let report=null;try{report=JSON.parse(c.files.find(f=>f.path===".experiment/REPORT.json"||f.path==="REPORT.json")?.content||"null");}catch{}
 const logs=c.files.filter(f=>/^\.experiment\//.test(f.path)&&/log|report|checkpoint|question|decision/i.test(f.path)).map(f=>({path:f.path,content:f.content}));
-const declaredAccess=report?.evaluator_or_peer_material_accessed===true||report?.contaminated===true;
+const accessObjects=[report,report?.access_declaration,report?.boundary].filter(Boolean);
+const accessKeys=["evaluator_or_peer_material_accessed","evaluator_material_accessed","peer_material_accessed","peer_or_control_material_accessed","hidden_reference_solution_accessed","oracle_reference_material_accessed","peer_other_run_material_accessed","deliberate_hidden_material_retrieval"];
+const declaredAccess=report?.contaminated===true||report?.contamination===true||accessObjects.some(obj=>accessKeys.some(key=>obj[key]===true));
 const invalid=c.immutable_packet_drift.length>0;
 const contaminated=declaredAccess||load("observed_contamination:"+id)===true;
 const status=contaminated?"CONTAMINATED":invalid?"INVALID_PACKET_DRIFT":ev.oracle.error?"EVALUATOR_ERROR":ev.public_tests.passed&&ev.oracle.passed?"COMPLETED_EVALUATED_PASS":"COMPLETED_EVALUATED_FAIL";
