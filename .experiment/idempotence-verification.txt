@@ -1,0 +1,14 @@
+test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
+test_enable_changes_do_not_clear_pause (test_pause.PauseJobTests.test_enable_changes_do_not_clear_pause) ... ok
+test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
+test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
+test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
+test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
+test_repeated_pause_and_resume_are_idempotent (test_pause.PauseJobTests.test_repeated_pause_and_resume_are_idempotent) ... ok
+test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
+test_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.009s
+
+OK

@@ -1,0 +1,56 @@
+[
+  {
+    "command": [
+      "pwd"
+    ],
+    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+    "exit_code": 0,
+    "outputpath": ".experiment/initial-00.txt"
+  },
+  {
+    "command": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+    "exit_code": 0,
+    "outputpath": ".experiment/initial-01.txt"
+  },
+  {
+    "command": [
+      "git",
+      "log",
+      "-1",
+      "--format=%H %s"
+    ],
+    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+    "exit_code": 0,
+    "outputpath": ".experiment/initial-02.txt"
+  },
+  {
+    "command": [
+      "rg",
+      "--files",
+      "-g",
+      "!node_modules",
+      "-g",
+      "!.git",
+      "-g",
+      "!*.pyc",
+      "."
+    ],
+    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+    "exit_code": 0,
+    "outputpath": ".experiment/initial-03.txt"
+  },
+  {
+    "command": [
+      "python",
+      "--version"
+    ],
+    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+    "exit_code": 0,
+    "outputpath": ".experiment/initial-04.txt"
+  }
+]

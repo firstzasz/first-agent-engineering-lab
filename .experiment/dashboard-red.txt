@@ -1,0 +1,16 @@
+test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... FAIL
+test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
+test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
+
+======================================================================
+FAIL: test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 15, in test_dashboard_shows_pause_beside_existing_job_state
+    self.assertIn("<th>Enabled</th><th>Paused</th><th>Last result</th>", body)
+AssertionError: '<th>Enabled</th><th>Paused</th><th>Last result</th>' not found in "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>"
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.003s
+
+FAILED (failures=1)

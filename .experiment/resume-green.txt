@@ -1,0 +1,7 @@
+test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
+test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+OK

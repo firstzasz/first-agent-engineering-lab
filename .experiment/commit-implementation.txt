@@ -1,0 +1,4 @@
+[candidate/M-S02-002 0cee69f] Add persistent Job pause and resume controls
+ 7 files changed, 268 insertions(+), 6 deletions(-)
+ create mode 100644 .scratch/work/spec.md
+ create mode 100644 tests/test_pause.py

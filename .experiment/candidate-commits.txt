@@ -1,0 +1,2 @@
+ae485578f96038738e48219c32c3d60d1c0009a4 Apply pause review feedback and complete local spec
+0cee69f13fa15fe5190d5188e7469c03f059db7f Add persistent Job pause and resume controls

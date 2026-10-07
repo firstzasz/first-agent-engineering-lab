@@ -9,6 +9,7 @@ class Job:
     name: str
     enabled: bool
     max_attempts: int
+    paused: bool = False
 
 
 @dataclass(frozen=True)

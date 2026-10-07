@@ -1,0 +1,507 @@
+{
+  "status": "COMPLETE",
+  "contestant_id": "M-S02-002",
+  "method": "matt-codex-port-v0 (explicit non-native Codex port)",
+  "root": "/workspace/relayboard-round2-active/M-S02-002",
+  "source_version": "mattpocock/skills 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d; unchanged bundled files",
+  "initial_commit": "985b5380548ab80c2c243f97e9732a403bff88b3",
+  "commits": [
+    {
+      "sha": "0cee69f13fa15fe5190d5188e7469c03f059db7f",
+      "purpose": "persistent pause/resume feature, tests, local spec and glossary"
+    },
+    {
+      "sha": "ae485578f96038738e48219c32c3d60d1c0009a4",
+      "purpose": "address Standards duplication findings; completed spec"
+    }
+  ],
+  "candidate_product_commit": "ae485578f96038738e48219c32c3d60d1c0009a4",
+  "final_evidence_commit": "The local HEAD containing this report is the evidence-only final commit; self hash cannot be embedded before committing. Final tool transcript records its hash.",
+  "candidate_diff_output": ".experiment/candidate-product-diff.txt",
+  "route": [
+    "grill-with-docs (grilling + domain-modeling)",
+    "to-spec",
+    "implement (one cohesive lead implementation unit)",
+    "tdd (four red/green feature cycles)",
+    "code-review (fresh serial Standards then Spec)"
+  ],
+  "read_but_not_invoked": [
+    "to-tickets",
+    "implement-spec"
+  ],
+  "route_rationale": "Feature semantics needed interview. One small cohesive end-to-end unit has no useful independent blocking frontier; therefore no ticket graph. No reported bug so diagnosing-bugs not invoked. Reversible representation warrants no ADR.",
+  "spec": {
+    "path": ".scratch/work/spec.md",
+    "status": "completed",
+    "tickets": "not used: one cohesive unit"
+  },
+  "operator_exchanges": [
+    {
+      "direction": "request",
+      "channel": "collaboration.send_message /root",
+      "text": "OPERATOR QUESTION M-S02-002 \u2014 Invoked bundled grill-with-docs (grilling + domain-modeling). Public facts: enabled gates scheduled starts; disabled jobs allow manual runs; existing Runs retry by max_attempts; no queue/catch-up scheduler exists; dashboard shows Enabled and Last result. Current independent decision frontier:\nQ1 Pause scope: Should pause block only new scheduled Runs, or also manual Runs / retries / in-flight Runs? Recommended: only new scheduled Runs; existing/manual Runs, retries, alerts remain unchanged.\nQ2 Enabled relationship: Should paused be a separate persistent Job state, so pause/resume preserve enabled (including disabled jobs), or alias enabled/disabled? Recommended: separate persistent paused state; resume cannot enable a disabled Job.\nQ3 Repeated/missing operations: Should repeated pause/resume succeed idempotently with 200 and {job: ...}, and missing Job return existing 404? Recommended: yes; no request body required.\nQ4 Visibility: Should Jobs API expose paused and dashboard add a Paused column while preserving Enabled and Last result? Recommended: yes.\nPlease answer this frontier. I will recompute dependencies and request shared-understanding confirmation before implementation if your reply does not already confirm it."
+    },
+    {
+      "direction": "answer",
+      "channel": "operator via collaboration",
+      "text": "OPERATOR ANSWER Q1: A scheduled start while paused is skipped and not queued. Manual Runs remain allowed while paused. An in-progress Run continues to its terminal outcome, including existing retries and alerts. Q2/Q3/Q4: no additional product preference or interface guidance is supplied; use TASK.md, existing public interfaces and reversible engineering judgment for representation, enabled-state handling, idempotence/missing-Job responses and presentation. These answers cover requested product decisions only, not blanket confirmation of every recommended policy or unasked behavior."
+    },
+    {
+      "direction": "request",
+      "channel": "collaboration.send_message /root",
+      "text": "OPERATOR QUESTION M-S02-002 \u2014 Recomputed frontier is empty: Q1 settles product scope; Q2\u2013Q4 are delegated reversible engineering judgments. Shared understanding for confirmation: pause skips new scheduled starts with no queue/catch-up; manual Runs and already-started Runs continue, including retries/alerts. I will represent pause separately from enabled, so resume preserves disabled state, use idempotent bodyless 200 {job} pause/resume with existing 404 for absent jobs, expose paused in Jobs JSON and add dashboard Paused visibility preserving Enabled/Last result. These are local engineering choices, not assertions of supplied product guidance. Please confirm the shared product understanding so the bundled grilling completion condition is met before implementation."
+    },
+    {
+      "direction": "answer",
+      "channel": "operator via collaboration",
+      "text": "OPERATOR ANSWER to the confirmation you now requested: resume applies to future schedule activity only, with no catch-up. Your restatement of scheduled skip/no queue, manual allowance and in-progress continuation matches the earlier answers. Representation, enabled-state preservation, idempotence/response shape and dashboard presentation remain your engineering choices, not additional product preferences supplied by me. This confirms only the explicitly asked product understanding."
+    }
+  ],
+  "operator_checkpoint": "Nonblocking route/spec/implementation/tests/review-state checkpoint sent on operator request; recorded in session.md. No extra product guidance received.",
+  "decisions": {
+    "operator_confirmed": [
+      "scheduled starts skipped with no queue while paused",
+      "resume future activity only, no catch-up",
+      "manual Runs allowed",
+      "in-progress Runs continue through existing retries/alerts"
+    ],
+    "delegated_engineering": [
+      "separate persisted paused boolean default false",
+      "pause/resume preserve enabled",
+      "idempotent bodyless POST 200 {job}; missing Job existing404",
+      "Jobs JSON paused visibility and dashboard Paused column preserving existing columns",
+      "default-false migration for existing SQLite schema"
+    ]
+  },
+  "testcommands": [
+    {
+      "label": "baseline",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:38:21.635274+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/baseline.txt"
+    },
+    {
+      "label": "pause-red",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:39:53.859051+00:00",
+      "exit_code": 1,
+      "outputpath": ".experiment/pause-red.txt"
+    },
+    {
+      "label": "pause-green",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:40:16.675129+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/pause-green.txt"
+    },
+    {
+      "label": "resume-red",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:40:28.491660+00:00",
+      "exit_code": 1,
+      "outputpath": ".experiment/resume-red.txt"
+    },
+    {
+      "label": "resume-green",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:40:39.916768+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/resume-green.txt"
+    },
+    {
+      "label": "dashboard-red",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:40:52.814466+00:00",
+      "exit_code": 1,
+      "outputpath": ".experiment/dashboard-red.txt"
+    },
+    {
+      "label": "dashboard-green",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:41:01.593186+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/dashboard-green.txt"
+    },
+    {
+      "label": "persistence-red",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:41:23.795193+00:00",
+      "exit_code": 1,
+      "outputpath": ".experiment/persistence-red.txt"
+    },
+    {
+      "label": "persistence-green",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:41:31.487111+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/persistence-green.txt"
+    },
+    {
+      "label": "manual-preservation",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:41:51.954118+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/manual-preservation.txt"
+    },
+    {
+      "label": "existing-run-preservation",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:42:08.690075+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/existing-run-preservation.txt"
+    },
+    {
+      "label": "disabled-preservation",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:42:20.475043+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/disabled-preservation.txt"
+    },
+    {
+      "label": "enable-preservation",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:42:30.674521+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/enable-preservation.txt"
+    },
+    {
+      "label": "idempotence-verification",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:42:42.263167+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/idempotence-verification.txt"
+    },
+    {
+      "label": "missing-method-verification",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_pause.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:42:52.562250+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/missing-method-verification.txt"
+    },
+    {
+      "label": "full-before-review",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:43:02.454795+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/full-before-review.txt"
+    },
+    {
+      "label": "full-after-review",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
+      "time_utc": "2026-10-07T13:46:40.553280+00:00",
+      "exit_code": 0,
+      "outputpath": ".experiment/full-after-review.txt"
+    }
+  ],
+  "red_green_cycles": [
+    {
+      "slice": "pause",
+      "red": ".experiment/pause-red.txt",
+      "red_reason": "404 vs 200",
+      "green": ".experiment/pause-green.txt"
+    },
+    {
+      "slice": "resume",
+      "red": ".experiment/resume-red.txt",
+      "red_reason": "404 vs 200",
+      "green": ".experiment/resume-green.txt"
+    },
+    {
+      "slice": "dashboard",
+      "red": ".experiment/dashboard-red.txt",
+      "red_reason": "missing Paused column",
+      "green": ".experiment/dashboard-green.txt"
+    },
+    {
+      "slice": "existing-schema/reopen persistence",
+      "red": ".experiment/persistence-red.txt",
+      "red_reason": "IndexError absent paused column",
+      "green": ".experiment/persistence-green.txt"
+    }
+  ],
+  "verification": {
+    "baseline_tests": 5,
+    "final_public_tests": 15,
+    "full_command": "python -m unittest discover -s tests -v",
+    "final_outputpath": ".experiment/full-after-review.txt",
+    "result": "PASS",
+    "diff_check": "PASS (.experiment/diff-check-after-review.txt)",
+    "method_source_unchanged": "empty git diff, exit0 (.experiment/bundled-source-unchanged.txt)",
+    "characterization": "Six additional public preservation/API checks added serially and immediately passed with no implementation edits; no red-before-green claim for those checks."
+  },
+  "reviews": {
+    "fixed_point": "985b5380548ab80c2c243f97e9732a403bff88b3",
+    "reviewed_commit": "0cee69f13fa15fe5190d5188e7469c03f059db7f",
+    "Standards": {
+      "hard_violations": 0,
+      "heuristic_findings": 2,
+      "worst": "low-priority Duplicated Code",
+      "disposition": "both addressed by lead in review stage",
+      "report": ".experiment/standards-review.md"
+    },
+    "Spec": {
+      "findings": 0,
+      "report": ".experiment/spec-review.md"
+    },
+    "helpers": [
+      {
+        "task_name": "/root/contestant_m_s02_002/standards_review",
+        "axis": "Standards",
+        "order": 1,
+        "fork_turns": "none",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "high",
+        "observed_identity": "unknown",
+        "observed_usage": "unknown",
+        "read_only": true,
+        "descendants_permitted": false,
+        "status": "completed",
+        "report": ".experiment/standards-review.md"
+      },
+      {
+        "task_name": "/root/contestant_m_s02_002/spec_review",
+        "axis": "Spec",
+        "order": 2,
+        "fork_turns": "none",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "high",
+        "observed_identity": "unknown",
+        "observed_usage": "unknown",
+        "read_only": true,
+        "descendants_permitted": false,
+        "status": "completed",
+        "report": ".experiment/spec-review.md"
+      }
+    ],
+    "both_completed_before_finalization": true,
+    "final_fix_verification": "15 public tests pass; no fresh helper rereview claimed"
+  },
+  "action_path_evidence": {
+    "initial": ".experiment/initial-actions.json",
+    "read_paths": ".experiment/read-path-evidence.json",
+    "commands": ".experiment/commands.jsonl",
+    "decisions_checkpoints": ".experiment/session.md",
+    "helpers": ".experiment/helpers.json",
+    "commit_outputs": [
+      ".experiment/commit-implementation.txt",
+      ".experiment/commit-review-fixes.txt"
+    ],
+    "commit_list": ".experiment/candidate-commits.txt"
+  },
+  "identity": {
+    "lead_requested": "GPT-6.1 Sol/High per binding",
+    "lead_observed": "Exact variant/effort/usage unknown; generic system identifies Codex based on GPT-6.",
+    "helpers_requested": "gpt-6.1-sol/high, fork_turns=none",
+    "helpers_observed": "unknown without attestation; no usage metrics available"
+  },
+  "adaptations": [
+    "Read bundled skill files in place of native Skill tool",
+    "local spec/tracker with standing reversible seam/ticket-shape authorization",
+    "serial fresh helpers on local branch instead of native parallel reviewers/worktrees",
+    "no native model diversity",
+    "local commit/report replaces external tracker publication/closure"
+  ],
+  "evaluator_or_peer_material_accessed": false,
+  "contamination_observed": false,
+  "forbidden_actions_performed": [],
+  "hidden_evaluation_run": false,
+  "gaps": [
+    "Exact runtime model, reasoning-setting attestation and usage unavailable.",
+    "Helper raw nested tool outputs not available to lead; helper-reported commands, findings and access statements preserved in separate reports.",
+    "Helpers reviewed implementation commit; subsequent small refactors verified by lead full public suite, not helper rereview.",
+    "Public fixture checks only; no hidden evaluation or production/concurrent scheduler claims.",
+    "Final evidence-only commit hash supplied by final tool transcript/local git HEAD instead of embedding its self hash."
+  ],
+  "freeze_policy": "Stop after final local evidence commit and concise final. No subsequent edits, hidden feedback, paid APIs, network, deployment, publication, external messages or merges.",
+  "generated_at_utc": "2026-10-07T13:48:26.130878+00:00",
+  "finalization_commands": [
+    "git add .experiment",
+    "git diff --cached --check",
+    "git commit -m \"Preserve M-S02-002 method and public verification evidence\"",
+    "git status --short",
+    "git log -3 --oneline"
+  ],
+  "finalization_output_location": "Final tool transcript; evidence commit cannot include its own hash/output."
+}
