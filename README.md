@@ -1,76 +1,56 @@
-# FIRST Agent Engineering Lab
+# RelayBoard Fixture
 
-Public R&D repository for studying, testing, comparing, adapting, and designing evidence-based AI agent engineering workflows.
+Status: EXECUTABLE PILOT FIXTURE IMPLEMENTED, CI verification pending
 
-The lab exists to learn what actually works before any idea is proposed for FIRST production systems.
+RelayBoard is the shared synthetic application used by the first FIRST Agent Engineering Lab benchmark scenarios.
 
-## Research loop
+It contains no production FIRST logic, credentials, private endpoints, financial records, or personal data.
 
-observe -> understand -> experiment -> measure -> compare -> document -> propose
+## Runtime
 
-Popular or authoritative approaches are inputs, not conclusions. We separate principles, implementation details, vendor-specific behavior, and portable patterns.
+The base fixture uses Python standard library components only:
 
-## Long-term research thesis
+- SQLite in-memory persistence;
+- a small WSGI API and dashboard;
+- deterministic synthetic seed data;
+- `unittest` public tests.
 
-A central research pillar is **skill engineering as reusable procedural knowledge**.
+The base intentionally contains the pre-treatment state for S01/S02/S04. Evaluator self-tests must prove those scenarios are red-capable while public baseline tests remain green.
 
-The lab does not assume that `SKILL.md`, any current plugin format, or any current agent host will be permanent. Instead it studies how reusable engineering know-how should be represented across:
+## Pilot scope
 
-```text
-Model
-  ↓
-Context / Knowledge
-  ↓
-Skills / Procedures
-  ↓
-Tools / Actions
-  ↓
-State / Memory
-  ↓
-Verification
-  ↓
-Environment
-```
+The first implementation slice supports only:
 
-The target is to learn what should be a skill, what should be a tool, what should be memory or persistent task state, what should be a larger workflow, and what should be enforced by executable verification rather than prose alone.
+- S01: tiny reversible change;
+- S02: ambiguous product requirement;
+- S04: deterministic hard bug.
 
-See [docs/SKILL_ENGINEERING.md](./docs/SKILL_ENGINEERING.md) and [ADR-0002](./docs/adrs/0002-skill-engineering-as-portable-procedural-knowledge.md).
+Other designed scenarios remain out of scope until the pilot harness is validated.
 
-## Current scope
+## Intended shape
 
-Phase 0 bootstraps the research system and performs a read-only architecture inspection of:
+RelayBoard is a small job-control application with:
 
-- Lauren Tan's **pstack**, officially published under `cursor/plugins/pstack`
-- Matt Pocock's **skills** repository
+- Jobs;
+- Runs;
+- Attempts;
+- retry policy;
+- alert rules;
+- a minimal operator dashboard;
+- deterministic storage and tests.
 
-No upstream code is copied or modified during bootstrap.
+The implementation should remain small enough that a reviewer can inspect the whole system.
 
-## Repository map
+## Treatment isolation
 
-- [RESEARCH_INDEX.md](./RESEARCH_INDEX.md): current research state and next work
-- [docs/SKILL_ENGINEERING.md](./docs/SKILL_ENGINEERING.md): long-term skill-engineering research thesis
-- [docs/approaches/FIRST_MODE_V0.md](./docs/approaches/FIRST_MODE_V0.md): frozen FIRST-specific experimental operating contract
-- [docs/sources/](./docs/sources/): upstream registry and architecture notes
-- [docs/experiments/](./docs/experiments/): experiment method and template
-- [docs/comparisons/](./docs/comparisons/): comparison plans and results
-- [docs/proposals/](./docs/proposals/): candidate patterns for later FIRST review
-- [docs/adrs/](./docs/adrs/): research-repository decisions
-- [experiments/](./experiments/): executable experiment implementations
-- [fixtures/](./fixtures/): synthetic fixtures only
-- [AGENTS.md](./AGENTS.md): operating contract for agents working in this repo
+Treatment agents receive the fixture workspace and scenario prompt.
 
-## Safety boundary
+They do **not** receive the evaluator directory as part of the task workspace.
 
-This repository is public. Never commit production credentials, private endpoints, personal financial records, private user information, OCI credentials, GitHub secrets, or production configuration containing sensitive values.
+The lab repository is public, so this is protocol isolation rather than cryptographic secrecy. A treatment that deliberately looks up evaluator material is contaminated and must be marked invalid.
 
-Experiments must use synthetic data and fake fixtures.
+See:
 
-This lab does not modify FIRST Data Hub, market-screener, OCI production services, or real financial data unless a later, explicit production decision authorizes separate work.
-
-## Evidence standard
-
-A statement such as "implemented" means the artifact exists. A statement such as "verified" requires executable or externally inspectable evidence.
-
-Research outcomes graduate through:
-
-research -> experiment -> evidence -> documented proposal -> FIRST architecture review -> production implementation
+- [GLOSSARY.md](./GLOSSARY.md)
+- [benchmark scoring](../../docs/benchmarks/SCORING_V0.md)
+- [evaluator protocol](../../docs/benchmarks/EVALUATOR_PROTOCOL_V0.md)
