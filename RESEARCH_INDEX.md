@@ -82,7 +82,19 @@ The common analysis frame is:
 
 ## Phase 1: Comparative experiments
 
-Status: **PLANNED**
+Status: **PILOT IN PROGRESS**
+
+### Phase 1I: First neutral S01 execution
+
+Status: **VERIFIED (behavior), process metrics incomplete**
+
+- Neutral run `N-S01-001` completed using a fresh Codex Cloud agent, with model/reasoning reported by the operator as OpenAI 6.1 Sol High.
+- [Agent PR #15](https://github.com/firstzasz/first-agent-engineering-lab/pull/15) changes one line in one file, targets `treatment/neutral/N-S01-001`, and remains unmerged.
+- [Independent examiner CI run 37559041286](https://github.com/firstzasz/first-agent-engineering-lab/actions/runs/37559041286) verified the exact candidate commit, public tests PASS and frozen evaluator PASS with no failures.
+- The agent's tool/timing/question metrics remain unknown because the full Codex execution trace was not captured.
+- [EXP-0009](./docs/experiments/0009-neutral-s01-pilot.md) contains the evidence and limitations.
+
+
 
 ### Phase 1H: Neutral execution preparation
 
@@ -258,7 +270,7 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Execute N-S01-001, N-S02-001, and N-S04-001 in fresh evaluator-blind coding-agent contexts using the prepared treatment branches.
+1. Execute the remaining N-S02-001 and N-S04-001 in fresh evaluator-blind coding-agent contexts using the prepared treatment branches.
 2. Evaluate each completed run outside its treatment context and persist the evidence.
 3. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
 4. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
