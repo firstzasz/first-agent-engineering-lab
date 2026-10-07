@@ -122,7 +122,7 @@
       "branch": "treatment/first-mode/F-S02-001",
       "prepared_sha": "13dae3136e2a81fc70ce278757d47aa33e572b46",
       "prepared_tree_sha": "958b2c5dca7e3368a537bc253b949dc53cfd96c9",
-      "status": "READY_PROCEDURAL",
+      "status": "RUNNING",
       "result_path": "results/F-S02-001/run.json"
     },
     {
