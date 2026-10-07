@@ -1,0 +1,18 @@
+test_api_pause_resume_and_list_jobs (test_pause.PauseTests.test_api_pause_resume_and_list_jobs) ... ok
+test_dashboard_keeps_enabled_and_last_result_and_shows_pause (test_pause.PauseTests.test_dashboard_keeps_enabled_and_last_result_and_shows_pause) ... ok
+test_enabled_and_paused_are_independent (test_pause.PauseTests.test_enabled_and_paused_are_independent) ... ok
+test_legacy_schema_defaults_to_unpaused (test_pause.PauseTests.test_legacy_schema_defaults_to_unpaused) ... ok
+test_missing_jobs_and_invalid_pause_routes (test_pause.PauseTests.test_missing_jobs_and_invalid_pause_routes) ... ok
+test_pause_is_stored_and_survives_store_reinitialization (test_pause.PauseTests.test_pause_is_stored_and_survives_store_reinitialization) ... ok
+test_pause_preserves_retry_and_alert_behavior (test_pause.PauseTests.test_pause_preserves_retry_and_alert_behavior) ... ok
+test_pause_resume_blocks_only_new_scheduled_runs (test_pause.PauseTests.test_pause_resume_blocks_only_new_scheduled_runs) ... ok
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.009s
+
+OK
