@@ -61,6 +61,80 @@ class RelayBoardPublicTests(unittest.TestCase):
             "succeeded",
         )
 
+    def test_retrying_run_alerts_only_after_terminal_failure(self) -> None:
+        code, payload = request(
+            self.app, "POST", "/api/jobs/daily-report/runs", {}
+        )
+        self.assertEqual(code, 201)
+        run_id = payload["run"]["id"]
+
+        code, payload = request(
+            self.app, "POST", f"/api/runs/{run_id}/attempts",
+            {"succeeded": False},
+        )
+        self.assertEqual(code, 200)
+        self.assertEqual(payload["status"], "retry")
+        self.assertEqual(payload["run"]["status"], "running")
+        code, payload = request(self.app, "GET", "/api/alerts")
+        self.assertEqual(code, 200)
+        self.assertEqual(payload["alerts"], [])
+
+        code, payload = request(
+            self.app, "POST", f"/api/runs/{run_id}/attempts",
+            {"succeeded": False},
+        )
+        self.assertEqual(code, 200)
+        self.assertEqual(payload["status"], "failed")
+        self.assertEqual(payload["run"]["status"], "failed")
+        code, payload = request(self.app, "GET", "/api/alerts")
+        self.assertEqual(code, 200)
+        self.assertEqual(len(payload["alerts"]), 1)
+        self.assertEqual(payload["alerts"][0]["run_id"], run_id)
+        self.assertEqual(payload["alerts"][0]["kind"], "run_failed")
+
+    def test_distinct_failed_runs_each_emit_an_alert(self) -> None:
+        manual = self.app.service.begin_manual_run("daily-report")
+        scheduled = self.app.service.begin_scheduled_run("daily-report")
+        self.assertNotEqual(manual.id, scheduled.id)
+
+        for run in (manual, scheduled):
+            self.assertEqual(
+                self.app.service.record_attempt(run.id, succeeded=False),
+                "retry",
+            )
+            self.assertEqual(
+                self.app.service.record_attempt(run.id, succeeded=False),
+                "failed",
+            )
+            self.assertEqual(
+                [attempt.number for attempt in self.app.store.list_attempts(run.id)],
+                [1, 2],
+            )
+
+        alerts = self.app.store.list_alerts()
+        self.assertEqual([alert.run_id for alert in alerts], [manual.id, scheduled.id])
+        self.assertEqual([alert.kind for alert in alerts], ["run_failed", "run_failed"])
+
+    def test_run_succeeding_after_multiple_retries_emits_no_failure_alert(self) -> None:
+        self.app.store.add_job("three-attempts", "Three attempts", max_attempts=3)
+        run = self.app.service.begin_manual_run("three-attempts")
+        self.assertEqual(
+            self.app.service.record_attempt(run.id, succeeded=False), "retry"
+        )
+        self.assertEqual(
+            self.app.service.record_attempt(run.id, succeeded=False), "retry"
+        )
+        self.assertEqual(
+            self.app.service.record_attempt(run.id, succeeded=True), "succeeded"
+        )
+        self.assertEqual(self.app.store.get_run(run.id).status, "succeeded")
+        self.assertEqual(
+            [(attempt.number, attempt.succeeded)
+             for attempt in self.app.store.list_attempts(run.id)],
+            [(1, False), (2, False), (3, True)],
+        )
+        self.assertEqual(self.app.store.list_alerts(), [])
+
 
 if __name__ == "__main__":
     unittest.main()

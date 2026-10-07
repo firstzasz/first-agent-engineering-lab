@@ -1,0 +1,25 @@
+test_retrying_run_alerts_only_after_terminal_failure (test_public.RelayBoardPublicTests.test_retrying_run_alerts_only_after_terminal_failure) ... FAIL
+
+======================================================================
+FAIL: test_retrying_run_alerts_only_after_terminal_failure (test_public.RelayBoardPublicTests.test_retrying_run_alerts_only_after_terminal_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/M-S04-001/tests/test_public.py", line 80, in test_retrying_run_alerts_only_after_terminal_failure
+    self.assertEqual(payload["alerts"], [])
+AssertionError: Lists differ: [{'id': 1, 'job_id': 'daily-report', 'kind[87 chars]01'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}
+
++ []
+- [{'id': 1,
+-   'job_id': 'daily-report',
+-   'kind': 'run_failed',
+-   'message': 'Job Daily report failed for run run-001',
+-   'run_id': 'run-001'}]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

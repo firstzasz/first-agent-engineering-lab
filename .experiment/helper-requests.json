@@ -1,0 +1,65 @@
+[
+  {
+    "axis": "Standards",
+    "task_name": "/root/contestant_m_s04_001/standards_review",
+    "fork_turns": "none",
+    "model_requested": "gpt-6.1-sol",
+    "reasoning_requested": "high",
+    "read_only": true,
+    "no_descendants": true,
+    "serial": true,
+    "workdir": "/workspace/relayboard-active/M-S04-001",
+    "boundary": "supplied area only; no evaluator, peer, lab-history or external access",
+    "fixed_point": "2f337252199d4b4658a6abb15f8037e2b147bc58",
+    "candidate": "6e8ae0ce540aa33bec3640932b7650c0ee196f5f",
+    "diff_command": "git diff 2f337252199d4b4658a6abb15f8037e2b147bc58...HEAD",
+    "standards_sources": [
+      "METHOD.md",
+      "GLOSSARY.md",
+      "upstream/matt/skills/engineering/tdd/SKILL.md",
+      "upstream/matt/skills/engineering/tdd/tests.md",
+      "upstream/matt/skills/engineering/tdd/mocking.md",
+      "tests/test_public.py"
+    ],
+    "smell_baseline": "upstream/matt/skills/engineering/code-review/SKILL.md step 3 (pasted in full into helper request)",
+    "review_brief": "Report documented violations and baseline smell judgements separately, quote hunks/cite rules, under 400 words; no spec coverage review.",
+    "status": "completed before Spec helper spawned",
+    "report": ".experiment/review-standards.md",
+    "result": {
+      "documented_violations": 0,
+      "actionable_smells": 0,
+      "tdd_sequence_history": "unknown from final diff"
+    }
+  },
+  {
+    "axis": "Spec",
+    "task_name": "/root/contestant_m_s04_001/spec_review",
+    "fork_turns": "none",
+    "model_requested": "gpt-6.1-sol",
+    "reasoning_requested": "high",
+    "read_only": true,
+    "no_descendants": true,
+    "serial": "spawned only after Standards final answer",
+    "workdir": "/workspace/relayboard-active/M-S04-001",
+    "boundary": "supplied area only; no evaluator, peer, lab-history or external access; do not read other review report",
+    "fixed_point": "2f337252199d4b4658a6abb15f8037e2b147bc58",
+    "candidate": "6e8ae0ce540aa33bec3640932b7650c0ee196f5f",
+    "diff_command": "git diff 2f337252199d4b4658a6abb15f8037e2b147bc58...HEAD",
+    "spec_sources": [
+      "TASK.md",
+      "GLOSSARY.md",
+      ".experiment/DECISIONS.md"
+    ],
+    "method_sources": [
+      "METHOD.md",
+      "upstream/matt/skills/engineering/code-review/SKILL.md"
+    ],
+    "review_brief": "Report missing/partial requirements, scope creep, wrong behavior; quote spec per finding; under 400 words; separate from Standards axis.",
+    "status": "completed",
+    "report": ".experiment/review-spec.md",
+    "result": {
+      "findings": 0,
+      "public_suite": "8 tests passed; OK"
+    }
+  }
+]

@@ -1,0 +1,353 @@
+{
+  "status": "completed",
+  "run_id": "M-S04-001",
+  "treatment": "matt-codex-port-v0 (explicitly non-native Codex port)",
+  "starting_commit": "2f337252199d4b4658a6abb15f8037e2b147bc58",
+  "local_commits": [
+    {
+      "sha": "6e8ae0ce540aa33bec3640932b7650c0ee196f5f",
+      "message": "Fix premature failure alerts during Run retries",
+      "kind": "implementation"
+    }
+  ],
+  "evidence_commit": {
+    "locator": "HEAD after final local evidence commit",
+    "message": "Preserve diagnosis, verification and serial review evidence",
+    "note": "This report is included in the evidence commit; its hash is returned in the final response, avoiding self-reference."
+  },
+  "candidate_diff": ".experiment/candidate-diff.txt.gz (gzip-compressed exact diff stdout)",
+  "task_status": {
+    "spec": "TASK.md",
+    "single_implementation_unit": "completed",
+    "tickets": "not needed for narrow bug"
+  },
+  "root_cause": "record_attempt emitted a run_failed alert while permitting retry, then emitted another after terminal failure for the same Run.",
+  "fix": "Remove only premature retry-branch alert emission; retain terminal-failure emission and all retry transitions.",
+  "method": {
+    "source_version": "mattpocock/skills 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+    "frozen_route": [
+      "diagnosing-bugs",
+      "implement",
+      "tdd",
+      "code-review"
+    ],
+    "decisions": ".experiment/DECISIONS.md",
+    "adaptations": [
+      "source files read instead of native skill invocation",
+      "TASK.md/local files replace external tracker",
+      "pre-agreed public fixture seams replace seam-approval round trip",
+      "fresh serial same-model helpers replace native parallel/model diversity",
+      "local commits replace external publication and closure"
+    ]
+  },
+  "model": {
+    "requested": "gpt-6.1-sol",
+    "reasoning_requested": "high",
+    "lead_observed": "unknown, runtime identity not independently exposed",
+    "helper_requested": "gpt-6.1-sol high; fork_turns=none",
+    "helper_observed": "unknown, reported by each helper",
+    "usage": "unknown"
+  },
+  "testcommands_results_outputpaths": [
+    {
+      "label": "baseline",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/baseline.txt"
+    },
+    {
+      "label": "original-red",
+      "command": [
+        "python",
+        ".experiment/repro.py"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 1,
+      "output_path": ".experiment/original-red.txt"
+    },
+    {
+      "label": "repeat-red",
+      "command": [
+        "python",
+        ".experiment/repro.py"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 1,
+      "output_path": ".experiment/repeat-red.txt"
+    },
+    {
+      "label": "minimal-red",
+      "command": [
+        "python",
+        ".experiment/repro.py",
+        "--minimal"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 1,
+      "output_path": ".experiment/minimal-red.txt"
+    },
+    {
+      "label": "remove-second-attempt",
+      "command": [
+        "python",
+        ".experiment/repro.py",
+        "--minimal",
+        "--attempts",
+        "1"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/remove-second-attempt.txt"
+    },
+    {
+      "label": "no-retry-control",
+      "command": [
+        "python",
+        ".experiment/repro.py",
+        "--minimal",
+        "--attempts",
+        "1",
+        "--policy",
+        "1"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/no-retry-control.txt"
+    },
+    {
+      "label": "boundary-probe",
+      "command": [
+        "python",
+        ".experiment/probe.py"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/boundary-probe.txt"
+    },
+    {
+      "label": "regression-red",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_public.py",
+        "-k",
+        "retrying_run_alerts",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 1,
+      "output_path": ".experiment/regression-red.txt"
+    },
+    {
+      "label": "regression-green",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_public.py",
+        "-k",
+        "retrying_run_alerts",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/regression-green.txt"
+    },
+    {
+      "label": "original-green",
+      "command": [
+        "python",
+        ".experiment/repro.py"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/original-green.txt"
+    },
+    {
+      "label": "focused",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_public.py",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/focused.txt"
+    },
+    {
+      "label": "instrumentation-clean",
+      "command": [
+        "rg",
+        "-n",
+        "DEBUG-",
+        "relayboard",
+        "tests"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 1,
+      "output_path": ".experiment/instrumentation-clean.txt"
+    },
+    {
+      "label": "full-suite",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/full-suite.txt"
+    },
+    {
+      "label": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/diff-check.txt"
+    },
+    {
+      "label": "candidate-diff",
+      "command": [
+        "git",
+        "diff",
+        "2f337252199d4b4658a6abb15f8037e2b147bc58...HEAD"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/candidate-diff.txt.gz",
+      "output_encoding": "gzip; exact stdout bytes retained"
+    },
+    {
+      "label": "implementation-commits",
+      "command": [
+        "git",
+        "log",
+        "2f337252199d4b4658a6abb15f8037e2b147bc58..HEAD",
+        "--oneline"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/implementation-commits.txt"
+    },
+    {
+      "label": "evidence-diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 2,
+      "output_path": ".experiment/evidence-diff-check.txt.gz",
+      "interpretation": "Saved raw patch context uses intentional spaces on empty context lines; compressed that exact artifact to retain bytes without whitespace-check noise. Application source unchanged.",
+      "output_encoding": "gzip; exact stdout bytes retained"
+    },
+    {
+      "label": "evidence-diff-check-second",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 2,
+      "output_path": ".experiment/evidence-diff-check-second.json",
+      "output_encoding": "JSON stdout string; exact stdout bytes retained",
+      "interpretation": "First check transcript also had raw patch context spaces; gzip-preserved it as well."
+    },
+    {
+      "label": "evidence-final-check",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/workspace/relayboard-active/M-S04-001",
+      "exit_code": 0,
+      "output_path": ".experiment/evidence-final-check.txt"
+    }
+  ],
+  "test_summary": {
+    "baseline": "5 public tests pass",
+    "symptom": "original/repeat/minimal repro deterministically red",
+    "regression": "red before one-line fix; green after",
+    "original_repro_after_fix": "one alert; green",
+    "full_public_suite": "8 tests pass, OK",
+    ".experiment/instrumentation-clean.txt": "rg exit 1 means no DEBUG- matches in relayboard/tests"
+  },
+  "reviews": {
+    "fixed_point": "2f337252199d4b4658a6abb15f8037e2b147bc58",
+    "candidate": "6e8ae0ce540aa33bec3640932b7650c0ee196f5f",
+    "sequence": [
+      "Standards helper completed before Spec spawned",
+      "Spec helper completed before finalization"
+    ],
+    "Standards": {
+      "documented_violations": 0,
+      "actionable_smells": 0,
+      "report": ".experiment/review-standards.md"
+    },
+    "Spec": {
+      "findings": 0,
+      "report": ".experiment/review-spec.md"
+    },
+    "helpers": ".experiment/helper-requests.json"
+  },
+  "operator_interactions": [
+    {
+      "type": "nonblocking hypothesis checkpoint",
+      "target": "/root",
+      "content": "Ranked premature intermediate alert vs Store double insertion vs WSGI replay; one-Job one-Run two-failure repro; no product question required."
+    }
+  ],
+  "operator_questions": [],
+  "operator_answers": [],
+  "action_path_log": ".experiment/ACTION_LOG.json",
+  "evaluator_or_peer_material_accessed": false,
+  "forbidden_exposure_observed": false,
+  "external_actions": [],
+  "evidence_gaps": [
+    "Lead/helper actual model identity, reasoning setting and token/API usage are not independently exposed.",
+    "Initial read/discovery commands and paths are preserved in ACTION_LOG; their raw outputs remain in the tool transcript, not standalone artifacts.",
+    "Additional distinct-Run and multiple-retry-success guards were added after the one bugfix red/green slice; their pre-fix failures were not measured.",
+    "Standards helper cannot infer red/green history from final diff; lead red/green evidence is retained separately.",
+    "Spec helper test stdout is summarized in its report; lead full-suite raw stdout is preserved.",
+    "No hidden evaluation or concurrency/production behavior was tested; scope is deterministic public fixture."
+  ],
+  "evidence_artifact_adjustment": "Staged whitespace check flagged raw diff context spaces; preserved the exact artifact gzip-compressed. No source/test edits."
+}

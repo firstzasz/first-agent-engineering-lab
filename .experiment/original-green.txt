@@ -1,0 +1,3 @@
+{'attempt': 1, 'response': {'run': {'id': 'run-001', 'job_id': 'daily-report', 'source': 'manual', 'status': 'running'}, 'status': 'retry'}}
+{'attempt': 2, 'response': {'run': {'id': 'run-001', 'job_id': 'daily-report', 'source': 'manual', 'status': 'failed'}, 'status': 'failed'}}
+{'alerts': [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]}

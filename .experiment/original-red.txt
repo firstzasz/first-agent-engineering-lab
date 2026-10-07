@@ -1,0 +1,8 @@
+{'attempt': 1, 'response': {'run': {'id': 'run-001', 'job_id': 'daily-report', 'source': 'manual', 'status': 'running'}, 'status': 'retry'}}
+{'attempt': 2, 'response': {'run': {'id': 'run-001', 'job_id': 'daily-report', 'source': 'manual', 'status': 'failed'}, 'status': 'failed'}}
+{'alerts': [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}, {'id': 2, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]}
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/M-S04-001/.experiment/repro.py", line 31, in <module>
+    assert len(payload["alerts"]) <= 1, "duplicate failure alerts for one Run"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: duplicate failure alerts for one Run
