@@ -303,6 +303,158 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": ""
+    },
+    {
+      "run_id": "M-S02-002",
+      "treatment": "matt-codex-port-v0",
+      "scenario": "S02-v0.1",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 4,
+        "total": 4,
+        "silent_assumptions": 0,
+        "basis": "Unique requested/answered frozen product semantics. Frozen rubric counts unasked oracle guesses as silent assumptions; correctness is separate.",
+        "exchanges": [
+          {
+            "run_id": "M-S02-002",
+            "round": 1,
+            "observed_at": "2026-10-07 13:38:14 UTC",
+            "question": "Invoked grill-with-docs (grilling/domain-modeling). Facts enabled gates scheduled starts; disabled allow manual; Runs retry max_attempts; no queue/catchup exists; dashboard Enabled/Last result. Q1 pause scope: block only new scheduled or also manual/retries/inflight? Q2 separate persistent pause vs enabled alias? Q3 idempotent200 job response, missing404/no body? Q4 paused Jobs API/dashboard column preserving fields? Requested frontier then recompute/confirm.",
+            "answer": "Q1: scheduled start skipped/not queued; manual allowed; in-progress continues terminal with retries/alerts. Q2/Q3/Q4 no product/interface preference; task/public interfaces/reversible judgment. No blanket confirmation/unasked behavior.",
+            "classification": "MIXED",
+            "product_decisions_answered": [
+              "scheduled_start_while_paused",
+              "manual_run_while_paused",
+              "pause_in_progress_run"
+            ],
+            "questions": [
+              {
+                "id": "Q1",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+                "decisions": [
+                  "scheduled_start_while_paused",
+                  "manual_run_while_paused",
+                  "pause_in_progress_run"
+                ]
+              },
+              {
+                "id": "Q2",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "id": "Q3",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "id": "Q4",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              }
+            ],
+            "FACT_questions": 0,
+            "FACT_evidence_supplied_by_contestant": true,
+            "volunteered_requirements": false,
+            "answer_sheet_supplied": false
+          },
+          {
+            "run_id": "M-S02-002",
+            "round": 2,
+            "observed_at": "2026-10-07 13:38:54 UTC",
+            "question": "Recomputed frontier empty. Requests shared product confirmation: paused schedule skipped with no queue/catch-up; manual/current continue including retries/alerts; own representation/API/dashboard choices not supplied product guidance.",
+            "answer": "Now-requested no-catch-up: resume future schedule only, no catch-up. Prior scheduled/manual/current restatement matches answers. Engineering choices remain own; no extra preferences.",
+            "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+            "product_decisions_answered": [
+              "resume_behavior"
+            ],
+            "questions": [
+              {
+                "item": "Explicit no-catch-up shared product confirmation",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "Earlier product restatement",
+                "classification": "LEGIBLE_CHECKPOINT"
+              }
+            ],
+            "volunteered_requirements": false,
+            "note": "Resume no-catch-up not answered in first frontier; it became explicitly requested in confirmation before implementation."
+          }
+        ],
+        "FACT_questions": 0,
+        "reversible_engineering_questions": 3,
+        "question_count_basis": "Recorded individual question items; grouped product requests count by unique frozen semantics for surfaced/4, not exchange count."
+      },
+      "observable_overhead": {
+        "helper_context_count": 2,
+        "local_commit_count_including_start_and_evidence": 4,
+        "candidate_file_count": 81,
+        "new_process_artifact_file_count": 50,
+        "all_diff_stat": " .experiment/REPORT.json                     | 507 ++++++++++++++++++++++++++++\n .experiment/baseline.txt                    |  10 +\n .experiment/bundled-source-unchanged.txt    |   0\n .experiment/candidate-commits.txt           |   2 +\n .experiment/candidate-head.txt              |   1 +\n .experiment/candidate-product-diff.txt      | 397 ++++++++++++++++++++++\n .experiment/commands.jsonl                  |  33 ++\n .experiment/commit-implementation.txt       |   4 +\n .experiment/commit-review-fixes.txt         |   2 +\n .experiment/dashboard-green.txt             |   8 +\n .experiment/dashboard-red.txt               |  16 +\n .experiment/diff-check-after-review.txt     |   0\n .experiment/diff-check-before-review.txt    |   0\n .experiment/disabled-preservation.txt       |  12 +\n .experiment/enable-preservation.txt         |  13 +\n .experiment/existing-run-preservation.txt   |  11 +\n .experiment/fixed-point.txt                 |   1 +\n .experiment/full-after-review.txt           |  20 ++\n .experiment/full-before-review.txt          |  20 ++\n .experiment/helpers.json                    |  41 +++\n .experiment/idempotence-verification.txt    |  14 +\n .experiment/ignore-check.txt                |   0\n .experiment/initial-00.txt                  |   1 +\n .experiment/initial-01.txt                  |   1 +\n .experiment/initial-02.txt                  |   1 +\n .experiment/initial-03.txt                  |  28 ++\n .experiment/initial-04.txt                  |   1 +\n .experiment/initial-actions.json            |  56 +++\n .experiment/manual-preservation.txt         |  10 +\n .experiment/missing-method-verification.txt |  15 +\n .experiment/operator-exchanges.json         |  22 ++\n .experiment/pause-green.txt                 |   6 +\n .experiment/pause-red.txt                   |  14 +\n .experiment/persistence-green.txt           |   9 +\n .experiment/persistence-red.txt             |  27 ++\n .experiment/read-path-evidence.json         |  49 +++\n .experiment/resume-green.txt                |   7 +\n .experiment/resume-red.txt                  |  15 +\n .experiment/review-commits.txt              |   1 +\n .experiment/review-diff.txt                 | 397 ++++++++++++++++++++++\n .experiment/review-fix-diff.txt             |  61 ++++\n .experiment/review-summary.md               |   9 +\n .experiment/run.py                          |  17 +\n .experiment/session.md                      |  19 ++\n .experiment/spec-review.md                  |  29 ++\n .experiment/stage-implementation.txt        |   0\n .experiment/stage-review-fixes.txt          |   0\n .experiment/standards-review.md             |  26 ++\n .experiment/status-before-review.txt        |  34 ++\n .scratch/work/spec.md                       |  39 +++\n GLOSSARY.md                                 |   8 +-\n relayboard/models.py                        |   1 +\n relayboard/service.py                       |   8 +\n relayboard/store.py                         |  27 +-\n relayboard/web.py                           |  20 +-\n tests/test_pause.py                         | 167 +++++++++\n 56 files changed, 2228 insertions(+), 9 deletions(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "GLOSSARY.md",
+            "added": 5,
+            "removed": 3
+          },
+          {
+            "path": "relayboard/models.py",
+            "added": 1,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/service.py",
+            "added": 8,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/store.py",
+            "added": 22,
+            "removed": 5
+          },
+          {
+            "path": "relayboard/web.py",
+            "added": 19,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_pause.py",
+            "added": 167,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 2,
+        "start_at": "2026-10-07T13:36:23.794620+00:00",
+        "frozen_at": "2026-10-07T13:49:59.012336+00:00",
+        "wall_clock_seconds": 815.218,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }
