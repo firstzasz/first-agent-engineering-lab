@@ -1,0 +1,8 @@
+{
+  "run_id": "P-S02-001",
+  "stage": "local-history archival after candidate freeze/evaluation",
+  "blocker": "Single tool response truncated large base64 history bundle.",
+  "resolution": "Read exact history payload in independently checked 18000-character chunks; no candidate edit or contestant/evaluation retry.",
+  "candidate_sha": "f090ecf5df8175e8feac57c2a8c1a664ca94d0f9",
+  "evaluator_blob_sha": "3aaaa9924f09ba18a5888d94373a9edc04187926"
+}
