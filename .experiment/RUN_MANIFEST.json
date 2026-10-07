@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "run_id": "F-S04-002",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "scenario": "S04-v0",
+  "treatment": "first-mode-v0",
+  "host": "Codex shared managed cloud; procedural isolation",
+  "model_request": "gpt-6.1-sol",
+  "reasoning_request": "high",
+  "port_freeze_commit": null,
+  "evaluator_material_supplied": false,
+  "peer_results_supplied": false,
+  "contamination_rule": "Deliberate or accidental receipt of evaluator/oracle/reference-solution or peer information contaminates the run; stop, preserve and exclude without silent retry.",
+  "replication_round": 2
+}
