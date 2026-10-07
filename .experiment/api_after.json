@@ -1,0 +1,23 @@
+{
+  "alerts": {
+    "alerts": []
+  },
+  "alerts_status": 200,
+  "jobs": {
+    "jobs": [
+      {
+        "enabled": false,
+        "id": "cleanup",
+        "max_attempts": 1,
+        "name": "Cleanup"
+      },
+      {
+        "enabled": true,
+        "id": "daily-report",
+        "max_attempts": 2,
+        "name": "Daily report"
+      }
+    ]
+  },
+  "jobs_status": 200
+}
