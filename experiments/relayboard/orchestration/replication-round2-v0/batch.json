@@ -1,0 +1,165 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "protocol": "Frozen Evaluator Protocol v0; any forbidden peer/evaluator receipt contaminated",
+  "status": "PREPARING",
+  "source_commit": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+  "research_branch": "research/batch-orchestration-round2",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "serial": true,
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "execution_order": [
+    "F-S04-002",
+    "F-S02-002",
+    "F-S01-002",
+    "M-S04-002",
+    "M-S02-002",
+    "M-S01-002",
+    "P-S04-002",
+    "P-S02-002",
+    "P-S01-002",
+    "N-S04-002",
+    "N-S02-002",
+    "N-S01-002"
+  ],
+  "order_change_after_outcomes_allowed": false,
+  "completed_count": 0,
+  "runs": [
+    {
+      "run_id": "F-S04-002",
+      "arm": "first-mode",
+      "scenario": "S04-v0",
+      "treatment": "first-mode-v0",
+      "branch": "treatment/first-mode/F-S04-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/F-S04-002/run.json"
+    },
+    {
+      "run_id": "F-S02-002",
+      "arm": "first-mode",
+      "scenario": "S02-v0.1",
+      "treatment": "first-mode-v0",
+      "branch": "treatment/first-mode/F-S02-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/F-S02-002/run.json"
+    },
+    {
+      "run_id": "F-S01-002",
+      "arm": "first-mode",
+      "scenario": "S01-v0",
+      "treatment": "first-mode-v0",
+      "branch": "treatment/first-mode/F-S01-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/F-S01-002/run.json"
+    },
+    {
+      "run_id": "M-S04-002",
+      "arm": "matt",
+      "scenario": "S04-v0",
+      "treatment": "matt-codex-port-v0",
+      "branch": "treatment/matt/M-S04-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/M-S04-002/run.json"
+    },
+    {
+      "run_id": "M-S02-002",
+      "arm": "matt",
+      "scenario": "S02-v0.1",
+      "treatment": "matt-codex-port-v0",
+      "branch": "treatment/matt/M-S02-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/M-S02-002/run.json"
+    },
+    {
+      "run_id": "M-S01-002",
+      "arm": "matt",
+      "scenario": "S01-v0",
+      "treatment": "matt-codex-port-v0",
+      "branch": "treatment/matt/M-S01-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/M-S01-002/run.json"
+    },
+    {
+      "run_id": "P-S04-002",
+      "arm": "pstack",
+      "scenario": "S04-v0",
+      "treatment": "pstack-codex-port-v0",
+      "branch": "treatment/pstack/P-S04-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/P-S04-002/run.json"
+    },
+    {
+      "run_id": "P-S02-002",
+      "arm": "pstack",
+      "scenario": "S02-v0.1",
+      "treatment": "pstack-codex-port-v0",
+      "branch": "treatment/pstack/P-S02-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/P-S02-002/run.json"
+    },
+    {
+      "run_id": "P-S01-002",
+      "arm": "pstack",
+      "scenario": "S01-v0",
+      "treatment": "pstack-codex-port-v0",
+      "branch": "treatment/pstack/P-S01-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/P-S01-002/run.json"
+    },
+    {
+      "run_id": "N-S04-002",
+      "arm": "neutral",
+      "scenario": "S04-v0",
+      "treatment": "neutral-v0",
+      "branch": "treatment/neutral/N-S04-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/N-S04-002/run.json"
+    },
+    {
+      "run_id": "N-S02-002",
+      "arm": "neutral",
+      "scenario": "S02-v0.1",
+      "treatment": "neutral-v0",
+      "branch": "treatment/neutral/N-S02-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/N-S02-002/run.json"
+    },
+    {
+      "run_id": "N-S01-002",
+      "arm": "neutral",
+      "scenario": "S01-v0",
+      "treatment": "neutral-v0",
+      "branch": "treatment/neutral/N-S01-002",
+      "operator_interactions": [],
+      "status": "READY_PROCEDURAL",
+      "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "result_path": "results/N-S01-002/run.json"
+    }
+  ]
+}

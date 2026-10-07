@@ -1,0 +1,109 @@
+{
+  "rule": "Exact reverse of recorded Round 1 chronological execution order; original verified N-S01 precedes batch because its successful independent CI completed before first batch start.",
+  "round1_source": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+  "round1_order": [
+    "N-S01-001",
+    "N-S02-001",
+    "N-S04-001",
+    "P-S01-001",
+    "P-S02-001",
+    "P-S04-001",
+    "M-S01-001",
+    "M-S02-001",
+    "M-S04-001",
+    "F-S01-001",
+    "F-S02-001",
+    "F-S04-001"
+  ],
+  "round1_timestamp_records": [
+    {
+      "run_id": "N-S02-001",
+      "start": "2026-10-07T06:18:21.414720+00:00",
+      "frozen": "2026-10-07T06:22:10.839133+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "N-S04-001",
+      "start": "2026-10-07T06:50:15.911779+00:00",
+      "frozen": "2026-10-07T06:52:57.939412+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "P-S01-001",
+      "start": "2026-10-07T06:53:42.081319+00:00",
+      "frozen": "2026-10-07T07:00:28.102321+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "P-S02-001",
+      "start": "2026-10-07T07:01:01.847725+00:00",
+      "frozen": "2026-10-07T07:16:15.599768+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "P-S04-001",
+      "start": "2026-10-07T07:17:10.868136+00:00",
+      "frozen": "2026-10-07T07:27:28.226264+00:00",
+      "status": "CONTAMINATED"
+    },
+    {
+      "run_id": "M-S01-001",
+      "start": "2026-10-07T07:27:55.353452+00:00",
+      "frozen": "2026-10-07T09:33:17.693932+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "M-S02-001",
+      "start": "2026-10-07T09:33:36.896043+00:00",
+      "frozen": "2026-10-07T09:46:25.407764+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "M-S04-001",
+      "start": "2026-10-07T09:46:44.776669+00:00",
+      "frozen": "2026-10-07T09:56:00.336182+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "F-S01-001",
+      "start": "2026-10-07T12:06:20.418215+00:00",
+      "frozen": "2026-10-07T12:09:07.978518+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "F-S02-001",
+      "start": "2026-10-07T12:09:30.403126+00:00",
+      "frozen": "2026-10-07T12:15:20.911189+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "F-S04-001",
+      "start": "2026-10-07T12:15:40.179737+00:00",
+      "frozen": "2026-10-07T12:20:44.462957+00:00",
+      "status": "COMPLETED_EVALUATED_PASS"
+    }
+  ],
+  "N_S01_evaluation": {
+    "run": 37559041286,
+    "started_at": "2026-10-07T01:50:06Z",
+    "completed_observed_at": "2026-10-07T01:50:20Z",
+    "head_sha": "13b914364178fb2242936c81a7bc26f0d27fdd35",
+    "conclusion": "success"
+  },
+  "round2_order": [
+    "F-S04-002",
+    "F-S02-002",
+    "F-S01-002",
+    "M-S04-002",
+    "M-S02-002",
+    "M-S01-002",
+    "P-S04-002",
+    "P-S02-002",
+    "P-S01-002",
+    "N-S04-002",
+    "N-S02-002",
+    "N-S01-002"
+  ],
+  "frozen_before_first_contestant": true,
+  "change_after_outcomes_allowed": false
+}
