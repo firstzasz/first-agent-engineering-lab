@@ -1,0 +1,122 @@
+test_distinct_runs_of_same_job_each_emit_failure_alert (test_retry_alerts.RetryAlertTests.test_distinct_runs_of_same_job_each_emit_failure_alert) ... FAIL
+test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) ... 
+  test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=2, source='manual') ... FAIL
+  test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=2, source='scheduled') ... FAIL
+  test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=3, source='manual') ... FAIL
+  test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=3, source='scheduled') ... FAIL
+test_success_after_retry_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retry_emits_no_failure_alert) ... FAIL
+
+======================================================================
+FAIL: test_distinct_runs_of_same_job_each_emit_failure_alert (test_retry_alerts.RetryAlertTests.test_distinct_runs_of_same_job_each_emit_failure_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S04-002/tests/test_retry_alerts.py", line 86, in test_distinct_runs_of_same_job_each_emit_failure_alert
+    self.assertEqual([alert["run_id"] for alert in alerts], run_ids)
+AssertionError: Lists differ: ['run-001', 'run-002', 'run-001', 'run-002'] != ['run-001', 'run-002']
+
+First list contains 2 additional elements.
+First extra element 2:
+'run-001'
+
+- ['run-001', 'run-002', 'run-001', 'run-002']
++ ['run-001', 'run-002']
+
+======================================================================
+FAIL: test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=2, source='manual')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S04-002/tests/test_retry_alerts.py", line 46, in test_retry_exhaustion_emits_only_one_terminal_alert
+    self.assertEqual(self.alerts(), [])
+AssertionError: Lists differ: [{'id': 1, 'job_id': 'retry-job', 'kind': [81 chars]01'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 1, 'job_id': 'retry-job', 'kind': 'run_failed', 'message': 'Job Retry job failed for run run-001', 'run_id': 'run-001'}
+
++ []
+- [{'id': 1,
+-   'job_id': 'retry-job',
+-   'kind': 'run_failed',
+-   'message': 'Job Retry job failed for run run-001',
+-   'run_id': 'run-001'}]
+
+======================================================================
+FAIL: test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=2, source='scheduled')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S04-002/tests/test_retry_alerts.py", line 46, in test_retry_exhaustion_emits_only_one_terminal_alert
+    self.assertEqual(self.alerts(), [])
+AssertionError: Lists differ: [{'id': 1, 'job_id': 'retry-job', 'kind': [81 chars]01'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 1, 'job_id': 'retry-job', 'kind': 'run_failed', 'message': 'Job Retry job failed for run run-001', 'run_id': 'run-001'}
+
++ []
+- [{'id': 1,
+-   'job_id': 'retry-job',
+-   'kind': 'run_failed',
+-   'message': 'Job Retry job failed for run run-001',
+-   'run_id': 'run-001'}]
+
+======================================================================
+FAIL: test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=3, source='manual')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S04-002/tests/test_retry_alerts.py", line 46, in test_retry_exhaustion_emits_only_one_terminal_alert
+    self.assertEqual(self.alerts(), [])
+AssertionError: Lists differ: [{'id': 1, 'job_id': 'retry-job', 'kind': [81 chars]01'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 1, 'job_id': 'retry-job', 'kind': 'run_failed', 'message': 'Job Retry job failed for run run-001', 'run_id': 'run-001'}
+
++ []
+- [{'id': 1,
+-   'job_id': 'retry-job',
+-   'kind': 'run_failed',
+-   'message': 'Job Retry job failed for run run-001',
+-   'run_id': 'run-001'}]
+
+======================================================================
+FAIL: test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) (max_attempts=3, source='scheduled')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S04-002/tests/test_retry_alerts.py", line 46, in test_retry_exhaustion_emits_only_one_terminal_alert
+    self.assertEqual(self.alerts(), [])
+AssertionError: Lists differ: [{'id': 1, 'job_id': 'retry-job', 'kind': [81 chars]01'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 1, 'job_id': 'retry-job', 'kind': 'run_failed', 'message': 'Job Retry job failed for run run-001', 'run_id': 'run-001'}
+
++ []
+- [{'id': 1,
+-   'job_id': 'retry-job',
+-   'kind': 'run_failed',
+-   'message': 'Job Retry job failed for run run-001',
+-   'run_id': 'run-001'}]
+
+======================================================================
+FAIL: test_success_after_retry_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retry_emits_no_failure_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S04-002/tests/test_retry_alerts.py", line 71, in test_success_after_retry_emits_no_failure_alert
+    self.assertEqual(self.alerts(), [])
+AssertionError: Lists differ: [{'id': 1, 'job_id': 'daily-report', 'kind[87 chars]01'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}
+
++ []
+- [{'id': 1,
+-   'job_id': 'daily-report',
+-   'kind': 'run_failed',
+-   'message': 'Job Daily report failed for run run-001',
+-   'run_id': 'run-001'}]
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.008s
+
+FAILED (failures=6)

@@ -1,0 +1,6 @@
+.experiment/regression-red.txt:2: trailing whitespace.
++test_retry_exhaustion_emits_only_one_terminal_alert (test_retry_alerts.RetryAlertTests.test_retry_exhaustion_emits_only_one_terminal_alert) ... 
+.experiment/source-diff.txt:7: trailing whitespace.
++ 
+.experiment/source-diff.txt:11: trailing whitespace.
++ 
