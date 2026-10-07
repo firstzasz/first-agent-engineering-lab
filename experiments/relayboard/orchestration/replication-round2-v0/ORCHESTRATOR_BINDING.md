@@ -1,0 +1,7 @@
+# Round 2 host binding
+
+New branch research/batch-orchestration-round2; dedicated /workspace/relayboard-round2-control and /workspace/relayboard-round2-active. Reconstruct delivery from prepared-packets.json exact branch trees. The twelve fixed order entries execute serially. Scripts use functions.exec/load/store and GitHub connector, not paid API clients or a repository clone.
+
+Before each spawn set next_run_id in the frozen order, run prepare_next.js, and directly invoke collaboration.spawn_agent with fork_turns=none, gpt-6.1-sol/high and assigned-area-only envelope. Record lead and helper configurations. Query contestant statuses only under that run's canonical prefix. Observe all completed before capture_publish.js. Freeze candidate and exact remote tree, remove active area, separately run public and unchanged evaluator, remove evaluator before next prepare. Contaminated candidates are preserved/excluded without hidden evaluation or silent retry. No hidden feedback; no merging.
+
+Same frozen Round 1 ports are reused unchanged. No Round 1 artifacts are written by these recipes. Each run preserves available logs/commits/test outputs/operator exchanges; host raw transcript/runtime identity/token/tool metrics unavailable remain unknown. Frozen S02 answers only respond to asked product semantics; record surfaced/4 and remaining silent assumptions. Compare twelve dispositions only after finishing the round.
