@@ -150,7 +150,7 @@ class RelayBoardApp:
             "<html><head><title>RelayBoard</title></head><body>"
             "<h1>Jobs</h1>"
             "<table id='jobs'><thead><tr>"
-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
             "</tr></thead><tbody>"
             + "".join(rows)
             + "</tbody></table></body></html>"

@@ -1,0 +1,1 @@
+PASS: GET /dashboard returns 200, Latest result replaces Last result, and all other response HTML is byte-identical.
