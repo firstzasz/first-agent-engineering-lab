@@ -84,7 +84,18 @@ The common analysis frame is:
 
 Status: **PILOT IN PROGRESS**
 
-### Phase 1J: Remaining batch orchestration preflight
+### Phase 1K: Frozen procedural protocol continuation
+
+Status: **PORTS FROZEN; PROCEDURAL PREFLIGHT VERIFIED; EXECUTION READY**
+
+- The prior hard-access gate exceeded Frozen Evaluator Protocol v0 and is now historical, not the pilot gate.
+- pstack-codex-port-v0 and matt-codex-port-v0 were frozen at `311871987a48a072e36f434e199b1cb28563c81b` before new outcomes; these are non-native Codex ports.
+- Synthetic clean/contamination controls passed; all synthetic files were removed from delivery.
+- Eleven assigned-only snapshot branches are prepared. Contestants run serially in fresh contexts; candidates freeze before separate evaluation.
+- [Active procedural batch](./experiments/relayboard/orchestration/procedural-batch-v0/README.md)
+- [Correction record](./docs/experiments/0011-procedural-orchestration-correction.md)
+
+### Phase 1J: Remaining batch orchestration preflight (historical hard-isolation gate)
 
 Status: **PREPARATION IMPLEMENTED and VERIFIED; EXECUTION BLOCKED**
 

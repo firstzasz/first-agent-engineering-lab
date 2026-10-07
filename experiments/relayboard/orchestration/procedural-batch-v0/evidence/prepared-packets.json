@@ -1,0 +1,1161 @@
+[
+  {
+    "run_id": "N-S02-001",
+    "prepared_sha": "27332a47f13320178f8736a5ba328bac8604965d",
+    "tree_sha": "aab58275db3ae4fae1c6858bbb9fcb19859f863b",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "1c5f08f6abd501fd13f1b54838a71377f362d343"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "neutral-v0"
+  },
+  {
+    "run_id": "N-S04-001",
+    "prepared_sha": "6678bb4eb7c794ec349a65f89fd64ef89bf71b12",
+    "tree_sha": "d620ed65680c614a8e65aba85dc0e0fba3dafcd3",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "6eea31c4fa615af6615badbe5028d8372eaab32f"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "neutral-v0"
+  },
+  {
+    "run_id": "P-S01-001",
+    "prepared_sha": "bf39364986c2d80c4d6a084f4f947eba4a401199",
+    "tree_sha": "a787f17c567db06ab1d2cbbdaa4d61af1e6d3a3e",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "fc82c15751afcd3f12356fe0b5706a2bef86dec9"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "5d142e5a9c03b9e82ec6a567457deaf7adb29834"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      },
+      {
+        "path": "upstream/pstack/LICENSE",
+        "sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/SKILL.md",
+        "sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/references/design-red-flags.md",
+        "sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/references/rationale-template.md",
+        "sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+      },
+      {
+        "path": "upstream/pstack/skills/arena/SKILL.md",
+        "sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+      },
+      {
+        "path": "upstream/pstack/skills/how/SKILL.md",
+        "sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/SKILL.md",
+        "sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+        "sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md",
+        "sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/feature.md",
+        "sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
+        "sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
+        "sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-model-the-domain/SKILL.md",
+        "sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md",
+        "sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-prove-it-works/SKILL.md",
+        "sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+        "sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+        "sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+      },
+      {
+        "path": "upstream/pstack/skills/show-me-your-work/SKILL.md",
+        "sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+      },
+      {
+        "path": "upstream/pstack/skills/tdd/SKILL.md",
+        "sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "pstack-codex-port-v0"
+  },
+  {
+    "run_id": "P-S02-001",
+    "prepared_sha": "62d8221287101ba929f47576ee48291c92a1917a",
+    "tree_sha": "9078c1e1a7c41af68032411c42c3d5d36368b176",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "95d0e1d5805f6f6e34700830fab2424a011bc024"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      },
+      {
+        "path": "upstream/pstack/LICENSE",
+        "sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/SKILL.md",
+        "sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/references/design-red-flags.md",
+        "sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/references/rationale-template.md",
+        "sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+      },
+      {
+        "path": "upstream/pstack/skills/arena/SKILL.md",
+        "sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+      },
+      {
+        "path": "upstream/pstack/skills/how/SKILL.md",
+        "sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/SKILL.md",
+        "sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+        "sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md",
+        "sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/feature.md",
+        "sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
+        "sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
+        "sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-model-the-domain/SKILL.md",
+        "sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md",
+        "sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-prove-it-works/SKILL.md",
+        "sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+        "sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+        "sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+      },
+      {
+        "path": "upstream/pstack/skills/show-me-your-work/SKILL.md",
+        "sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+      },
+      {
+        "path": "upstream/pstack/skills/tdd/SKILL.md",
+        "sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "pstack-codex-port-v0"
+  },
+  {
+    "run_id": "P-S04-001",
+    "prepared_sha": "7f2c851511e80d9d3b6b5cacdcbd6644b7e6303b",
+    "tree_sha": "2ff4618de4464072192d75ff33d4ef3d9986dd25",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "cca45fbe2f9fc9b60efaafe0ca4c69f799dc3dac"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      },
+      {
+        "path": "upstream/pstack/LICENSE",
+        "sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/SKILL.md",
+        "sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/references/design-red-flags.md",
+        "sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+      },
+      {
+        "path": "upstream/pstack/skills/architect/references/rationale-template.md",
+        "sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+      },
+      {
+        "path": "upstream/pstack/skills/arena/SKILL.md",
+        "sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+      },
+      {
+        "path": "upstream/pstack/skills/how/SKILL.md",
+        "sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/SKILL.md",
+        "sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+        "sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md",
+        "sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+      },
+      {
+        "path": "upstream/pstack/skills/poteto-mode/playbooks/feature.md",
+        "sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
+        "sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
+        "sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-model-the-domain/SKILL.md",
+        "sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md",
+        "sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-prove-it-works/SKILL.md",
+        "sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+        "sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+      },
+      {
+        "path": "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+        "sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+      },
+      {
+        "path": "upstream/pstack/skills/show-me-your-work/SKILL.md",
+        "sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+      },
+      {
+        "path": "upstream/pstack/skills/tdd/SKILL.md",
+        "sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "pstack-codex-port-v0"
+  },
+  {
+    "run_id": "M-S01-001",
+    "prepared_sha": "e8fc00ff4730637af8c53299209c2230531e0667",
+    "tree_sha": "1a421f6a242b47ec92fc8f206ecb9150f28357bc",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "346c5f1941614d71c84a43aa795b2bc722cc27b4"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "d735ea5af2d34c65764fcc2050ada3d428a253bc"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "5d142e5a9c03b9e82ec6a567457deaf7adb29834"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      },
+      {
+        "path": "upstream/matt/LICENSE",
+        "sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/code-review/SKILL.md",
+        "sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md",
+        "sha": "1b929e29fb519c26b500d3eda744177986883ac8"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md",
+        "sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+        "sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/SKILL.md",
+        "sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/grill-with-docs/SKILL.md",
+        "sha": "62b9efb6f991d1b229adee7506962f13ced0c499"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/implement-spec/SKILL.md",
+        "sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/implement/SKILL.md",
+        "sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/SKILL.md",
+        "sha": "250871ccdfefa7525309acfebda090edf4046882"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/mocking.md",
+        "sha": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/tests.md",
+        "sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/to-spec/SKILL.md",
+        "sha": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/to-tickets/SKILL.md",
+        "sha": "e868c831fcfb1e124e010bcdf84a429ec879160f"
+      },
+      {
+        "path": "upstream/matt/skills/productivity/grilling/SKILL.md",
+        "sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "matt-codex-port-v0"
+  },
+  {
+    "run_id": "M-S02-001",
+    "prepared_sha": "106e2286a3e942233cb2060effa0d701f592932b",
+    "tree_sha": "3d55015c8e68464d4be73e3bc922b61a3b2f9006",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "430e76d3939b1d7f861caf8645d97916e482ac56"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "d735ea5af2d34c65764fcc2050ada3d428a253bc"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      },
+      {
+        "path": "upstream/matt/LICENSE",
+        "sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/code-review/SKILL.md",
+        "sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md",
+        "sha": "1b929e29fb519c26b500d3eda744177986883ac8"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md",
+        "sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+        "sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/SKILL.md",
+        "sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/grill-with-docs/SKILL.md",
+        "sha": "62b9efb6f991d1b229adee7506962f13ced0c499"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/implement-spec/SKILL.md",
+        "sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/implement/SKILL.md",
+        "sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/SKILL.md",
+        "sha": "250871ccdfefa7525309acfebda090edf4046882"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/mocking.md",
+        "sha": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/tests.md",
+        "sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/to-spec/SKILL.md",
+        "sha": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/to-tickets/SKILL.md",
+        "sha": "e868c831fcfb1e124e010bcdf84a429ec879160f"
+      },
+      {
+        "path": "upstream/matt/skills/productivity/grilling/SKILL.md",
+        "sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "matt-codex-port-v0"
+  },
+  {
+    "run_id": "M-S04-001",
+    "prepared_sha": "6b7c509c48cdf1e448c63b368609b5b2995f3fdd",
+    "tree_sha": "d14ec20c4cb65e63748e783a87faf8e54db14ea6",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "189debd75bb925a317b949296460466482652065"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "d735ea5af2d34c65764fcc2050ada3d428a253bc"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      },
+      {
+        "path": "upstream/matt/LICENSE",
+        "sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/code-review/SKILL.md",
+        "sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md",
+        "sha": "1b929e29fb519c26b500d3eda744177986883ac8"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md",
+        "sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+        "sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/domain-modeling/SKILL.md",
+        "sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/grill-with-docs/SKILL.md",
+        "sha": "62b9efb6f991d1b229adee7506962f13ced0c499"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/implement-spec/SKILL.md",
+        "sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/implement/SKILL.md",
+        "sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/SKILL.md",
+        "sha": "250871ccdfefa7525309acfebda090edf4046882"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/mocking.md",
+        "sha": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/tdd/tests.md",
+        "sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/to-spec/SKILL.md",
+        "sha": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+      },
+      {
+        "path": "upstream/matt/skills/engineering/to-tickets/SKILL.md",
+        "sha": "e868c831fcfb1e124e010bcdf84a429ec879160f"
+      },
+      {
+        "path": "upstream/matt/skills/productivity/grilling/SKILL.md",
+        "sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "matt-codex-port-v0"
+  },
+  {
+    "run_id": "F-S01-001",
+    "prepared_sha": "dc4704ccb3ff4e3c4d392c96028ec194e73d5ac9",
+    "tree_sha": "31760023690b769d1757a099be2f14e2290a26a2",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "71f6b2011c4c9cb0eb573e66f5ff8cf80de9d126"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "22ef0c77d90c3410785dd593f2b5c161edaed531"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "5d142e5a9c03b9e82ec6a567457deaf7adb29834"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "first-mode-v0"
+  },
+  {
+    "run_id": "F-S02-001",
+    "prepared_sha": "13dae3136e2a81fc70ce278757d47aa33e572b46",
+    "tree_sha": "958b2c5dca7e3368a537bc253b949dc53cfd96c9",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "8180a40225f65346e013c7d753253b50061b167d"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "22ef0c77d90c3410785dd593f2b5c161edaed531"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "first-mode-v0"
+  },
+  {
+    "run_id": "F-S04-001",
+    "prepared_sha": "9069e82b54b0c6e6bd940be29b447227b8d63e15",
+    "tree_sha": "b326225f6e351ed98876357c5b2d0d0c5ec52f75",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "f519de5ff934affbcf18b69a8e65fce24c5c61d0"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "METHOD.md",
+        "sha": "22ef0c77d90c3410785dd593f2b5c161edaed531"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      }
+    ],
+    "allowlist_pass": true,
+    "method": "first-mode-v0"
+  }
+]
