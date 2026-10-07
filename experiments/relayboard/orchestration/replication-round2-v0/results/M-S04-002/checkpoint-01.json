@@ -1,0 +1,4 @@
+{
+  "observed_at": "2026-10-07 13:28:18 UTC",
+  "message": "Deterministic WSGI repro gives two identical run_failed alerts for one daily-report Run/two failed Attempts; first failed Attempt gives one alert while Run remains running. Four ranked preprobe hypotheses: per-Attempt/nonterminal emission; different retry/terminal emission origins; Store duplicates one emission; WSGI replays attempt. Task/glossary terminal semantics explicit, no product question."
+}
