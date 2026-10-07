@@ -25,8 +25,10 @@
       },
       "requirement_discovery": null,
       "observable_overhead": {
+        "helper_context_count": 0,
         "local_commit_count_including_start_and_evidence": 4,
         "candidate_file_count": 32,
+        "new_process_artifact_file_count": 16,
         "all_diff_stat": " .experiment/REPORT.json                | 253 +++++++++++++++++++++++++++++++++\n .experiment/STATE.md                   |  26 ++++\n .experiment/baseline.txt               |  10 ++\n .experiment/commands.jsonl             |  12 ++\n .experiment/commit-fix.txt             |   3 +\n .experiment/committed-source-check.txt |   0\n .experiment/diff-check.txt             |   0\n .experiment/implementation-commit.txt  |   1 +\n .experiment/pre-report-status.txt      |  11 ++\n .experiment/record.py                  |  16 +++\n .experiment/regression-green.txt       |  13 ++\n .experiment/regression-red.txt         | 122 ++++++++++++++++\n .experiment/source-diff.txt            |  12 ++\n .experiment/stage-evidence.txt         |   0\n .experiment/stage-fix.txt              |   0\n .experiment/staged-check.txt           |   6 +\n relayboard/service.py                  |   1 -\n tests/test_retry_alerts.py             |  91 ++++++++++++\n 18 files changed, 576 insertions(+), 1 deletion(-)\n",
         "production_and_test_line_changes": [
           {
@@ -45,6 +47,131 @@
         "start_at": "2026-10-07T13:11:55.968200+00:00",
         "frozen_at": "2026-10-07T13:15:52.313698+00:00",
         "wall_clock_seconds": 236.345,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
+    },
+    {
+      "run_id": "F-S02-002",
+      "treatment": "first-mode-v0",
+      "scenario": "S02-v0.1",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 2,
+        "total": 4,
+        "silent_assumptions": 2,
+        "basis": "Unique requested/answered frozen product semantics. Frozen rubric counts unasked oracle guesses as silent assumptions; correctness is separate.",
+        "exchanges": [
+          {
+            "run_id": "F-S02-002",
+            "round": 1,
+            "observed_at": "2026-10-07 13:17:41 UTC",
+            "question": "Product semantics remain undefined in GLOSSARY.md. Proposed policy: pause independently tracks scheduling suppression; manual runs remain allowed; existing Runs and retries continue and existing alerts still emit; resume removes pause without changing enabled/disabled state; pause/resume are idempotent; dashboard shows an explicit Paused field alongside Enabled and Last result. Please confirm or give desired changes, especially manual runs, in-flight retry/alerts, and dashboard representation. FACT evidence: current disabled jobs block only scheduled starts, allow manual runs; Runs already begun are independent; task requests preservation of existing behavior. No implementation dependent on these choices will proceed until your answer.",
+            "answer": "Manual Runs allowed while paused. In-progress Run continues terminal including existing retries/alerts. No additional guidance for representation/enabled/idempotence/dashboard; task/public interfaces/reversible judgment. No blanket confirmation of other proposed policy.",
+            "classification": "MIXED",
+            "product_decisions_answered": [
+              "manual_run_while_paused",
+              "pause_in_progress_run"
+            ],
+            "question_classifications": [
+              {
+                "item": "manual runs",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "in-flight Run/retries/alerts",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "pause-state representation",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "item": "enabled/disabled representation",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "item": "idempotence",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "item": "dashboard presentation",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              }
+            ],
+            "FACT_questions": 0,
+            "FACT_evidence_supplied_by_contestant": true,
+            "volunteered_requirements": false
+          }
+        ],
+        "FACT_questions": 0,
+        "reversible_engineering_questions": 4,
+        "question_count_basis": "Recorded individual question items; grouped product requests count by unique frozen semantics for surfaced/4, not exchange count."
+      },
+      "observable_overhead": {
+        "helper_context_count": 0,
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 25,
+        "new_process_artifact_file_count": 9,
+        "all_diff_stat": " .experiment/CHECKPOINTS.md            |   5 +\n .experiment/REPORT.json               | 229 ++++++++++++++++++++++++++++++++++\n .experiment/baseline-tests.txt        |  10 ++\n .experiment/diff-check.txt            |   0\n .experiment/implementation-commit.txt |   3 +\n .experiment/implementation.diff       | 187 +++++++++++++++++++++++++++\n .experiment/red-tests.txt             | 102 +++++++++++++++\n .experiment/state.json                | 198 +++++++++++++++++++++++++++++\n .experiment/verified-tests.txt        |  20 +++\n README.md                             |  14 +++\n relayboard/models.py                  |   1 +\n relayboard/service.py                 |  10 +-\n relayboard/store.py                   |  26 +++-\n relayboard/web.py                     |  21 +++-\n tests/test_pause.py                   | 151 ++++++++++++++++++++++\n 15 files changed, 973 insertions(+), 4 deletions(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/models.py",
+            "added": 1,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/service.py",
+            "added": 9,
+            "removed": 1
+          },
+          {
+            "path": "relayboard/store.py",
+            "added": 24,
+            "removed": 2
+          },
+          {
+            "path": "relayboard/web.py",
+            "added": 20,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_pause.py",
+            "added": 151,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 1,
+        "start_at": "2026-10-07T13:16:09.514894+00:00",
+        "frozen_at": "2026-10-07T13:21:43.683280+00:00",
+        "wall_clock_seconds": 334.169,
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
