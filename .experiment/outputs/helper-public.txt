@@ -1,0 +1,16 @@
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert) ... ok
+test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert) ... ok
+test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.008s
+
+OK
+
+EXIT_CODE=0

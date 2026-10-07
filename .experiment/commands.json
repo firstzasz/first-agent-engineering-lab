@@ -1,0 +1,47 @@
+[
+  {
+    "cmd": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'AGENTS.md' -g '*'",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "result": "Listed supplied run only, including local .git paths; no file contents from other runs were read"
+  },
+  {
+    "cmd": "cat TASK.md METHOD.md .experiment/RUN_MANIFEST.json && git status --short && git rev-parse HEAD",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "result": "Clean initial commit a736d8366f95b1b586ab8b0c31f52dc876cf2e6a"
+  },
+  {
+    "cmd": "cat bundled Poteto Mode, bug-fix, seven core leaf skills",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "result": "Read unchanged assigned sources only"
+  },
+  {
+    "cmd": "cat bundled How, TDD, Show me your work, README.md, GLOSSARY.md, pyproject.toml, models, service, store, testing, public tests",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "result": "Direct narrow subsystem trace; README outside-run links were not followed"
+  },
+  {
+    "cmd": "cat relayboard/web.py .gitignore && python -m unittest discover -s tests -v",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "result": "5 tests passed"
+  },
+  {
+    "cmd": "python -m unittest discover -s tests -v",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "output": ".experiment/outputs/baseline-public.txt",
+    "exit_code": 0
+  },
+  {
+    "cmd": "python -m .experiment.reproduce_alerts",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "output": ".experiment/outputs/repro-before.txt",
+    "exit_code": 1,
+    "result": "Invalid relative module name; inconclusive harness invocation"
+  },
+  {
+    "cmd": "PYTHONPATH=. python .experiment/reproduce_alerts.py",
+    "workdir": "/workspace/relayboard-active/P-S04-001",
+    "output": ".experiment/outputs/repro-before-wsgi.txt",
+    "exit_code": 1,
+    "result": "Expected Run alert invariant fails; exit observed directly below"
+  }
+]
