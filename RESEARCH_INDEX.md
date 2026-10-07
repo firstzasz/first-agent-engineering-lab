@@ -82,11 +82,11 @@ The common analysis frame is:
 
 ## Phase 1: Comparative experiments
 
-Status: **PILOT IN PROGRESS**
+Status: **PILOT IN PROGRESS — PROCEDURAL BATCH EXECUTING**
 
 ### Phase 1K: Frozen procedural protocol continuation
 
-Status: **PORTS FROZEN; PROCEDURAL PREFLIGHT VERIFIED; EXECUTION READY**
+Status: **PORTS FROZEN; PROCEDURAL PREFLIGHT VERIFIED; EXECUTING**
 
 - The prior hard-access gate exceeded Frozen Evaluator Protocol v0 and is now historical, not the pilot gate.
 - pstack-codex-port-v0 and matt-codex-port-v0 were frozen at `311871987a48a072e36f434e199b1cb28563c81b` before new outcomes; these are non-native Codex ports.
@@ -293,9 +293,9 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Provide an isolated runner that passes the two-worker evaluator/peer-access denial preflight in [the batch handoff](./experiments/relayboard/orchestration/batch-v0.1/README.md).
-2. Verify pstack/Matt pinned installation and host binding before their runs; preserve methodology definitions.
-3. Dispatch the eleven staged manifests in fresh independent contexts from Pilot Start State v0.1. Exclude completed N-S01-001.
+1. Continue the serial procedural queue in [the active batch](./experiments/relayboard/orchestration/procedural-batch-v0/README.md); the earlier hard-access gate is historical and exceeded the frozen protocol.
+2. Preserve the already-frozen non-native pstack-codex-port-v0 and matt-codex-port-v0 bindings; do not claim native installation or change treatment definitions after outcomes.
+3. Preserve completed/excluded run evidence without silent retries; N-S01-001 remains completed and untouched.
 4. Capture available model, host, methodology, operator interaction, commit, test and execution evidence; label unavailable metrics.
 5. Terminate each contestant, evaluate its exact immutable candidate separately and persist results. Do not merge contestant PRs into main.
 6. Compare evidence by scenario and mechanism; distinguish host effects and portability from methodology quality.
