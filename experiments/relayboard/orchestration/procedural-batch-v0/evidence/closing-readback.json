@@ -1,0 +1,32 @@
+{
+  "verified_closing_commit": "c595afc4bc705eaf57f79ece37cbfca582434a14",
+  "observed_at": "2026-10-07 12:23:35 UTC",
+  "repository": "firstzasz/first-agent-engineering-lab",
+  "branch": "research/batch-orchestration-pilot",
+  "readback": [
+    {
+      "path": "RESEARCH_INDEX.md",
+      "sha": "2392a40a35649d2f192c3d0bf212217747391d8b"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/procedural-batch-v0/README.md",
+      "sha": "25042ccc15df0d3c05863cd17d5334467e3fb889"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/procedural-batch-v0/batch.json",
+      "sha": "3547eab7c355ec4e623d9d395fc8510cefaa189b"
+    },
+    {
+      "path": "docs/experiments/0012-procedural-batch-results.md",
+      "sha": "cb9e1ed1d9dea1501c2884c1e63e409b372b87d8"
+    }
+  ],
+  "batch_status": "COMPLETED",
+  "completed_dispositions": 11,
+  "valid_passes": 10,
+  "contaminated_excluded": 1,
+  "repeat_contaminated": false,
+  "frozen_inputs_unchanged": true,
+  "N_S01_001_untouched": true,
+  "main_unchanged": true
+}

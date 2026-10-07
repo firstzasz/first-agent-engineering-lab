@@ -35,4 +35,4 @@ Evidence:
 - [Frozen-rubric profiles](../../experiments/relayboard/orchestration/procedural-batch-v0/profiles.json)
 - [Final audit](../../experiments/relayboard/orchestration/procedural-batch-v0/evidence/final-audit.json)
 - [Protocol correction](./0011-procedural-orchestration-correction.md)
-- [Frozen Codex ports](../../experiments/relayboard/orchestration/codex-ports-v0/README.md)
+- [Frozen Codex ports](../../experiments/relayboard/orchestration/codex-ports-v0/SOURCE_INDEX.json)
