@@ -1,0 +1,19 @@
+# Run evidence
+
+Assigned area: /workspace/relayboard-round2-active/M-S02-002.
+Starting commit: 985b5380548ab80c2c243f97e9732a403bff88b3.
+Assigned method: matt-codex-port-v0, explicitly non-native; unchanged bundled upstream source version 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d.
+Lead requested identity: GPT-6.1 Sol, High. Runtime identity/usage attestation unavailable; system identifies Codex based on GPT-6 without exact variant/effort attestation.
+No external network, credentials, sibling workspaces, hidden/evaluator/peer material accessed. README contains links outside the area; those links were not followed.
+Initial discovery and source reads: TASK.md, METHOD.md, GLOSSARY.md, README.md, pyproject.toml, relayboard/{models,store,service,web,testing}.py, tests/test_public.py.
+Method sources opened: grill-with-docs, grilling, domain-modeling, GLOSSARY-FORMAT, to-spec, to-tickets, implement, implement-spec, tdd, tdd/tests, tdd/mocking, code-review.
+Invoked so far: grill-with-docs, composing grilling and domain-modeling. Facts explored directly before product frontier. No exploration helper needed once facts were locally established.
+Adaptations: local spec/tracker and standing reversible seam/ticket-shape authorization; public WSGI/SQLite/Store seams pre-agreed. Native skill host, tracker, model diversity, concurrency/worktree workflow not claimed.
+
+Decision checkpoint: confirmed product frontier empty. Pause/no queue, resume/future only, manual allowance and existing Run continuation supplied by operator; representation, enabled preservation, response/idempotence and presentation delegated to engineering judgment. Invoked to-spec, implement and tdd for one cohesive unit. No to-tickets/implement-spec invocation; no genuine blocking edges. No ADR: reversible change.
+
+Implementation checkpoint: four new feature cycles each red before green at public WSGI seam: pause (404), resume (404), dashboard (missing column), existing-schema/reopen persistence (IndexError). Each cycle one test and minimal implementation; saved exact outputs in commands.jsonl and corresponding *-red/*-green.txt. Six preservation/API-contract checks were added sequentially and immediately passed without code changes; these are characterization/verification, not claimed red/green cycles. Existing premature retry alert behavior observed in public service.py was deliberately preserved per TASK.md, with literal alert expectation. No speculative bug fix or diagnosing-bugs invocation. Public full suite: 15 passed. No invented Python typecheck. Local commit 0cee69f contains cohesive implementation unit; code-review invoked against fixed initial 985b5380548ab80c2c243f97e9732a403bff88b3. Native parallel axes replaced by serial fresh read-only helpers as frozen binding requires.
+
+Nonblocking checkpoint sent to operator on request: route/spec complete, implementation commit 0cee69f, four red/green cycles, six immediately-green preservation checks, 15 public tests pass, serial Standards running/Spec not yet started, no forbidden access, runtime attestation unknown. No product guidance supplied in response. Standards helper final report received before Spec helper spawn; each fork_turns=none GPT-6.1 Sol/high, root-only read-only, no descendants.
+
+Review checkpoint: Standards 0 hard violations/2 low-priority duplicated-code heuristics; Spec 0 findings. Separate reports preserved verbatim/lightly cleaned in standards-review.md and spec-review.md; no axis merged or reranked. Addressed both Standards judgements during review: one shared pause/resume response route and one shared SQLite row-to-Job converter. No behavior changes; all 15 tests passed after fixes. Helpers confirmed completed by scoped collaboration.list_agents(path_prefix=/root/contestant_m_s02_002). No descendants. No second helper pass claimed after lead fixes. Final spec status completed; ticket graph unused.

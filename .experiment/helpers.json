@@ -1,0 +1,41 @@
+{
+  "helpers": [
+    {
+      "task_name": "/root/contestant_m_s02_002/standards_review",
+      "axis": "Standards",
+      "order": 1,
+      "fork_turns": "none",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "high",
+      "observed_identity": "unknown",
+      "observed_usage": "unknown",
+      "read_only": true,
+      "descendants_permitted": false,
+      "status": "completed",
+      "report": ".experiment/standards-review.md"
+    },
+    {
+      "task_name": "/root/contestant_m_s02_002/spec_review",
+      "axis": "Spec",
+      "order": 2,
+      "fork_turns": "none",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "high",
+      "observed_identity": "unknown",
+      "observed_usage": "unknown",
+      "read_only": true,
+      "descendants_permitted": false,
+      "status": "completed",
+      "report": ".experiment/spec-review.md"
+    }
+  ],
+  "strictly_serial": true,
+  "completion_evidence": "Each FINAL_ANSWER arrived before next helper spawn; scoped collaboration.list_agents returned both completed before finalization.",
+  "identical_status_scope": "Implementation locally committed at 0cee69f; initial 985b5380548ab80c2c243f97e9732a403bff88b3; public suite 15 passed; .experiment untracked; no hidden evaluation; product/spec diff only.",
+  "boundary": "Only assigned root, explicit workdir, read-only; no siblings/control paths, evaluator/oracle/reference solution, credentials, peer material, other methods, network or lab fetching; stop/report contamination; no descendants.",
+  "standards_prompt_baseline_source": "Full fixed smell baseline from bundled code-review was pasted in prompt. Report per file/hunk documented standard breaches vs labelled judgement calls; repo overrides, skip tooling enforcement; under 400 words.",
+  "spec_prompt": "Review TASK.md plus local spec and resolved glossary; quote missing/partial, unasked or wrong requirements, under 400 words. Confirmed product decisions vs delegated engineering choices explicitly distinguished.",
+  "reviewed_commit": "0cee69f13fa15fe5190d5188e7469c03f059db7f",
+  "lead_fix_commit": "ae485578f96038738e48219c32c3d60d1c0009a4",
+  "second_review_after_fixes": false
+}

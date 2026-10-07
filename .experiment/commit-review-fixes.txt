@@ -1,0 +1,2 @@
+[candidate/M-S02-002 ae48557] Apply pause review feedback and complete local spec
+ 3 files changed, 11 insertions(+), 21 deletions(-)

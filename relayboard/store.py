@@ -18,7 +18,8 @@ class Store:
                 id TEXT PRIMARY KEY,
                 name TEXT NOT NULL,
                 enabled INTEGER NOT NULL,
-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
+                paused INTEGER NOT NULL DEFAULT 0
             );
             CREATE TABLE IF NOT EXISTS runs (
                 id TEXT PRIMARY KEY,
@@ -41,6 +42,11 @@ class Store:
             );
             """
         )
+        columns = self.connection.execute("PRAGMA table_info(jobs)").fetchall()
+        if not any(column["name"] == "paused" for column in columns):
+            self.connection.execute(
+                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL DEFAULT 0"
+            )
         self.connection.commit()
 
     def add_job(
@@ -65,27 +71,38 @@ class Store:
         ).fetchone()
         if row is None:
             raise KeyError(job_id)
+        return self._job_from_row(row)
+
+    @staticmethod
+    def _job_from_row(row: sqlite3.Row) -> Job:
         return Job(
             row["id"],
             row["name"],
             bool(row["enabled"]),
             row["max_attempts"],
+            bool(row["paused"]),
         )
 
     def list_jobs(self) -> list[Job]:
         rows = self.connection.execute(
             "SELECT * FROM jobs ORDER BY id"
         ).fetchall()
-        return [
-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
-            for r in rows
-        ]
+        return [self._job_from_row(row) for row in rows]
 
     def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
         self.get_job(job_id)
         self.connection.execute(
             "UPDATE jobs SET enabled = ? WHERE id = ?",
             (int(enabled), job_id),
+        )
+        self.connection.commit()
+        return self.get_job(job_id)
+
+    def set_job_paused(self, job_id: str, paused: bool) -> Job:
+        self.get_job(job_id)
+        self.connection.execute(
+            "UPDATE jobs SET paused = ? WHERE id = ?",
+            (int(paused), job_id),
         )
         self.connection.commit()
         return self.get_job(job_id)

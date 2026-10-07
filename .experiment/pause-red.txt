@@ -1,0 +1,14 @@
+test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... FAIL
+
+======================================================================
+FAIL: test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 13, in test_pause_blocks_new_scheduled_runs
+    self.assertEqual(code, 200)
+AssertionError: 404 != 200
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=1)

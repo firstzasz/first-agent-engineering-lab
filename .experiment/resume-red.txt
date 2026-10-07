@@ -1,0 +1,15 @@
+test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
+test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... FAIL
+
+======================================================================
+FAIL: test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 17, in test_resume_allows_future_scheduling_without_catch_up
+    self.assertEqual(code, 200)
+AssertionError: 404 != 200
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+FAILED (failures=1)

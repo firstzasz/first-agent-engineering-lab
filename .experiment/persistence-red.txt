@@ -1,0 +1,27 @@
+test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
+test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ERROR
+test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
+test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
+
+======================================================================
+ERROR: test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 28, in test_existing_database_upgrades_and_retains_pause_on_reopen
+    code, payload = request(app, "GET", "/api/jobs")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/relayboard-round2-active/M-S02-002/relayboard/testing.py", line 36, in request
+    body = b"".join(app(environ, start_response))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/relayboard-round2-active/M-S02-002/relayboard/web.py", line 37, in __call__
+    for job in self.store.list_jobs()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/relayboard-round2-active/M-S02-002/relayboard/store.py", line 83, in list_jobs
+    bool(r["paused"]))
+         ~^^^^^^^^^^
+IndexError: No item with that key
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.005s
+
+FAILED (errors=1)

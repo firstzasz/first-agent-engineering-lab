@@ -1,0 +1,6 @@
+test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

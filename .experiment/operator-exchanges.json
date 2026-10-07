@@ -1,0 +1,22 @@
+[
+  {
+    "direction": "request",
+    "channel": "collaboration.send_message /root",
+    "text": "OPERATOR QUESTION M-S02-002 \u2014 Invoked bundled grill-with-docs (grilling + domain-modeling). Public facts: enabled gates scheduled starts; disabled jobs allow manual runs; existing Runs retry by max_attempts; no queue/catch-up scheduler exists; dashboard shows Enabled and Last result. Current independent decision frontier:\nQ1 Pause scope: Should pause block only new scheduled Runs, or also manual Runs / retries / in-flight Runs? Recommended: only new scheduled Runs; existing/manual Runs, retries, alerts remain unchanged.\nQ2 Enabled relationship: Should paused be a separate persistent Job state, so pause/resume preserve enabled (including disabled jobs), or alias enabled/disabled? Recommended: separate persistent paused state; resume cannot enable a disabled Job.\nQ3 Repeated/missing operations: Should repeated pause/resume succeed idempotently with 200 and {job: ...}, and missing Job return existing 404? Recommended: yes; no request body required.\nQ4 Visibility: Should Jobs API expose paused and dashboard add a Paused column while preserving Enabled and Last result? Recommended: yes.\nPlease answer this frontier. I will recompute dependencies and request shared-understanding confirmation before implementation if your reply does not already confirm it."
+  },
+  {
+    "direction": "answer",
+    "channel": "operator via collaboration",
+    "text": "OPERATOR ANSWER Q1: A scheduled start while paused is skipped and not queued. Manual Runs remain allowed while paused. An in-progress Run continues to its terminal outcome, including existing retries and alerts. Q2/Q3/Q4: no additional product preference or interface guidance is supplied; use TASK.md, existing public interfaces and reversible engineering judgment for representation, enabled-state handling, idempotence/missing-Job responses and presentation. These answers cover requested product decisions only, not blanket confirmation of every recommended policy or unasked behavior."
+  },
+  {
+    "direction": "request",
+    "channel": "collaboration.send_message /root",
+    "text": "OPERATOR QUESTION M-S02-002 \u2014 Recomputed frontier is empty: Q1 settles product scope; Q2\u2013Q4 are delegated reversible engineering judgments. Shared understanding for confirmation: pause skips new scheduled starts with no queue/catch-up; manual Runs and already-started Runs continue, including retries/alerts. I will represent pause separately from enabled, so resume preserves disabled state, use idempotent bodyless 200 {job} pause/resume with existing 404 for absent jobs, expose paused in Jobs JSON and add dashboard Paused visibility preserving Enabled/Last result. These are local engineering choices, not assertions of supplied product guidance. Please confirm the shared product understanding so the bundled grilling completion condition is met before implementation."
+  },
+  {
+    "direction": "answer",
+    "channel": "operator via collaboration",
+    "text": "OPERATOR ANSWER to the confirmation you now requested: resume applies to future schedule activity only, with no catch-up. Your restatement of scheduled skip/no queue, manual allowance and in-progress continuation matches the earlier answers. Representation, enabled-state preservation, idempotence/response shape and dashboard presentation remain your engineering choices, not additional product preferences supplied by me. This confirms only the explicitly asked product understanding."
+  }
+]

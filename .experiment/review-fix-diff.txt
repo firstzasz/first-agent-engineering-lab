@@ -1,0 +1,61 @@
+diff --git a/relayboard/store.py b/relayboard/store.py
+index b8e8679..0fae46f 100644
+--- a/relayboard/store.py
++++ b/relayboard/store.py
+@@ -71,6 +71,10 @@ class Store:
+         ).fetchone()
+         if row is None:
+             raise KeyError(job_id)
++        return self._job_from_row(row)
++
++    @staticmethod
++    def _job_from_row(row: sqlite3.Row) -> Job:
+         return Job(
+             row["id"],
+             row["name"],
+@@ -83,11 +87,7 @@ class Store:
+         rows = self.connection.execute(
+             "SELECT * FROM jobs ORDER BY id"
+         ).fetchall()
+-        return [
+-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"],
+-                bool(r["paused"]))
+-            for r in rows
+-        ]
++        return [self._job_from_row(row) for row in rows]
+ 
+     def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
+         self.get_job(job_id)
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 0b650a3..0f87eeb 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -54,23 +54,13 @@ class RelayBoardApp:
+             if (
+                 method == "POST"
+                 and path.startswith("/api/jobs/")
+-                and path.endswith("/resume")
++                and path.endswith(("/pause", "/resume"))
+             ):
+                 job_id = path.split("/")[3]
+-                self.service.resume_job(job_id)
+-                return self._json(
+-                    start_response,
+-                    200,
+-                    {"job": self._job_json(self.store.get_job(job_id))},
+-                )
+-
+-            if (
+-                method == "POST"
+-                and path.startswith("/api/jobs/")
+-                and path.endswith("/pause")
+-            ):
+-                job_id = path.split("/")[3]
+-                self.service.pause_job(job_id)
++                if path.endswith("/pause"):
++                    self.service.pause_job(job_id)
++                else:
++                    self.service.resume_job(job_id)
+                 return self._json(
+                     start_response,
+                     200,
