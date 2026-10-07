@@ -1,0 +1,10 @@
+{
+  "cmd": "git diff --check; git diff -- relayboard/web.py; git add relayboard/web.py; git commit -m 'Change Jobs dashboard heading to Latest result'; git rev-parse HEAD; git diff 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD; git log 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb..HEAD --oneline",
+  "result": {
+    "chunk_id": "99a4aa",
+    "wall_time_seconds": 0.000048026,
+    "exit_code": 0,
+    "original_token_count": 331,
+    "output": "diff --git a/relayboard/web.py b/relayboard/web.py\nindex 88aa15e..67de7f4 100644\n--- a/relayboard/web.py\n+++ b/relayboard/web.py\n@@ -150,7 +150,7 @@ class RelayBoardApp:\n             \"<html><head><title>RelayBoard</title></head><body>\"\n             \"<h1>Jobs</h1>\"\n             \"<table id='jobs'><thead><tr>\"\n-            \"<th>Job</th><th>Enabled</th><th>Last result</th>\"\n+            \"<th>Job</th><th>Enabled</th><th>Latest result</th>\"\n             \"</tr></thead><tbody>\"\n             + \"\".join(rows)\n             + \"</tbody></table></body></html>\"\n[candidate/M-S01-001 7e60748] Change Jobs dashboard heading to Latest result\n 1 file changed, 1 insertion(+), 1 deletion(-)\n7e60748606eace908629ebfd6504de7f2246de77\ndiff --git a/relayboard/web.py b/relayboard/web.py\nindex 88aa15e..67de7f4 100644\n--- a/relayboard/web.py\n+++ b/relayboard/web.py\n@@ -150,7 +150,7 @@ class RelayBoardApp:\n             \"<html><head><title>RelayBoard</title></head><body>\"\n             \"<h1>Jobs</h1>\"\n             \"<table id='jobs'><thead><tr>\"\n-            \"<th>Job</th><th>Enabled</th><th>Last result</th>\"\n+            \"<th>Job</th><th>Enabled</th><th>Latest result</th>\"\n             \"</tr></thead><tbody>\"\n             + \"\".join(rows)\n             + \"</tbody></table></body></html>\"\n7e60748 Change Jobs dashboard heading to Latest result\n"
+  }
+}

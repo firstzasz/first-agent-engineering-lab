@@ -1,0 +1,11 @@
+{
+  "label": "baseline-observations",
+  "cmd": "python - <<'PY'\nimport json\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\napp = create_seeded_app()\ncode, dashboard = request(app, 'GET', '/dashboard')\nassert code == 200\nPath('.experiment/baseline-dashboard.html').write_text(dashboard)\ncode, jobs = request(app, 'GET', '/api/jobs')\nassert code == 200\nPath('.experiment/baseline-jobs.json').write_text(json.dumps(jobs, sort_keys=True))\nprint('Captured baseline GET /dashboard and GET /api/jobs, both HTTP 200.')\nPY",
+  "result": {
+    "chunk_id": "54b40a",
+    "wall_time_seconds": 0.000030162,
+    "exit_code": 0,
+    "original_token_count": 17,
+    "output": "Captured baseline GET /dashboard and GET /api/jobs, both HTTP 200.\n"
+  }
+}

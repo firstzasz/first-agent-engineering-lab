@@ -1,0 +1,153 @@
+{
+  "run_id": "M-S01-001",
+  "treatment": "matt-codex-port-v0",
+  "status": "completed",
+  "task": "Change Jobs dashboard column heading from Last result to Latest result.",
+  "implementation": {
+    "path": "relayboard/web.py",
+    "change": "One heading string replacement; API code and dashboard row behavior untouched."
+  },
+  "commits": {
+    "starting": "5e8146a112483d7ef33d493c0f1f1dae0ffba8cb",
+    "implementation": "7e60748606eace908629ebfd6504de7f2246de77",
+    "final_evidence_commit": {
+      "ref": "HEAD after the final local evidence commit",
+      "sha": null,
+      "reason": "A commit cannot embed its own SHA; final SHA is reported to the operator separately."
+    }
+  },
+  "method": {
+    "source": "mattpocock/skills",
+    "frozen_upstream_commit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+    "source_root": "upstream/matt",
+    "invoked": [
+      "to-spec via tiny-task TASK.md exception",
+      "implement",
+      "tdd including tests.md and mocking.md",
+      "code-review"
+    ],
+    "route": "Single tiny mechanical unit implemented by lead. No feature interview, additional spec/tickets, diagnosis or ADR needed.",
+    "spec_path": "TASK.md",
+    "spec_status": "satisfied",
+    "ticket_status": "not applicable",
+    "adaptations": [
+      "Local tracker/TASK.md replaces external tracker and setup",
+      "Standing authorization for existing public fixture WSGI seam and reversible work replaces confirmation round trips",
+      "Two fresh same-model helpers executed serially on local integration branch replace parallel native review and worktrees",
+      "No native model diversity or parallel throughput claimed",
+      "No invented typechecker for standard-library Python fixture"
+    ],
+    "identity": {
+      "requested_lead": "GPT-6.1 Sol / High",
+      "observed_lead": "unknown",
+      "requested_helpers": "gpt-6.1-sol / high",
+      "observed_helpers": "unknown"
+    }
+  },
+  "tests": [
+    {
+      "name": "baseline public suite",
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "result": "5 tests passed",
+      "output_path": ".experiment/baseline-public.json"
+    },
+    {
+      "name": "heading red",
+      "command": "PYTHONPATH=. python .experiment/verify_heading.py",
+      "exit_code": 1,
+      "result": "Expected failure: observed Last result instead of literal Latest result",
+      "output_path": ".experiment/heading-red.json"
+    },
+    {
+      "name": "baseline observations",
+      "exit_code": 0,
+      "command_path": ".experiment/baseline-observations.json",
+      "outputs": [
+        ".experiment/baseline-dashboard.html",
+        ".experiment/baseline-jobs.json"
+      ]
+    },
+    {
+      "name": "heading green",
+      "command": "PYTHONPATH=. python .experiment/verify_heading.py",
+      "exit_code": 0,
+      "result": "Literal Jobs headings Job/Enabled/Latest result passed at GET /dashboard",
+      "output_path": ".experiment/heading-green.json"
+    },
+    {
+      "name": "scope preservation",
+      "command_path": ".experiment/scope-check.json",
+      "exit_code": 0,
+      "result": "Seeded dashboard response differs only by heading; GET /api/jobs unchanged",
+      "output_path": ".experiment/scope-check.json"
+    },
+    {
+      "name": "completion public suite",
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "result": "5 tests passed",
+      "output_path": ".experiment/completion-public.json"
+    },
+    {
+      "name": "diff whitespace check",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "output_path": ".experiment/implementation-commit.json"
+    }
+  ],
+  "reviews": {
+    "fixed_point": "5e8146a112483d7ef33d493c0f1f1dae0ffba8cb",
+    "candidate": "7e60748606eace908629ebfd6504de7f2246de77",
+    "diff_command": "git diff 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD",
+    "sequence": [
+      "standards_review terminated",
+      "spec_review spawned then terminated"
+    ],
+    "standards": {
+      "findings": 0,
+      "documented_violations": 0,
+      "heuristic_smells": 0,
+      "report_path": ".experiment/standards-review.md"
+    },
+    "spec": {
+      "findings": 0,
+      "report_path": ".experiment/spec-review.md"
+    },
+    "aggregate_path": ".experiment/review-summary.md",
+    "assignments_path": ".experiment/review-assignments.md",
+    "scope": "Committed implementation diff reviewed; final added artifacts only preserve reports and evidence."
+  },
+  "operator_interactions": [],
+  "operator_questions": "None required: task label and scope explicit.",
+  "action_path_log": [
+    ".experiment/decisions.md (initial commands and consulted paths)",
+    ".experiment/baseline-public.json",
+    ".experiment/heading-red.json",
+    ".experiment/baseline-observations.json",
+    ".experiment/heading-green.json",
+    ".experiment/scope-check.json",
+    ".experiment/completion-public.json",
+    ".experiment/implementation-commit.json",
+    ".experiment/pre-freeze-status.json",
+    ".experiment/review-assignments.md",
+    ".experiment/standards-review.md",
+    ".experiment/spec-review.md",
+    ".experiment/finalize.json"
+  ],
+  "outputpaths": [
+    "REPORT.json",
+    ".experiment/"
+  ],
+  "evaluator_or_peer_material_accessed": false,
+  "contamination": false,
+  "evidence_gaps": [
+    "Observed model/reasoning identity, runtime token usage and cost unavailable.",
+    "Initial inspection commands recorded as factual summaries rather than full duplicate source outputs; consulted source files remain supplied in this run.",
+    "Helper command logs are their reported exact commands and relevant outputs, not independent tool transcripts.",
+    "Standards helper first attempted an incorrect assigned skill path; no file was read on that failed command, then it located and read the correct assigned source.",
+    "No hidden evaluation performed or feedback available.",
+    "Scope comparison exercises seeded dashboard and GET /api/jobs; unchanged API code plus existing public tests support the broader scope claim.",
+    "Final commit SHA cannot be self-embedded; emitted in final response."
+  ]
+}

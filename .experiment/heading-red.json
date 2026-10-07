@@ -1,0 +1,11 @@
+{
+  "label": "heading-red",
+  "cmd": "PYTHONPATH=. python .experiment/verify_heading.py",
+  "result": {
+    "chunk_id": "393062",
+    "wall_time_seconds": 0.041949337,
+    "exit_code": 1,
+    "original_token_count": 98,
+    "output": "Observed Jobs headings: ['Job', 'Enabled', 'Last result']\nTraceback (most recent call last):\n  File \"/workspace/relayboard-active/M-S01-001/.experiment/verify_heading.py\", line 38, in <module>\n    assert parser.headings == [\"Job\", \"Enabled\", \"Latest result\"], parser.headings\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ['Job', 'Enabled', 'Last result']\n"
+  }
+}
