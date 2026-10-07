@@ -1,0 +1,5 @@
+# Host binding
+
+The root orchestrator invokes collaboration.spawn_agent directly, never from functions.exec. Every contestant and helper uses fork_turns=none and requested gpt-6.1-sol/high. Contestant runs and helpers are serial. Observe completed statuses before capture_publish.js. It freezes/captures an independent local repository, imports the exact candidate tree through GitHub, removes the contestant area, materializes an exact-hash frozen evaluator outside it, runs only the selected scenario in a separate process, removes evaluator material, and persists evidence via persist_result.js. No evaluator result is sent to that contestant.
+
+These JavaScript files are recipes for the session's functions.exec tools/load/store host, not a standalone paid API client. Persisted batch/result records and runtime.py permit reconstruction of state; the host must provide the fresh subagent interface. Source evaluator is retrieved only by the orchestrator and is not bundled into runtime.py or contestant delivery. After one source-copy newline error on N-S02-001, exact evaluator Git blob SHA is enforced for all subsequent evaluations; the earlier attempt is preserved.
