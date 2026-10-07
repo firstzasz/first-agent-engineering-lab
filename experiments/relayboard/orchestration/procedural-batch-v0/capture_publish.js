@@ -14,11 +14,17 @@ const br=await tools.mcp__codex_apps__github_create_branch({repository_full_name
 store("remote_candidate:"+id,{sha:commit.structuredContent.sha,tree_sha:tree.structuredContent.sha,branch:"candidate/"+id});
 const ref=await tools.mcp__codex_apps__github_fetch({url:"https://api.github.com/repos/"+repo+"/git/ref/heads/candidate/"+id});if(ref.isError||JSON.parse(ref.structuredContent.content).object.sha!==commit.structuredContent.sha)throw Error("Candidate ref readback mismatch");
 const clean=await tools.exec_command({cmd:"python runtime.py clean "+id,workdir:"/workspace/relayboard-batch-control",max_output_tokens:1000});if(clean.exit_code!==0)throw Error(clean.output);
+let ev;
+if(load("observed_contamination:"+id)===true){
+ev={schema_version:1,run_id:id,context:"Hidden evaluation not executed: contaminated candidate excluded; worker public evidence remains archived.",local_candidate_sha:capture.local_candidate_sha,candidate_tree:capture.local_candidate_tree,public_tests:{passed:null,skipped:true,reason:"No post-termination public rerun; see frozen worker logs."},oracle:{scenario:run.scenario,passed:null,failures:[],error:null,skipped:true,reason:"CONTAMINATED before freeze; excluded without hidden evaluation."},feedback_to_contestant:false};
+store("evaluation:"+id,ev);
+}else{
 const exactSource=load("frozen_evaluator").content.replace(/\n$/,"");
 await tools.apply_patch("*** Begin Patch\n*** Add File: /workspace/relayboard-batch-control/evaluator-active/evaluator.py\n"+exactSource.split("\n").map(l=>"+"+l).join("\n")+"\n*** End Patch");
 const evaluation=await tools.exec_command({cmd:"python evaluate_frozen.py "+id,workdir:"/workspace/relayboard-batch-control",max_output_tokens:15000});if(evaluation.exit_code!==0)throw Error(evaluation.output);
-const ev=JSON.parse(evaluation.output);if(ev.evaluator_blob_sha!=="3aaaa9924f09ba18a5888d94373a9edc04187926")throw Error("Evaluator source drift");store("evaluation:"+id,ev);
+ev=JSON.parse(evaluation.output);if(ev.evaluator_blob_sha!=="3aaaa9924f09ba18a5888d94373a9edc04187926")throw Error("Evaluator source drift");store("evaluation:"+id,ev);
 await tools.exec_command({cmd:"python - <<'PY'\nimport shutil\nshutil.rmtree('evaluator-active')\nPY",workdir:"/workspace/relayboard-batch-control",max_output_tokens:1000});
+}
 const bundleMeta=await tools.exec_command({cmd:"python - <<'PY'\nfrom pathlib import Path\nimport hashlib,base64,json\nb=Path('"+id+"-candidate.bundle').read_bytes()\npayload=json.dumps({'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'base64':base64.b64encode(b).decode()})\nPath('"+id+"-bundle.json').write_text(payload)\nprint(len(payload))\nPY",workdir:"/workspace/relayboard-batch-control",max_output_tokens:1000});if(bundleMeta.exit_code!==0)throw Error(bundleMeta.output);
 const bundleSize=Number(bundleMeta.output.trim()),bundleChunks=await Promise.allSettled(Array.from({length:Math.ceil(bundleSize/18000)},(_,i)=>tools.exec_command({cmd:"python - <<'PY'\nfrom pathlib import Path\nimport sys\nsys.stdout.write(Path('"+id+"-bundle.json').read_text()["+i*18000+":"+Math.min((i+1)*18000,bundleSize)+"])\nPY",workdir:"/workspace/relayboard-batch-control",max_output_tokens:18000})));
 store("bundle:"+id,JSON.parse(bundleChunks.map(r=>{if(r.status!=="fulfilled"||r.value.exit_code!==0||r.value.output.startsWith("Warning:"))throw Error("Bundle chunk read failed");return r.value.output;}).join("")));
