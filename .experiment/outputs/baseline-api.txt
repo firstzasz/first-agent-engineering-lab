@@ -1,0 +1,16 @@
+created {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}}
+attempt 1 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}, "status": "retry"}
+alerts {"alerts": [{"id": 1, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}]}
+attempt 2 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "failed"}, "status": "failed"}
+alerts {"alerts": [{"id": 1, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}, {"id": 2, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}]}
+attempt_numbers [1, 2]
+failure_alert_count 2
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File ".experiment/reproduce.py", line 20, in <module>
+    assert len(alerts["alerts"]) == 1, f"expected 1 failure alert; observed {len(alerts['alerts'])}"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: expected 1 failure alert; observed 2

@@ -1,0 +1,314 @@
+.experiment/outputs/implementation-final-diff.txt:7: trailing whitespace.
++ 
+.experiment/outputs/implementation-final-diff.txt:11: trailing whitespace.
++ 
+.experiment/outputs/implementation-focused-before.txt:1: trailing whitespace.
++test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... 
+.experiment/outputs/implementation-focused-before.txt:4: trailing whitespace.
++test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... 
+.experiment/outputs/implementation-focused-before.txt:9: trailing whitespace.
++test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... 
+.experiment/outputs/lead-review.txt:7: trailing whitespace.
++ 
+.experiment/outputs/lead-review.txt:11: trailing whitespace.
++ 
+.experiment/outputs/review-code-and-diff.txt:3: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:5: trailing whitespace.
++4: 
+.experiment/outputs/review-code-and-diff.txt:7: trailing whitespace.
++6: 
+.experiment/outputs/review-code-and-diff.txt:9: trailing whitespace.
++8: 
+.experiment/outputs/review-code-and-diff.txt:11: trailing whitespace.
++10: 
+.experiment/outputs/review-code-and-diff.txt:13: trailing whitespace.
++12: 
+.experiment/outputs/review-code-and-diff.txt:15: trailing whitespace.
++14: 
+.experiment/outputs/review-code-and-diff.txt:17: trailing whitespace.
++16: 
+.experiment/outputs/review-code-and-diff.txt:23: trailing whitespace.
++22: 
+.experiment/outputs/review-code-and-diff.txt:25: trailing whitespace.
++24: 
+.experiment/outputs/review-code-and-diff.txt:27: trailing whitespace.
++26: 
+.experiment/outputs/review-code-and-diff.txt:29: trailing whitespace.
++28: 
+.experiment/outputs/review-code-and-diff.txt:32: trailing whitespace.
++31: 
+.experiment/outputs/review-code-and-diff.txt:34: trailing whitespace.
++33: 
+.experiment/outputs/review-code-and-diff.txt:36: trailing whitespace.
++35: 
+.experiment/outputs/review-code-and-diff.txt:38: trailing whitespace.
++37: 
+.experiment/outputs/review-code-and-diff.txt:40: trailing whitespace.
++39: 
+.experiment/outputs/review-code-and-diff.txt:42: trailing whitespace.
++41: 
+.experiment/outputs/review-code-and-diff.txt:44: trailing whitespace.
++43: 
+.experiment/outputs/review-code-and-diff.txt:46: trailing whitespace.
++45: 
+.experiment/outputs/review-code-and-diff.txt:48: trailing whitespace.
++47: 
+.experiment/outputs/review-code-and-diff.txt:50: trailing whitespace.
++49: 
+.experiment/outputs/review-code-and-diff.txt:52: trailing whitespace.
++51: 
+.experiment/outputs/review-code-and-diff.txt:54: trailing whitespace.
++53: 
+.experiment/outputs/review-code-and-diff.txt:56: trailing whitespace.
++55: 
+.experiment/outputs/review-code-and-diff.txt:58: trailing whitespace.
++57: 
+.experiment/outputs/review-code-and-diff.txt:60: trailing whitespace.
++59: 
+.experiment/outputs/review-code-and-diff.txt:62: trailing whitespace.
++61: 
+.experiment/outputs/review-code-and-diff.txt:64: trailing whitespace.
++63: 
+.experiment/outputs/review-code-and-diff.txt:66: trailing whitespace.
++65: 
+.experiment/outputs/review-code-and-diff.txt:68: trailing whitespace.
++67: 
+.experiment/outputs/review-code-and-diff.txt:70: trailing whitespace.
++69: 
+.experiment/outputs/review-code-and-diff.txt:72: trailing whitespace.
++71: 
+.experiment/outputs/review-code-and-diff.txt:74: trailing whitespace.
++73: 
+.experiment/outputs/review-code-and-diff.txt:76: trailing whitespace.
++75: 
+.experiment/outputs/review-code-and-diff.txt:78: trailing whitespace.
++77: 
+.experiment/outputs/review-code-and-diff.txt:80: trailing whitespace.
++79: 
+.experiment/outputs/review-code-and-diff.txt:82: trailing whitespace.
++81: 
+.experiment/outputs/review-code-and-diff.txt:84: trailing whitespace.
++83: 
+.experiment/outputs/review-code-and-diff.txt:86: trailing whitespace.
++85: 
+.experiment/outputs/review-code-and-diff.txt:88: trailing whitespace.
++87: 
+.experiment/outputs/review-code-and-diff.txt:93: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:95: trailing whitespace.
++4: 
+.experiment/outputs/review-code-and-diff.txt:96: trailing whitespace.
++5: 
+.experiment/outputs/review-code-and-diff.txt:103: trailing whitespace.
++12: 
+.experiment/outputs/review-code-and-diff.txt:104: trailing whitespace.
++13: 
+.experiment/outputs/review-code-and-diff.txt:111: trailing whitespace.
++20: 
+.experiment/outputs/review-code-and-diff.txt:112: trailing whitespace.
++21: 
+.experiment/outputs/review-code-and-diff.txt:118: trailing whitespace.
++27: 
+.experiment/outputs/review-code-and-diff.txt:119: trailing whitespace.
++28: 
+.experiment/outputs/review-code-and-diff.txt:130: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:133: trailing whitespace.
++5: 
+.experiment/outputs/review-code-and-diff.txt:134: trailing whitespace.
++6: 
+.experiment/outputs/review-code-and-diff.txt:137: trailing whitespace.
++9: 
+.experiment/outputs/review-code-and-diff.txt:138: trailing whitespace.
++10: 
+.experiment/outputs/review-code-and-diff.txt:141: trailing whitespace.
++13: 
+.experiment/outputs/review-code-and-diff.txt:142: trailing whitespace.
++14: 
+.experiment/outputs/review-code-and-diff.txt:146: trailing whitespace.
++18: 
+.experiment/outputs/review-code-and-diff.txt:150: trailing whitespace.
++22: 
+.experiment/outputs/review-code-and-diff.txt:156: trailing whitespace.
++28: 
+.experiment/outputs/review-code-and-diff.txt:159: trailing whitespace.
++31: 
+.experiment/outputs/review-code-and-diff.txt:164: trailing whitespace.
++36: 
+.experiment/outputs/review-code-and-diff.txt:167: trailing whitespace.
++39: 
+.experiment/outputs/review-code-and-diff.txt:171: trailing whitespace.
++43: 
+.experiment/outputs/review-code-and-diff.txt:174: trailing whitespace.
++46: 
+.experiment/outputs/review-code-and-diff.txt:178: trailing whitespace.
++50: 
+.experiment/outputs/review-code-and-diff.txt:191: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:193: trailing whitespace.
++4: 
+.experiment/outputs/review-code-and-diff.txt:195: trailing whitespace.
++6: 
+.experiment/outputs/review-code-and-diff.txt:196: trailing whitespace.
++7: 
+.experiment/outputs/review-code-and-diff.txt:202: trailing whitespace.
++13: 
+.experiment/outputs/review-code-and-diff.txt:234: trailing whitespace.
++45: 
+.experiment/outputs/review-code-and-diff.txt:249: trailing whitespace.
++60: 
+.experiment/outputs/review-code-and-diff.txt:263: trailing whitespace.
++74: 
+.experiment/outputs/review-code-and-diff.txt:272: trailing whitespace.
++83: 
+.experiment/outputs/review-code-and-diff.txt:281: trailing whitespace.
++92: 
+.experiment/outputs/review-code-and-diff.txt:287: trailing whitespace.
++98: 
+.experiment/outputs/review-code-and-diff.txt:297: trailing whitespace.
++108: 
+.experiment/outputs/review-code-and-diff.txt:311: trailing whitespace.
++122: 
+.experiment/outputs/review-code-and-diff.txt:320: trailing whitespace.
++131: 
+.experiment/outputs/review-code-and-diff.txt:334: trailing whitespace.
++145: 
+.experiment/outputs/review-code-and-diff.txt:344: trailing whitespace.
++155: 
+.experiment/outputs/review-code-and-diff.txt:358: trailing whitespace.
++169: 
+.experiment/outputs/review-code-and-diff.txt:373: trailing whitespace.
++184: 
+.experiment/outputs/review-code-and-diff.txt:389: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:393: trailing whitespace.
++6: 
+.experiment/outputs/review-code-and-diff.txt:396: trailing whitespace.
++9: 
+.experiment/outputs/review-code-and-diff.txt:398: trailing whitespace.
++11: 
+.experiment/outputs/review-code-and-diff.txt:399: trailing whitespace.
++12: 
+.experiment/outputs/review-code-and-diff.txt:404: trailing whitespace.
++17: 
+.experiment/outputs/review-code-and-diff.txt:412: trailing whitespace.
++25: 
+.experiment/outputs/review-code-and-diff.txt:416: trailing whitespace.
++29: 
+.experiment/outputs/review-code-and-diff.txt:428: trailing whitespace.
++41: 
+.experiment/outputs/review-code-and-diff.txt:440: trailing whitespace.
++53: 
+.experiment/outputs/review-code-and-diff.txt:457: trailing whitespace.
++70: 
+.experiment/outputs/review-code-and-diff.txt:466: trailing whitespace.
++79: 
+.experiment/outputs/review-code-and-diff.txt:477: trailing whitespace.
++90: 
+.experiment/outputs/review-code-and-diff.txt:483: trailing whitespace.
++96: 
+.experiment/outputs/review-code-and-diff.txt:503: trailing whitespace.
++116: 
+.experiment/outputs/review-code-and-diff.txt:516: trailing whitespace.
++129: 
+.experiment/outputs/review-code-and-diff.txt:522: trailing whitespace.
++135: 
+.experiment/outputs/review-code-and-diff.txt:534: trailing whitespace.
++147: 
+.experiment/outputs/review-code-and-diff.txt:545: trailing whitespace.
++158: 
+.experiment/outputs/review-code-and-diff.txt:554: trailing whitespace.
++167: 
+.experiment/outputs/review-code-and-diff.txt:564: trailing whitespace.
++177: 
+.experiment/outputs/review-code-and-diff.txt:590: trailing whitespace.
++203: 
+.experiment/outputs/review-code-and-diff.txt:605: trailing whitespace.
++218: 
+.experiment/outputs/review-code-and-diff.txt:606: trailing whitespace.
++219: 
+.experiment/outputs/review-code-and-diff.txt:625: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:629: trailing whitespace.
++6: 
+.experiment/outputs/review-code-and-diff.txt:630: trailing whitespace.
++7: 
+.experiment/outputs/review-code-and-diff.txt:641: trailing whitespace.
++18: 
+.experiment/outputs/review-code-and-diff.txt:646: trailing whitespace.
++23: 
+.experiment/outputs/review-code-and-diff.txt:649: trailing whitespace.
++26: 
+.experiment/outputs/review-code-and-diff.txt:651: trailing whitespace.
++28: 
+.experiment/outputs/review-code-and-diff.txt:658: trailing whitespace.
++35: 
+.experiment/outputs/review-code-and-diff.txt:662: trailing whitespace.
++39: 
+.experiment/outputs/review-code-and-diff.txt:665: trailing whitespace.
++42: 
+.experiment/outputs/review-code-and-diff.txt:670: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:674: trailing whitespace.
++6: 
+.experiment/outputs/review-code-and-diff.txt:675: trailing whitespace.
++7: 
+.experiment/outputs/review-code-and-diff.txt:679: trailing whitespace.
++11: 
+.experiment/outputs/review-code-and-diff.txt:688: trailing whitespace.
++20: 
+.experiment/outputs/review-code-and-diff.txt:692: trailing whitespace.
++24: 
+.experiment/outputs/review-code-and-diff.txt:697: trailing whitespace.
++29: 
+.experiment/outputs/review-code-and-diff.txt:705: trailing whitespace.
++37: 
+.experiment/outputs/review-code-and-diff.txt:709: trailing whitespace.
++41: 
+.experiment/outputs/review-code-and-diff.txt:719: trailing whitespace.
++51: 
+.experiment/outputs/review-code-and-diff.txt:731: trailing whitespace.
++63: 
+.experiment/outputs/review-code-and-diff.txt:732: trailing whitespace.
++64: 
+.experiment/outputs/review-code-and-diff.txt:738: trailing whitespace.
++2: 
+.experiment/outputs/review-code-and-diff.txt:741: trailing whitespace.
++5: 
+.experiment/outputs/review-code-and-diff.txt:742: trailing whitespace.
++6: 
+.experiment/outputs/review-code-and-diff.txt:749: trailing whitespace.
++13: 
+.experiment/outputs/review-code-and-diff.txt:761: trailing whitespace.
++25: 
+.experiment/outputs/review-code-and-diff.txt:775: trailing whitespace.
++39: 
+.experiment/outputs/review-code-and-diff.txt:780: trailing whitespace.
++44: 
+.experiment/outputs/review-code-and-diff.txt:786: trailing whitespace.
++50: 
+.experiment/outputs/review-code-and-diff.txt:796: trailing whitespace.
++60: 
+.experiment/outputs/review-code-and-diff.txt:811: trailing whitespace.
++75: 
+.experiment/outputs/review-code-and-diff.txt:825: trailing whitespace.
++89: 
+.experiment/outputs/review-code-and-diff.txt:833: trailing whitespace.
++97: 
+.experiment/outputs/review-code-and-diff.txt:848: trailing whitespace.
++112: 
+.experiment/outputs/review-code-and-diff.txt:849: trailing whitespace.
++113: 
+.experiment/outputs/review-code-and-diff.txt:857: trailing whitespace.
++4: 
+.experiment/outputs/review-code-and-diff.txt:880: trailing whitespace.
++ 
+.experiment/outputs/review-code-and-diff.txt:884: trailing whitespace.
++ 
+.experiment/outputs/review-test-and-runtime-evidence.txt:251: trailing whitespace.
++test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... 
+.experiment/outputs/review-test-and-runtime-evidence.txt:254: trailing whitespace.
++test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... 
+.experiment/outputs/review-test-and-runtime-evidence.txt:259: trailing whitespace.
++test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... 

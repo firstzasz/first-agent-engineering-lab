@@ -1,0 +1,266 @@
+{
+  "role": "fresh serial poteto-agent implementation helper",
+  "task": "P-S04-002",
+  "method": "pstack-codex-port-v0",
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "observed_model": "unknown; no runtime model identity telemetry exposed",
+    "observed_reasoning": "unknown; no runtime reasoning telemetry exposed",
+    "observed_usage": "unknown; no token-usage telemetry exposed",
+    "native_identity_claim": false
+  },
+  "classification": "Bug fix",
+  "done_predicate": "No alerts during retries or eventual success; one terminal failure alert per Run; distinct failed Runs retain separate alerts; retry state, source, stable Run id and attempt count preserved.",
+  "diagnostic_confirmation": {
+    "source": "relayboard/service.py record_attempt emits run_failed in both the retry and terminal failure branches before the change.",
+    "independent_public_runtime": ".experiment/outputs/implementation-focused-before.txt",
+    "observed_before": "Two-attempt Run API alert counts [1, 2] rather than [0, 1]; three-attempt counts [1, 2, 3] rather than [0, 0, 1]. Successful retry Run remains represented among failure alerts. Distinct Runs each have excess alerts. Single-attempt controls pass.",
+    "mechanism": "Each failed Attempt emits a failure alert even when the Run is still running and eligible for retry. Terminal failure later emits another alert for the same Run.",
+    "baseline_reviewed": ".experiment/outputs/baseline-api.txt"
+  },
+  "data_shape": "Existing frozen Job, Run, Attempt and Alert dataclasses and existing running/succeeded/failed state machine. One Run contains numbered Attempts; Alert references Run id.",
+  "actions": [
+    {
+      "path": "tests/test_failure_alerts.py",
+      "action": "Created three public WSGI regression tests using existing request and Store seams. Matrix covers manual/scheduled sources and max_attempts 1/2/3; success after failed retries covers limits 2/3 and includes a legitimate failure control."
+    },
+    {
+      "path": "relayboard/service.py",
+      "action": "Deleted only self._emit_failure_alert(run_id) from the retry branch of record_attempt. Terminal failure alert path, signatures, schema and attempt logic retained."
+    }
+  ],
+  "failing_test_commit": {
+    "sha": "2c31d06aecab04691e44fbd4de00b632b2093b59",
+    "message": "Add API regressions for failure alerts across retries",
+    "paths": [
+      "tests/test_failure_alerts.py"
+    ],
+    "production_changed_before_commit": false,
+    "production_change_committed": false
+  },
+  "verification": {
+    "before": {
+      "command_label": "implementation-focused-before",
+      "exit_code": 1,
+      "tests": 3,
+      "failing_subtests": 10,
+      "failure_reason_confirmed": true
+    },
+    "after_focused": {
+      "command_label": "implementation-focused-after",
+      "exit_code": 0,
+      "tests": 3,
+      "result": "OK"
+    },
+    "after_full_public": {
+      "command_label": "implementation-full-public",
+      "exit_code": 0,
+      "tests": 8,
+      "result": "OK"
+    },
+    "after_original_api": {
+      "command_label": "implementation-original-api-after",
+      "exit_code": 0,
+      "result": "No alert during retry, one terminal failure alert, same Run id, attempts [1, 2]."
+    },
+    "diff_check": {
+      "command_label": "implementation-diff-check",
+      "exit_code": 0
+    }
+  },
+  "commands": [
+    {
+      "ts": "2026-10-07T14:03:09.523008+00:00",
+      "label": "implementation-focused-before",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_failure_alerts.py",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout_stderr_path": ".experiment/outputs/implementation-focused-before.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:17.172898+00:00",
+      "label": "implementation-stage-tests",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "add",
+        "--",
+        "tests/test_failure_alerts.py"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-stage-tests.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:23.118990+00:00",
+      "label": "implementation-staged-tests",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--stat"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-staged-tests.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:29.196325+00:00",
+      "label": "implementation-failing-test-commit",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "Add API regressions for failure alerts across retries",
+        "--",
+        "tests/test_failure_alerts.py"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-failing-test-commit.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:36.511994+00:00",
+      "label": "implementation-focused-after",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_failure_alerts.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-focused-after.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:43.239066+00:00",
+      "label": "implementation-test-commit-sha",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-test-commit-sha.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:43.243906+00:00",
+      "label": "implementation-final-diff",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "diff",
+        "--",
+        "relayboard/service.py"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-final-diff.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:43.378511+00:00",
+      "label": "implementation-full-public",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-full-public.txt"
+    },
+    {
+      "ts": "2026-10-07T14:04:06.315747+00:00",
+      "label": "implementation-diff-check",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-diff-check.txt"
+    },
+    {
+      "ts": "2026-10-07T14:04:06.328991+00:00",
+      "label": "implementation-final-status",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-final-status.txt"
+    },
+    {
+      "ts": "2026-10-07T14:04:06.367490+00:00",
+      "label": "implementation-original-api-after",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-c",
+        "import runpy; runpy.run_path('.experiment/reproduce.py', run_name='__main__')"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-original-api-after.txt"
+    }
+  ],
+  "available_uncaptured_command_evidence": [
+    "Tool-returned exit 0 for assigned-root file discovery and assigned source reads. These are summarized here rather than claimed as a raw exported transcript.",
+    "Tool-returned git status showed only pre-existing lead evidence files untracked before helper edits.",
+    "Tool-returned exit 1 for the command that created tests/test_failure_alerts.py then ran the captured failing regression.",
+    "Tool-returned exit 0 for the exact-string service edit guarded by original.count(old) == 1, then the captured passing regression.",
+    "Tool-returned exit 0 for this report creation command is inspectable in the conversation, but not recorded by capture.py."
+  ],
+  "skills_read": [
+    "upstream/pstack/skills/poteto-mode/SKILL.md",
+    "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md",
+    "upstream/pstack/skills/tdd/SKILL.md",
+    "upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
+    "upstream/pstack/skills/principle-model-the-domain/SKILL.md",
+    "upstream/pstack/skills/principle-prove-it-works/SKILL.md",
+    "upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
+    "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+    "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+    "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md"
+  ],
+  "principles_applied": {
+    "Laziness Protocol": "Delete one premature emission call without new abstractions.",
+    "Model the Domain": "Use the existing Run state machine and Run/Attempt separation.",
+    "Prove It Works": "Run deterministic WSGI checks and original API reproduction.",
+    "Fix Root Causes": "Remove emission at the incorrect lifecycle transition.",
+    "Test Behavior, Not Implementation": "Assert API payloads and alerts, with Store attempt records as supplementary fixture evidence; absence is paired with positive state and failure controls.",
+    "Sequence Work into Verifiable Units": "Capture failures and commit tests before production edit.",
+    "Never Block on the Human": "Use authorized existing reversible public fixture seams without questions."
+  },
+  "throughput": "Single helper only. No descendants. Production edits sequential after failing test commit. Independent final read/check commands batched; no native parallel throughput claim.",
+  "forbidden_material_accessed": false,
+  "deviations": [],
+  "limitations": [
+    "Local Python/SQLite/WSGI public checks only; no evaluator or hidden material accessed.",
+    "No native model identity, usage telemetry, raw transcript export, multi-model validation, external fetch, publication or deployment.",
+    "Lead owns the remaining production commit and separate fresh review.",
+    "Existing sequential fixture contract is retained; concurrent transactions and historical alert cleanup are outside the demonstrated task scope."
+  ],
+  "handoff": "Review the uncommitted one-line service diff and test-only commit; then conduct separate fresh review and commit production change as lead."
+}

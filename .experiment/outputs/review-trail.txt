@@ -1,0 +1,505 @@
+# Classification and done predicate
+
+Reported defect. Bug fix route.
+Done means the public API exposes no alert during retry, one run_failed alert when a Run exhausts attempts, no failure alert after eventual success, and separate alerts for distinct failed Runs. Retry statuses, stable Run ids, attempt numbering and configured limits stay unchanged. Focused tests and the full public suite must pass. A fresh serial helper must review the code and evidence before the local candidate is committed.
+
+# How grounding
+
+Simple affected scope. The lead performs the serial direct explainer allowed by METHOD.md.
+The caller POSTs /api/jobs/{id}/runs through RelayBoardApp. The service creates one running Run through Store. POST /api/runs/{id}/attempts calls RelayBoardService.record_attempt, which checks the Run is running, persists one Attempt, compares its number to Job.max_attempts, and returns retry or a terminal outcome. Store persists attempts and alerts without deciding retry policy. GET /api/alerts serializes every persisted alert. Alert records reference the Run, not an Attempt. Existing frozen dataclasses and the running/succeeded/failed state machine already encode the necessary data shape.
+
+# Falsifiable hypotheses
+
+1. Public transport duplicates one stored alert in the response. Refuted by API ids 1 and 2 and the insert-per-attempt service branches.
+2. Retries create distinct Runs. Refuted by the same run-001 id in both attempt responses and both alerts.
+3. The retry branch emits a terminal Run failure alert too early. Confirmed by an alert while the Run still has running status after attempt 1, followed by a second persisted alert after terminal failure. Current source has a call to _emit_failure_alert in both branches.
+4. Terminal failure is processed twice. Refuted for this reproduction by exactly one API call per Attempt and attempt_numbers [1, 2]. The first alert is already observable before terminal processing.
+
+Runtime evidence is .experiment/outputs/baseline-api.txt. No targeted instrumentation was needed because public responses expose Run state and alert ids directly. Supplementary attempt numbering was inspected through the existing public fixture Store interface. Baseline public tests passed but omit retry-failure alert semantics.
+
+# Throughput checkpoint before implementation
+
+- Blocking first steps. Reproduce on the public WSGI surface and confirm the terminal-versus-attempt mechanism. Completed before design and delegation.
+- Independent workstreams. API reproduction and baseline public tests were independent read-only calls. Diagnosis, regression, implementation, and review are sequential under the frozen port. No native parallel throughput claim.
+- Shared mutable state. One assigned Git index, working tree and evidence directory. Only one helper runs at a time. Tests use fresh in-memory stores. The lead does not edit helper-owned code while a helper runs.
+- Smallest safe decomposition. Capture baseline, compare two sketches, delegate failing tests and one-line service deletion to one fresh helper, then lead verify and fresh helper review. One test-only local commit precedes the fix commit.
+
+# Native route adaptations and unsupported sources
+
+Poteto Mode and Bug fix invoked by reading bundled files. How reduced to the direct lead trace. Architect reduced to two written serial designs. TDD uses existing unittest and WSGI seams. Show me your work uses append-only decisions.tsv and command output paths.
+why, unslop, create-skill, technical-writing, Opening a PR, native control plugins, deslop and no-comments are unbundled or unavailable here. Their source is neither invented nor fetched. METHOD.md binds direct API checks, scoped diff cleanup/review and local commit handoff. Native Cursor Task/poteto-agent become fresh serial collaboration helpers. Native Arena's multi-model design exploration is replaced by two lead-written sketches under METHOD.md. No native model diversity is claimed. No bundled upstream source is changed.
+Standing authorization covers local fixture seams and reversible tests. No product decision is open. No operator question is needed.
+
+# Identity and evidence limits
+
+Requested lead and helper model is gpt-6.1-sol with high reasoning. The lead runtime has no exposed identity or token-usage telemetry. No raw transcript export is available. early-actions.json preserves summarized pre-capture commands and paths. commands.jsonl and outputs preserve subsequent command evidence. Public checks only. No forbidden source links from README were followed.
+# Problem
+
+A failure alert belongs to a terminal failed Run under GLOSSARY.md. The current service emits it on each failed Attempt including Attempts that can retry. The existing retry state and data shape are sufficient. Runtime reproduction proves the alert appears while the Run is still running.
+
+# Usage (caller's view)
+
+POST /api/jobs/daily-report/runs returns a new running Run.
+POST /api/runs/run-001/attempts with succeeded false returns retry after the first attempt and failed after the second. GET /api/alerts must show zero alerts at retry and one alert after failure. A second failed Run must add its own alert. A successful retry must add none.
+
+# Shape
+
+Candidate A retains Job, Run, Attempt and Alert dataclasses and the current Store schema. RelayBoardService.record_attempt(run_id, succeeded=...) owns the state transition. Pseudocode is add Attempt, set succeeded and return on success, return retry when below max_attempts, otherwise set failed, emit one alert, return failed. Remove the alert call from the retry branch. The one public operation hides the entire retry and terminal notification policy. No signature changes are required. Model the Domain keeps Run and Attempt separate in the existing state machine. Laziness Protocol makes deletion the preferred change.
+
+Candidate B makes Store.add_alert enforce a unique (run_id, kind) row, through a unique SQLite index and conflict handling. The service retains both existing emission calls. This hides duplicate writes behind the Store API but leaves a terminal failure alert observable for running or ultimately successful Runs. Correcting that still requires service lifecycle policy, which splits ownership across service and storage. A schema alteration increases surface area without addressing the earlier alert.
+
+# Red flag screen and interface depth
+
+Candidate A introduces no shallow module, information leakage, temporal decomposition, pass-through, split ownership, second path, importable internals or hand-synced list. It concentrates policy in the existing record_attempt operation. Existing interfaces do not grow.
+Candidate B has split ownership because storage must know alert identity while service still owns terminal outcome. It conceals duplicate insertion but fails the terminal-outcome rule. Schema and insertion APIs would carry more lifecycle detail. It is rejected before synthesis.
+
+# Synthesis decision
+
+Candidate A is the base. Nothing is grafted from B. Removing the premature emission fixes the observed cause and leaves legitimate separate Runs unchanged. A fresh design-choice helper is unnecessary because the public glossary and reproduced early alert rule out B. A fresh implementation helper and a separate review helper remain required.
+
+# Tradeoffs accepted
+
+We accept the existing sequential fixture service contract in exchange for a surgical lifecycle fix. Concurrency, transaction recovery and persistent alert migrations have no observed trigger in this task and are outside the demonstrated mechanism.
+
+# Alternatives considered
+
+Storage deduplication lost because it leaves an incorrect early alert and adds lifecycle knowledge to storage. Deduplication by Job would also suppress legitimate alerts for distinct Runs and cannot satisfy TASK.md.
+
+# Open questions and risks
+
+No unresolved product preference exists. Could a review uncover a public path missed by the regression checks? The fresh scoped review will inspect the service callers and public evidence. No hidden evaluation is available to this run.
+
+# Next implementation step
+
+The bounded helper will write failing WSGI regression tests, run and commit only those tests, then remove the retry-branch emission and rerun the tests.
+
+# Architect phases
+
+1. Ground. Complete in GROUNDING.md.
+2. Sketch. Complete with two structurally distinct candidates above.
+3. Agree. No opt-in checkpoint requested. Proceed under METHOD.md.
+4. Implement. Delegated next.
+5. Scrap. Not applicable unless evidence shows the chosen design is wrong.
+# Lead scoped review
+
+The production diff against initial commit 610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24 is exactly one deletion in RelayBoardService.record_attempt. The retry return, add_attempt, max_attempts comparison, succeeded branch, terminal failed state and final alert emission stay intact. No schema or signature changes are present. There is no deduplication key that could suppress another Run.
+
+The new tests invoke public WSGI endpoints and compare returned state, alert count, alert Run identity and contents. Supplementary Store reads assert attempt numbering and outcomes through existing fixture interfaces. Eventual-success absence is paired with an actual failed-Run control. Limits 1/2/3 and manual/scheduled sources are covered. Tests do not assert mock calls or restate private constants. No new production comments or wrappers exist. Tests are 115 lines with small request/assertion helpers.
+
+The captured failing test output has the intended reason, including [1, 2] versus [0, 1] and [1, 2, 3] versus [0, 0, 1]. The local test-only commit changes only tests/test_failure_alerts.py. The helper's focused output has three test methods passing, and its full public output has eight test methods passing. Counts refer to unittest methods; failing_before also reports ten failing subtests.
+
+The lead independently reran the exact original API reproduction after the fix. It prints no alert after retry, one terminal run_failed alert, the same Run id, and attempt_numbers [1, 2]. Its exit code is zero. This verifies the matching surface directly rather than relying only on the helper report.
+
+The lead read decisions.tsv against captured outputs, available initial command evidence and current code. Each evidence pointer resolves inside the assigned run. No raw transcript is claimed. Initial source display truncation and reroute limits are recorded in early-actions.json and GROUNDING.md. Source diff check proves METHOD.md, TASK.md and upstream remain identical to the initial local commit. A separate fresh serial helper will review this scoped diff and evidence.
+
+No lead issue requires correction before fresh review. Native deslop/no-comments tools are unavailable; this scoped cleanup and review uses the explicit METHOD.md bindings. No publication or deployment is performed.
+ts	phase	decision	why	evidence	result
+2026-10-07T14:00:58.051253+00:00	frame	Classified reported defect as Bug fix and invoked bundled Poteto Mode	A terminal Run alert differs from an Attempt outcome; Model the Domain preserves that distinction	.experiment/GROUNDING.md	done predicate recorded
+2026-10-07T14:00:58.051303+00:00	reproduce	Drove two failing attempts through the public WSGI API before production changes	Fix Root Causes requires observed mechanism before a fix	.experiment/outputs/baseline-api.txt	expected 1 alert; observed 2
+2026-10-07T14:00:58.051311+00:00	baseline	Ran the existing public test suite	Prove It Works checks the runnable artifact before changes	.experiment/outputs/baseline-public.txt	5 tests passed
+2026-10-07T14:00:58.051315+00:00	design	Chose removal of retry-branch emission over storage deduplication	Laziness Protocol favors the smallest root-cause change; storage dedup leaves a premature alert	.experiment/DESIGN.md	two sketches screened
+2026-10-07T14:00:58.051321+00:00	throughput	Recorded blocking steps, independent checks, shared state and safe serial decomposition	Frozen METHOD.md requires all four before implementation	.experiment/GROUNDING.md	implementation ready
+2026-10-07T14:00:58.051326+00:00	authorization	Proceed with existing local WSGI fixture and unittest seams	Never Block on the Human applies to authorized reversible local work; no product preference needed	METHOD.md	no operator question
+2026-10-07T14:03:49.934494+00:00	delegate	Started one fresh serial implementation helper with bounded test and service scope	METHOD.md requires delegated bug implementation and fresh same-model separation	.experiment/helper-invocations.json	running
+2026-10-07T14:03:49.934525+00:00	provenance	Recorded bundled source hashes and declared upstream version	The frozen port must remain auditable without fetching upstream or other methods	.experiment/source-hashes.json	preserved
+2026-10-07T14:06:59.456897+00:00	tdd	Accepted the test-only commit after inspecting captured intended failures and local commit scope	Sequence Work into Verifiable Units preserves failing-before history	.experiment/outputs/lead-test-commit-check.txt	test-only commit 2c31d06aecab04691e44fbd4de00b632b2093b59
+2026-10-07T14:06:59.456927+00:00	implementation	Reviewed the one-line service deletion and bounded public regression tests	Fix Root Causes and Laziness Protocol keep terminal Run notification ownership local	.experiment/outputs/lead-review.txt	no lead correction needed
+2026-10-07T14:06:59.456935+00:00	verify	Checked helper focused and full public outputs and reran original API surface as lead	Prove It Works requires observed output on the actual surface	.experiment/outputs/lead-original-api-after.txt	original surface passes; focused 3 and full 8 pass
+2026-10-07T14:06:59.456941+00:00	source-integrity	Compared frozen method and bundled upstream against the initial local commit	Assigned method and consulted sources must stay unchanged	.experiment/outputs/lead-frozen-source-check.txt	no changes
+2026-10-07T14:06:59.456947+00:00	audit	Audited existing decision rows against their local evidence	Show me your work requires factual pointers and recorded gaps	.experiment/LEAD_REVIEW.md	available trail consistent; fresh review next
+{
+  "note": "Available tool-call evidence summarized before command capture existed. This is not a full raw transcript.",
+  "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+  "initial_head_observed": "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24",
+  "initial_status_observed": "clean",
+  "read_paths": [
+    "TASK.md",
+    "METHOD.md",
+    "README.md",
+    "GLOSSARY.md",
+    "pyproject.toml",
+    ".gitignore",
+    "relayboard/models.py",
+    "relayboard/service.py",
+    "relayboard/store.py",
+    "relayboard/web.py",
+    "relayboard/testing.py",
+    "relayboard/__main__.py",
+    "tests/test_public.py"
+  ],
+  "source_routes_read": [
+    "poteto-mode/SKILL.md",
+    "poteto-mode/playbooks/bug-fix.md",
+    "how/SKILL.md",
+    "principle-laziness-protocol/SKILL.md",
+    "principle-model-the-domain/SKILL.md",
+    "principle-prove-it-works/SKILL.md",
+    "principle-fix-root-causes/SKILL.md",
+    "principle-test-behavior-not-implementation/SKILL.md",
+    "principle-sequence-verifiable-units/SKILL.md",
+    "principle-never-block-on-the-human/SKILL.md",
+    "show-me-your-work/SKILL.md",
+    "tdd/SKILL.md",
+    "architect/SKILL.md",
+    "architect/references/design-red-flags.md",
+    "architect/references/rationale-template.md"
+  ],
+  "source_prefix": "upstream/pstack/skills/",
+  "truncation": "First batched source display truncated; bug-fix/how/laziness and poteto core reread completely. Other visible leaf reads were complete.",
+  "path_listing": "Only assigned root and upstream/pstack and .experiment listed; no linked README paths followed.",
+  "requested_identity": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "observed_identity": "No runtime identity telemetry exposed; system describes Codex based on GPT-6.",
+  "forbidden_material_accessed": false
+}
+{
+  "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+  "note": "Command strings reconstructed from available tool calls before capture.py. All exited 0. Outputs remain visible in the tool conversation, not exported as a raw transcript. Third output was truncated; rereads are listed.",
+  "commands": [
+    "pwd && ls -la && cat TASK.md && cat METHOD.md",
+    "git status --short && git rev-parse HEAD && rg --files -g 'AGENTS.md' -g '*.md' -g '*.py' -g '*.json' -g '*.toml' .",
+    "cat upstream/pstack/skills/poteto-mode/SKILL.md upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md upstream/pstack/skills/how/SKILL.md upstream/pstack/skills/principle-laziness-protocol/SKILL.md upstream/pstack/skills/principle-model-the-domain/SKILL.md upstream/pstack/skills/principle-prove-it-works/SKILL.md upstream/pstack/skills/principle-fix-root-causes/SKILL.md upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md upstream/pstack/skills/show-me-your-work/SKILL.md upstream/pstack/skills/tdd/SKILL.md",
+    "cat upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md upstream/pstack/skills/how/SKILL.md upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
+    "cat README.md GLOSSARY.md pyproject.toml relayboard/models.py relayboard/service.py",
+    "cat relayboard/store.py relayboard/web.py relayboard/testing.py relayboard/__main__.py tests/test_public.py .gitignore",
+    "cat upstream/pstack/skills/architect/SKILL.md upstream/pstack/skills/architect/references/design-red-flags.md upstream/pstack/skills/architect/references/rationale-template.md && rg --files upstream/pstack .experiment",
+    "cat upstream/pstack/skills/poteto-mode/SKILL.md"
+  ]
+}
+{
+  "serial_binding": "METHOD.md",
+  "helpers": [
+    {
+      "task_name": "/root/contestant_p_s04_002/implementation",
+      "role": "poteto-agent implementation",
+      "fork_turns": "none",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "high",
+      "observed_identity": "Tool accepted configuration; runtime identity telemetry unknown",
+      "allowed_root": "/workspace/relayboard-round2-active/P-S04-002",
+      "no_descendants": true,
+      "boundary_and_contamination_rules_given": true,
+      "operator_question_route": "/root with OPERATOR QUESTION prefix",
+      "scope": [
+        "tests/test_failure_alerts.py",
+        "relayboard/service.py deletion only",
+        ".experiment implementation evidence"
+      ],
+      "status": "completed; observed via scoped collaboration.list_agents before review starts",
+      "report_path": ".experiment/IMPLEMENTATION_REPORT.json"
+    }
+  ]
+}
+{
+  "role": "fresh serial poteto-agent implementation helper",
+  "task": "P-S04-002",
+  "method": "pstack-codex-port-v0",
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "observed_model": "unknown; no runtime model identity telemetry exposed",
+    "observed_reasoning": "unknown; no runtime reasoning telemetry exposed",
+    "observed_usage": "unknown; no token-usage telemetry exposed",
+    "native_identity_claim": false
+  },
+  "classification": "Bug fix",
+  "done_predicate": "No alerts during retries or eventual success; one terminal failure alert per Run; distinct failed Runs retain separate alerts; retry state, source, stable Run id and attempt count preserved.",
+  "diagnostic_confirmation": {
+    "source": "relayboard/service.py record_attempt emits run_failed in both the retry and terminal failure branches before the change.",
+    "independent_public_runtime": ".experiment/outputs/implementation-focused-before.txt",
+    "observed_before": "Two-attempt Run API alert counts [1, 2] rather than [0, 1]; three-attempt counts [1, 2, 3] rather than [0, 0, 1]. Successful retry Run remains represented among failure alerts. Distinct Runs each have excess alerts. Single-attempt controls pass.",
+    "mechanism": "Each failed Attempt emits a failure alert even when the Run is still running and eligible for retry. Terminal failure later emits another alert for the same Run.",
+    "baseline_reviewed": ".experiment/outputs/baseline-api.txt"
+  },
+  "data_shape": "Existing frozen Job, Run, Attempt and Alert dataclasses and existing running/succeeded/failed state machine. One Run contains numbered Attempts; Alert references Run id.",
+  "actions": [
+    {
+      "path": "tests/test_failure_alerts.py",
+      "action": "Created three public WSGI regression tests using existing request and Store seams. Matrix covers manual/scheduled sources and max_attempts 1/2/3; success after failed retries covers limits 2/3 and includes a legitimate failure control."
+    },
+    {
+      "path": "relayboard/service.py",
+      "action": "Deleted only self._emit_failure_alert(run_id) from the retry branch of record_attempt. Terminal failure alert path, signatures, schema and attempt logic retained."
+    }
+  ],
+  "failing_test_commit": {
+    "sha": "2c31d06aecab04691e44fbd4de00b632b2093b59",
+    "message": "Add API regressions for failure alerts across retries",
+    "paths": [
+      "tests/test_failure_alerts.py"
+    ],
+    "production_changed_before_commit": false,
+    "production_change_committed": false
+  },
+  "verification": {
+    "before": {
+      "command_label": "implementation-focused-before",
+      "exit_code": 1,
+      "tests": 3,
+      "failing_subtests": 10,
+      "failure_reason_confirmed": true
+    },
+    "after_focused": {
+      "command_label": "implementation-focused-after",
+      "exit_code": 0,
+      "tests": 3,
+      "result": "OK"
+    },
+    "after_full_public": {
+      "command_label": "implementation-full-public",
+      "exit_code": 0,
+      "tests": 8,
+      "result": "OK"
+    },
+    "after_original_api": {
+      "command_label": "implementation-original-api-after",
+      "exit_code": 0,
+      "result": "No alert during retry, one terminal failure alert, same Run id, attempts [1, 2]."
+    },
+    "diff_check": {
+      "command_label": "implementation-diff-check",
+      "exit_code": 0
+    }
+  },
+  "commands": [
+    {
+      "ts": "2026-10-07T14:03:09.523008+00:00",
+      "label": "implementation-focused-before",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_failure_alerts.py",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout_stderr_path": ".experiment/outputs/implementation-focused-before.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:17.172898+00:00",
+      "label": "implementation-stage-tests",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "add",
+        "--",
+        "tests/test_failure_alerts.py"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-stage-tests.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:23.118990+00:00",
+      "label": "implementation-staged-tests",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--stat"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-staged-tests.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:29.196325+00:00",
+      "label": "implementation-failing-test-commit",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "Add API regressions for failure alerts across retries",
+        "--",
+        "tests/test_failure_alerts.py"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-failing-test-commit.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:36.511994+00:00",
+      "label": "implementation-focused-after",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_failure_alerts.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-focused-after.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:43.239066+00:00",
+      "label": "implementation-test-commit-sha",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-test-commit-sha.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:43.243906+00:00",
+      "label": "implementation-final-diff",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "diff",
+        "--",
+        "relayboard/service.py"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-final-diff.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:43.378511+00:00",
+      "label": "implementation-full-public",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-full-public.txt"
+    },
+    {
+      "ts": "2026-10-07T14:04:06.315747+00:00",
+      "label": "implementation-diff-check",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-diff-check.txt"
+    },
+    {
+      "ts": "2026-10-07T14:04:06.328991+00:00",
+      "label": "implementation-final-status",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-final-status.txt"
+    },
+    {
+      "ts": "2026-10-07T14:04:06.367490+00:00",
+      "label": "implementation-original-api-after",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-c",
+        "import runpy; runpy.run_path('.experiment/reproduce.py', run_name='__main__')"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-original-api-after.txt"
+    }
+  ],
+  "available_uncaptured_command_evidence": [
+    "Tool-returned exit 0 for assigned-root file discovery and assigned source reads. These are summarized here rather than claimed as a raw exported transcript.",
+    "Tool-returned git status showed only pre-existing lead evidence files untracked before helper edits.",
+    "Tool-returned exit 1 for the command that created tests/test_failure_alerts.py then ran the captured failing regression.",
+    "Tool-returned exit 0 for the exact-string service edit guarded by original.count(old) == 1, then the captured passing regression.",
+    "Tool-returned exit 0 for this report creation command is inspectable in the conversation, but not recorded by capture.py."
+  ],
+  "skills_read": [
+    "upstream/pstack/skills/poteto-mode/SKILL.md",
+    "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md",
+    "upstream/pstack/skills/tdd/SKILL.md",
+    "upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
+    "upstream/pstack/skills/principle-model-the-domain/SKILL.md",
+    "upstream/pstack/skills/principle-prove-it-works/SKILL.md",
+    "upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
+    "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+    "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+    "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md"
+  ],
+  "principles_applied": {
+    "Laziness Protocol": "Delete one premature emission call without new abstractions.",
+    "Model the Domain": "Use the existing Run state machine and Run/Attempt separation.",
+    "Prove It Works": "Run deterministic WSGI checks and original API reproduction.",
+    "Fix Root Causes": "Remove emission at the incorrect lifecycle transition.",
+    "Test Behavior, Not Implementation": "Assert API payloads and alerts, with Store attempt records as supplementary fixture evidence; absence is paired with positive state and failure controls.",
+    "Sequence Work into Verifiable Units": "Capture failures and commit tests before production edit.",
+    "Never Block on the Human": "Use authorized existing reversible public fixture seams without questions."
+  },
+  "throughput": "Single helper only. No descendants. Production edits sequential after failing test commit. Independent final read/check commands batched; no native parallel throughput claim.",
+  "forbidden_material_accessed": false,
+  "deviations": [],
+  "limitations": [
+    "Local Python/SQLite/WSGI public checks only; no evaluator or hidden material accessed.",
+    "No native model identity, usage telemetry, raw transcript export, multi-model validation, external fetch, publication or deployment.",
+    "Lead owns the remaining production commit and separate fresh review.",
+    "Existing sequential fixture contract is retained; concurrent transactions and historical alert cleanup are outside the demonstrated task scope."
+  ],
+  "handoff": "Review the uncommitted one-line service diff and test-only commit; then conduct separate fresh review and commit production change as lead."
+}
+# Bug fix playbook
+
+### Bug fix
+
+**You own this task. Plan, review, verify.** Delegate investigation and the fix to subagents, stay in the lead.
+
+Be scientific. Every shipped line traces to runtime evidence. Belt-and-suspenders that "might help" is a hypothesis, not a fix. It does not ship. When evidence refutes a hypothesis, revert what it motivated. The smallest change the evidence justifies ships, nothing more.
+
+1. Reproduce it yourself on the matching surface via the control skill (Non-negotiables), even when a debug or instrumentation protocol says to ask the user to reproduce. Ask the user only with a stated, specific reason the control surface cannot reach the target, and only after driving it as far as it goes. If it won't reproduce directly, synthesize the trigger, tighten conditions, or instrument until it fires.
+2. Binary-search the cause. Form the candidate hypotheses, then rule them out until one survives. Seed them with `how` over the affected subsystem and the **why** skill for regression history. Each pass, take the split that cuts the most remaining problem space, get runtime evidence, eliminate. When program state is unclear, add instrumentation or logging and read it as the code runs. Don't guess. Drive a long or stubborn hunt with Cursor's `/loop` command. Confirm the surviving *mechanism* with runtime evidence before the step-3 architect/interrogate fan-out.
+3. Plan the fix. If it crosses a function boundary, `architect` first. Delegate implementation to a subagent using your configured bug-fix model (default `grok-4.7-xhigh-fast`) with a specific scope.
+4. Verify on the same surface. The original repro now passes. "Inconclusive" or wrong-surface is not a pass. Flag it. Unit tests show branch behavior, not bug absence.
+5. Stage the commits so the failing repro lands before the fix in git history. See the **tdd** skill for the failing-test-first cadence when the bug has a cheap local test path. Skip it when the test would be expensive, integration-heavy, or unclear.
+   This is the canonical **sequence-verifiable-units** principle skill, the failing test first and the fix on top.
+6. Run **Opening a PR**.
+
+**Reply:** what was broken, root cause, fix, how you verified. Paste failing-then-passing repro output verbatim.
+
+# Task-specific checkpoints
+
+- Read assigned sources and trace the public API to the attempt transition. Done.
+- Reproduce duplicate failure alerts before changing production code. Done.
+- Add and commit failing public regression tests. Done.
+- Compare two written designs after confirming the mechanism. Done.
+- Delegate bounded implementation to a fresh serial helper. Done.
+- Verify public API, focused tests, and complete public suite. Done.
+- Review scoped diff and obtain fresh serial code/evidence review. Pending.
+- Freeze local candidate commit and report. Pending.
+
+# Native step dispositions
+
+- Step 1 control plugin. Adapted to existing WSGI request surface.
+- Step 2 why regression history. Unsupported and unbundled. No lab history inspection. Runtime evidence and current assigned source ground the diagnosis.
+- Step 2 loop. Adapted to serial evidence/change/verify loop.
+- Step 3 architect. Two serial lead-written sketches, as specified by METHOD.md.
+- Step 6 Opening a PR. Skip native opening/deploy/merge. Commit locally for orchestrator publication under METHOD.md.
+{
+  "questions": [],
+  "status_messages": [
+    {
+      "target": "/root",
+      "message": "P-S04-002 status. Public WSGI reproduction captured before production changes. First failed Attempt returns retry while already exposing one run_failed alert; terminal failure adds a second for the same Run. Existing 5 public tests pass. Grounding, hypotheses, two serial design sketches and four-item throughput checkpoint preserved under assigned .experiment. Next is the required fresh serial implementation helper, followed by lead checks and a fresh review helper. No forbidden material accessed."
+    }
+  ]
+}

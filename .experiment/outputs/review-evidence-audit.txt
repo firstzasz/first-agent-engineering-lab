@@ -1,0 +1,86 @@
+All 13 decision pointers resolve and 24 command outputs exist inside assigned root.
+Preserved execution summaries
+2026-10-07T13:59:28.404710+00:00 assigned-manifest exit 0 .experiment/outputs/assigned-manifest.txt
+2026-10-07T13:59:28.586595+00:00 baseline-api exit 1 .experiment/outputs/baseline-api.txt
+2026-10-07T13:59:28.597897+00:00 baseline-public exit 0 .experiment/outputs/baseline-public.txt
+2026-10-07T14:03:09.523008+00:00 implementation-focused-before exit 1 .experiment/outputs/implementation-focused-before.txt
+2026-10-07T14:03:17.172898+00:00 implementation-stage-tests exit 0 .experiment/outputs/implementation-stage-tests.txt
+2026-10-07T14:03:23.118990+00:00 implementation-staged-tests exit 0 .experiment/outputs/implementation-staged-tests.txt
+2026-10-07T14:03:29.196325+00:00 implementation-failing-test-commit exit 0 .experiment/outputs/implementation-failing-test-commit.txt
+2026-10-07T14:03:36.511994+00:00 implementation-focused-after exit 0 .experiment/outputs/implementation-focused-after.txt
+2026-10-07T14:03:43.239066+00:00 implementation-test-commit-sha exit 0 .experiment/outputs/implementation-test-commit-sha.txt
+2026-10-07T14:03:43.243906+00:00 implementation-final-diff exit 0 .experiment/outputs/implementation-final-diff.txt
+2026-10-07T14:03:43.378511+00:00 implementation-full-public exit 0 .experiment/outputs/implementation-full-public.txt
+2026-10-07T14:04:06.315747+00:00 implementation-diff-check exit 0 .experiment/outputs/implementation-diff-check.txt
+2026-10-07T14:04:06.328991+00:00 implementation-final-status exit 0 .experiment/outputs/implementation-final-status.txt
+2026-10-07T14:04:06.367490+00:00 implementation-original-api-after exit 0 .experiment/outputs/implementation-original-api-after.txt
+2026-10-07T14:05:49.669742+00:00 lead-review exit 0 .experiment/outputs/lead-review.txt
+2026-10-07T14:06:12.871165+00:00 lead-frozen-source-check exit 0 .experiment/outputs/lead-frozen-source-check.txt
+2026-10-07T14:06:12.947735+00:00 lead-original-api-after exit 0 .experiment/outputs/lead-original-api-after.txt
+2026-10-07T14:06:12.951689+00:00 lead-test-commit-check exit 0 .experiment/outputs/lead-test-commit-check.txt
+Production service is exactly initial source minus retry-branch emission.
+.experiment/outputs/implementation-focused-before.txt
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+FAILED (failures=10)
+.experiment/outputs/implementation-focused-after.txt
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.012s
+
+OK
+.experiment/outputs/implementation-full-public.txt
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.013s
+
+OK
+Failure output successful-retry excerpt
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[288 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 2 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-002', 'run_id': 'run-002'}
+
+  [{'id': 1,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 2,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-002',
+-   'run_id': 'run-002'},
+-  {'id': 3,
+    'job_id': 'report',
+    'kind': 'run_failed',
+    'message': 'Job Report failed for run run-002',
+    'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[532 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+No full-suite rerun. Preserved pass outputs and unchanged reviewed code justify no additional runtime check.

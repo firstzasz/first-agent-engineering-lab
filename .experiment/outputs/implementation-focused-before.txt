@@ -1,0 +1,245 @@
+test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... 
+  test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=2) ... FAIL
+  test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=3) ... FAIL
+test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... 
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=2) ... FAIL
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=3) ... FAIL
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=2) ... FAIL
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=3) ... FAIL
+test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... 
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=2) ... FAIL
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=3) ... FAIL
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=2) ... FAIL
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=3) ... FAIL
+
+======================================================================
+FAIL: test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 111, in test_distinct_failed_runs_of_same_job_each_keep_their_alert
+    self.assert_failure_alerts(app, run_ids)
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[410 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-001', 'kind': 'run_failed',[166 chars]02'}]
+
+First differing element 1:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 2 additional elements.
+First extra element 2:
+{'id': 3, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-002', 'run_id': 'run-002'}
+
+  [{'id': 1,
+    'job_id': 'report',
+    'kind': 'run_failed',
+    'message': 'Job Report failed for run run-001',
+    'run_id': 'run-001'},
+   {'id': 2,
+    'job_id': 'report',
+    'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 3,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-002',
+-   'run_id': 'run-002'},
+-  {'id': 4,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+    'message': 'Job Report failed for run run-002',
+    'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 111, in test_distinct_failed_runs_of_same_job_each_keep_their_alert
+    self.assert_failure_alerts(app, run_ids)
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[654 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-001', 'kind': 'run_failed',[166 chars]02'}]
+
+First differing element 1:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 4 additional elements.
+First extra element 2:
+{'id': 3, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-001', 'run_id': 'run-001'}
+
+Diff is 846 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2] != [0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2]
++ [0, 1]
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2, 3] != [0, 0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2, 3]
++ [0, 0, 1]
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2] != [0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2]
++ [0, 1]
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2, 3] != [0, 0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2, 3]
++ [0, 0, 1]
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[288 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 2 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-002', 'run_id': 'run-002'}
+
+  [{'id': 1,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 2,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-002',
+-   'run_id': 'run-002'},
+-  {'id': 3,
+    'job_id': 'report',
+    'kind': 'run_failed',
+    'message': 'Job Report failed for run run-002',
+    'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[532 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 4 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-001', 'run_id': 'run-001'}
+
+Diff is 705 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[288 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 2 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-002', 'run_id': 'run-002'}
+
+  [{'id': 1,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 2,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-002',
+-   'run_id': 'run-002'},
+-  {'id': 3,
+    'job_id': 'report',
+    'kind': 'run_failed',
+    'message': 'Job Report failed for run run-002',
+    'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[532 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 4 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-001', 'run_id': 'run-001'}
+
+Diff is 705 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+FAILED (failures=10)

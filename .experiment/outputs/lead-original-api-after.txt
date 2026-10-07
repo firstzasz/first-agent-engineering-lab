@@ -1,0 +1,7 @@
+created {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}}
+attempt 1 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}, "status": "retry"}
+alerts {"alerts": []}
+attempt 2 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "failed"}, "status": "failed"}
+alerts {"alerts": [{"id": 1, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}]}
+attempt_numbers [1, 2]
+failure_alert_count 1

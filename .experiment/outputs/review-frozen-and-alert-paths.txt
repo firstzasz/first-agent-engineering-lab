@@ -1,0 +1,13 @@
+relayboard/service.py:32:    def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
+relayboard/service.py:48:        self._emit_failure_alert(run_id)
+relayboard/service.py:51:    def _emit_failure_alert(self, run_id: str) -> None:
+relayboard/service.py:54:        self.store.add_alert(
+relayboard/service.py:57:            "run_failed",
+relayboard/store.py:156:    def add_alert(
+relayboard/web.py:104:                status = self.service.record_attempt(
+tests/test_public.py:32:        state = self.app.service.record_attempt(
+tests/test_public.py:42:    def test_api_can_create_run_and_record_attempt(self) -> None:
+tests/test_failure_alerts.py:55:                "kind": "run_failed",
+Recorded source hashes match 21 paths
+Frozen paths unchanged against initial commit
+HEAD remains assigned test-only commit
