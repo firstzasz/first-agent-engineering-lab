@@ -1,0 +1,44 @@
+{
+  "trace": [
+    {
+      "source": "manual",
+      "run_id": "run-001",
+      "attempt_number": 1,
+      "attempt_result": "retry",
+      "run_status": "running",
+      "alert_run_ids": []
+    },
+    {
+      "source": "manual",
+      "run_id": "run-001",
+      "attempt_number": 2,
+      "attempt_result": "failed",
+      "run_status": "failed",
+      "alert_run_ids": [
+        "run-001"
+      ]
+    },
+    {
+      "source": "scheduled",
+      "run_id": "run-002",
+      "attempt_number": 1,
+      "attempt_result": "retry",
+      "run_status": "running",
+      "alert_run_ids": [
+        "run-001"
+      ]
+    },
+    {
+      "source": "scheduled",
+      "run_id": "run-002",
+      "attempt_number": 2,
+      "attempt_result": "failed",
+      "run_status": "failed",
+      "alert_run_ids": [
+        "run-001",
+        "run-002"
+      ]
+    }
+  ]
+}
+PASS: public API preserves retries and emits one failure alert per distinct failed Run

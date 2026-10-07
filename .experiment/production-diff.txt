@@ -1,0 +1,12 @@
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..7cdb0c4 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -42,7 +42,6 @@ class RelayBoardService:
+             return "succeeded"
+ 
+         if attempt.number < job.max_attempts:
+-            self._emit_failure_alert(run_id)
+             return "retry"
+ 
+         self.store.set_run_status(run_id, "failed")

@@ -1,0 +1,207 @@
+test_distinct_failed_runs_keep_their_own_alerts_via_api (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_keep_their_own_alerts_via_api) ... FAIL
+test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) ... 
+  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='manual') ... FAIL
+  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='scheduled') ... FAIL
+  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='manual') ... FAIL
+  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='scheduled') ... FAIL
+test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) ... 
+  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=2, success_number=2) ... FAIL
+  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=2) ... FAIL
+  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=3) ... FAIL
+  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=4) ... FAIL
+
+======================================================================
+FAIL: test_distinct_failed_runs_keep_their_own_alerts_via_api (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_keep_their_own_alerts_via_api)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 85, in test_distinct_failed_runs_keep_their_own_alerts_via_api
+    self.assertEqual(payload["alerts"], [])
+AssertionError: Lists differ: [{'id': 1, 'job_id': 'daily-report', 'kind[221 chars]02'}] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}
+
++ []
+- [{'id': 1,
+-   'job_id': 'daily-report',
+-   'kind': 'run_failed',
+-   'message': 'Job Daily report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 2,
+-   'job_id': 'daily-report',
+-   'kind': 'run_failed',
+-   'message': 'Job Daily report failed for run run-002',
+-   'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='manual')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+======================================================================
+FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='scheduled')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+======================================================================
+FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='manual')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+======================================================================
+FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='scheduled')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+======================================================================
+FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=2, success_number=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+======================================================================
+FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+======================================================================
+FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[175 chars]01')] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001'),
+-  Alert(id=2,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+======================================================================
+FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
+    self.assertEqual(store.list_alerts(), [])
+AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[286 chars]01')] != []
+
+First list contains 3 additional elements.
+First extra element 0:
+Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
+
++ []
+- [Alert(id=1,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001'),
+-  Alert(id=2,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001'),
+-  Alert(id=3,
+-        run_id='run-001',
+-        job_id='job',
+-        kind='run_failed',
+-        message='Job Test job failed for run run-001')]
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+FAILED (failures=9)

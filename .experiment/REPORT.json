@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "run_id": "F-S04-001",
+  "status": "VERIFIED",
+  "task": "Diagnose and fix duplicate failure alerts on retried Runs without suppressing distinct Runs or changing retry behavior.",
+  "method": {
+    "supplied_path": "METHOD.md",
+    "canonical_name": "FIRST_MODE_V0.md",
+    "route": "L1: Legible autonomous execution",
+    "delivery_note": "Operator confirmed METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name is intentional."
+  },
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "observed_runtime_model": "Unavailable to contestant; no model introspection tool used.",
+    "observed_role": "Codex task agent /root/contestant_f_s04_001",
+    "usage": "Token/cost/model telemetry unavailable to contestant."
+  },
+  "initial_local_commit": "f0cb3e77746bc0a8e25df5609d6249b01dbddd45",
+  "local_commits": [
+    {
+      "sha": "013d72a96ec562273c9d0dd766d5d17b670ae13d",
+      "purpose": "Implementation and regression tests"
+    }
+  ],
+  "report_commit_locator": "HEAD after the evidence commit; report cannot embed its own Git commit hash. Final response carries the resolved hash.",
+  "success_predicate": "Failure alerts are emitted once per terminal failed Run, never for a retry or successful Run, with retry budgets and separate Run identities preserved.",
+  "diagnosis": "record_attempt emitted run_failed on a failed Attempt eligible for retry and again after terminal failure. Alerts belong to terminal Runs, so retried Runs produced duplicates and recovered Runs produced false failure alerts.",
+  "change": "Removed only _emit_failure_alert(run_id) from the retry branch. Terminal failure emission, retry budget comparison, Attempt recording, Run IDs and terminal guard are preserved.",
+  "testcommands": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "phase": "baseline",
+      "exit_code": 0,
+      "result": "5 public tests passed",
+      "outputpath": ".experiment/baseline-tests.txt"
+    },
+    {
+      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
+      "phase": "before_fix",
+      "exit_code": 1,
+      "result": "Expected reproduction failure: API alert counts 1,2,3,4 for two 2-attempt Runs; retry and terminal failure both emit alerts.",
+      "outputpath": ".experiment/repro-before.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_retry_alerts.py' -v",
+      "phase": "before_fix",
+      "exit_code": 1,
+      "result": "3 regression methods executed; 9 subtest/test failures expose premature alerts and alerts on recovered Runs.",
+      "outputpath": ".experiment/regression-before.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "phase": "after_fix",
+      "exit_code": 0,
+      "result": "8 public tests passed, including retry budgets 1,2,4; manual/scheduled Runs; recovered success; interleaved distinct Runs on same/different Jobs; terminal guard.",
+      "outputpath": ".experiment/final-tests.txt"
+    },
+    {
+      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
+      "phase": "after_fix",
+      "exit_code": 0,
+      "result": "Unchanged reproduction passes: API alert counts 0,1,1,2; retry/failed outcomes and running/failed Run statuses preserved.",
+      "outputpath": ".experiment/repro-after.txt"
+    },
+    {
+      "command": "git diff --check",
+      "phase": "after_fix",
+      "exit_code": 0,
+      "result": "No whitespace errors in tracked production diff; new regression file was untracked at this check.",
+      "outputpath": ".experiment/diff-check.txt"
+    }
+  ],
+  "outputpaths": [
+    ".experiment/baseline-tests.txt",
+    ".experiment/repro-before.txt",
+    ".experiment/regression-before.txt",
+    ".experiment/final-tests.txt",
+    ".experiment/repro-after.txt",
+    ".experiment/diff-check.txt",
+    ".experiment/production-diff.txt"
+  ],
+  "output_sha256": {
+    ".experiment/baseline-tests.txt": "179d7dc5da2444134d04b0e46caedb208b6b9eb4589bfae66bd0fc12dbcb80b4",
+    ".experiment/repro-before.txt": "bb51e3c21d321844f984468958e640d4c0f10e80b8ce59e71f19f51b26112833",
+    ".experiment/regression-before.txt": "f8624c38de60a0dc6835bcbf6bbe5d63d173b5d60b77915a15d3d697a8a4950a",
+    ".experiment/final-tests.txt": "d24d4e855ff7f7c552d5ff8f140df10af51415200bab20b4fc247e364c70b3e0",
+    ".experiment/repro-after.txt": "d1de6980eb8e3d3b08b797d5cba22b879ee2af5e10b740746259e7ff7dd043a0",
+    ".experiment/diff-check.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".experiment/production-diff.txt": "4e516a692b102a5295e6b86c1e2384ca73dc6b9760ce92fc5cc00c1969923d9e"
+  },
+  "operator_interactions": [
+    {
+      "direction": "outgoing",
+      "type": "administrative note; not a question",
+      "target": "/root",
+      "message": "Supplied METHOD.md contains full frozen method; no separate FIRST_MODE_V0.md delivery file; applying canonical supplied content only. Public API reproduction planned."
+    },
+    {
+      "direction": "incoming",
+      "type": "administrative clarification",
+      "source": "/root",
+      "message": "METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name intentional. Apply that content only; preserve note and continue public reproduction/verification."
+    }
+  ],
+  "operator_questions": 0,
+  "helpers": [],
+  "decisions": [
+    {
+      "class": "FACT",
+      "decision": "AlertRule applies to terminal Run outcomes, not failed Attempts.",
+      "evidence": "GLOSSARY.md: AlertRule, Alert, Run, Attempt"
+    },
+    {
+      "class": "REVERSIBLE_ENGINEERING",
+      "decision": "Remove the retry-branch emission rather than deduplicate per Job or change persistence.",
+      "reason": "The exact reproduction demonstrates emission at both retry and terminal failure; the existing terminal guard prevents repeated recording after completion. Run-level timing fixes premature and duplicate alerts without suppressing separate Runs."
+    },
+    {
+      "class": "REVERSIBLE_ENGINEERING",
+      "decision": "Use public service and WSGI regressions as executable verification; no helper or alternative architecture needed.",
+      "reason": "Deterministic one-line root-cause fix, small inspected blast radius, matching API surface available. Evidence is independently inspectable; no reviewer was used."
+    }
+  ],
+  "action_path_log": [
+    {
+      "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'FIRST_MODE_V0.md' -g 'AGENTS.md' -g 'package.json' -g 'README*' -g '!node_modules' -g '!.git'",
+      "exit_code": 0,
+      "result": "Run area confirmed; README.md METHOD.md TASK.md found.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "command": "cat METHOD.md TASK.md",
+      "exit_code": 0,
+      "result": "Read assigned frozen FIRST-mode v0 and requested task.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "command": "rg --files -g '!node_modules' -g '!.git' -g '!vendor' -g '!dist' && git status --short && git rev-parse HEAD",
+      "exit_code": 0,
+      "result": "Clean status, HEAD f0cb3e77746bc0a8e25df5609d6249b01dbddd45; supplied application/public tests only.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "command": "rg --files --hidden -g '!.git' -g '!node_modules' && cat README.md GLOSSARY.md pyproject.toml relayboard/service.py relayboard/models.py relayboard/store.py tests/test_public.py",
+      "exit_code": 0,
+      "result": "Read fixture docs, domain, service, store and public tests; found premature emission in retry branch.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "command": "cat .experiment/RUN_MANIFEST.json .gitignore relayboard/web.py relayboard/testing.py",
+      "exit_code": 0,
+      "result": "Read supplied manifest, WSGI routes and public request utility.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "exec_command: write durable STATE.json with Python",
+      "paths_written": [
+        ".experiment/STATE.json"
+      ],
+      "result": "Method route, predicate, initial command/path log and administrative operator note preserved.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "apply_patch",
+      "paths_written": [
+        ".experiment/repro_retry_alerts.py",
+        "tests/test_retry_alerts.py"
+      ],
+      "result": "Created exact public API reproduction and service/API regression coverage before changing production code.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "apply_patch",
+      "paths_written": [
+        "relayboard/service.py"
+      ],
+      "result": "Removed premature failure-alert emission from retry branch.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "command": "git diff -- relayboard/service.py > .experiment/production-diff.txt\ncat .experiment/production-diff.txt\ngit status --short",
+      "exit_code": 0,
+      "paths_written": [
+        ".experiment/production-diff.txt"
+      ],
+      "result": "Reviewed one-line production fix and pending scoped files.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "command": "git add relayboard/service.py tests/test_retry_alerts.py\ngit commit -m \"Emit failure alerts only after retries are exhausted\"",
+      "exit_code": 0,
+      "result": "013d72a96ec562273c9d0dd766d5d17b670ae13d",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "exec_command: update STATE.json and write REPORT.json with Python",
+      "paths_written": [
+        ".experiment/STATE.json",
+        ".experiment/REPORT.json"
+      ],
+      "result": "Persist verified status, decisions, command/path log, outputs and evidence gaps.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "planned finalization",
+      "command": "git add .experiment\ngit commit -m \"Preserve FIRST-mode reproduction and verification evidence\"\ngit status --short\ngit rev-parse HEAD",
+      "result": "Final evidence commit hash is reported in final answer; this report is included in that commit.",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "public check",
+      "command": "python -m unittest discover -s tests -v",
+      "phase": "baseline",
+      "exit_code": 0,
+      "result": "5 public tests passed",
+      "outputpath": ".experiment/baseline-tests.txt",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "public check",
+      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
+      "phase": "before_fix",
+      "exit_code": 1,
+      "result": "Expected reproduction failure: API alert counts 1,2,3,4 for two 2-attempt Runs; retry and terminal failure both emit alerts.",
+      "outputpath": ".experiment/repro-before.txt",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "public check",
+      "command": "python -m unittest discover -s tests -p 'test_retry_alerts.py' -v",
+      "phase": "before_fix",
+      "exit_code": 1,
+      "result": "3 regression methods executed; 9 subtest/test failures expose premature alerts and alerts on recovered Runs.",
+      "outputpath": ".experiment/regression-before.txt",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "public check",
+      "command": "python -m unittest discover -s tests -v",
+      "phase": "after_fix",
+      "exit_code": 0,
+      "result": "8 public tests passed, including retry budgets 1,2,4; manual/scheduled Runs; recovered success; interleaved distinct Runs on same/different Jobs; terminal guard.",
+      "outputpath": ".experiment/final-tests.txt",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "public check",
+      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
+      "phase": "after_fix",
+      "exit_code": 0,
+      "result": "Unchanged reproduction passes: API alert counts 0,1,1,2; retry/failed outcomes and running/failed Run statuses preserved.",
+      "outputpath": ".experiment/repro-after.txt",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    },
+    {
+      "action": "public check",
+      "command": "git diff --check",
+      "phase": "after_fix",
+      "exit_code": 0,
+      "result": "No whitespace errors in tracked production diff; new regression file was untracked at this check.",
+      "outputpath": ".experiment/diff-check.txt",
+      "workdir": "/workspace/relayboard-active/F-S04-001"
+    }
+  ],
+  "paths_read": [
+    "METHOD.md",
+    "TASK.md",
+    "README.md",
+    "GLOSSARY.md",
+    "pyproject.toml",
+    "relayboard/service.py",
+    "relayboard/models.py",
+    "relayboard/store.py",
+    "tests/test_public.py",
+    ".experiment/RUN_MANIFEST.json",
+    ".gitignore",
+    "relayboard/web.py",
+    "relayboard/testing.py",
+    "tests/test_retry_alerts.py",
+    ".experiment/STATE.json"
+  ],
+  "paths_written": [
+    "relayboard/service.py",
+    "tests/test_retry_alerts.py",
+    ".experiment/repro_retry_alerts.py",
+    ".experiment/STATE.json",
+    ".experiment/REPORT.json",
+    ".experiment/baseline-tests.txt",
+    ".experiment/repro-before.txt",
+    ".experiment/regression-before.txt",
+    ".experiment/final-tests.txt",
+    ".experiment/repro-after.txt",
+    ".experiment/diff-check.txt",
+    ".experiment/production-diff.txt"
+  ],
+  "evaluator_or_peer_material_accessed": false,
+  "external_actions": [],
+  "evidence_gaps": [
+    "Initial tool outputs were inspected in-session; this file preserves exact commands and factual summaries, not verbatim initial output.",
+    "No independent human/helper review. Executable service and matching public WSGI checks are persisted and inspectable, but authored by implementing agent.",
+    "Verification uses supplied deterministic WSGI/SQLite fixture; no production deployment, external notification delivery, hidden evaluator, or concurrency/recovery guarantees were tested.",
+    "Runtime model identity and usage telemetry unavailable; requested identity comes from supplied RUN_MANIFEST.json.",
+    "Final evidence commit and final clean-status command outputs exist in the session; the report records their command and self-reference-safe commit locator."
+  ],
+  "known_unresolved_task_issues": []
+}

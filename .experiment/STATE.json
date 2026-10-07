@@ -1,0 +1,96 @@
+{
+  "method": {
+    "supplied_path": "METHOD.md",
+    "canonical_name": "FIRST_MODE_V0.md",
+    "route": "L1: Legible autonomous execution",
+    "delivery_note": "Operator confirmed METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name is intentional."
+  },
+  "goal": "Failure alerts are emitted once per terminal failed Run, never for a retry or successful Run, with retry budgets and separate Run identities preserved.",
+  "decision_class": "FACT: glossary defines Run-terminal alert timing; REVERSIBLE_ENGINEERING: remove the premature alert call only.",
+  "checkpoint": "VERIFIED: baseline passed; unchanged WSGI reproduction failed before and passed after; new regressions failed before and all 8 public tests passed after. The production change removes only the retry-branch failure alert call.",
+  "plan": [
+    "Run public baseline and exact API reproduction",
+    "Add regression coverage that fails before the fix",
+    "Remove retry-branch alert emission",
+    "Run complete public tests and original API reproduction",
+    "Commit code/tests and persist report"
+  ],
+  "helpers": [],
+  "operator_interactions": [
+    {
+      "direction": "outgoing",
+      "type": "administrative note; not a question",
+      "target": "/root",
+      "message": "Supplied METHOD.md contains full frozen method; no separate FIRST_MODE_V0.md delivery file; applying canonical supplied content only. Public API reproduction planned."
+    },
+    {
+      "direction": "incoming",
+      "type": "administrative clarification",
+      "source": "/root",
+      "message": "METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name intentional. Apply that content only; preserve note and continue public reproduction/verification."
+    }
+  ],
+  "initial_command_log": [
+    {
+      "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'FIRST_MODE_V0.md' -g 'AGENTS.md' -g 'package.json' -g 'README*' -g '!node_modules' -g '!.git'",
+      "exit_code": 0,
+      "result": "Run area confirmed; README.md METHOD.md TASK.md found."
+    },
+    {
+      "command": "cat METHOD.md TASK.md",
+      "exit_code": 0,
+      "result": "Read assigned frozen FIRST-mode v0 and requested task."
+    },
+    {
+      "command": "rg --files -g '!node_modules' -g '!.git' -g '!vendor' -g '!dist' && git status --short && git rev-parse HEAD",
+      "exit_code": 0,
+      "result": "Clean status, HEAD f0cb3e77746bc0a8e25df5609d6249b01dbddd45; supplied application/public tests only."
+    },
+    {
+      "command": "rg --files --hidden -g '!.git' -g '!node_modules' && cat README.md GLOSSARY.md pyproject.toml relayboard/service.py relayboard/models.py relayboard/store.py tests/test_public.py",
+      "exit_code": 0,
+      "result": "Read fixture docs, domain, service, store and public tests; found premature emission in retry branch."
+    },
+    {
+      "command": "cat .experiment/RUN_MANIFEST.json .gitignore relayboard/web.py relayboard/testing.py",
+      "exit_code": 0,
+      "result": "Read supplied manifest, WSGI routes and public request utility."
+    }
+  ],
+  "working_directory": "/workspace/relayboard-active/F-S04-001",
+  "paths_read": [
+    "METHOD.md",
+    "TASK.md",
+    "README.md",
+    "GLOSSARY.md",
+    "pyproject.toml",
+    "relayboard/service.py",
+    "relayboard/models.py",
+    "relayboard/store.py",
+    "tests/test_public.py",
+    ".experiment/RUN_MANIFEST.json",
+    ".gitignore",
+    "relayboard/web.py",
+    "relayboard/testing.py"
+  ],
+  "evaluator_or_peer_material_accessed": false,
+  "initial_output_gap": "Initial tool outputs were inspected in-session; this file preserves exact commands and factual summaries, not verbatim initial output.",
+  "remaining": "Persist evidence report and commit it; no implementation work remains.",
+  "decisions": [
+    {
+      "class": "FACT",
+      "decision": "AlertRule applies to terminal Run outcomes, not failed Attempts.",
+      "evidence": "GLOSSARY.md: AlertRule, Alert, Run, Attempt"
+    },
+    {
+      "class": "REVERSIBLE_ENGINEERING",
+      "decision": "Remove the retry-branch emission rather than deduplicate per Job or change persistence.",
+      "reason": "The exact reproduction demonstrates emission at both retry and terminal failure; the existing terminal guard prevents repeated recording after completion. Run-level timing fixes premature and duplicate alerts without suppressing separate Runs."
+    },
+    {
+      "class": "REVERSIBLE_ENGINEERING",
+      "decision": "Use public service and WSGI regressions as executable verification; no helper or alternative architecture needed.",
+      "reason": "Deterministic one-line root-cause fix, small inspected blast radius, matching API surface available. Evidence is independently inspectable; no reviewer was used."
+    }
+  ]
+}
