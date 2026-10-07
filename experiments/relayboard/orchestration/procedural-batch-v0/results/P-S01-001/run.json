@@ -1,0 +1,611 @@
+{
+  "schema_version": 1,
+  "run_id": "P-S01-001",
+  "scenario": "S01-v0",
+  "treatment": "pstack-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_p_s01_001"
+  },
+  "start": {
+    "run_id": "P-S01-001",
+    "workspace": "/workspace/relayboard-active/P-S01-001",
+    "local_start_sha": "b8130bbeaaeb90e170028d6899c0373ef88cc4f2",
+    "local_start_tree": "a787f17c567db06ab1d2cbbdaa4d61af1e6d3a3e",
+    "remote_prepared_sha": "bf39364986c2d80c4d6a084f4f947eba4a401199",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "pstack-codex-port-v0",
+    "prepared_at": "2026-10-07T06:53:42.081319+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "5d142e5a9c03b9e82ec6a567457deaf7adb29834",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca",
+      "upstream/pstack/skills/poteto-mode/SKILL.md": "de51c56164ff3da8f958437e207d14cec7d7fe99",
+      "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md": "eeebc42b7477d435d8ac61d631d84822f908f59c",
+      "upstream/pstack/skills/poteto-mode/playbooks/feature.md": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6",
+      "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md": "12c3a7d84effcacf3550cb893be67498d7b28a4a",
+      "upstream/pstack/skills/tdd/SKILL.md": "ca6f24c963001d9d518db2936dfe3d12f29b4e94",
+      "upstream/pstack/skills/how/SKILL.md": "139cac5e4dce5d5889daaf77faa8d5f81dd87318",
+      "upstream/pstack/skills/architect/SKILL.md": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9",
+      "upstream/pstack/skills/principle-laziness-protocol/SKILL.md": "e5bc77e62aa96ae13e482a84df61b3c711c5d828",
+      "upstream/pstack/skills/principle-model-the-domain/SKILL.md": "e1d664a19243c90a84e5e7a816e9e05146c88720",
+      "upstream/pstack/skills/principle-prove-it-works/SKILL.md": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125",
+      "upstream/pstack/skills/principle-fix-root-causes/SKILL.md": "7e5a419aeec97b4076fa517865013677428a9fa3",
+      "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab",
+      "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9",
+      "upstream/pstack/LICENSE": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+      "upstream/pstack/skills/show-me-your-work/SKILL.md": "d350a150c36ca16382b4aa6d4196b39e67454ad1",
+      "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md": "986371260ebccd9a5a6818c9561e88c1d270d0ee",
+      "upstream/pstack/skills/arena/SKILL.md": "bd260a064d6e07a06073df6841e3d180d643372a",
+      "upstream/pstack/skills/architect/references/rationale-template.md": "a10f77f59510c532cd909faaf3bfeee5ffbfd588",
+      "upstream/pstack/skills/architect/references/design-red-flags.md": "f8503c9595b289c607ff5088f82b21197edf94ec",
+      ".experiment/RUN_MANIFEST.json": "fc82c15751afcd3f12356fe0b5706a2bef86dec9"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": {
+    "current_time": "2026-10-07 07:00:27 UTC"
+  },
+  "candidate_frozen_at": "2026-10-07T07:00:28.102321+00:00",
+  "local_candidate_sha": "085855fbb248ddfcab0aeb8a4ff0368af6664f63",
+  "local_candidate_tree": "cbedc8f3e2bada87aa08214eaf111b5862dabed1",
+  "remote_candidate": {
+    "sha": "6f4d32a522cf9674dd9d7ad87f6896dc61d100c7",
+    "tree_sha": "cbedc8f3e2bada87aa08214eaf111b5862dabed1",
+    "branch": "candidate/P-S01-001"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/19",
+    "number": 19,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S01-v0 task in a fresh pstack-codex-port-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-pilot. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "P-S01-001: pstack-codex-port-v0 frozen benchmark candidate",
+    "base": "treatment/pstack/P-S01-001",
+    "base_sha": "bf39364986c2d80c4d6a084f4f947eba4a401199",
+    "head": "candidate/P-S01-001",
+    "head_sha": "6f4d32a522cf9674dd9d7ad87f6896dc61d100c7",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T07:00:37Z",
+    "updated_at": "2026-10-07T07:00:37Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 31,
+    "additions": 798,
+    "deletions": 1,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/19",
+    "display_title": "P-S01-001: pstack-codex-port-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "b8130bbeaaeb90e170028d6899c0373ef88cc4f2",
+      "metadata": "commit b8130bbeaaeb90e170028d6899c0373ef88cc4f2\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 06:53:42 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 06:53:42 2026 +0000\n\n    benchmark: frozen standalone P-S01-001 starting packet\n"
+    },
+    {
+      "sha": "89f11c9b5b1725dd3126606fffcb846cf60c61b9",
+      "metadata": "commit 89f11c9b5b1725dd3126606fffcb846cf60c61b9\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 06:58:39 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 06:58:39 2026 +0000\n\n    Change Jobs heading to Latest result\n"
+    },
+    {
+      "sha": "085855fbb248ddfcab0aeb8a4ff0368af6664f63",
+      "metadata": "commit 085855fbb248ddfcab0aeb8a4ff0368af6664f63\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 06:59:37 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 06:59:37 2026 +0000\n\n    Record frozen port verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/PLAN.md                       |  67 +++++++\n .experiment/REPORT.json                   | 320 ++++++++++++++++++++++++++++++\n .experiment/action-path-log.json          | 143 +++++++++++++\n .experiment/after-dashboard.txt           |   4 +\n .experiment/after-suite.txt               |  10 +\n .experiment/api_after.json                |  23 +++\n .experiment/api_before.json               |  23 +++\n .experiment/baseline-dashboard.txt        |   7 +\n .experiment/baseline-suite.txt            |  10 +\n .experiment/check_dashboard.py            |  27 +++\n .experiment/code-commit-id.txt            |   1 +\n .experiment/code-commit.txt               |   2 +\n .experiment/code-stage.txt                |   0\n .experiment/commands.jsonl                |  17 ++\n .experiment/dashboard_after.html          |   1 +\n .experiment/dashboard_before.html         |   1 +\n .experiment/decisions.tsv                 |  11 +\n .experiment/diff-check.txt                |   0\n .experiment/final-code-scope.txt          |   3 +\n .experiment/final-diff-check.txt          |   0\n .experiment/lead-diff.txt                 |  13 ++\n .experiment/precommit-status.txt          |  22 ++\n .experiment/reviewer-assignment.txt       |   1 +\n .experiment/reviewer-diff-check.txt       |   0\n .experiment/reviewer-public-suite.txt     |  10 +\n .experiment/reviewer-report.md            |  44 ++++\n .experiment/reviewer-surface-evidence.txt |   2 +\n .experiment/run_command.py                |  16 ++\n .experiment/source-bundle-hashes.txt      |  19 ++\n .experiment/upstream-diff.txt             |   0\n relayboard/web.py                         |   2 +-\n 31 files changed, 798 insertions(+), 1 deletion(-)\n",
+  "operator_interactions": [],
+  "agent_completion_claim": "Completed requested heading change in relayboard/web.py. WSGI before/after: only heading changed. All 5 public tests passed; fresh reviewer PASS. Source commit 89f11c9b5b1725dd3126606fffcb846cf60c61b9; final evidence commit 085855fbb248ddfcab0aeb8a4ff0368af6664f63. Working tree clean. Method and decisions recorded. One lead-owned unit followed by serial review. No open decisions or hidden/peer access. Requested GPT-6.1 Sol High review; runtime identity/usage unknown; captured-log audit only.",
+  "worker_report": {
+    "task_id": "P-S01-001",
+    "declared_status": "completed_public_checks_passed",
+    "task": "Change dashboard Jobs heading from Last result to Latest result only",
+    "workspace": "/workspace/relayboard-active/P-S01-001",
+    "branch": "candidate/P-S01-001",
+    "initial_local_commit": "b8130bbeaaeb90e170028d6899c0373ef88cc4f2",
+    "local_commits": [
+      {
+        "sha": "89f11c9b5b1725dd3126606fffcb846cf60c61b9",
+        "purpose": "Verified source change"
+      },
+      {
+        "sha": "resolve with git rev-parse HEAD after evidence commit",
+        "purpose": "Evidence containing this report; literal self hash cannot be embedded in its own commit"
+      }
+    ],
+    "method": {
+      "label": "pstack-codex-port-v0",
+      "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
+      "native_cursor": false,
+      "routes_and_skips": ".experiment/PLAN.md",
+      "source_hashes": ".experiment/source-bundle-hashes.txt",
+      "upstream_modified": false,
+      "mechanical_exception": "METHOD.md step 5; direct one-file edit plus separate fresh review"
+    },
+    "change": {
+      "path": "relayboard/web.py",
+      "line": 153,
+      "old": "Last result",
+      "new": "Latest result",
+      "production_diff": ".experiment/lead-diff.txt",
+      "data_shape": "Existing HTML table/string heading; no stateful logic or API changes"
+    },
+    "public_commands": [
+      {
+        "ts": "2026-10-07T06:55:07.156655+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/check_dashboard.py",
+          "before"
+        ],
+        "exit_code": 1,
+        "output": ".experiment/baseline-dashboard.txt"
+      },
+      {
+        "ts": "2026-10-07T06:55:07.655416+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/baseline-suite.txt"
+      },
+      {
+        "ts": "2026-10-07T06:55:38.188923+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/check_dashboard.py",
+          "after"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/after-dashboard.txt"
+      },
+      {
+        "ts": "2026-10-07T06:55:38.681497+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/after-suite.txt"
+      },
+      {
+        "ts": "2026-10-07T06:55:39.084232+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "diff",
+          "--",
+          "relayboard/web.py"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/lead-diff.txt"
+      },
+      {
+        "ts": "2026-10-07T06:55:39.139378+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/diff-check.txt"
+      },
+      {
+        "ts": "2026-10-07T06:57:04.307297+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          "-c",
+          "import csv, json, subprocess\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\nroot = Path.cwd().resolve()\ne = root / \".experiment\"\napp = create_seeded_app()\ncode, body = request(app, \"GET\", \"/dashboard\")\nassert code == 200\nassert body.count(\"<th>Latest result</th>\") == 1\nassert \"<th>Last result</th>\" not in body\nassert body == (e / \"dashboard_after.html\").read_text()\nassert body == (e / \"dashboard_before.html\").read_text().replace(\"<th>Last result</th>\", \"<th>Latest result</th>\")\njobs_code, jobs = request(app, \"GET\", \"/api/jobs\")\nalerts_code, alerts = request(app, \"GET\", \"/api/alerts\")\napi = {\"jobs_status\": jobs_code, \"jobs\": jobs, \"alerts_status\": alerts_code, \"alerts\": alerts}\nassert api == json.loads((e / \"api_before.json\").read_text())\nassert api == json.loads((e / \"api_after.json\").read_text())\nassert subprocess.check_output([\"git\", \"diff\", \"--\", \"relayboard/web.py\"], text=True) == (e / \"lead-diff.txt\").read_text()\nwith (e / \"decisions.tsv\").open() as stream:\n    rows = list(csv.DictReader(stream, delimiter=\"\\t\"))\nassert len(rows) == 7\nfor row in rows:\n    for pointer in row[\"evidence\"].split(\", \"):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nrecords = [json.loads(line) for line in (e / \"commands.jsonl\").read_text().splitlines()]\nfor record in records:\n    assert record[\"cwd\"] == str(root)\n    path = (root / record[\"output\"]).resolve()\n    assert path.is_relative_to(root) and path.is_file()\nassert records[0][\"exit_code\"] == 1\nassert all(record[\"exit_code\"] == 0 for record in records[1:])\nfor action in json.loads((e / \"action-path-log.json\").read_text()):\n    for pointer in action.get(\"paths\", []):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nprint(\"PASS: live WSGI heading, exact before/after markup, captured GET jobs/alerts equality, actual diff equality, seven TSV evidence rows, command output pointers, action-log path pointers.\")\nprint(\"Audit limit: captured command/checkpoint evidence only; no exported raw transcript.\")\n"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/reviewer-surface-evidence.txt"
+      },
+      {
+        "ts": "2026-10-07T06:57:04.793864+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/reviewer-public-suite.txt"
+      },
+      {
+        "ts": "2026-10-07T06:57:05.202504+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/reviewer-diff-check.txt"
+      },
+      {
+        "ts": "2026-10-07T06:57:14.088998+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "python",
+          "-c",
+          "from pathlib import Path; import hashlib; print('\\n'.join(str(p) + ' ' + hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path('upstream/pstack').rglob('*')) if p.is_file()))"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/source-bundle-hashes.txt"
+      },
+      {
+        "ts": "2026-10-07T06:57:19.361994+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "status",
+          "--short"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/precommit-status.txt"
+      },
+      {
+        "ts": "2026-10-07T06:57:19.427521+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "diff",
+          "--",
+          "upstream/pstack"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/upstream-diff.txt"
+      },
+      {
+        "ts": "2026-10-07T06:58:39.882741+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "add",
+          "relayboard/web.py"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/code-stage.txt"
+      },
+      {
+        "ts": "2026-10-07T06:58:39.934548+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "commit",
+          "-m",
+          "Change Jobs heading to Latest result"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/code-commit.txt"
+      },
+      {
+        "ts": "2026-10-07T06:58:39.988978+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/code-commit-id.txt"
+      },
+      {
+        "ts": "2026-10-07T06:59:28.532293+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/final-diff-check.txt"
+      },
+      {
+        "ts": "2026-10-07T06:59:28.591865+00:00",
+        "cwd": "/workspace/relayboard-active/P-S01-001",
+        "argv": [
+          "git",
+          "show",
+          "--stat",
+          "--oneline",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "output": ".experiment/final-code-scope.txt"
+      }
+    ],
+    "public_results": {
+      "baseline_surface": "Expected failing requested-heading assertion, exit 1; response status 200 and old heading present",
+      "after_surface": "Pass; exact baseline HTML with only heading replacement; sampled GET jobs and alerts payloads unchanged",
+      "full_public_suite": "5 tests passed before and after; reviewer rerun passed 5 tests",
+      "diff_check": "Pass",
+      "browser_visual_check": "Not performed; matching public WSGI surface is directly checked"
+    },
+    "helpers": [
+      {
+        "agent": "/root/contestant_p_s01_001/fresh_review",
+        "role": "Fresh scoped code and evidence review",
+        "fork_turns": "none",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning": "high",
+        "observed_identity": "unknown",
+        "serial": true,
+        "descendants": false,
+        "status": "completed",
+        "assignment": ".experiment/reviewer-assignment.txt",
+        "report": ".experiment/reviewer-report.md",
+        "verdict": "PASS"
+      }
+    ],
+    "operator_interactions": [],
+    "operator_questions": "None; exact product copy and standing local authorization were sufficient",
+    "action_path_log": ".experiment/action-path-log.json",
+    "command_log": ".experiment/commands.jsonl",
+    "decision_log": ".experiment/decisions.tsv",
+    "throughput": {
+      "blocking_first_steps": "Task/method/leaf reads and WSGI baseline",
+      "independent_workstreams": "n/a; one literal",
+      "shared_mutable_state": "n/a; lead edit then read-only fresh review",
+      "smallest_safe_decomposition": "One lead edit/check unit and one fresh serial reviewer"
+    },
+    "attention": {
+      "reviewer_requested_identity": "GPT-6.1 Sol High",
+      "flags": [
+        "No raw transcript export; audit covers captured commands and checkpoints only",
+        "Runtime model identity and usage attestation unknown"
+      ],
+      "resolved_flags": [
+        "Pending plan status updated",
+        "Local code commit completed; evidence commit is final local handoff"
+      ]
+    },
+    "open_decisions": [],
+    "access_declaration": {
+      "evaluator_material_accessed": false,
+      "peer_or_control_material_accessed": false,
+      "hidden_reference_solution_accessed": false,
+      "outside_assigned_workspace_inspected": false,
+      "public_lab_material_fetched": false,
+      "network_or_remote_operation": false,
+      "fresh_assigned_helper_report_accessed": true,
+      "complete_access_attestation": "unknown; declaration based on visible run, not independent full transcript attestation"
+    },
+    "identity_and_usage": {
+      "lead_requested_model": "GPT-6.1 Sol",
+      "lead_requested_reasoning": "High",
+      "lead_observed_identity": "unknown",
+      "helper_observed_identity": "unknown",
+      "token_counts": "unknown",
+      "cost": "unknown",
+      "provider_usage": "unknown",
+      "model_diversity": "No native multi-model claim"
+    },
+    "evidence_limits": "Read commands preceding creation of command logger are summarized in action-path-log.json. Exact captured subsequent command argv and outputs are in commands.jsonl. No full raw transcript was exported. Hidden evaluation is outside this run and unknown.",
+    "final_evidence_commit_command": [
+      "git",
+      "commit",
+      "-m",
+      "Record frozen port verification evidence"
+    ]
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": null,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.008s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S01-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "source_pins": [
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/SKILL.md",
+      "blob_sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "blob_sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+      "blob_sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+      "blob_sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/tdd/SKILL.md",
+      "blob_sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/how/SKILL.md",
+      "blob_sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/SKILL.md",
+      "blob_sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "blob_sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+      "blob_sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "blob_sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "blob_sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "blob_sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "blob_sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/LICENSE",
+      "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/show-me-your-work/SKILL.md",
+      "blob_sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "blob_sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/arena/SKILL.md",
+      "blob_sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/rationale-template.md",
+      "blob_sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/design-red-flags.md",
+      "blob_sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+    }
+  ],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json",
+    ".experiment/action-path-log.json",
+    ".experiment/decisions.tsv",
+    ".experiment/reviewer-report.md"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 64762,
+    "sha256": "e983b4a36f299a239856c21cfd8e12781c51ba4f31beab036a02a8607ec0c942",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}

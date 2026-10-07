@@ -45,8 +45,9 @@
       "branch": "treatment/pstack/P-S01-001",
       "prepared_sha": "bf39364986c2d80c4d6a084f4f947eba4a401199",
       "prepared_tree_sha": "a787f17c567db06ab1d2cbbdaa4d61af1e6d3a3e",
-      "status": "READY_PROCEDURAL",
-      "result_path": "results/P-S01-001/run.json"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result_path": "results/P-S01-001/run.json",
+      "candidate_sha": "6f4d32a522cf9674dd9d7ad87f6896dc61d100c7"
     },
     {
       "run_id": "P-S02-001",
@@ -129,5 +130,5 @@
       "result_path": "results/F-S04-001/run.json"
     }
   ],
-  "completed_count": 2
+  "completed_count": 3
 }

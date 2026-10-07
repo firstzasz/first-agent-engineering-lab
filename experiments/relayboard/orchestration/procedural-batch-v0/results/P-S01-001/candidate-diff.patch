@@ -1,0 +1,977 @@
+diff --git a/.experiment/PLAN.md b/.experiment/PLAN.md
+new file mode 100644
+index 0000000..cb7643e
+--- /dev/null
++++ b/.experiment/PLAN.md
+@@ -0,0 +1,67 @@
++### Feature
++
++**You own the design. Plan, review, verify.** Delegate implementation. Stay in the lead.
++
++1. `how` over the affected subsystem.
++2. `architect` for parallel design exploration.
++3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
++   - **Blocking first steps.** Gates run before fan-out.
++   - **Independent workstreams.** Disjoint files, services, or layers parallelize. Shared writes serialize.
++   - **Shared mutable state.** Default to splitting the target (the **separate-before-serializing-shared-state** principle skill). Serialize only for real invariants.
++   - **Smallest safe decomposition.** If one worker is best, name why.
++4. Delegate code-writing to a subagent using your configured feature model (default `grok-4.7-xhigh-fast`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). When the implementation admits multiple valid shapes (error handling, abstraction layer, test structure), delegate via the **arena** skill instead so the runners surface the alternatives and the cross-judge guards the pick. Mandatory: no skip-with-reason escape, and Laziness Protocol does not override it (the gain is review separation, not lines saved). A subagent forbidden to spawn satisfies this by owning the diff directly with the same review separation. No "standing by" reply that waits on a nested agent. Comments per **Comments**. Surgical edits, re-ground against the source for upstream-derived files. Port shared-primitive improvements to all consumers and verify each. Commit liberally.
++5. Verify on the matching surface. "Inconclusive" or wrong-surface is not a pass. Flag it.
++6. Rebase into small, ordered commits. Stack follow-ups.
++   Use the **sequence-verifiable-units** principle skill, building, verifying, and committing each small unit before the next.
++7. If the design is contested, `interrogate` before shipping.
++8. Run **Opening a PR**.
++
++Code-coupled work (one feature, one migration) goes to a single owner with the checkpoint inline. That owner fans out internally after the blocking phase. Parent-level fan-out is for slices that produce independent artifacts (audits, cross-subsystem investigations, competing experiments). Rewrite the checkpoint at phase boundaries. Spawn a fresh owner rather than chaining interrupts.
++
++**Reply:** what you built, what you chose and why, the throughput checkpoint, open decisions. Tables for design alternatives.
++
++
++# Frozen port execution notes
++
++# Feature route
++
++1. `how` over the affected subsystem.
++   skip: Dedicated How helper is unnecessary for one literal. Lead traced GET /dashboard through render_dashboard and the existing WSGI fixture.
++2. `architect` for parallel design exploration.
++   skip: No function boundary, logic, interface, or architectural choice changes.
++3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
++   - **Blocking first steps.** Gates run before fan-out.
++     Read task, frozen method, Feature playbook and applicable leaf principles. Locate the sole heading and capture the actual WSGI baseline before editing.
++   - **Independent workstreams.** Disjoint files, services, or layers parallelize. Shared writes serialize.
++     n/a: One literal in one file. No parallel workstreams.
++   - **Shared mutable state.** Default to splitting the target (the **separate-before-serializing-shared-state** principle skill). Serialize only for real invariants.
++     n/a: Lead owns the single source edit. Fresh reviewer is read-only and runs after verification.
++   - **Smallest safe decomposition.** If one worker is best, name why.
++     One lead owns the literal edit and surface check; one fresh helper reviews the diff and evidence serially.
++4. Delegate code-writing to a subagent using your configured feature model.
++   skip: METHOD.md step 5 explicitly permits direct ownership of a truly mechanical one-file edit with separate fresh review. No stateful logic is introduced. The data shape remains the existing HTML table and its string heading.
++5. Verify on the matching surface. "Inconclusive" or wrong-surface is not a pass. Flag it.
++   Complete. WSGI before/after check passed; all five public tests passed; fresh reviewer reran both and passed.
++6. Rebase into small, ordered commits. Stack follow-ups.
++   Use the **sequence-verifiable-units** principle skill, building, verifying, and committing each small unit before the next.
++   One verified code unit. No remote or other branch access; commit on the existing local branch without rebase.
++7. If the design is contested, `interrogate` before shipping.
++   skip: Exact copy requirement, no contested design.
++8. Run **Opening a PR**.
++   Adaptation: Bundled PR playbook is absent. METHOD.md replaces native PR automation with immutable local commit handoff to the orchestrator.
++
++# Routes and adaptations
++
++Read core Poteto Mode, Feature, Laziness Protocol, Model the Domain, Prove It Works, Fix Root Causes, Test Behavior Not Implementation, Sequence Verifiable Units, Never Block on the Human, and Show Me Your Work.
++
++Fix Root Causes is nonapplicable because this is specified copy change, not debugging. Test Behavior Not Implementation governs the WSGI check. Sequence Verifiable Units keeps this as one before/after unit. Never Block on the Human uses standing permission for the reversible edit; no product question exists.
++
++How and Architect are skipped under the narrow mechanical route in METHOD.md. Native unslop, technical-writing, deslop, no-comments, control-ui, create-skill and Opening a PR are unbundled or unavailable. Use direct clear prose, scoped diff cleanup and review, the public WSGI surface and local commit handoff. No unrelated skill source is fetched. Show Me Your Work's TSV template and helper are unbundled, so its documented header is used directly. No raw native transcript exists. Review captured commands and checkpoint artifacts instead. Review uses a fresh same-model helper, not native model diversity.
++
++Lead requested identity is GPT-6.1 Sol with High reasoning. Exact runtime identity and token/usage attestation are unavailable to the lead and recorded as unknown.
++
++# Final checkpoint
++
++Fresh scoped reviewer returned PASS. All requested verification is complete. No production changes were requested by review. Attention limits remain captured-log-only audit and unknown runtime identity/usage. No open product decision remains. Local commit is the final outstanding delivery step.
++
++The verified source change is committed as 89f11c9b5b1725dd3126606fffcb846cf60c61b9. Evidence will be committed separately with REPORT.json referring to that evidence commit by HEAD to avoid a self-referential commit hash.
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..bc279da
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,320 @@
++{
++  "task_id": "P-S01-001",
++  "declared_status": "completed_public_checks_passed",
++  "task": "Change dashboard Jobs heading from Last result to Latest result only",
++  "workspace": "/workspace/relayboard-active/P-S01-001",
++  "branch": "candidate/P-S01-001",
++  "initial_local_commit": "b8130bbeaaeb90e170028d6899c0373ef88cc4f2",
++  "local_commits": [
++    {
++      "sha": "89f11c9b5b1725dd3126606fffcb846cf60c61b9",
++      "purpose": "Verified source change"
++    },
++    {
++      "sha": "resolve with git rev-parse HEAD after evidence commit",
++      "purpose": "Evidence containing this report; literal self hash cannot be embedded in its own commit"
++    }
++  ],
++  "method": {
++    "label": "pstack-codex-port-v0",
++    "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
++    "native_cursor": false,
++    "routes_and_skips": ".experiment/PLAN.md",
++    "source_hashes": ".experiment/source-bundle-hashes.txt",
++    "upstream_modified": false,
++    "mechanical_exception": "METHOD.md step 5; direct one-file edit plus separate fresh review"
++  },
++  "change": {
++    "path": "relayboard/web.py",
++    "line": 153,
++    "old": "Last result",
++    "new": "Latest result",
++    "production_diff": ".experiment/lead-diff.txt",
++    "data_shape": "Existing HTML table/string heading; no stateful logic or API changes"
++  },
++  "public_commands": [
++    {
++      "ts": "2026-10-07T06:55:07.156655+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/check_dashboard.py",
++        "before"
++      ],
++      "exit_code": 1,
++      "output": ".experiment/baseline-dashboard.txt"
++    },
++    {
++      "ts": "2026-10-07T06:55:07.655416+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/baseline-suite.txt"
++    },
++    {
++      "ts": "2026-10-07T06:55:38.188923+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/check_dashboard.py",
++        "after"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/after-dashboard.txt"
++    },
++    {
++      "ts": "2026-10-07T06:55:38.681497+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/after-suite.txt"
++    },
++    {
++      "ts": "2026-10-07T06:55:39.084232+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "diff",
++        "--",
++        "relayboard/web.py"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/lead-diff.txt"
++    },
++    {
++      "ts": "2026-10-07T06:55:39.139378+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "diff",
++        "--check"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/diff-check.txt"
++    },
++    {
++      "ts": "2026-10-07T06:57:04.307297+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        "-c",
++        "import csv, json, subprocess\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\nroot = Path.cwd().resolve()\ne = root / \".experiment\"\napp = create_seeded_app()\ncode, body = request(app, \"GET\", \"/dashboard\")\nassert code == 200\nassert body.count(\"<th>Latest result</th>\") == 1\nassert \"<th>Last result</th>\" not in body\nassert body == (e / \"dashboard_after.html\").read_text()\nassert body == (e / \"dashboard_before.html\").read_text().replace(\"<th>Last result</th>\", \"<th>Latest result</th>\")\njobs_code, jobs = request(app, \"GET\", \"/api/jobs\")\nalerts_code, alerts = request(app, \"GET\", \"/api/alerts\")\napi = {\"jobs_status\": jobs_code, \"jobs\": jobs, \"alerts_status\": alerts_code, \"alerts\": alerts}\nassert api == json.loads((e / \"api_before.json\").read_text())\nassert api == json.loads((e / \"api_after.json\").read_text())\nassert subprocess.check_output([\"git\", \"diff\", \"--\", \"relayboard/web.py\"], text=True) == (e / \"lead-diff.txt\").read_text()\nwith (e / \"decisions.tsv\").open() as stream:\n    rows = list(csv.DictReader(stream, delimiter=\"\\t\"))\nassert len(rows) == 7\nfor row in rows:\n    for pointer in row[\"evidence\"].split(\", \"):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nrecords = [json.loads(line) for line in (e / \"commands.jsonl\").read_text().splitlines()]\nfor record in records:\n    assert record[\"cwd\"] == str(root)\n    path = (root / record[\"output\"]).resolve()\n    assert path.is_relative_to(root) and path.is_file()\nassert records[0][\"exit_code\"] == 1\nassert all(record[\"exit_code\"] == 0 for record in records[1:])\nfor action in json.loads((e / \"action-path-log.json\").read_text()):\n    for pointer in action.get(\"paths\", []):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nprint(\"PASS: live WSGI heading, exact before/after markup, captured GET jobs/alerts equality, actual diff equality, seven TSV evidence rows, command output pointers, action-log path pointers.\")\nprint(\"Audit limit: captured command/checkpoint evidence only; no exported raw transcript.\")\n"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/reviewer-surface-evidence.txt"
++    },
++    {
++      "ts": "2026-10-07T06:57:04.793864+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/reviewer-public-suite.txt"
++    },
++    {
++      "ts": "2026-10-07T06:57:05.202504+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "diff",
++        "--check"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/reviewer-diff-check.txt"
++    },
++    {
++      "ts": "2026-10-07T06:57:14.088998+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "python",
++        "-c",
++        "from pathlib import Path; import hashlib; print('\\n'.join(str(p) + ' ' + hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path('upstream/pstack').rglob('*')) if p.is_file()))"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/source-bundle-hashes.txt"
++    },
++    {
++      "ts": "2026-10-07T06:57:19.361994+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "status",
++        "--short"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/precommit-status.txt"
++    },
++    {
++      "ts": "2026-10-07T06:57:19.427521+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "diff",
++        "--",
++        "upstream/pstack"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/upstream-diff.txt"
++    },
++    {
++      "ts": "2026-10-07T06:58:39.882741+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "add",
++        "relayboard/web.py"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/code-stage.txt"
++    },
++    {
++      "ts": "2026-10-07T06:58:39.934548+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "commit",
++        "-m",
++        "Change Jobs heading to Latest result"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/code-commit.txt"
++    },
++    {
++      "ts": "2026-10-07T06:58:39.988978+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "rev-parse",
++        "HEAD"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/code-commit-id.txt"
++    },
++    {
++      "ts": "2026-10-07T06:59:28.532293+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "diff",
++        "--check"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/final-diff-check.txt"
++    },
++    {
++      "ts": "2026-10-07T06:59:28.591865+00:00",
++      "cwd": "/workspace/relayboard-active/P-S01-001",
++      "argv": [
++        "git",
++        "show",
++        "--stat",
++        "--oneline",
++        "HEAD"
++      ],
++      "exit_code": 0,
++      "output": ".experiment/final-code-scope.txt"
++    }
++  ],
++  "public_results": {
++    "baseline_surface": "Expected failing requested-heading assertion, exit 1; response status 200 and old heading present",
++    "after_surface": "Pass; exact baseline HTML with only heading replacement; sampled GET jobs and alerts payloads unchanged",
++    "full_public_suite": "5 tests passed before and after; reviewer rerun passed 5 tests",
++    "diff_check": "Pass",
++    "browser_visual_check": "Not performed; matching public WSGI surface is directly checked"
++  },
++  "helpers": [
++    {
++      "agent": "/root/contestant_p_s01_001/fresh_review",
++      "role": "Fresh scoped code and evidence review",
++      "fork_turns": "none",
++      "requested_model": "gpt-6.1-sol",
++      "requested_reasoning": "high",
++      "observed_identity": "unknown",
++      "serial": true,
++      "descendants": false,
++      "status": "completed",
++      "assignment": ".experiment/reviewer-assignment.txt",
++      "report": ".experiment/reviewer-report.md",
++      "verdict": "PASS"
++    }
++  ],
++  "operator_interactions": [],
++  "operator_questions": "None; exact product copy and standing local authorization were sufficient",
++  "action_path_log": ".experiment/action-path-log.json",
++  "command_log": ".experiment/commands.jsonl",
++  "decision_log": ".experiment/decisions.tsv",
++  "throughput": {
++    "blocking_first_steps": "Task/method/leaf reads and WSGI baseline",
++    "independent_workstreams": "n/a; one literal",
++    "shared_mutable_state": "n/a; lead edit then read-only fresh review",
++    "smallest_safe_decomposition": "One lead edit/check unit and one fresh serial reviewer"
++  },
++  "attention": {
++    "reviewer_requested_identity": "GPT-6.1 Sol High",
++    "flags": [
++      "No raw transcript export; audit covers captured commands and checkpoints only",
++      "Runtime model identity and usage attestation unknown"
++    ],
++    "resolved_flags": [
++      "Pending plan status updated",
++      "Local code commit completed; evidence commit is final local handoff"
++    ]
++  },
++  "open_decisions": [],
++  "access_declaration": {
++    "evaluator_material_accessed": false,
++    "peer_or_control_material_accessed": false,
++    "hidden_reference_solution_accessed": false,
++    "outside_assigned_workspace_inspected": false,
++    "public_lab_material_fetched": false,
++    "network_or_remote_operation": false,
++    "fresh_assigned_helper_report_accessed": true,
++    "complete_access_attestation": "unknown; declaration based on visible run, not independent full transcript attestation"
++  },
++  "identity_and_usage": {
++    "lead_requested_model": "GPT-6.1 Sol",
++    "lead_requested_reasoning": "High",
++    "lead_observed_identity": "unknown",
++    "helper_observed_identity": "unknown",
++    "token_counts": "unknown",
++    "cost": "unknown",
++    "provider_usage": "unknown",
++    "model_diversity": "No native multi-model claim"
++  },
++  "evidence_limits": "Read commands preceding creation of command logger are summarized in action-path-log.json. Exact captured subsequent command argv and outputs are in commands.jsonl. No full raw transcript was exported. Hidden evaluation is outside this run and unknown.",
++  "final_evidence_commit_command": [
++    "git",
++    "commit",
++    "-m",
++    "Record frozen port verification evidence"
++  ]
++}
+diff --git a/.experiment/action-path-log.json b/.experiment/action-path-log.json
+new file mode 100644
+index 0000000..efae8f9
+--- /dev/null
++++ b/.experiment/action-path-log.json
+@@ -0,0 +1,143 @@
++[
++  {
++    "action": "Read",
++    "paths": [
++      "TASK.md",
++      "METHOD.md",
++      "upstream/pstack/skills/poteto-mode/SKILL.md"
++    ],
++    "evidence": "Tool output visible in this run; no raw transcript export"
++  },
++  {
++    "action": "Inventory",
++    "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'AGENTS.md' -g '!node_modules' -g '!.git'",
++    "scope": "assigned workspace",
++    "result": "TASK.md and METHOD.md; no AGENTS.md in run"
++  },
++  {
++    "action": "Inventory",
++    "command": "rg --files -g '!.git'",
++    "scope": "assigned workspace",
++    "result": "Assigned source bundle and fixture files only"
++  },
++  {
++    "action": "Read",
++    "paths": [
++      "upstream/pstack/skills/poteto-mode/playbooks/feature.md",
++      "upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
++      "upstream/pstack/skills/principle-model-the-domain/SKILL.md",
++      "upstream/pstack/skills/principle-prove-it-works/SKILL.md",
++      "upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
++      "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
++      "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
++      "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md",
++      "upstream/pstack/skills/show-me-your-work/SKILL.md"
++    ]
++  },
++  {
++    "action": "Read",
++    "paths": [
++      "README.md",
++      "pyproject.toml",
++      "tests/test_public.py",
++      "relayboard/web.py",
++      "relayboard/testing.py"
++    ],
++    "note": "README external links were not followed"
++  },
++  {
++    "action": "Git status and identity",
++    "commands": [
++      "git status --short",
++      "git rev-parse HEAD",
++      "git branch --show-current"
++    ],
++    "result": "clean; b8130bbeaaeb90e170028d6899c0373ef88cc4f2; candidate/P-S01-001"
++  },
++  {
++    "action": "Locate heading",
++    "command": "rg -n 'Last result|Latest result' relayboard tests",
++    "result": "relayboard/web.py:153 sole heading occurrence"
++  },
++  {
++    "action": "Create evidence files",
++    "paths": [
++      ".experiment/run_command.py",
++      ".experiment/check_dashboard.py",
++      ".experiment/PLAN.md",
++      ".experiment/commands.jsonl",
++      ".experiment/decisions.tsv",
++      ".experiment/action-path-log.json"
++    ]
++  },
++  {
++    "action": "Edit",
++    "paths": [
++      "relayboard/web.py"
++    ],
++    "result": "Only Last result -> Latest result at line 153"
++  },
++  {
++    "action": "Run public commands",
++    "evidence": ".experiment/commands.jsonl",
++    "result": "Exact argv, cwd, exit codes and output pointers recorded"
++  },
++  {
++    "action": "Spawn fresh serial helper",
++    "helper": "/root/contestant_p_s01_001/fresh_review",
++    "fork_turns": "none",
++    "requested_model": "gpt-6.1-sol",
++    "requested_reasoning": "high",
++    "paths": [
++      ".experiment/reviewer-assignment.txt",
++      ".experiment/reviewer-report.md"
++    ],
++    "result": "Completed PASS; no descendants"
++  },
++  {
++    "action": "Read fresh review",
++    "paths": [
++      ".experiment/reviewer-report.md",
++      ".experiment/commands.jsonl"
++    ],
++    "result": "Corrected stale pending plan status; preserved remaining audit and identity limits"
++  },
++  {
++    "action": "Reviewer assigned-area read",
++    "paths": [
++      ".experiment/RUN_MANIFEST.json"
++    ],
++    "result": "Reviewer report notes assigned-area manifest read; no history or external links followed"
++  },
++  {
++    "action": "Commit source",
++    "command": "git add relayboard/web.py; git commit -m Change Jobs heading to Latest result",
++    "commit": "89f11c9b5b1725dd3126606fffcb846cf60c61b9",
++    "evidence": ".experiment/code-commit.txt"
++  },
++  {
++    "action": "Freeze report and evidence",
++    "paths": [
++      ".experiment/REPORT.json",
++      ".experiment/PLAN.md",
++      ".experiment/action-path-log.json",
++      ".experiment/decisions.tsv"
++    ],
++    "result": "Captured-log audit only; complete runtime attestation and usage unknown"
++  },
++  {
++    "action": "Final evidence commit",
++    "argv": [
++      "git",
++      "add",
++      ".experiment"
++    ],
++    "next_argv": [
++      "git",
++      "commit",
++      "-m",
++      "Record frozen port verification evidence"
++    ],
++    "result": "Commit id resolved by local HEAD after completion; final tool stdout retained in session, not a full transcript export"
++  }
++]
+diff --git a/.experiment/after-dashboard.txt b/.experiment/after-dashboard.txt
+new file mode 100644
+index 0000000..ae980d9
+--- /dev/null
++++ b/.experiment/after-dashboard.txt
+@@ -0,0 +1,4 @@
++GET /dashboard status: 200
++<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Latest result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
++Dashboard equals baseline with only the requested heading replacement; GET jobs and alerts API payloads match baseline.
++Requested dashboard heading verified through WSGI.
+diff --git a/.experiment/after-suite.txt b/.experiment/after-suite.txt
+new file mode 100644
+index 0000000..151af1a
+--- /dev/null
++++ b/.experiment/after-suite.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.003s
++
++OK
+diff --git a/.experiment/api_after.json b/.experiment/api_after.json
+new file mode 100644
+index 0000000..b30b728
+--- /dev/null
++++ b/.experiment/api_after.json
+@@ -0,0 +1,23 @@
++{
++  "alerts": {
++    "alerts": []
++  },
++  "alerts_status": 200,
++  "jobs": {
++    "jobs": [
++      {
++        "enabled": false,
++        "id": "cleanup",
++        "max_attempts": 1,
++        "name": "Cleanup"
++      },
++      {
++        "enabled": true,
++        "id": "daily-report",
++        "max_attempts": 2,
++        "name": "Daily report"
++      }
++    ]
++  },
++  "jobs_status": 200
++}
+diff --git a/.experiment/api_before.json b/.experiment/api_before.json
+new file mode 100644
+index 0000000..b30b728
+--- /dev/null
++++ b/.experiment/api_before.json
+@@ -0,0 +1,23 @@
++{
++  "alerts": {
++    "alerts": []
++  },
++  "alerts_status": 200,
++  "jobs": {
++    "jobs": [
++      {
++        "enabled": false,
++        "id": "cleanup",
++        "max_attempts": 1,
++        "name": "Cleanup"
++      },
++      {
++        "enabled": true,
++        "id": "daily-report",
++        "max_attempts": 2,
++        "name": "Daily report"
++      }
++    ]
++  },
++  "jobs_status": 200
++}
+diff --git a/.experiment/baseline-dashboard.txt b/.experiment/baseline-dashboard.txt
+new file mode 100644
+index 0000000..a99ea14
+--- /dev/null
++++ b/.experiment/baseline-dashboard.txt
+@@ -0,0 +1,7 @@
++GET /dashboard status: 200
++<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/P-S01-001/.experiment/check_dashboard.py", line 25, in <module>
++    assert '<th>Latest result</th>' in body, 'Requested Latest result heading is absent'
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: Requested Latest result heading is absent
+diff --git a/.experiment/baseline-suite.txt b/.experiment/baseline-suite.txt
+new file mode 100644
+index 0000000..151af1a
+--- /dev/null
++++ b/.experiment/baseline-suite.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.003s
++
++OK
+diff --git a/.experiment/check_dashboard.py b/.experiment/check_dashboard.py
+new file mode 100644
+index 0000000..121451a
+--- /dev/null
++++ b/.experiment/check_dashboard.py
+@@ -0,0 +1,27 @@
++import json
++from pathlib import Path
++import sys
++
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++root = Path(__file__).resolve().parent
++app = create_seeded_app()
++code, body = request(app, 'GET', '/dashboard')
++api_code, jobs = request(app, 'GET', '/api/jobs')
++alerts_code, alerts = request(app, 'GET', '/api/alerts')
++api = {'jobs_status': api_code, 'jobs': jobs, 'alerts_status': alerts_code, 'alerts': alerts}
++mode = sys.argv[1]
++(root / f'dashboard_{mode}.html').write_text(body)
++(root / f'api_{mode}.json').write_text(json.dumps(api, sort_keys=True, indent=2) + '\n')
++print(f'GET /dashboard status: {code}')
++print(body)
++assert code == 200
++if mode == 'after':
++    baseline = (root / 'dashboard_before.html').read_text()
++    assert body == baseline.replace('<th>Last result</th>', '<th>Latest result</th>')
++    assert api == json.loads((root / 'api_before.json').read_text())
++    print('Dashboard equals baseline with only the requested heading replacement; GET jobs and alerts API payloads match baseline.')
++assert '<th>Latest result</th>' in body, 'Requested Latest result heading is absent'
++assert '<th>Last result</th>' not in body
++print('Requested dashboard heading verified through WSGI.')
+diff --git a/.experiment/code-commit-id.txt b/.experiment/code-commit-id.txt
+new file mode 100644
+index 0000000..fccdba5
+--- /dev/null
++++ b/.experiment/code-commit-id.txt
+@@ -0,0 +1 @@
++89f11c9b5b1725dd3126606fffcb846cf60c61b9
+diff --git a/.experiment/code-commit.txt b/.experiment/code-commit.txt
+new file mode 100644
+index 0000000..f0d05dd
+--- /dev/null
++++ b/.experiment/code-commit.txt
+@@ -0,0 +1,2 @@
++[candidate/P-S01-001 89f11c9] Change Jobs heading to Latest result
++ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/.experiment/code-stage.txt b/.experiment/code-stage.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/commands.jsonl b/.experiment/commands.jsonl
+new file mode 100644
+index 0000000..51786a1
+--- /dev/null
++++ b/.experiment/commands.jsonl
+@@ -0,0 +1,17 @@
++{"ts": "2026-10-07T06:55:07.156655+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["env", "PYTHONPATH=.", "python", ".experiment/check_dashboard.py", "before"], "exit_code": 1, "output": ".experiment/baseline-dashboard.txt"}
++{"ts": "2026-10-07T06:55:07.655416+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "exit_code": 0, "output": ".experiment/baseline-suite.txt"}
++{"ts": "2026-10-07T06:55:38.188923+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["env", "PYTHONPATH=.", "python", ".experiment/check_dashboard.py", "after"], "exit_code": 0, "output": ".experiment/after-dashboard.txt"}
++{"ts": "2026-10-07T06:55:38.681497+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "exit_code": 0, "output": ".experiment/after-suite.txt"}
++{"ts": "2026-10-07T06:55:39.084232+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "diff", "--", "relayboard/web.py"], "exit_code": 0, "output": ".experiment/lead-diff.txt"}
++{"ts": "2026-10-07T06:55:39.139378+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "diff", "--check"], "exit_code": 0, "output": ".experiment/diff-check.txt"}
++{"ts": "2026-10-07T06:57:04.307297+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["env", "PYTHONPATH=.", "python", "-c", "import csv, json, subprocess\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\nroot = Path.cwd().resolve()\ne = root / \".experiment\"\napp = create_seeded_app()\ncode, body = request(app, \"GET\", \"/dashboard\")\nassert code == 200\nassert body.count(\"<th>Latest result</th>\") == 1\nassert \"<th>Last result</th>\" not in body\nassert body == (e / \"dashboard_after.html\").read_text()\nassert body == (e / \"dashboard_before.html\").read_text().replace(\"<th>Last result</th>\", \"<th>Latest result</th>\")\njobs_code, jobs = request(app, \"GET\", \"/api/jobs\")\nalerts_code, alerts = request(app, \"GET\", \"/api/alerts\")\napi = {\"jobs_status\": jobs_code, \"jobs\": jobs, \"alerts_status\": alerts_code, \"alerts\": alerts}\nassert api == json.loads((e / \"api_before.json\").read_text())\nassert api == json.loads((e / \"api_after.json\").read_text())\nassert subprocess.check_output([\"git\", \"diff\", \"--\", \"relayboard/web.py\"], text=True) == (e / \"lead-diff.txt\").read_text()\nwith (e / \"decisions.tsv\").open() as stream:\n    rows = list(csv.DictReader(stream, delimiter=\"\\t\"))\nassert len(rows) == 7\nfor row in rows:\n    for pointer in row[\"evidence\"].split(\", \"):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nrecords = [json.loads(line) for line in (e / \"commands.jsonl\").read_text().splitlines()]\nfor record in records:\n    assert record[\"cwd\"] == str(root)\n    path = (root / record[\"output\"]).resolve()\n    assert path.is_relative_to(root) and path.is_file()\nassert records[0][\"exit_code\"] == 1\nassert all(record[\"exit_code\"] == 0 for record in records[1:])\nfor action in json.loads((e / \"action-path-log.json\").read_text()):\n    for pointer in action.get(\"paths\", []):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nprint(\"PASS: live WSGI heading, exact before/after markup, captured GET jobs/alerts equality, actual diff equality, seven TSV evidence rows, command output pointers, action-log path pointers.\")\nprint(\"Audit limit: captured command/checkpoint evidence only; no exported raw transcript.\")\n"], "exit_code": 0, "output": ".experiment/reviewer-surface-evidence.txt"}
++{"ts": "2026-10-07T06:57:04.793864+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "exit_code": 0, "output": ".experiment/reviewer-public-suite.txt"}
++{"ts": "2026-10-07T06:57:05.202504+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "diff", "--check"], "exit_code": 0, "output": ".experiment/reviewer-diff-check.txt"}
++{"ts": "2026-10-07T06:57:14.088998+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["python", "-c", "from pathlib import Path; import hashlib; print('\\n'.join(str(p) + ' ' + hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path('upstream/pstack').rglob('*')) if p.is_file()))"], "exit_code": 0, "output": ".experiment/source-bundle-hashes.txt"}
++{"ts": "2026-10-07T06:57:19.361994+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "status", "--short"], "exit_code": 0, "output": ".experiment/precommit-status.txt"}
++{"ts": "2026-10-07T06:57:19.427521+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "diff", "--", "upstream/pstack"], "exit_code": 0, "output": ".experiment/upstream-diff.txt"}
++{"ts": "2026-10-07T06:58:39.882741+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "add", "relayboard/web.py"], "exit_code": 0, "output": ".experiment/code-stage.txt"}
++{"ts": "2026-10-07T06:58:39.934548+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "commit", "-m", "Change Jobs heading to Latest result"], "exit_code": 0, "output": ".experiment/code-commit.txt"}
++{"ts": "2026-10-07T06:58:39.988978+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "rev-parse", "HEAD"], "exit_code": 0, "output": ".experiment/code-commit-id.txt"}
++{"ts": "2026-10-07T06:59:28.532293+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "diff", "--check"], "exit_code": 0, "output": ".experiment/final-diff-check.txt"}
++{"ts": "2026-10-07T06:59:28.591865+00:00", "cwd": "/workspace/relayboard-active/P-S01-001", "argv": ["git", "show", "--stat", "--oneline", "HEAD"], "exit_code": 0, "output": ".experiment/final-code-scope.txt"}
+diff --git a/.experiment/dashboard_after.html b/.experiment/dashboard_after.html
+new file mode 100644
+index 0000000..5c6757f
+--- /dev/null
++++ b/.experiment/dashboard_after.html
+@@ -0,0 +1 @@
++<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Latest result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
+\ No newline at end of file
+diff --git a/.experiment/dashboard_before.html b/.experiment/dashboard_before.html
+new file mode 100644
+index 0000000..9d29e6f
+--- /dev/null
++++ b/.experiment/dashboard_before.html
+@@ -0,0 +1 @@
++<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
+\ No newline at end of file
+diff --git a/.experiment/decisions.tsv b/.experiment/decisions.tsv
+new file mode 100644
+index 0000000..5f62c9c
+--- /dev/null
++++ b/.experiment/decisions.tsv
+@@ -0,0 +1,11 @@
++ts	phase	decision	why	evidence	result
++2026-10-07T06:55:36.336930+00:00	start	Use only assigned task workspace and frozen pstack Codex port	Parent assignment sets experiment boundary	METHOD.md	No outside material accessed
++2026-10-07T06:55:36.336951+00:00	route	Choose Feature with lead-owned mechanical edit and fresh review	One HTML literal changes; frozen method permits this exception	.experiment/PLAN.md	No architecture or product decisions needed
++2026-10-07T06:55:36.336956+00:00	baseline	Check requested heading before changing source	Observe the actual public WSGI output	.experiment/baseline-dashboard.txt	Expected failure; Last result present
++2026-10-07T06:55:36.336959+00:00	baseline	Run all public tests before source edit	Establish the public baseline	.experiment/baseline-suite.txt	5 tests passed
++2026-10-07T06:55:53.904113+00:00	implementation	Change only the Jobs heading literal to Latest result	Smallest code change satisfies exact requested copy	.experiment/lead-diff.txt	One production line changed
++2026-10-07T06:55:53.904128+00:00	verification	Compare WSGI dashboard and API responses with captured baseline	Check actual behavior and prove unrelated markup stayed identical	.experiment/after-dashboard.txt	Passed
++2026-10-07T06:55:53.904131+00:00	verification	Run full public suite and check diff whitespace	Verify public regressions and clean the scoped diff	.experiment/after-suite.txt, .experiment/diff-check.txt	5 tests passed; diff check passed
++2026-10-07T06:58:39.818375+00:00	review	Accept fresh helper PASS and correct stale pending plan status	Reviewer reran actual WSGI output and five public tests; remaining flags concern evidence limits	.experiment/reviewer-report.md	No code issues; audit and identity limits recorded
++2026-10-07T06:59:28.424054+00:00	delivery	Commit the verified one-line source change on the assigned local branch	Frozen port hands local commits to orchestrator without remote operations	.experiment/code-commit.txt, .experiment/code-commit-id.txt	89f11c9b5b1725dd3126606fffcb846cf60c61b9
++2026-10-07T06:59:28.424070+00:00	audit	Freeze captured evidence with explicit attestation limits	No exported raw transcript exists and exact runtime identity is unavailable	.experiment/reviewer-report.md, .experiment/commands.jsonl	Review complete; no open product decisions
+diff --git a/.experiment/diff-check.txt b/.experiment/diff-check.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/final-code-scope.txt b/.experiment/final-code-scope.txt
+new file mode 100644
+index 0000000..c9dd7e3
+--- /dev/null
++++ b/.experiment/final-code-scope.txt
+@@ -0,0 +1,3 @@
++89f11c9 Change Jobs heading to Latest result
++ relayboard/web.py | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/.experiment/final-diff-check.txt b/.experiment/final-diff-check.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/lead-diff.txt b/.experiment/lead-diff.txt
+new file mode 100644
+index 0000000..cd82881
+--- /dev/null
++++ b/.experiment/lead-diff.txt
+@@ -0,0 +1,13 @@
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..67de7f4 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -150,7 +150,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
+diff --git a/.experiment/precommit-status.txt b/.experiment/precommit-status.txt
+new file mode 100644
+index 0000000..58fd22f
+--- /dev/null
++++ b/.experiment/precommit-status.txt
+@@ -0,0 +1,22 @@
++ M relayboard/web.py
++?? .experiment/PLAN.md
++?? .experiment/action-path-log.json
++?? .experiment/after-dashboard.txt
++?? .experiment/after-suite.txt
++?? .experiment/api_after.json
++?? .experiment/api_before.json
++?? .experiment/baseline-dashboard.txt
++?? .experiment/baseline-suite.txt
++?? .experiment/check_dashboard.py
++?? .experiment/commands.jsonl
++?? .experiment/dashboard_after.html
++?? .experiment/dashboard_before.html
++?? .experiment/decisions.tsv
++?? .experiment/diff-check.txt
++?? .experiment/lead-diff.txt
++?? .experiment/reviewer-assignment.txt
++?? .experiment/reviewer-diff-check.txt
++?? .experiment/reviewer-public-suite.txt
++?? .experiment/reviewer-surface-evidence.txt
++?? .experiment/run_command.py
++?? .experiment/source-bundle-hashes.txt
+diff --git a/.experiment/reviewer-assignment.txt b/.experiment/reviewer-assignment.txt
+new file mode 100644
+index 0000000..a60a017
+--- /dev/null
++++ b/.experiment/reviewer-assignment.txt
+@@ -0,0 +1 @@
++Role: fresh scoped code/evidence reviewer for P-S01-001, pstack-codex-port-v0. Work only in /workspace/relayboard-active/P-S01-001 and use explicit workdir. You must not spawn helpers or inspect any sibling/control area, other branch, lab history, evaluator/oracle/reference solution, global transcript, credentials or unassigned material. No network, remote git, deployment or external messages. Read TASK.md, exact METHOD.md, bundled upstream/pstack/skills/poteto-mode/SKILL.md, matched Feature playbook and applicable leaf sources before applying their principles. This is a frozen Codex port, not native Cursor. The task is changing the Jobs table heading from Last result to Latest result only. Lead used METHOD step 5 mechanical one-file exception. Review the actual git diff, .experiment/PLAN.md, decisions.tsv, commands.jsonl, action-path-log.json and before/after artifacts. Verify evidence paths and claims. You may rerun public WSGI checks and full public suite using .experiment/run_command.py with unique reviewer-* labels. Do not change production or existing evidence. Write .experiment/reviewer-report.md with verdict, exact checked paths/commands, issues, Attention flags, and identity requested versus observed. Requested model GPT-6.1 Sol High; observed identity is unknown absent runtime attestation. No raw transcript was exported, so audit captured logs only and do not claim full transcript access. Return concise findings to the parent. All work is confined to this run and supplied task/method/files.
+diff --git a/.experiment/reviewer-diff-check.txt b/.experiment/reviewer-diff-check.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/reviewer-public-suite.txt b/.experiment/reviewer-public-suite.txt
+new file mode 100644
+index 0000000..151af1a
+--- /dev/null
++++ b/.experiment/reviewer-public-suite.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.003s
++
++OK
+diff --git a/.experiment/reviewer-report.md b/.experiment/reviewer-report.md
+new file mode 100644
+index 0000000..6d111d7
+--- /dev/null
++++ b/.experiment/reviewer-report.md
+@@ -0,0 +1,44 @@
++# Scoped review
++
++Verdict is PASS for the requested production change. No production-code issue was found. The actual diff changes only the Jobs table heading from `Last result` to `Latest result` in `relayboard/web.py:153`. API code and other dashboard markup are unchanged in that diff. Evidence housekeeping and audit limits are listed below.
++
++Requested reviewer identity is GPT-6.1 Sol with High reasoning. Observed runtime identity is unknown because no runtime attestation was supplied. This is fresh scoped review under the frozen `pstack-codex-port-v0`, not native Cursor or attested cross-model validation.
++
++## Checked sources and evidence
++
++All paths below are relative to `/workspace/relayboard-active/P-S01-001`. Every shell command used that explicit working directory. No sibling area, other branch contents, history, hidden evaluation material, credentials, remote git, network, deployment, or external messaging was accessed.
++
++- `TASK.md` and exact `METHOD.md`.
++- `upstream/pstack/skills/poteto-mode/SKILL.md` and `upstream/pstack/skills/poteto-mode/playbooks/feature.md`.
++- The full bundled `SKILL.md` files for `principle-laziness-protocol`, `principle-model-the-domain`, `principle-prove-it-works`, `principle-fix-root-causes`, `principle-test-behavior-not-implementation`, `principle-sequence-verifiable-units`, `principle-never-block-on-the-human`, and `show-me-your-work` under `upstream/pstack/skills/`.
++- `relayboard/web.py` and `tests/test_public.py`.
++- `.experiment/PLAN.md`, `.experiment/decisions.tsv`, `.experiment/commands.jsonl`, `.experiment/action-path-log.json`, `.experiment/RUN_MANIFEST.json`, and `.experiment/reviewer-assignment.txt`.
++- `.experiment/run_command.py` and `.experiment/check_dashboard.py`.
++- `.experiment/baseline-dashboard.txt`, `.experiment/after-dashboard.txt`, `.experiment/dashboard_before.html`, `.experiment/dashboard_after.html`, `.experiment/api_before.json`, and `.experiment/api_after.json`.
++- `.experiment/baseline-suite.txt`, `.experiment/after-suite.txt`, `.experiment/diff-check.txt`, and `.experiment/lead-diff.txt`.
++- New reviewer outputs `.experiment/reviewer-surface-evidence.txt`, `.experiment/reviewer-public-suite.txt`, and `.experiment/reviewer-diff-check.txt`.
++
++## Checks and results
++
++Read and inventory commands used `cat` and scoped `rg --files`. Diff and local identity checks were `git status --short`, `git diff --stat`, `git diff`, `git rev-parse HEAD`, and `git branch --show-current`. The local HEAD observed at review was `b8130bbeaaeb90e170028d6899c0373ef88cc4f2` on `candidate/P-S01-001`, matching the lead's action-log observation. The manifest separately supplies `base_sha` `2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f`. Its relationship to the local HEAD was not checked because history inspection is outside this review's scope.
++
++The following reruns passed. Their exact argv, including the complete inline Python check, are appended in `.experiment/commands.jsonl` entries 7 through 9. Existing output artifacts were not overwritten.
++
++1. `python .experiment/run_command.py reviewer-surface-evidence env PYTHONPATH=. python -c <inline check>` exited 0. The check calls the live WSGI dashboard and GET jobs/alerts surfaces. It verifies status 200, exactly one requested heading, absence of the old heading, equality with captured after markup, equality with before markup after only the requested replacement, and API equality with both captures. It also compares the actual git diff with `.experiment/lead-diff.txt`, verifies all seven TSV evidence rows resolve, and checks logged command output pointers and action-log path pointers remain inside this run and exist.
++2. `python .experiment/run_command.py reviewer-public-suite python -m unittest discover -s tests -v` exited 0 with all five public tests passing.
++3. `python .experiment/run_command.py reviewer-diff-check git diff --check` exited 0.
++
++The baseline dashboard capture has status 200 and the old heading, then fails the requested-heading assertion. The baseline suite passes five tests. The after dashboard check and after suite pass. Their output artifacts agree with the logged exit codes. The TSV's implementation and verification claims agree with the actual diff and corresponding artifacts. The start row's claim about absence of outside access is a lead declaration, not independently established by captured output.
++
++Laziness Protocol supports the literal-only diff. Model the Domain supports retaining the existing HTML table without an abstraction. Prove It Works and Test Behavior Not Implementation support direct WSGI checks against literal observable output. Sequence Verifiable Units supports the captured before/after bracket. Fix Root Causes is nonapplicable to this specified copy edit. Never Block on the Human requires no product question for the authorized reversible change. METHOD step 5 permits direct ownership with fresh review, so the mechanical implementation exception is appropriate.
++
++## Attention
++
++Reviewed by requested GPT-6.1 Sol High. Observed model is unknown.
++
++- `.experiment/PLAN.md` Feature route step 5 still says the WSGI checks and suite are pending. Captured and rerun evidence shows they passed. Update the final checkpoint before freezing the candidate.
++- No raw transcript was exported. This audit covers captured command outputs, path logs, and checkpoints only. Read-action declarations and complete access coverage cannot be independently attested. Do not present this report as full transcript review.
++- Runtime model identity and native model diversity are not attested. Report requested identity and observed identity separately.
++- This review occurred before the candidate's local commit. Final commit and immutable handoff remain the lead's responsibility under METHOD step 10.
++
++No additional production change is recommended.
+diff --git a/.experiment/reviewer-surface-evidence.txt b/.experiment/reviewer-surface-evidence.txt
+new file mode 100644
+index 0000000..7f29479
+--- /dev/null
++++ b/.experiment/reviewer-surface-evidence.txt
+@@ -0,0 +1,2 @@
++PASS: live WSGI heading, exact before/after markup, captured GET jobs/alerts equality, actual diff equality, seven TSV evidence rows, command output pointers, action-log path pointers.
++Audit limit: captured command/checkpoint evidence only; no exported raw transcript.
+diff --git a/.experiment/run_command.py b/.experiment/run_command.py
+new file mode 100644
+index 0000000..8b5e7a4
+--- /dev/null
++++ b/.experiment/run_command.py
+@@ -0,0 +1,16 @@
++import json
++from datetime import datetime, timezone
++from pathlib import Path
++import subprocess
++import sys
++
++root = Path(__file__).resolve().parent.parent
++label, *command = sys.argv[1:]
++result = subprocess.run(command, cwd=root, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
++output = root / '.experiment' / f'{label}.txt'
++output.write_text(result.stdout)
++with (root / '.experiment' / 'commands.jsonl').open('a') as log:
++    log.write(json.dumps({'ts': datetime.now(timezone.utc).isoformat(), 'cwd': str(root), 'argv': command, 'exit_code': result.returncode, 'output': str(output.relative_to(root))}) + '\n')
++print(result.stdout, end='')
++print(f'Exit code: {result.returncode}; output: {output.relative_to(root)}')
++sys.exit(result.returncode)
+diff --git a/.experiment/source-bundle-hashes.txt b/.experiment/source-bundle-hashes.txt
+new file mode 100644
+index 0000000..087f3f1
+--- /dev/null
++++ b/.experiment/source-bundle-hashes.txt
+@@ -0,0 +1,19 @@
++upstream/pstack/LICENSE bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
++upstream/pstack/skills/architect/SKILL.md 922238947195f2fb825e90688bb6cfa520b81a35a7bee12223c73a6cf96ae64b
++upstream/pstack/skills/architect/references/design-red-flags.md d0e639e4cc588ec865f930d3a4111faad60987ae36925917e319d7ceca7c69ce
++upstream/pstack/skills/architect/references/rationale-template.md 0cedfccdc7b47fc881febd5a8293eecbc542c20f8df825639904a8102d2eb5d3
++upstream/pstack/skills/arena/SKILL.md 6e17736b5228b661569c3af054f8302c55cf9bf1649447652d53705cce38bed6
++upstream/pstack/skills/how/SKILL.md 7e0d902484a90eba73dcf518bff478dc5b962b456d23c3d0a188c2ce36b236d8
++upstream/pstack/skills/poteto-mode/SKILL.md 31cd02290360ce63564ef22b74d69fc6d90e62181d05a644cbed8f6c47cc9412
++upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md 15e54ad3ac92565613980772d8708de6e19cc4690bfd4bb3fb8836522407377b
++upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md 018bbc146ae19145caa6c7e70591fee081b64447dda1c1c4b681c9974d928b13
++upstream/pstack/skills/poteto-mode/playbooks/feature.md 3a62cc4a8cbcf144bb9dd05f05420a15be0d38b784d3b141bb730a5852f50a62
++upstream/pstack/skills/principle-fix-root-causes/SKILL.md ba4cd38da1dcc8fe5432feb64457cba95594736a9b21b2ebf8f8c52aee068707
++upstream/pstack/skills/principle-laziness-protocol/SKILL.md 9006579e9e3f33955d17569733db688ae65f22577dc3b21803d219a5a8445aff
++upstream/pstack/skills/principle-model-the-domain/SKILL.md bbadbb9a723fac3f76e782ae45665eb94058ec10993e4bae36d4dc6b0e4eac07
++upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md f2764bb9338cbfc788c903cf4b9cd0a5f4042d3a04dd6d59cbd525d9beaadd0a
++upstream/pstack/skills/principle-prove-it-works/SKILL.md ec79a15025bac8d33d62011c54f3b612733fd2a024e623b531b3637aa75070e2
++upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md 2ccbbacc56ace5afdfb8670cef19d7bd009fb2a0033b9a741cbdf2b6baf72187
++upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md 87e40efe4e486f7ea639d2ed1fc0abe6c93b8fd0e89a81218086909d2470a52e
++upstream/pstack/skills/show-me-your-work/SKILL.md bcff5f7f9fd23f92c12b251f9cd6b947e9485e1055cfacb6fdd9cae0789d7550
++upstream/pstack/skills/tdd/SKILL.md eeb868e2dfebee528d730a67d7b17498fac4bb85dec2e38bc5c5176aca4d5d2f
+diff --git a/.experiment/upstream-diff.txt b/.experiment/upstream-diff.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..67de7f4 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -150,7 +150,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"
