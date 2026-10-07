@@ -3,13 +3,12 @@
   "run_id": "F-S01-001",
   "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
   "scenario": "S01-v0",
-  "scenario_source": "docs/benchmarks/S01_TINY_CHANGE.md",
   "treatment": "first-mode-v0",
-  "host": "",
-  "model": "",
-  "method_source": "docs/approaches/FIRST_MODE_V0.md",
-  "upstream": null,
-  "evaluator_material_in_workspace": false,
-  "contamination_rule": "Do not fetch or inspect lab evaluator material, other branches, prior outcomes, or unassigned methodology.",
-  "status": "STAGED_NOT_EXECUTED"
+  "host": "Codex shared managed cloud; procedural isolation",
+  "model_request": "gpt-6.1-sol",
+  "reasoning_request": "high",
+  "port_freeze_commit": null,
+  "evaluator_material_supplied": false,
+  "peer_results_supplied": false,
+  "contamination_rule": "Deliberate retrieval of evaluator/oracle/reference-solution material invalidates the run; report and preserve evidence."
 }
