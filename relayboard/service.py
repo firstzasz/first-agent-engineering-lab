@@ -42,7 +42,6 @@ class RelayBoardService:
             return "succeeded"
 
         if attempt.number < job.max_attempts:
-            self._emit_failure_alert(run_id)
             return "retry"
 
         self.store.set_run_status(run_id, "failed")
