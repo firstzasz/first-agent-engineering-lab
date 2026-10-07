@@ -1,0 +1,547 @@
+{
+  "schema_version": 1,
+  "scoring_source": "docs/benchmarks/SCORING_V0.md (unchanged frozen rubric)",
+  "single_shot": true,
+  "native_host_comparison": false,
+  "universal_ranking": false,
+  "profiles": [
+    {
+      "run_id": "N-S02-001",
+      "treatment": "neutral-v0",
+      "scenario": "S02-v0.1",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 0,
+        "total": 4,
+        "silent_assumptions": 4,
+        "basis": "Unique requested/answered frozen product semantics. Frozen rubric counts unasked oracle guesses as silent assumptions; correctness is separate.",
+        "exchanges": []
+      },
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 23,
+        "all_diff_stat": " .experiment/REPORT.json               |  63 ++++++++++++\n .experiment/action-log.jsonl          |  21 ++++\n .experiment/baseline-tests.txt        |  10 ++\n .experiment/diff-check.txt            |   0\n .experiment/final-tests.txt           |  18 ++++\n .experiment/implementation-commit.txt |   4 +\n .experiment/implementation-diff.txt   | 175 ++++++++++++++++++++++++++++++++++\n PAUSE.md                              |  15 +++\n relayboard/models.py                  |   1 +\n relayboard/service.py                 |  10 +-\n relayboard/store.py                   |  32 ++++++-\n relayboard/web.py                     |  22 ++++-\n tests/test_pause.py                   | 148 ++++++++++++++++++++++++++++\n 13 files changed, 513 insertions(+), 6 deletions(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/models.py",
+            "added": 1,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/service.py",
+            "added": 9,
+            "removed": 1
+          },
+          {
+            "path": "relayboard/store.py",
+            "added": 28,
+            "removed": 4
+          },
+          {
+            "path": "relayboard/web.py",
+            "added": 21,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_pause.py",
+            "added": 148,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 0,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T06:18:21.414720+00:00",
+        "frozen_at": "2026-10-07T06:22:10.839133+00:00",
+        "wall_clock_seconds": 229.425,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": "No operator question was observed. Correctness does not prove elicitation; product choices were inferred/assumed from public context."
+    },
+    {
+      "run_id": "N-S04-001",
+      "treatment": "neutral-v0",
+      "scenario": "S04-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 30,
+        "all_diff_stat": " .experiment/REPORT.json                    | 262 +++++++++++++++++++++++++++++\n .experiment/actions.jsonl                  |  18 ++\n .experiment/baseline-tests.txt             |  10 ++\n .experiment/commit-output.txt              |   3 +\n .experiment/committed-change.txt           |   4 +\n .experiment/diagnosis.txt                  |   1 +\n .experiment/diff-check.txt                 |   0\n .experiment/final-status.txt               |  13 ++\n .experiment/fix-diff.txt                   |  12 ++\n .experiment/implementation-commit-hash.txt |   1 +\n .experiment/implementation-commit.txt      |   0\n .experiment/regression-before-fix.txt      |  79 +++++++++\n .experiment/run_command.py                 |  13 ++\n .experiment/status-before-commit.txt       |  10 ++\n .experiment/verified-tests.txt             |  14 ++\n relayboard/service.py                      |   1 -\n tests/test_retry_alerts.py                 | 109 ++++++++++++\n 17 files changed, 549 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 109,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 0,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T06:50:15.911779+00:00",
+        "frozen_at": "2026-10-07T06:52:57.939412+00:00",
+        "wall_clock_seconds": 162.028,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
+    },
+    {
+      "run_id": "P-S01-001",
+      "treatment": "pstack-codex-port-v0",
+      "scenario": "S01-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 64,
+        "all_diff_stat": " .experiment/PLAN.md                       |  67 +++++++\n .experiment/REPORT.json                   | 320 ++++++++++++++++++++++++++++++\n .experiment/action-path-log.json          | 143 +++++++++++++\n .experiment/after-dashboard.txt           |   4 +\n .experiment/after-suite.txt               |  10 +\n .experiment/api_after.json                |  23 +++\n .experiment/api_before.json               |  23 +++\n .experiment/baseline-dashboard.txt        |   7 +\n .experiment/baseline-suite.txt            |  10 +\n .experiment/check_dashboard.py            |  27 +++\n .experiment/code-commit-id.txt            |   1 +\n .experiment/code-commit.txt               |   2 +\n .experiment/code-stage.txt                |   0\n .experiment/commands.jsonl                |  17 ++\n .experiment/dashboard_after.html          |   1 +\n .experiment/dashboard_before.html         |   1 +\n .experiment/decisions.tsv                 |  11 +\n .experiment/diff-check.txt                |   0\n .experiment/final-code-scope.txt          |   3 +\n .experiment/final-diff-check.txt          |   0\n .experiment/lead-diff.txt                 |  13 ++\n .experiment/precommit-status.txt          |  22 ++\n .experiment/reviewer-assignment.txt       |   1 +\n .experiment/reviewer-diff-check.txt       |   0\n .experiment/reviewer-public-suite.txt     |  10 +\n .experiment/reviewer-report.md            |  44 ++++\n .experiment/reviewer-surface-evidence.txt |   2 +\n .experiment/run_command.py                |  16 ++\n .experiment/source-bundle-hashes.txt      |  19 ++\n .experiment/upstream-diff.txt             |   0\n relayboard/web.py                         |   2 +-\n 31 files changed, 798 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/web.py",
+            "added": 1,
+            "removed": 1
+          }
+        ],
+        "visible_checkpoints": 0,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T06:53:42.081319+00:00",
+        "frozen_at": "2026-10-07T07:00:28.102321+00:00",
+        "wall_clock_seconds": 406.021,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
+    },
+    {
+      "run_id": "P-S02-001",
+      "treatment": "pstack-codex-port-v0",
+      "scenario": "S02-v0.1",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 2,
+        "total": 4,
+        "silent_assumptions": 2,
+        "basis": "Unique requested/answered frozen product semantics. Frozen rubric counts unasked oracle guesses as silent assumptions; correctness is separate.",
+        "exchanges": [
+          {
+            "run_id": "P-S02-001",
+            "question": "The public glossary deliberately leaves pause semantics undefined. What should pause do beyond blocking new scheduled Runs? Please specify whether manual Runs remain allowed, existing Runs/Attempts/retries and alerts continue, whether pause is independent of enabled/disabled (resume restores prior enabled state), and whether/how dashboard should show paused state. Current implementation has enabled scheduling, manual Runs allowed even disabled, synchronous Attempts, and a dashboard with Enabled and Last result. I will preserve existing behavior by default except where your product answer requires change.",
+            "answer": "For the requested product decisions: manual Runs remain allowed while a Job is paused. A Run already in progress continues to its terminal outcome, including its existing retry and alert behavior. No additional product guidance is supplied for the enabled/disabled representation or dashboard presentation; use the supplied task's preservation requirement and workspace evidence to make those reversible implementation choices.",
+            "classification": "MIXED",
+            "product_decisions_answered": [
+              "manual_run_while_paused",
+              "pause_in_progress_run"
+            ],
+            "other_items": "Enabled/disabled representation and dashboard presentation recorded as reversible implementation questions without additional product guidance.",
+            "answer_sheet_supplied": false,
+            "additional_requirements_volunteered": false,
+            "answered_at": "2026-10-07 07:02:27 UTC"
+          }
+        ]
+      },
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 5,
+        "candidate_file_count": 139,
+        "all_diff_stat": " .experiment/ATTENTION.md                           |   5 +\n .experiment/REPORT.json                            | 451 +++++++++++\n .experiment/TODO.md                                |  39 +\n .experiment/baseline.log                           |  10 +\n .experiment/commands.jsonl                         |  72 ++\n .experiment/decisions.tsv                          |  24 +\n .experiment/design.md                              |  40 +\n .experiment/finalization.log                       |   4 +\n .experiment/finalize_evidence.py                   |  24 +\n .experiment/grounding.md                           |  11 +\n .experiment/helper-assignments.jsonl               |   2 +\n .experiment/helper-implementation-report.md        |  60 ++\n .experiment/helper-review-report.md                |  42 +\n .experiment/initial-actions.json                   |  36 +\n .experiment/lead-api-surface.log                   |   6 +\n .experiment/lead-api-surface.stdin.py              |  17 +\n .experiment/lead-close-review-flags.log            |   0\n .experiment/lead-close-review-flags.stdin.py       |  36 +\n .experiment/lead-diff-check.log                    |   0\n .experiment/lead-direct-actions.json               |  48 ++\n .experiment/lead-focused.log                       |  15 +\n .experiment/lead-full-public.log                   |  20 +\n .experiment/lead-helper-report.log                 |  60 ++\n .experiment/lead-local-commits.log                 |   4 +\n .experiment/lead-read-evidence.log                 | 453 +++++++++++\n .experiment/lead-read-final-review.log             |  43 +\n .experiment/lead-read-review-trail-tail.log        |   4 +\n .experiment/lead-read-trail-for-corrections.log    |  55 ++\n .experiment/lead-record-review-assignment.log      |   0\n .experiment/lead-record-review-assignment.stdin.py |  19 +\n .experiment/lead-record-review.log                 |   0\n .experiment/lead-record-review.stdin.py            |  17 +\n .experiment/lead-review-diff.log                   | 405 ++++++++++\n .experiment/lead-review.md                         |   7 +\n .experiment/lead-upstream-unchanged.log            |   0\n .experiment/lead-write-final-report.log            |   1 +\n .experiment/lead-write-final-report.stdin.py       |  45 ++\n .experiment/lead-write-finalizer.log               |   0\n .experiment/lead-write-finalizer.stdin.py          |  26 +\n .experiment/operator-interactions.jsonl            |   5 +\n .experiment/pause-add-route-boundary-test.log      |   0\n .experiment/pause-add-route-boundary-test.stdin.py |   7 +\n .experiment/pause-check-local-guidance.log         |   3 +\n .experiment/pause-clean-assigned-files.log         |   0\n .experiment/pause-commit-tests.log                 |   0\n .experiment/pause-committed-files.log              |   7 +\n .experiment/pause-final-diff-check.log             |   0\n .experiment/pause-final-scoped-diff.log            | 180 +++++\n .experiment/pause-finalize-helper-report.log       |   0\n .experiment/pause-finalize-helper-report.stdin.py  |   6 +\n .experiment/pause-fix-route-boundary.log           |   0\n .experiment/pause-fix-route-boundary.stdin.py      |   7 +\n .experiment/pause-focused-after.log                |  15 +\n .experiment/pause-focused-before.log               | 159 ++++\n .experiment/pause-focused-final.log                |  15 +\n .experiment/pause-full-public-final.log            |  20 +\n .experiment/pause-full-public-suite.log            |  20 +\n .experiment/pause-helper-evidence-audit.log        |   8 +\n .experiment/pause-helper-evidence-audit.stdin.py   |  14 +\n .experiment/pause-implement-feature.log            |   0\n .experiment/pause-implementation-commit.log        |   2 +\n .experiment/pause-implementation-identity.log      |   1 +\n .experiment/pause-list-public-files.log            |  40 +\n .experiment/pause-production-diff.log              | 165 ++++\n .experiment/pause-read-application.log             | 683 ++++++++++++++++\n .experiment/pause-read-complete-core.log           | 147 ++++\n .experiment/pause-read-feature-leaves.log          |  74 ++\n .experiment/pause-read-instructions.log            | 124 +++\n .experiment/pause-read-method-sources.log          | 476 +++++++++++\n .experiment/pause-read-test-config.log             |  12 +\n .experiment/pause-record-assignment.log            |   0\n .../pause-record-implementation-evidence.log       |   0\n .../pause-record-implementation-evidence.stdin.py  |  56 ++\n .experiment/pause-record-red-tests.log             |   0\n .experiment/pause-route-boundary-before.log        |  35 +\n .experiment/pause-stage-implementation.log         |   0\n .experiment/pause-test-commit.log                  |   3 +\n .experiment/pause-test-only-diff.log               |   0\n .experiment/pause-test-only-status.log             |  25 +\n .experiment/pause-tests-commit-identity.log        |   1 +\n .experiment/pause-whitespace-check.log             |   0\n .experiment/pause-write-behavior-tests.log         |   0\n .experiment/review-check-logs.log                  | 351 ++++++++\n .experiment/review-clean-candidate.log             |   0\n .experiment/review-command-map.log                 |  56 ++\n .experiment/review-commit-scope.log                |  10 +\n .experiment/review-design-sources.log              | 233 ++++++\n .experiment/review-diff-visible.log                | 405 ++++++++++\n .experiment/review-evidence-index.log              | 181 +++++\n .experiment/review-file-index.log                  |  96 +++\n .experiment/review-final-audit.log                 |  69 ++\n .experiment/review-instructions.log                | 176 ++++\n .experiment/review-leaf-visible.log                | 254 ++++++\n .experiment/review-method-sources.log              | 401 ++++++++++\n .experiment/review-preexisting-history.log         |   1 +\n .experiment/review-preexisting-history.stdin.py    |  31 +\n .experiment/review-report-verify.log               |   1 +\n .experiment/review-scoped-diff.log                 | 405 ++++++++++\n .experiment/review-source-visible.log              | 885 +++++++++++++++++++++\n .experiment/review-write-report.log                |   1 +\n .experiment/review-write-report.stdin.py           |  55 ++\n .experiment/run_command.py                         |  23 +\n .experiment/sources.json                           |  61 ++\n .experiment/throughput.md                          |   6 +\n relayboard/models.py                               |   1 +\n relayboard/service.py                              |  10 +-\n relayboard/store.py                                |  23 +-\n relayboard/web.py                                  |  23 +-\n tests/test_pause.py                                | 234 ++++++\n 109 files changed, 8399 insertions(+), 4 deletions(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/models.py",
+            "added": 1,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/service.py",
+            "added": 9,
+            "removed": 1
+          },
+          {
+            "path": "relayboard/store.py",
+            "added": 21,
+            "removed": 2
+          },
+          {
+            "path": "relayboard/web.py",
+            "added": 22,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_pause.py",
+            "added": 234,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 2,
+        "operator_exchange_count": 1,
+        "start_at": "2026-10-07T07:01:01.847725+00:00",
+        "frozen_at": "2026-10-07T07:16:15.599768+00:00",
+        "wall_clock_seconds": 913.752,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
+    },
+    {
+      "run_id": "P-S04-001",
+      "treatment": "pstack-codex-port-v0",
+      "scenario": "S04-v0",
+      "status": "CONTAMINATED",
+      "included": false,
+      "correctness": {
+        "public": null,
+        "evaluator": null,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 4,
+        "candidate_file_count": 50,
+        "all_diff_stat": " .experiment/INCIDENT.json                 |  41 +++++\n .experiment/PLAN.md                       |  36 +++++\n .experiment/REPORT.json                   | 256 ++++++++++++++++++++++++++++++\n .experiment/commands.json                 |  47 ++++++\n .experiment/decisions.tsv                 |  19 +++\n .experiment/helper-completion.json        |   8 +\n .experiment/helper-implementation.json    | 204 ++++++++++++++++++++++++\n .experiment/method-routes.json            |  67 ++++++++\n .experiment/outputs/baseline-public.txt   |  10 ++\n .experiment/outputs/helper-focused.txt    |  11 ++\n .experiment/outputs/helper-public.txt     |  16 ++\n .experiment/outputs/helper-red.txt        |  81 ++++++++++\n .experiment/outputs/helper-review.txt     |  33 ++++\n .experiment/outputs/repro-before-wsgi.txt |  10 ++\n .experiment/outputs/repro-before.txt      |   1 +\n .experiment/reproduce_alerts.py           |  35 ++++\n relayboard/service.py                     |   1 -\n tests/test_public.py                      | 124 +++++++++++++++\n 18 files changed, 999 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_public.py",
+            "added": 124,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 0,
+        "operator_exchange_count": 1,
+        "start_at": "2026-10-07T07:17:10.868136+00:00",
+        "frozen_at": "2026-10-07T07:27:28.226264+00:00",
+        "wall_clock_seconds": 617.358,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": "Peer-result status exposure; stopped/excluded, hidden evaluation not run."
+    },
+    {
+      "run_id": "M-S01-001",
+      "treatment": "matt-codex-port-v0",
+      "scenario": "S01-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 48,
+        "all_diff_stat": " .experiment/baseline-dashboard.html    |   1 +\n .experiment/baseline-jobs.json         |   1 +\n .experiment/baseline-observations.json |  11 +++\n .experiment/baseline-public.json       |  11 +++\n .experiment/completion-public.json     |  11 +++\n .experiment/decisions.md               |  27 ++++++\n .experiment/finalize.json              |  12 +++\n .experiment/heading-green.json         |  11 +++\n .experiment/heading-red.json           |  11 +++\n .experiment/implementation-commit.json |  10 +++\n .experiment/pre-freeze-status.json     |  10 +++\n .experiment/review-assignments.md      |  23 +++++\n .experiment/review-summary.md          |  11 +++\n .experiment/scope-check.json           |  11 +++\n .experiment/spec-review.md             |  38 ++++++++\n .experiment/standards-review.md        |  30 +++++++\n .experiment/verify_heading.py          |  39 +++++++++\n REPORT.json                            | 153 +++++++++++++++++++++++++++++++++\n relayboard/web.py                      |   2 +-\n 19 files changed, 422 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/web.py",
+            "added": 1,
+            "removed": 1
+          }
+        ],
+        "visible_checkpoints": 0,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T07:27:55.353452+00:00",
+        "frozen_at": "2026-10-07T09:33:17.693932+00:00",
+        "wall_clock_seconds": 7522.34,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
+    },
+    {
+      "run_id": "M-S02-001",
+      "treatment": "matt-codex-port-v0",
+      "scenario": "S02-v0.1",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 4,
+        "total": 4,
+        "silent_assumptions": 0,
+        "basis": "Unique requested/answered frozen product semantics. Frozen rubric counts unasked oracle guesses as silent assumptions; correctness is separate.",
+        "exchanges": [
+          {
+            "run_id": "M-S02-001",
+            "round": 1,
+            "observed_at": "2026-10-07 09:35:01 UTC",
+            "questions": [
+              {
+                "id": "Q1",
+                "text": "What execution does pause block? Code distinguishes scheduled, manual and existing Run attempts.",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+                "frozen_decisions_requested": [
+                  "scheduled_start_while_paused",
+                  "manual_run_while_paused",
+                  "pause_in_progress_run"
+                ]
+              },
+              {
+                "id": "Q2",
+                "text": "How does pause relate to enabled/disabled? Proposed separate persisted boolean, default false, idempotent preserving enabled.",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "id": "Q3",
+                "text": "How should pause appear on public surfaces? Proposed JSON field, POST responses, Paused dashboard column.",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+                "note": "Requested preferences beyond frozen product sheet; no extra product requirements supplied."
+              },
+              {
+                "id": "Q4",
+                "text": "Should resume catch up work missed while paused?",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+                "frozen_decisions_requested": [
+                  "resume_behavior"
+                ]
+              }
+            ],
+            "answer": "Q1: scheduled start while paused skipped and not queued; manual Runs allowed; already progressing Run continues terminal with retries/alerts preserved. Q4: future schedule only, no catch-up. Q2/Q3: no additional product/interface preference; TASK.md/public interfaces/reversible engineering judgment.",
+            "frozen_decisions_answered": [
+              "scheduled_start_while_paused",
+              "manual_run_while_paused",
+              "pause_in_progress_run",
+              "resume_behavior"
+            ],
+            "volunteered_requirements": false
+          },
+          {
+            "run_id": "M-S02-001",
+            "round": 2,
+            "observed_at": "2026-10-07 09:35:24 UTC",
+            "classification": "LEGIBLE_CHECKPOINT",
+            "question": "Confirm shared understanding of already-resolved four product semantics; frontier empty. Q2/Q3 identified as own reversible choices.",
+            "answer": "Restatement matches four operator answers. Representation and presentation remain contestant engineering decisions; no new product guidance.",
+            "new_product_decisions": 0
+          },
+          {
+            "run_id": "M-S02-001",
+            "observed_at": "2026-10-07 09:41:57 UTC",
+            "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+            "administrative_scope_ruling": true,
+            "reported_call": "pwd && rg --files -g 'METHOD.md' -g 'TASK.md' -g 'GLOSSARY.md' -g 'SKILL.md' -g 'spec.md' -g 'operator-interactions.md' with explicit assigned-run workdir",
+            "worker_original_claim": "Spec helper stopped; contamination=yes because it considered other supplied Matt skill filenames unassigned.",
+            "allowlist_basis": "Prepared packet contains all discovered upstream/matt skills as assigned method sources; filenames within this arm/run are allowed. No outside path, content, evaluator/peer exposure was reported.",
+            "disposition": "No contamination established by this scoped filename discovery. Preserve original claim and ruling; continue same incomplete Spec helper, no fresh contestant or hidden feedback.",
+            "no_product_guidance": true,
+            "no_silent_retry": true
+          }
+        ]
+      },
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 4,
+        "candidate_file_count": 58,
+        "all_diff_stat": " .experiment/REPORT.json                         | 273 +++++++++\n .experiment/activity.jsonl                      |   7 +\n .experiment/baseline-tests.txt                  |  10 +\n .experiment/candidate.diff                      | 406 ++++++++++++++\n .experiment/diff-check-final.txt                |   0\n .experiment/full-public-tests-before-review.txt |  16 +\n .experiment/full-public-tests-final.txt         |  16 +\n .experiment/local-commits.txt                   |   2 +\n .experiment/method-record.md                    |  17 +\n .experiment/operator-interactions.md            |  32 ++\n .experiment/preservation-04.txt                 |   9 +\n .experiment/preservation-05.txt                 |  10 +\n .experiment/review-assignments.json             |  61 +++\n .experiment/review-start.diff                   | 698 ++++++++++++++++++++++++\n .experiment/reviews.md                          |  15 +\n .experiment/spec-review-interruption.md         |  13 +\n .experiment/spec-review.md                      |  20 +\n .experiment/standards-review.md                 |  31 ++\n .experiment/tdd-01-green.txt                    |   6 +\n .experiment/tdd-01-red.txt                      |  14 +\n .experiment/tdd-02-green.txt                    |   7 +\n .experiment/tdd-02-red.txt                      |  34 ++\n .experiment/tdd-03-green.txt                    |   8 +\n .experiment/tdd-03-red.txt                      |  16 +\n .experiment/tdd-06-green.txt                    |  11 +\n .experiment/tdd-06-red.txt                      |  29 +\n .scratch/work/spec.md                           |  48 ++\n GLOSSARY.md                                     |   9 +-\n relayboard/models.py                            |   1 +\n relayboard/service.py                           |   8 +\n relayboard/store.py                             |  30 +-\n relayboard/web.py                               |  22 +-\n tests/test_pause.py                             | 161 ++++++\n 33 files changed, 2031 insertions(+), 9 deletions(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "GLOSSARY.md",
+            "added": 6,
+            "removed": 3
+          },
+          {
+            "path": "relayboard/models.py",
+            "added": 1,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/service.py",
+            "added": 8,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/store.py",
+            "added": 25,
+            "removed": 5
+          },
+          {
+            "path": "relayboard/web.py",
+            "added": 21,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_pause.py",
+            "added": 161,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 3,
+        "start_at": "2026-10-07T09:33:36.896043+00:00",
+        "frozen_at": "2026-10-07T09:46:25.407764+00:00",
+        "wall_clock_seconds": 768.511,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": "Same-arm source filename discovery self-flagged; original preserved and allowlist ruling established no forbidden exposure; same incomplete reviewer resumed."
+    }
+  ]
+}
