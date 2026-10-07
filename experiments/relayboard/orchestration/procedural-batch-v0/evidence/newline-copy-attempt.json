@@ -1,0 +1,7 @@
+{
+  "path": ".experiment/decisions.tsv",
+  "raw_git_blob": "df34c5e097e9114b34d43ec08b3acdddc9055068",
+  "normalized_blob": "85956655aff0726657a71072e2c96f20b39b8cbc",
+  "reason": "Python text IO normalized CRLF evidence file, detected by candidate tree identity check before remote candidate creation/evaluation.",
+  "resolution": "UTF8 decode/encode raw bytes; recapture same frozen contestant commit, no implementation or evaluation retry."
+}
