@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "scoring_source": "docs/benchmarks/SCORING_V0.md (unchanged frozen rubric)",
+  "single_shot_per_round": true,
+  "native_host_comparison": false,
+  "round1_unchanged": true,
+  "universal_ranking": false,
+  "profiles": [
+    {
+      "run_id": "F-S04-002",
+      "treatment": "first-mode-v0",
+      "scenario": "S04-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 4,
+        "candidate_file_count": 32,
+        "all_diff_stat": " .experiment/REPORT.json                | 253 +++++++++++++++++++++++++++++++++\n .experiment/STATE.md                   |  26 ++++\n .experiment/baseline.txt               |  10 ++\n .experiment/commands.jsonl             |  12 ++\n .experiment/commit-fix.txt             |   3 +\n .experiment/committed-source-check.txt |   0\n .experiment/diff-check.txt             |   0\n .experiment/implementation-commit.txt  |   1 +\n .experiment/pre-report-status.txt      |  11 ++\n .experiment/record.py                  |  16 +++\n .experiment/regression-green.txt       |  13 ++\n .experiment/regression-red.txt         | 122 ++++++++++++++++\n .experiment/source-diff.txt            |  12 ++\n .experiment/stage-evidence.txt         |   0\n .experiment/stage-fix.txt              |   0\n .experiment/staged-check.txt           |   6 +\n relayboard/service.py                  |   1 -\n tests/test_retry_alerts.py             |  91 ++++++++++++\n 18 files changed, 576 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 91,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 0,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T13:11:55.968200+00:00",
+        "frozen_at": "2026-10-07T13:15:52.313698+00:00",
+        "wall_clock_seconds": 236.345,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
+    }
+  ]
+}
