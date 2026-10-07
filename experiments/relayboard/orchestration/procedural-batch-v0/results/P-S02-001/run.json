@@ -1,0 +1,850 @@
+{
+  "schema_version": 1,
+  "run_id": "P-S02-001",
+  "scenario": "S02-v0.1",
+  "treatment": "pstack-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_p_s02_001"
+  },
+  "start": {
+    "run_id": "P-S02-001",
+    "workspace": "/workspace/relayboard-active/P-S02-001",
+    "local_start_sha": "6621c8b2f3618b35dc6f0c784acf51f44fa053e8",
+    "local_start_tree": "9078c1e1a7c41af68032411c42c3d5d36368b176",
+    "remote_prepared_sha": "62d8221287101ba929f47576ee48291c92a1917a",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "pstack-codex-port-v0",
+    "prepared_at": "2026-10-07T07:01:01.847725+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca",
+      "upstream/pstack/skills/poteto-mode/SKILL.md": "de51c56164ff3da8f958437e207d14cec7d7fe99",
+      "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md": "eeebc42b7477d435d8ac61d631d84822f908f59c",
+      "upstream/pstack/skills/poteto-mode/playbooks/feature.md": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6",
+      "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md": "12c3a7d84effcacf3550cb893be67498d7b28a4a",
+      "upstream/pstack/skills/tdd/SKILL.md": "ca6f24c963001d9d518db2936dfe3d12f29b4e94",
+      "upstream/pstack/skills/how/SKILL.md": "139cac5e4dce5d5889daaf77faa8d5f81dd87318",
+      "upstream/pstack/skills/architect/SKILL.md": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9",
+      "upstream/pstack/skills/principle-laziness-protocol/SKILL.md": "e5bc77e62aa96ae13e482a84df61b3c711c5d828",
+      "upstream/pstack/skills/principle-model-the-domain/SKILL.md": "e1d664a19243c90a84e5e7a816e9e05146c88720",
+      "upstream/pstack/skills/principle-prove-it-works/SKILL.md": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125",
+      "upstream/pstack/skills/principle-fix-root-causes/SKILL.md": "7e5a419aeec97b4076fa517865013677428a9fa3",
+      "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab",
+      "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9",
+      "upstream/pstack/LICENSE": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+      "upstream/pstack/skills/show-me-your-work/SKILL.md": "d350a150c36ca16382b4aa6d4196b39e67454ad1",
+      "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md": "986371260ebccd9a5a6818c9561e88c1d270d0ee",
+      "upstream/pstack/skills/arena/SKILL.md": "bd260a064d6e07a06073df6841e3d180d643372a",
+      "upstream/pstack/skills/architect/references/rationale-template.md": "a10f77f59510c532cd909faaf3bfeee5ffbfd588",
+      "upstream/pstack/skills/architect/references/design-red-flags.md": "f8503c9595b289c607ff5088f82b21197edf94ec",
+      ".experiment/RUN_MANIFEST.json": "95d0e1d5805f6f6e34700830fab2424a011bc024"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 07:16:15 UTC",
+  "candidate_frozen_at": "2026-10-07T07:16:15.599768+00:00",
+  "local_candidate_sha": "c2e4bb0ce9e2a5fe105355bdf0ac03fec914c8c4",
+  "local_candidate_tree": "bd86986ea8032ec3ddddb3af5b8105243189f0f0",
+  "remote_candidate": {
+    "sha": "f090ecf5df8175e8feac57c2a8c1a664ca94d0f9",
+    "tree_sha": "bd86986ea8032ec3ddddb3af5b8105243189f0f0",
+    "branch": "candidate/P-S02-001"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/20",
+    "number": 20,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S02-v0.1 task in a fresh pstack-codex-port-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-pilot. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "P-S02-001: pstack-codex-port-v0 frozen benchmark candidate",
+    "base": "treatment/pstack/P-S02-001",
+    "base_sha": "62d8221287101ba929f47576ee48291c92a1917a",
+    "head": "candidate/P-S02-001",
+    "head_sha": "f090ecf5df8175e8feac57c2a8c1a664ca94d0f9",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T07:16:52Z",
+    "updated_at": "2026-10-07T07:16:52Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 109,
+    "additions": 8399,
+    "deletions": 4,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/20",
+    "display_title": "P-S02-001: pstack-codex-port-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "6621c8b2f3618b35dc6f0c784acf51f44fa053e8",
+      "metadata": "commit 6621c8b2f3618b35dc6f0c784acf51f44fa053e8\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:01:01 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:01:01 2026 +0000\n\n    benchmark: frozen standalone P-S02-001 starting packet\n"
+    },
+    {
+      "sha": "087535a1e0b0ddf43cf4e9e843f76c297d6bce66",
+      "metadata": "commit 087535a1e0b0ddf43cf4e9e843f76c297d6bce66\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:06:14 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:06:14 2026 +0000\n\n    test: specify job pause and resume behavior\n"
+    },
+    {
+      "sha": "b04219d12bf6e1d60782a75e354bac273a7168bd",
+      "metadata": "commit b04219d12bf6e1d60782a75e354bac273a7168bd\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:08:21 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:08:21 2026 +0000\n\n    feat: pause and resume jobs without changing enabled state\n"
+    },
+    {
+      "sha": "4d4ce07308ff16861baab097f839ccc4d3484213",
+      "metadata": "commit 4d4ce07308ff16861baab097f839ccc4d3484213\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:15:48 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:15:48 2026 +0000\n\n    chore: preserve pause feature method and public evidence\n"
+    },
+    {
+      "sha": "c2e4bb0ce9e2a5fe105355bdf0ac03fec914c8c4",
+      "metadata": "commit c2e4bb0ce9e2a5fe105355bdf0ac03fec914c8c4\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:16:15 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:16:15 2026 +0000\n\n    benchmark: orchestrator freezes remaining contestant artifacts for P-S02-001\n"
+    }
+  ],
+  "diff_stat": " .experiment/ATTENTION.md                           |   5 +\n .experiment/REPORT.json                            | 451 +++++++++++\n .experiment/TODO.md                                |  39 +\n .experiment/baseline.log                           |  10 +\n .experiment/commands.jsonl                         |  72 ++\n .experiment/decisions.tsv                          |  24 +\n .experiment/design.md                              |  40 +\n .experiment/finalization.log                       |   4 +\n .experiment/finalize_evidence.py                   |  24 +\n .experiment/grounding.md                           |  11 +\n .experiment/helper-assignments.jsonl               |   2 +\n .experiment/helper-implementation-report.md        |  60 ++\n .experiment/helper-review-report.md                |  42 +\n .experiment/initial-actions.json                   |  36 +\n .experiment/lead-api-surface.log                   |   6 +\n .experiment/lead-api-surface.stdin.py              |  17 +\n .experiment/lead-close-review-flags.log            |   0\n .experiment/lead-close-review-flags.stdin.py       |  36 +\n .experiment/lead-diff-check.log                    |   0\n .experiment/lead-direct-actions.json               |  48 ++\n .experiment/lead-focused.log                       |  15 +\n .experiment/lead-full-public.log                   |  20 +\n .experiment/lead-helper-report.log                 |  60 ++\n .experiment/lead-local-commits.log                 |   4 +\n .experiment/lead-read-evidence.log                 | 453 +++++++++++\n .experiment/lead-read-final-review.log             |  43 +\n .experiment/lead-read-review-trail-tail.log        |   4 +\n .experiment/lead-read-trail-for-corrections.log    |  55 ++\n .experiment/lead-record-review-assignment.log      |   0\n .experiment/lead-record-review-assignment.stdin.py |  19 +\n .experiment/lead-record-review.log                 |   0\n .experiment/lead-record-review.stdin.py            |  17 +\n .experiment/lead-review-diff.log                   | 405 ++++++++++\n .experiment/lead-review.md                         |   7 +\n .experiment/lead-upstream-unchanged.log            |   0\n .experiment/lead-write-final-report.log            |   1 +\n .experiment/lead-write-final-report.stdin.py       |  45 ++\n .experiment/lead-write-finalizer.log               |   0\n .experiment/lead-write-finalizer.stdin.py          |  26 +\n .experiment/operator-interactions.jsonl            |   5 +\n .experiment/pause-add-route-boundary-test.log      |   0\n .experiment/pause-add-route-boundary-test.stdin.py |   7 +\n .experiment/pause-check-local-guidance.log         |   3 +\n .experiment/pause-clean-assigned-files.log         |   0\n .experiment/pause-commit-tests.log                 |   0\n .experiment/pause-committed-files.log              |   7 +\n .experiment/pause-final-diff-check.log             |   0\n .experiment/pause-final-scoped-diff.log            | 180 +++++\n .experiment/pause-finalize-helper-report.log       |   0\n .experiment/pause-finalize-helper-report.stdin.py  |   6 +\n .experiment/pause-fix-route-boundary.log           |   0\n .experiment/pause-fix-route-boundary.stdin.py      |   7 +\n .experiment/pause-focused-after.log                |  15 +\n .experiment/pause-focused-before.log               | 159 ++++\n .experiment/pause-focused-final.log                |  15 +\n .experiment/pause-full-public-final.log            |  20 +\n .experiment/pause-full-public-suite.log            |  20 +\n .experiment/pause-helper-evidence-audit.log        |   8 +\n .experiment/pause-helper-evidence-audit.stdin.py   |  14 +\n .experiment/pause-implement-feature.log            |   0\n .experiment/pause-implementation-commit.log        |   2 +\n .experiment/pause-implementation-identity.log      |   1 +\n .experiment/pause-list-public-files.log            |  40 +\n .experiment/pause-production-diff.log              | 165 ++++\n .experiment/pause-read-application.log             | 683 ++++++++++++++++\n .experiment/pause-read-complete-core.log           | 147 ++++\n .experiment/pause-read-feature-leaves.log          |  74 ++\n .experiment/pause-read-instructions.log            | 124 +++\n .experiment/pause-read-method-sources.log          | 476 +++++++++++\n .experiment/pause-read-test-config.log             |  12 +\n .experiment/pause-record-assignment.log            |   0\n .../pause-record-implementation-evidence.log       |   0\n .../pause-record-implementation-evidence.stdin.py  |  56 ++\n .experiment/pause-record-red-tests.log             |   0\n .experiment/pause-route-boundary-before.log        |  35 +\n .experiment/pause-stage-implementation.log         |   0\n .experiment/pause-test-commit.log                  |   3 +\n .experiment/pause-test-only-diff.log               |   0\n .experiment/pause-test-only-status.log             |  25 +\n .experiment/pause-tests-commit-identity.log        |   1 +\n .experiment/pause-whitespace-check.log             |   0\n .experiment/pause-write-behavior-tests.log         |   0\n .experiment/review-check-logs.log                  | 351 ++++++++\n .experiment/review-clean-candidate.log             |   0\n .experiment/review-command-map.log                 |  56 ++\n .experiment/review-commit-scope.log                |  10 +\n .experiment/review-design-sources.log              | 233 ++++++\n .experiment/review-diff-visible.log                | 405 ++++++++++\n .experiment/review-evidence-index.log              | 181 +++++\n .experiment/review-file-index.log                  |  96 +++\n .experiment/review-final-audit.log                 |  69 ++\n .experiment/review-instructions.log                | 176 ++++\n .experiment/review-leaf-visible.log                | 254 ++++++\n .experiment/review-method-sources.log              | 401 ++++++++++\n .experiment/review-preexisting-history.log         |   1 +\n .experiment/review-preexisting-history.stdin.py    |  31 +\n .experiment/review-report-verify.log               |   1 +\n .experiment/review-scoped-diff.log                 | 405 ++++++++++\n .experiment/review-source-visible.log              | 885 +++++++++++++++++++++\n .experiment/review-write-report.log                |   1 +\n .experiment/review-write-report.stdin.py           |  55 ++\n .experiment/run_command.py                         |  23 +\n .experiment/sources.json                           |  61 ++\n .experiment/throughput.md                          |   6 +\n relayboard/models.py                               |   1 +\n relayboard/service.py                              |  10 +-\n relayboard/store.py                                |  23 +-\n relayboard/web.py                                  |  23 +-\n tests/test_pause.py                                | 234 ++++++\n 109 files changed, 8399 insertions(+), 4 deletions(-)\n",
+  "operator_interactions": [
+    {
+      "run_id": "P-S02-001",
+      "question": "The public glossary deliberately leaves pause semantics undefined. What should pause do beyond blocking new scheduled Runs? Please specify whether manual Runs remain allowed, existing Runs/Attempts/retries and alerts continue, whether pause is independent of enabled/disabled (resume restores prior enabled state), and whether/how dashboard should show paused state. Current implementation has enabled scheduling, manual Runs allowed even disabled, synchronous Attempts, and a dashboard with Enabled and Last result. I will preserve existing behavior by default except where your product answer requires change.",
+      "answer": "For the requested product decisions: manual Runs remain allowed while a Job is paused. A Run already in progress continues to its terminal outcome, including its existing retry and alert behavior. No additional product guidance is supplied for the enabled/disabled representation or dashboard presentation; use the supplied task's preservation requirement and workspace evidence to make those reversible implementation choices.",
+      "classification": "MIXED",
+      "product_decisions_answered": [
+        "manual_run_while_paused",
+        "pause_in_progress_run"
+      ],
+      "other_items": "Enabled/disabled representation and dashboard presentation recorded as reversible implementation questions without additional product guidance.",
+      "answer_sheet_supplied": false,
+      "additional_requirements_volunteered": false,
+      "answered_at": "2026-10-07 07:02:27 UTC"
+    }
+  ],
+  "agent_completion_claim": "Completed pause/resume independent persisted state. Final local commit 4d4ce07308ff16861baab097f839ccc4d3484213. Red tests before implementation; 10 focused +15 public pass, WSGI and legacy migration pass. Lead +serial implementation+fresh review finished, accepted no blocker. No hidden/peer access declared. Runtime identity/usage unknown and early capture gaps/concurrent admission disclosed. Untracked finalization.log retained.",
+  "visible_checkpoints": [
+    {
+      "message": "P-S02-001 update. Baseline public suite is green (5 tests). Operator answer preserved under .experiment. Lead traced the small subsystem and compared independent Job.paused column against separate pause-membership table; selected persisted independent paused bit preserving enabled and adding dashboard Paused visibility. Required fresh serial GPT-6.1 Sol High helper is implementing bounded tests-first feature. No sibling/evaluator/peer material accessed, no network or remote operation.",
+      "received_at": "2026-10-07 07:04:54 UTC",
+      "source": "contestant message; claims awaiting captured-artifact verification"
+    },
+    {
+      "observed_at": "2026-10-07 07:14:47 UTC",
+      "message": "Code candidate b04219d12bf6e1d60782a75e354bac273a7168bd after tests-first 087535a1e0b0ddf43cf4e9e843f76c297d6bce66. Lead reports 10 focused + 15 public tests, literal WSGI scenario, diff check and legacy migration green. Fresh reviewer accepted no code blocker; helpers finished. Final REPORT/evidence commit underway. Early capture gaps and unknown runtime identity/usage disclosed; no hidden/peer/network operation declared."
+    }
+  ],
+  "worker_report": {
+    "task": "P-S02-001",
+    "treatment": "pstack-codex-port-v0",
+    "declared_status": "completed, public verification passed, fresh serial review accepted",
+    "workspace": "/workspace/relayboard-active/P-S02-001",
+    "initial_commit": "6621c8b2f3618b35dc6f0c784acf51f44fa053e8",
+    "local_commits": [
+      {
+        "sha": "087535a1e0b0ddf43cf4e9e843f76c297d6bce66",
+        "role": "tests-first public behavior specification"
+      },
+      {
+        "sha": "b04219d12bf6e1d60782a75e354bac273a7168bd",
+        "role": "verified implementation"
+      }
+    ],
+    "evidence_commit": "The local commit containing this REPORT.json; its exact SHA is recorded after creation in finalization.log and the final handoff. This file cannot contain its own enclosing commit SHA.",
+    "finalization_commands": [
+      "git add .experiment",
+      "git commit -m \"chore: preserve pause feature method and public evidence\"",
+      "git rev-parse HEAD",
+      "git status --short"
+    ],
+    "finalization_output_path": ".experiment/finalization.log",
+    "finalization_note": "Post-commit output log is intentionally retained as an untracked local artifact; implementation and pre-finalization evidence are committed.",
+    "feature": {
+      "state_shape": "independent Job.paused bool default False, persisted in SQLite, Store is single writer",
+      "routes": [
+        "POST /api/jobs/{id}/pause",
+        "POST /api/jobs/{id}/resume"
+      ],
+      "behavior": "200 Job envelopes; paused blocks normal scheduled admission through existing 409; manual Runs and existing Run/Attempt/retry/alert behavior retained; enabled unchanged; dashboard appends Paused",
+      "compatibility": "additive legacy jobs schema migration, tested including genuinely preexisting Run/Attempt/Alert history"
+    },
+    "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
+    "method_routes": [
+      "Poteto Mode",
+      "Feature",
+      "How serial lead explainer",
+      "Architect two serial structural lead sketches with bundled rationale/red flags",
+      "Arena read; native fan-out/cross-model replaced by METHOD serial lead design synthesis",
+      "Show me your work append-only decisions and fresh same-model trail review",
+      "Laziness Protocol",
+      "Model the Domain",
+      "Prove It Works",
+      "Test Behavior Not Implementation",
+      "Sequence Work into Verifiable Units",
+      "Never Block on the Human",
+      "Fix Root Causes read; applied to reproduced exact-route issue only",
+      "TDD read but feature route uses red-before evidence without claiming bug TDD invocation"
+    ],
+    "method_sources_and_adaptations_path": ".experiment/sources.json",
+    "throughput_checkpoint_path": ".experiment/throughput.md",
+    "design_path": ".experiment/design.md",
+    "checklist_path": ".experiment/TODO.md",
+    "public_commands_results_and_output_paths": [
+      {
+        "ts": "2026-10-07T07:02:41.954244+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/baseline.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "baseline",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:06:00.186354+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ],
+        "exit_code": 1,
+        "output_path": ".experiment/pause-focused-before.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "pause-focused-before",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:06:48.480105+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/pause-focused-after.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "pause-focused-after",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:06:49.001797+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/pause-full-public-suite.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "pause-full-public-suite",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:07:22.363143+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ],
+        "exit_code": 1,
+        "output_path": ".experiment/pause-route-boundary-before.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "pause-route-boundary-before",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:07:23.407649+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/pause-focused-final.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "pause-focused-final",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:07:23.970646+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/pause-full-public-final.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "pause-full-public-final",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:09:11.769497+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/lead-full-public.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "lead-full-public",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:09:11.789538+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/lead-focused.log",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "lead-focused",
+          "--",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_pause.py",
+          "-v"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:09:24.670932+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/lead-api-surface.log",
+        "stdin_path": ".experiment/lead-api-surface.stdin.py",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "lead-api-surface",
+          "--",
+          "python",
+          "-"
+        ]
+      },
+      {
+        "ts": "2026-10-07T07:11:33.591024+00:00",
+        "cwd": "/workspace/relayboard-active/P-S02-001",
+        "argv": [
+          "python",
+          "-"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/review-preexisting-history.log",
+        "stdin_path": ".experiment/review-preexisting-history.stdin.py",
+        "wrapper_invocation": [
+          "python",
+          ".experiment/run_command.py",
+          "review-preexisting-history",
+          "--",
+          "python",
+          "-"
+        ]
+      }
+    ],
+    "all_captured_commands_path": ".experiment/commands.jsonl",
+    "command_snapshot_note": "Canonical command log includes later evidence/finalization actions; this report snapshots checks through generation time.",
+    "verification": {
+      "baseline": "5 existing public tests pass",
+      "failing_before": "10 focused feature tests produce 7 failures and 3 errors on unchanged production baseline",
+      "passing_after": "10 focused pause tests and all 15 public tests pass independently for lead",
+      "original_surface": "literal WSGI pause 200, scheduled 409, manual 201, resume 200, scheduled 201",
+      "additional_review_check": "genuinely preexisting legacy Run/Attempt/Alert history survives migration",
+      "diff_check": "exit0 scoped git diff --check",
+      "upstream_changes": "none, empty recorded diff"
+    },
+    "helpers": [
+      {
+        "task": "/root/contestant_p_s02_001/pause_implementation",
+        "status": "finished",
+        "role": "bounded code-writing helper",
+        "fork_turns": "none",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning": "high",
+        "observed_identity": "unknown",
+        "report": ".experiment/helper-implementation-report.md",
+        "descendants": false
+      },
+      {
+        "task": "/root/contestant_p_s02_001/pause_review",
+        "status": "finished",
+        "role": "fresh code and evidence reviewer",
+        "fork_turns": "none",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning": "high",
+        "observed_identity": "unknown",
+        "report": ".experiment/helper-review-report.md",
+        "descendants": false
+      }
+    ],
+    "helper_assignments_path": ".experiment/helper-assignments.jsonl",
+    "operator_interactions_path": ".experiment/operator-interactions.jsonl",
+    "operator_decisions": "Manual Runs remain allowed; existing Runs continue including current retry/alerts; representation/dashboard chosen under preservation requirement",
+    "open_product_decisions": [],
+    "action_path_logs": [
+      ".experiment/initial-actions.json",
+      ".experiment/lead-direct-actions.json",
+      ".experiment/sources.json",
+      ".experiment/commands.jsonl",
+      ".experiment/decisions.tsv",
+      ".experiment/helper-assignments.jsonl",
+      ".experiment/helper-implementation-report.md",
+      ".experiment/helper-review-report.md"
+    ],
+    "review_verdict": "accept with no code blocker; evidence-only flags corrected",
+    "attention_path": ".experiment/ATTENTION.md",
+    "attention_remaining": [
+      "Initial direct calls reconstructed rather than fully command-archived",
+      "Early inline Python input source not archived",
+      "No complete raw transcript exported",
+      "Observed model identity and usage metrics unknown",
+      "Existing read-then-create scheduling admission not atomic across concurrent connections"
+    ],
+    "boundary": {
+      "evaluator_material_accessed": false,
+      "oracle_reference_material_accessed": false,
+      "peer_other_run_material_accessed": false,
+      "deliberate_hidden_material_retrieval": false,
+      "external_network_or_remote_git": false,
+      "credentials_accessed": false,
+      "production_or_paid_API_accessed": false,
+      "deployed_or_merged_to_main": false,
+      "basis": "Lead and helper declarations plus available captured command/path evidence; unavailable full transcript is not independently attested"
+    },
+    "attestation": {
+      "lead_requested_model": "gpt-6.1-sol",
+      "lead_requested_reasoning": "high",
+      "lead_observed_model": "unknown",
+      "helpers_observed_models": "unknown",
+      "full_raw_transcript": "unavailable",
+      "token_usage": "unknown",
+      "cost": "unknown",
+      "wall_time_usage_metrics": "unknown",
+      "native_model_diversity": false,
+      "native_Cursor_pstack_execution": false,
+      "native_parallel_throughput": false
+    },
+    "created_at": "2026-10-07T07:15:26.484096+00:00"
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": null,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... ok\ntest_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ok\ntest_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... ok\ntest_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... ok\ntest_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ok\ntest_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... ok\ntest_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... ok\ntest_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... ok\ntest_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ok\ntest_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.011s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "source_pins": [
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/SKILL.md",
+      "blob_sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "blob_sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+      "blob_sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+      "blob_sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/tdd/SKILL.md",
+      "blob_sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/how/SKILL.md",
+      "blob_sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/SKILL.md",
+      "blob_sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "blob_sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+      "blob_sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "blob_sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "blob_sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "blob_sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "blob_sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/LICENSE",
+      "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/show-me-your-work/SKILL.md",
+      "blob_sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "blob_sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/arena/SKILL.md",
+      "blob_sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/rationale-template.md",
+      "blob_sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/design-red-flags.md",
+      "blob_sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+    }
+  ],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json",
+    ".experiment/baseline.log",
+    ".experiment/decisions.tsv",
+    ".experiment/finalization.log",
+    ".experiment/helper-implementation-report.md",
+    ".experiment/helper-review-report.md",
+    ".experiment/lead-api-surface.log",
+    ".experiment/lead-close-review-flags.log",
+    ".experiment/lead-diff-check.log",
+    ".experiment/lead-focused.log",
+    ".experiment/lead-full-public.log",
+    ".experiment/lead-helper-report.log",
+    ".experiment/lead-local-commits.log",
+    ".experiment/lead-read-evidence.log",
+    ".experiment/lead-read-final-review.log",
+    ".experiment/lead-read-review-trail-tail.log",
+    ".experiment/lead-read-trail-for-corrections.log",
+    ".experiment/lead-record-review-assignment.log",
+    ".experiment/lead-record-review.log",
+    ".experiment/lead-review-diff.log",
+    ".experiment/lead-upstream-unchanged.log",
+    ".experiment/lead-write-final-report.log",
+    ".experiment/lead-write-final-report.stdin.py",
+    ".experiment/lead-write-finalizer.log",
+    ".experiment/pause-add-route-boundary-test.log",
+    ".experiment/pause-check-local-guidance.log",
+    ".experiment/pause-clean-assigned-files.log",
+    ".experiment/pause-commit-tests.log",
+    ".experiment/pause-committed-files.log",
+    ".experiment/pause-final-diff-check.log",
+    ".experiment/pause-final-scoped-diff.log",
+    ".experiment/pause-finalize-helper-report.log",
+    ".experiment/pause-finalize-helper-report.stdin.py",
+    ".experiment/pause-fix-route-boundary.log",
+    ".experiment/pause-focused-after.log",
+    ".experiment/pause-focused-before.log",
+    ".experiment/pause-focused-final.log",
+    ".experiment/pause-full-public-final.log",
+    ".experiment/pause-full-public-suite.log",
+    ".experiment/pause-helper-evidence-audit.log",
+    ".experiment/pause-implement-feature.log",
+    ".experiment/pause-implementation-commit.log",
+    ".experiment/pause-implementation-identity.log",
+    ".experiment/pause-list-public-files.log",
+    ".experiment/pause-production-diff.log",
+    ".experiment/pause-read-application.log",
+    ".experiment/pause-read-complete-core.log",
+    ".experiment/pause-read-feature-leaves.log",
+    ".experiment/pause-read-instructions.log",
+    ".experiment/pause-read-method-sources.log",
+    ".experiment/pause-read-test-config.log",
+    ".experiment/pause-record-assignment.log",
+    ".experiment/pause-record-implementation-evidence.log",
+    ".experiment/pause-record-red-tests.log",
+    ".experiment/pause-route-boundary-before.log",
+    ".experiment/pause-stage-implementation.log",
+    ".experiment/pause-test-commit.log",
+    ".experiment/pause-test-only-diff.log",
+    ".experiment/pause-test-only-status.log",
+    ".experiment/pause-tests-commit-identity.log",
+    ".experiment/pause-whitespace-check.log",
+    ".experiment/pause-write-behavior-tests.log",
+    ".experiment/review-check-logs.log",
+    ".experiment/review-clean-candidate.log",
+    ".experiment/review-command-map.log",
+    ".experiment/review-commit-scope.log",
+    ".experiment/review-design-sources.log",
+    ".experiment/review-diff-visible.log",
+    ".experiment/review-evidence-index.log",
+    ".experiment/review-file-index.log",
+    ".experiment/review-final-audit.log",
+    ".experiment/review-instructions.log",
+    ".experiment/review-leaf-visible.log",
+    ".experiment/review-method-sources.log",
+    ".experiment/review-preexisting-history.log",
+    ".experiment/review-report-verify.log",
+    ".experiment/review-scoped-diff.log",
+    ".experiment/review-source-visible.log",
+    ".experiment/review-write-report.log",
+    ".experiment/review-write-report.stdin.py"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 193137,
+    "sha256": "0ba79e7a27d6018f1dde247733dcc570d671e81efee5b4f2399199e1978ae39c",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}
