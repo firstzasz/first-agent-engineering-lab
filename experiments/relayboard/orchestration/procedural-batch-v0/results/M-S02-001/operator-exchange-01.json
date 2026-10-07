@@ -1,0 +1,44 @@
+{
+  "run_id": "M-S02-001",
+  "round": 1,
+  "observed_at": "2026-10-07 09:35:01 UTC",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "What execution does pause block? Code distinguishes scheduled, manual and existing Run attempts.",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+      "frozen_decisions_requested": [
+        "scheduled_start_while_paused",
+        "manual_run_while_paused",
+        "pause_in_progress_run"
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "How does pause relate to enabled/disabled? Proposed separate persisted boolean, default false, idempotent preserving enabled.",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    },
+    {
+      "id": "Q3",
+      "text": "How should pause appear on public surfaces? Proposed JSON field, POST responses, Paused dashboard column.",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+      "note": "Requested preferences beyond frozen product sheet; no extra product requirements supplied."
+    },
+    {
+      "id": "Q4",
+      "text": "Should resume catch up work missed while paused?",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+      "frozen_decisions_requested": [
+        "resume_behavior"
+      ]
+    }
+  ],
+  "answer": "Q1: scheduled start while paused skipped and not queued; manual Runs allowed; already progressing Run continues terminal with retries/alerts preserved. Q4: future schedule only, no catch-up. Q2/Q3: no additional product/interface preference; TASK.md/public interfaces/reversible engineering judgment.",
+  "frozen_decisions_answered": [
+    "scheduled_start_while_paused",
+    "manual_run_while_paused",
+    "pause_in_progress_run",
+    "resume_behavior"
+  ],
+  "volunteered_requirements": false
+}
