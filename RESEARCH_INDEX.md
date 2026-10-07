@@ -84,6 +84,18 @@ The common analysis frame is:
 
 Status: **PILOT BATCH EXECUTED; SINGLE-SHOT EVIDENCE PRESERVED**
 
+### Phase 1L: Independent replication Round 2
+
+Status: **EXECUTING, FIXED REVERSE ORDER**
+
+- New research branch `research/batch-orchestration-round2` from verified Round 1 HEAD `a700a3e52d1d8a66246806366d7f14eb7ba9b77a`.
+- Twelve new -002 runs reuse exact frozen fixture/task/evaluator/scoring/oracle/method versions; no port regeneration.
+- Exact reverse chronological Round 1 execution order frozen before first contestant at `b9c7da1e8cb797f49d86e46b229d21e9493b483f`.
+- Fresh serial assigned-only contexts, independent histories and requested GPT-6.1 Sol / High; any forbidden receipt excluded without silent retry.
+- Round 1 branch and 125 original result/evidence/orchestration blobs protected unchanged; no merges to main.
+- Cross-round comparison follows all twelve dispositions, preserving unavailable metrics and avoiding a universal winner.
+- [Active Round 2 batch](./experiments/relayboard/orchestration/replication-round2-v0/README.md)
+
 ### Phase 1K: Frozen procedural protocol continuation
 
 Status: **EXECUTED and VERIFIED for behavior; one contamination exclusion**
