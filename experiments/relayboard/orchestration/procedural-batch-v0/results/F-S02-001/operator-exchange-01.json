@@ -1,0 +1,19 @@
+{
+  "run_id": "F-S02-001",
+  "round": 1,
+  "observed_at": "2026-10-07 12:10:50 UTC",
+  "question": "The task and glossary leave pause semantics unresolved. Existing scheduling uses enabled; manual runs ignore enabled, retries and alerts proceed for active Runs. Please decide: (1) should pause block only new scheduled Runs, or also manual Runs? (2) should in-progress Runs/retries/alerts continue unchanged? (3) should resume preserve a Job's prior enabled/disabled state? My recommendation is an independent paused flag: block new scheduled Runs only, allow manual Runs, preserve in-progress Run/retry/alert behavior, and leave enabled unchanged on pause/resume. If dashboard presentation has a specific requirement, please supply it; otherwise I will expose a separate Paused column while preserving Enabled and Last result.",
+  "answer": "(1) A scheduled start while paused is skipped and is not queued. Manual Runs remain allowed while paused. (2) An in-progress Run continues to terminal outcome; preserve retries/alerts. (3) No additional guidance on enabled representation/dashboard presentation; TASK preservation, public interfaces and reversible judgment. No other product requirements supplied.",
+  "classification": "MIXED",
+  "product_decisions_answered": [
+    "scheduled_start_while_paused",
+    "manual_run_while_paused",
+    "pause_in_progress_run"
+  ],
+  "engineering_items": [
+    "enabled-state representation",
+    "dashboard presentation"
+  ],
+  "volunteered_requirements": false,
+  "answer_sheet_supplied": false
+}
