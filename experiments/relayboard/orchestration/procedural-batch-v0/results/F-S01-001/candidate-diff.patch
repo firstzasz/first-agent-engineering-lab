@@ -1,0 +1,280 @@
+diff --git a/.experiment/COMMAND_LOG.json b/.experiment/COMMAND_LOG.json
+new file mode 100644
+index 0000000..7f826b7
+--- /dev/null
++++ b/.experiment/COMMAND_LOG.json
+@@ -0,0 +1,125 @@
++{
++  "working_directory": "/workspace/relayboard-active/F-S01-001",
++  "entries": [
++    {
++      "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'AGENTS.md' -g '!node_modules' -g '!vendor' . && cat TASK.md && cat METHOD.md",
++      "result": {
++        "exit_code": 0
++      },
++      "paths": [
++        "TASK.md",
++        "METHOD.md"
++      ],
++      "note": "Read supplied task and exact frozen method; no AGENTS.md found inside supplied run."
++    },
++    {
++      "command": "git status --short && git rev-parse HEAD && rg --files -g '!node_modules' -g '!vendor' -g '!package-lock.json' -g '!pnpm-lock.yaml' -g '!yarn.lock' -g '!METHOD.md' -g '!TASK.md' . && rg -n 'Last result|Jobs|\"scripts\"' -g '!node_modules' -g '!vendor' -g '!package-lock.json' -g '!pnpm-lock.yaml' -g '!yarn.lock' .",
++      "result": {
++        "exit_code": 0,
++        "head": "f4949ab48a610e5fb0d3b2b7187583a91ac8efc2",
++        "status": "clean"
++      },
++      "note": "Enumerated only run-area files, found heading at relayboard/web.py:153."
++    },
++    {
++      "command": "cat pyproject.toml && cat README.md && cat tests/test_public.py && sed -n '1,235p' relayboard/web.py",
++      "result": {
++        "exit_code": 0
++      },
++      "paths": [
++        "pyproject.toml",
++        "README.md",
++        "tests/test_public.py",
++        "relayboard/web.py"
++      ],
++      "note": "Read public fixture and renderer. README names evaluator protocol but its target was not opened."
++    },
++    {
++      "command": "mkdir -p .experiment\nPYTHONDONTWRITEBYTECODE=1 python - <<'PY' | tee .experiment/baseline.txt\nimport json\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\ncode, body = request(create_seeded_app(), \"GET\", \"/dashboard\")\nassert code == 200\nassert \"<th>Last result</th>\" in body\nassert \"<th>Latest result</th>\" not in body\nPath(\".experiment/dashboard-before.json\").write_text(json.dumps({\"status\": code, \"body\": body}, indent=2) + \"\\n\")\nprint(\"BASELINE: GET /dashboard returns 200 and the old column heading.\")\nPY",
++      "result": {
++        "chunk_id": "f0f16e",
++        "wall_time_seconds": 0.020076315,
++        "exit_code": 0,
++        "original_token_count": 17,
++        "output": "BASELINE: GET /dashboard returns 200 and the old column heading.\n"
++      },
++      "paths": [
++        ".experiment/baseline.txt",
++        ".experiment/dashboard-before.json"
++      ],
++      "action": "Captured pre-change dashboard through public WSGI request helper."
++    },
++    {
++      "action": "apply_patch",
++      "path": "relayboard/web.py",
++      "patch": "*** Begin Patch\n*** Update File: /workspace/relayboard-active/F-S01-001/relayboard/web.py\n@@\n-            \"<th>Job</th><th>Enabled</th><th>Last result</th>\"\n+            \"<th>Job</th><th>Enabled</th><th>Latest result</th>\"\n*** End Patch",
++      "result": {}
++    },
++    {
++      "command": "set -o pipefail\nPYTHONDONTWRITEBYTECODE=1 python - <<'PY' | tee .experiment/dashboard-verification.txt\nimport json\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\nbaseline = json.loads(Path(\".experiment/dashboard-before.json\").read_text())\ncode, body = request(create_seeded_app(), \"GET\", \"/dashboard\")\nassert code == baseline[\"status\"] == 200\nassert \"<th>Latest result</th>\" in body\nassert \"<th>Last result</th>\" not in body\nassert body == baseline[\"body\"].replace(\"<th>Last result</th>\", \"<th>Latest result</th>\")\nPath(\".experiment/dashboard-after.json\").write_text(json.dumps({\"status\": code, \"body\": body}, indent=2) + \"\\n\")\nprint(\"PASS: GET /dashboard returns 200, Latest result replaces Last result, and all other response HTML is byte-identical.\")\nPY",
++      "result": {
++        "status": "fulfilled",
++        "value": {
++          "chunk_id": "b18224",
++          "wall_time_seconds": 0.000020134,
++          "exit_code": 0,
++          "original_token_count": 30,
++          "output": "PASS: GET /dashboard returns 200, Latest result replaces Last result, and all other response HTML is byte-identical.\n"
++        }
++      }
++    },
++    {
++      "command": "set -o pipefail\nPYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests -v 2>&1 | tee .experiment/public-tests.txt",
++      "result": {
++        "status": "fulfilled",
++        "value": {
++          "chunk_id": "e02fc2",
++          "wall_time_seconds": 0.0406156,
++          "exit_code": 0,
++          "original_token_count": 178,
++          "output": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.004s\n\nOK\n"
++        }
++      }
++    },
++    {
++      "command": "git diff --check && git diff -- relayboard/web.py",
++      "result": {
++        "status": "fulfilled",
++        "value": {
++          "chunk_id": "eaa7a6",
++          "wall_time_seconds": 0.000030654,
++          "exit_code": 0,
++          "original_token_count": 138,
++          "output": "diff --git a/relayboard/web.py b/relayboard/web.py\nindex 88aa15e..67de7f4 100644\n--- a/relayboard/web.py\n+++ b/relayboard/web.py\n@@ -150,7 +150,7 @@ class RelayBoardApp:\n             \"<html><head><title>RelayBoard</title></head><body>\"\n             \"<h1>Jobs</h1>\"\n             \"<table id='jobs'><thead><tr>\"\n-            \"<th>Job</th><th>Enabled</th><th>Last result</th>\"\n+            \"<th>Job</th><th>Enabled</th><th>Latest result</th>\"\n             \"</tr></thead><tbody>\"\n             + \"\".join(rows)\n             + \"</tbody></table></body></html>\"\n"
++        }
++      }
++    },
++    {
++      "command": "git add relayboard/web.py && git commit -m 'Rename Jobs dashboard heading to Latest result' && git rev-parse HEAD",
++      "result": {
++        "chunk_id": "a7c848",
++        "wall_time_seconds": 0.000021889,
++        "exit_code": 0,
++        "original_token_count": 42,
++        "output": "[candidate/F-S01-001 b50e134] Rename Jobs dashboard heading to Latest result\n 1 file changed, 1 insertion(+), 1 deletion(-)\nb50e13491d4906d4c78fce64b167c1d7c6ca4ee0\n"
++      },
++      "paths": [
++        "relayboard/web.py"
++      ],
++      "action": "Committed only the one-line application change."
++    },
++    {
++      "action": "write_report_and_log",
++      "paths": [
++        ".experiment/REPORT.json",
++        ".experiment/COMMAND_LOG.json"
++      ],
++      "note": "Persist factual method route, decisions, verification output pointers, operator/helper status, and boundary evidence."
++    },
++    {
++      "command": "git add .experiment && git commit -m 'Record FIRST L0 verification evidence' && git status --short && git log -2 --oneline && git diff f4949ab48a610e5fb0d3b2b7187583a91ac8efc2 HEAD --stat",
++      "action": "Final evidence commit and local status check",
++      "note": "Command result remains available in final tool output; no remote operations."
++    }
++  ]
++}
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..d3d241f
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,80 @@
++{
++  "status": "VERIFIED",
++  "contestant": "F-S01-001",
++  "working_area": "/workspace/relayboard-active/F-S01-001",
++  "task": "Change Jobs dashboard heading from Last result to Latest result without changing API or unrelated dashboard behavior.",
++  "initial_commit": "f4949ab48a610e5fb0d3b2b7187583a91ac8efc2",
++  "method": {
++    "source": "METHOD.md",
++    "name": "FIRST-mode v0",
++    "route": "L0: Direct verified execution",
++    "success_predicate": "GET /dashboard returns HTTP 200 with <th>Latest result</th> and without <th>Last result</th>; other response HTML matches baseline exactly; public tests pass; application diff is only the requested label.",
++    "decision_class": "REVERSIBLE_ENGINEERING",
++    "decision": "Replace the single literal heading in relayboard/web.py. Task is clear, small, reversible, and low-risk. No structural uncertainty trigger or helper is warranted."
++  },
++  "local_commits": [
++    {
++      "hash": "b50e13491d4906d4c78fce64b167c1d7c6ca4ee0",
++      "purpose": "One-line dashboard heading change"
++    },
++    {
++      "revision": "HEAD",
++      "purpose": "Evidence and report commit containing this report; exact hash is available from local git history after finalization."
++    }
++  ],
++  "tests": [
++    {
++      "command": "PYTHONDONTWRITEBYTECODE=1 python - (public WSGI dashboard baseline capture)",
++      "result": "PASS: pre-change response contains old heading",
++      "exit_code": 0,
++      "output_paths": [
++        ".experiment/baseline.txt",
++        ".experiment/dashboard-before.json"
++      ]
++    },
++    {
++      "command": "PYTHONDONTWRITEBYTECODE=1 python - (dashboard response comparison; full executable command in COMMAND_LOG.json)",
++      "result": "PASS: HTTP 200; new heading present; old heading absent; other response HTML byte-identical",
++      "exit_code": 0,
++      "output_paths": [
++        ".experiment/dashboard-verification.txt",
++        ".experiment/dashboard-after.json"
++      ]
++    },
++    {
++      "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests -v",
++      "result": "PASS: all 5 public tests",
++      "exit_code": 0,
++      "output_paths": [
++        ".experiment/public-tests.txt"
++      ]
++    },
++    {
++      "command": "git diff --check && git diff -- relayboard/web.py",
++      "result": "PASS: clean whitespace; application diff contains only label replacement",
++      "exit_code": 0,
++      "output_paths": [
++        ".experiment/COMMAND_LOG.json"
++      ]
++    }
++  ],
++  "operator_interactions": [],
++  "helpers": {
++    "used": false,
++    "assignments": [],
++    "reports": []
++  },
++  "model_usage": {
++    "requested": "Inherited contestant model; no helper requested",
++    "observed": "No model/usage telemetry available from tools; no claims about measured model identity or token usage.",
++    "paid_api_calls": 0
++  },
++  "action_path_log": ".experiment/COMMAND_LOG.json",
++  "evaluator_or_peer_material_accessed": false,
++  "boundary_evidence": "Only supplied run area inspected. No siblings, control paths, hidden checks, peer status, external references, private transcripts or credentials accessed. README contains protocol-reference link text; linked files were not opened.",
++  "evidence_gaps": [
++    "No browser screenshot: verification checks HTML served through public WSGI request helper, matching this server-rendered label surface.",
++    "Initial read command outputs are summarized in command log; full outputs remain available in tool transcript.",
++    "Self-referential evidence commit hash is recorded as HEAD, resolved in local git history after commit."
++  ]
++}
+diff --git a/.experiment/baseline.txt b/.experiment/baseline.txt
+new file mode 100644
+index 0000000..3a0b391
+--- /dev/null
++++ b/.experiment/baseline.txt
+@@ -0,0 +1 @@
++BASELINE: GET /dashboard returns 200 and the old column heading.
+diff --git a/.experiment/dashboard-after.json b/.experiment/dashboard-after.json
+new file mode 100644
+index 0000000..8c1602d
+--- /dev/null
++++ b/.experiment/dashboard-after.json
+@@ -0,0 +1,4 @@
++{
++  "status": 200,
++  "body": "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Latest result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>"
++}
+diff --git a/.experiment/dashboard-before.json b/.experiment/dashboard-before.json
+new file mode 100644
+index 0000000..8e0c694
+--- /dev/null
++++ b/.experiment/dashboard-before.json
+@@ -0,0 +1,4 @@
++{
++  "status": 200,
++  "body": "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>"
++}
+diff --git a/.experiment/dashboard-verification.txt b/.experiment/dashboard-verification.txt
+new file mode 100644
+index 0000000..182063f
+--- /dev/null
++++ b/.experiment/dashboard-verification.txt
+@@ -0,0 +1 @@
++PASS: GET /dashboard returns 200, Latest result replaces Last result, and all other response HTML is byte-identical.
+diff --git a/.experiment/public-tests.txt b/.experiment/public-tests.txt
+new file mode 100644
+index 0000000..ceccb2a
+--- /dev/null
++++ b/.experiment/public-tests.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.004s
++
++OK
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..67de7f4 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -150,7 +150,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"

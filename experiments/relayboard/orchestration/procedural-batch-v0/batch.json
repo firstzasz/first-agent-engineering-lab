@@ -111,8 +111,9 @@
       "branch": "treatment/first-mode/F-S01-001",
       "prepared_sha": "dc4704ccb3ff4e3c4d392c96028ec194e73d5ac9",
       "prepared_tree_sha": "31760023690b769d1757a099be2f14e2290a26a2",
-      "status": "READY_PROCEDURAL",
-      "result_path": "results/F-S01-001/run.json"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result_path": "results/F-S01-001/run.json",
+      "candidate_sha": "62fb2061cff76d2e6fc231aa861341e94be2466f"
     },
     {
       "run_id": "F-S02-001",
@@ -135,5 +136,5 @@
       "result_path": "results/F-S04-001/run.json"
     }
   ],
-  "completed_count": 8
+  "completed_count": 9
 }
