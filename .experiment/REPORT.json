@@ -1,0 +1,80 @@
+{
+  "status": "VERIFIED",
+  "contestant": "F-S01-001",
+  "working_area": "/workspace/relayboard-active/F-S01-001",
+  "task": "Change Jobs dashboard heading from Last result to Latest result without changing API or unrelated dashboard behavior.",
+  "initial_commit": "f4949ab48a610e5fb0d3b2b7187583a91ac8efc2",
+  "method": {
+    "source": "METHOD.md",
+    "name": "FIRST-mode v0",
+    "route": "L0: Direct verified execution",
+    "success_predicate": "GET /dashboard returns HTTP 200 with <th>Latest result</th> and without <th>Last result</th>; other response HTML matches baseline exactly; public tests pass; application diff is only the requested label.",
+    "decision_class": "REVERSIBLE_ENGINEERING",
+    "decision": "Replace the single literal heading in relayboard/web.py. Task is clear, small, reversible, and low-risk. No structural uncertainty trigger or helper is warranted."
+  },
+  "local_commits": [
+    {
+      "hash": "b50e13491d4906d4c78fce64b167c1d7c6ca4ee0",
+      "purpose": "One-line dashboard heading change"
+    },
+    {
+      "revision": "HEAD",
+      "purpose": "Evidence and report commit containing this report; exact hash is available from local git history after finalization."
+    }
+  ],
+  "tests": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python - (public WSGI dashboard baseline capture)",
+      "result": "PASS: pre-change response contains old heading",
+      "exit_code": 0,
+      "output_paths": [
+        ".experiment/baseline.txt",
+        ".experiment/dashboard-before.json"
+      ]
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python - (dashboard response comparison; full executable command in COMMAND_LOG.json)",
+      "result": "PASS: HTTP 200; new heading present; old heading absent; other response HTML byte-identical",
+      "exit_code": 0,
+      "output_paths": [
+        ".experiment/dashboard-verification.txt",
+        ".experiment/dashboard-after.json"
+      ]
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests -v",
+      "result": "PASS: all 5 public tests",
+      "exit_code": 0,
+      "output_paths": [
+        ".experiment/public-tests.txt"
+      ]
+    },
+    {
+      "command": "git diff --check && git diff -- relayboard/web.py",
+      "result": "PASS: clean whitespace; application diff contains only label replacement",
+      "exit_code": 0,
+      "output_paths": [
+        ".experiment/COMMAND_LOG.json"
+      ]
+    }
+  ],
+  "operator_interactions": [],
+  "helpers": {
+    "used": false,
+    "assignments": [],
+    "reports": []
+  },
+  "model_usage": {
+    "requested": "Inherited contestant model; no helper requested",
+    "observed": "No model/usage telemetry available from tools; no claims about measured model identity or token usage.",
+    "paid_api_calls": 0
+  },
+  "action_path_log": ".experiment/COMMAND_LOG.json",
+  "evaluator_or_peer_material_accessed": false,
+  "boundary_evidence": "Only supplied run area inspected. No siblings, control paths, hidden checks, peer status, external references, private transcripts or credentials accessed. README contains protocol-reference link text; linked files were not opened.",
+  "evidence_gaps": [
+    "No browser screenshot: verification checks HTML served through public WSGI request helper, matching this server-rendered label surface.",
+    "Initial read command outputs are summarized in command log; full outputs remain available in tool transcript.",
+    "Self-referential evidence commit hash is recorded as HEAD, resolved in local git history after commit."
+  ]
+}
