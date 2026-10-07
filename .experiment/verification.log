@@ -1,0 +1,2 @@
+VERIFIED: GET /dashboard differs only by the requested heading; status 200.
+VERIFIED: GET /api/jobs and GET /api/alerts match baseline responses.

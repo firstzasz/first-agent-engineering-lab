@@ -1,0 +1,129 @@
+{
+  "status": "VERIFIED",
+  "contestant": "F-S01-002",
+  "method": "FIRST-mode v0; supplied frozen METHOD.md; L0 direct verified execution",
+  "goal": "Jobs table heading Last result -> Latest result; no API or unrelated dashboard behavior changes",
+  "success_predicate": "GET /dashboard returns status 200 and HTML differs from baseline solely by heading replacement; GET /api/jobs and /api/alerts match baseline; existing public tests pass; application diff only changes the heading literal",
+  "commits": {
+    "initial": "8e7b0c0f5cc9b11a5f4c6efc931a840406464f92",
+    "implementation_and_verification": "32d04a0052da4d68ad304be81cc1540046e58ab2",
+    "report_evidence_commit": "Created after this report; hash provided in final delivery and inspectable as final local HEAD. No self-referential hash embedded."
+  },
+  "testcommands": [
+    {
+      "command": "python .experiment/verify.py baseline",
+      "result": "PASS",
+      "outputpath": ".experiment/baseline.log"
+    },
+    {
+      "command": "python .experiment/verify.py verify",
+      "result": "PASS; actual public WSGI route HTML equal to baseline with only target literal replaced; sampled APIs unchanged",
+      "outputpath": ".experiment/verification.log"
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "result": "PASS; 5 public tests",
+      "outputpath": ".experiment/public-tests.log"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "outputpath": ".experiment/final-diff.patch"
+    }
+  ],
+  "operator_exchanges": [
+    {
+      "kind": "administrative_provenance_notice",
+      "sent": "Provenance notice: higher-priority developer instruction required reading cloud-environment-runtime skill at managed environment start; read only its generic SKILL.md, before METHOD.md. No runtime status, credentials, network policy, peer material, or alternate benchmark method accessed. I will record that procedural skill read explicitly and apply only FIRST-mode v0 to the task.",
+      "received": "Administrative provenance note acknowledged. Preserve the mandatory generic host-runtime skill read and its actual scope in your evidence. It is a host instruction, not an additional benchmark methodology; apply only the supplied FIRST-mode v0 to this task. Do not access credentials, peer/hidden material or unneeded host status. No task/product guidance supplied."
+    }
+  ],
+  "operator_questions": [],
+  "decisions": [
+    {
+      "class": "REVERSIBLE_ENGINEERING",
+      "decision": "Replace one heading literal; L0; no helper agents needed; public WSGI response comparison plus public regressions; no new product test added for low-impact text edit"
+    }
+  ],
+  "checkpoints": [
+    {
+      "stage": "grounded",
+      "evidence": "relayboard/web.py:153 literal and public WSGI request helper",
+      "decision": "single literal update"
+    },
+    {
+      "stage": "verified",
+      "evidence": [
+        ".experiment/verification.log",
+        ".experiment/public-tests.log",
+        ".experiment/final-diff.patch"
+      ],
+      "result": "All predicates passed"
+    }
+  ],
+  "helper_reports": [],
+  "action_path_evidence": {
+    "all_shell_commands_workdir": "/workspace/relayboard-round2-active/F-S01-002",
+    "command_record": ".experiment/commands.json",
+    "read_paths": [
+      "TASK.md",
+      "METHOD.md",
+      "pyproject.toml",
+      "README.md (targeted rg matches only)",
+      "relayboard/web.py",
+      "relayboard/testing.py",
+      "tests/test_public.py"
+    ],
+    "listed_without_reading": [
+      "GLOSSARY.md",
+      "relayboard/models.py",
+      "relayboard/service.py",
+      "relayboard/store.py",
+      "relayboard/__main__.py",
+      "relayboard/__init__.py",
+      ".experiment/RUN_MANIFEST.json",
+      ".gitignore"
+    ],
+    "application_modified": [
+      "relayboard/web.py"
+    ],
+    "record_artifacts": [
+      ".experiment/WORK_LOG.md",
+      ".experiment/verify.py",
+      ".experiment/baseline-responses.json",
+      ".experiment/verified-responses.json",
+      ".experiment/dashboard.html",
+      ".experiment/baseline.log",
+      ".experiment/verification.log",
+      ".experiment/public-tests.log",
+      ".experiment/final-diff.patch",
+      ".experiment/commands.json",
+      ".experiment/REPORT.json"
+    ],
+    "generic_host_instruction_read": {
+      "tool": "skills__read",
+      "package": "c3/cloud-environment-runtime",
+      "resource": "skill://plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d/cloud-environment-runtime/SKILL.md",
+      "scope": "Generic mandatory infrastructure guidance only; no host status/credentials accessed; operator confirmed not additional benchmark methodology"
+    },
+    "tool_metadata_search": "ALL_TOOLS filtered for environment_status metadata only; status tool never invoked",
+    "network_or_remote_access": false
+  },
+  "evaluator_or_peer_material_accessed": false,
+  "contaminated": false,
+  "requested_vs_attested_runtime": {
+    "requested": "Assigned contestant F-S01-002; FIRST-mode v0; no helpers",
+    "attested": "Commands and output records available; no tool attestation of underlying model identity, token usage or cost",
+    "unattested": [
+      "underlying model identity",
+      "token usage",
+      "runtime costs"
+    ]
+  },
+  "gaps": [
+    "No browser screenshot; exact HTML checked through actual WSGI route.",
+    "Sampled GET APIs compared; full API behavior coverage limited to existing five public tests plus one-literal application diff.",
+    "Initial inspection tool outputs remain in tool transcript and are reconstructed by command/path records and frozen initial commit; no separate raw transcript export tool was available.",
+    "No hidden evaluation run or feedback accessed."
+  ]
+}
