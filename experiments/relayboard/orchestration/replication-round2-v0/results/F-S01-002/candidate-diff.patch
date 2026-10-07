@@ -1,0 +1,432 @@
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..4bab8aa
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,129 @@
++{
++  "status": "VERIFIED",
++  "contestant": "F-S01-002",
++  "method": "FIRST-mode v0; supplied frozen METHOD.md; L0 direct verified execution",
++  "goal": "Jobs table heading Last result -> Latest result; no API or unrelated dashboard behavior changes",
++  "success_predicate": "GET /dashboard returns status 200 and HTML differs from baseline solely by heading replacement; GET /api/jobs and /api/alerts match baseline; existing public tests pass; application diff only changes the heading literal",
++  "commits": {
++    "initial": "8e7b0c0f5cc9b11a5f4c6efc931a840406464f92",
++    "implementation_and_verification": "32d04a0052da4d68ad304be81cc1540046e58ab2",
++    "report_evidence_commit": "Created after this report; hash provided in final delivery and inspectable as final local HEAD. No self-referential hash embedded."
++  },
++  "testcommands": [
++    {
++      "command": "python .experiment/verify.py baseline",
++      "result": "PASS",
++      "outputpath": ".experiment/baseline.log"
++    },
++    {
++      "command": "python .experiment/verify.py verify",
++      "result": "PASS; actual public WSGI route HTML equal to baseline with only target literal replaced; sampled APIs unchanged",
++      "outputpath": ".experiment/verification.log"
++    },
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "result": "PASS; 5 public tests",
++      "outputpath": ".experiment/public-tests.log"
++    },
++    {
++      "command": "git diff --check",
++      "result": "PASS",
++      "outputpath": ".experiment/final-diff.patch"
++    }
++  ],
++  "operator_exchanges": [
++    {
++      "kind": "administrative_provenance_notice",
++      "sent": "Provenance notice: higher-priority developer instruction required reading cloud-environment-runtime skill at managed environment start; read only its generic SKILL.md, before METHOD.md. No runtime status, credentials, network policy, peer material, or alternate benchmark method accessed. I will record that procedural skill read explicitly and apply only FIRST-mode v0 to the task.",
++      "received": "Administrative provenance note acknowledged. Preserve the mandatory generic host-runtime skill read and its actual scope in your evidence. It is a host instruction, not an additional benchmark methodology; apply only the supplied FIRST-mode v0 to this task. Do not access credentials, peer/hidden material or unneeded host status. No task/product guidance supplied."
++    }
++  ],
++  "operator_questions": [],
++  "decisions": [
++    {
++      "class": "REVERSIBLE_ENGINEERING",
++      "decision": "Replace one heading literal; L0; no helper agents needed; public WSGI response comparison plus public regressions; no new product test added for low-impact text edit"
++    }
++  ],
++  "checkpoints": [
++    {
++      "stage": "grounded",
++      "evidence": "relayboard/web.py:153 literal and public WSGI request helper",
++      "decision": "single literal update"
++    },
++    {
++      "stage": "verified",
++      "evidence": [
++        ".experiment/verification.log",
++        ".experiment/public-tests.log",
++        ".experiment/final-diff.patch"
++      ],
++      "result": "All predicates passed"
++    }
++  ],
++  "helper_reports": [],
++  "action_path_evidence": {
++    "all_shell_commands_workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command_record": ".experiment/commands.json",
++    "read_paths": [
++      "TASK.md",
++      "METHOD.md",
++      "pyproject.toml",
++      "README.md (targeted rg matches only)",
++      "relayboard/web.py",
++      "relayboard/testing.py",
++      "tests/test_public.py"
++    ],
++    "listed_without_reading": [
++      "GLOSSARY.md",
++      "relayboard/models.py",
++      "relayboard/service.py",
++      "relayboard/store.py",
++      "relayboard/__main__.py",
++      "relayboard/__init__.py",
++      ".experiment/RUN_MANIFEST.json",
++      ".gitignore"
++    ],
++    "application_modified": [
++      "relayboard/web.py"
++    ],
++    "record_artifacts": [
++      ".experiment/WORK_LOG.md",
++      ".experiment/verify.py",
++      ".experiment/baseline-responses.json",
++      ".experiment/verified-responses.json",
++      ".experiment/dashboard.html",
++      ".experiment/baseline.log",
++      ".experiment/verification.log",
++      ".experiment/public-tests.log",
++      ".experiment/final-diff.patch",
++      ".experiment/commands.json",
++      ".experiment/REPORT.json"
++    ],
++    "generic_host_instruction_read": {
++      "tool": "skills__read",
++      "package": "c3/cloud-environment-runtime",
++      "resource": "skill://plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d/cloud-environment-runtime/SKILL.md",
++      "scope": "Generic mandatory infrastructure guidance only; no host status/credentials accessed; operator confirmed not additional benchmark methodology"
++    },
++    "tool_metadata_search": "ALL_TOOLS filtered for environment_status metadata only; status tool never invoked",
++    "network_or_remote_access": false
++  },
++  "evaluator_or_peer_material_accessed": false,
++  "contaminated": false,
++  "requested_vs_attested_runtime": {
++    "requested": "Assigned contestant F-S01-002; FIRST-mode v0; no helpers",
++    "attested": "Commands and output records available; no tool attestation of underlying model identity, token usage or cost",
++    "unattested": [
++      "underlying model identity",
++      "token usage",
++      "runtime costs"
++    ]
++  },
++  "gaps": [
++    "No browser screenshot; exact HTML checked through actual WSGI route.",
++    "Sampled GET APIs compared; full API behavior coverage limited to existing five public tests plus one-literal application diff.",
++    "Initial inspection tool outputs remain in tool transcript and are reconstructed by command/path records and frozen initial commit; no separate raw transcript export tool was available.",
++    "No hidden evaluation run or feedback accessed."
++  ]
++}
+diff --git a/.experiment/WORK_LOG.md b/.experiment/WORK_LOG.md
+new file mode 100644
+index 0000000..c1efd75
+--- /dev/null
++++ b/.experiment/WORK_LOG.md
+@@ -0,0 +1,36 @@
++# F-S01-002 work record
++
++Goal: Jobs table heading changes from `Last result` to `Latest result`.
++Success predicate: the public GET /dashboard WSGI response has the new heading,
++and differs from baseline only by that heading; public API samples stay equal
++and existing public tests pass. Application diff must be only the heading literal.
++
++Method: frozen METHOD.md, FIRST-mode v0 L0 (small, clear, reversible).
++Decision: REVERSIBLE_ENGINEERING, replace one literal in relayboard/web.py;
++no architecture choices, product ambiguity, helper agents, or approval gate.
++Public response comparison uses relayboard.testing.request through the actual
++WSGI app route. No browser screenshot is needed for a plain table text literal.
++
++Initial local HEAD: 8e7b0c0f5cc9b11a5f4c6efc931a840406464f92.
++Initial git status was clean. No history, siblings, hidden tests, peer results,
++evaluator/reference solutions, credential files, or remote sources inspected.
++
++Higher-priority developer instruction required reading the generic
++cloud-environment-runtime SKILL.md at managed environment start. It was read
++before METHOD.md; it contains infrastructure guidance, not a competing benchmark
++method. No runtime status, credentials, network policy, or network work followed.
++This skill read was disclosed to the operator via collaboration.send_message.
++Only FIRST-mode v0 is applied to task execution.
++
++Model/runtime provenance: requested contestant identity F-S01-002 FIRST-mode v0;
++actual underlying model identity, runtime token usage, and costs are unattested.
++
++Evidence paths: baseline-responses.json, verified-responses.json, dashboard.html,
++baseline.log, verification.log, public-tests.log, final-diff.patch, commands.json.
++
++Operator acknowledged the generic runtime skill read as a host instruction,
++not an additional benchmark methodology. No task/product guidance supplied.
++Verification: actual WSGI route changes only the requested heading; both sampled
++GET APIs match baseline; five public tests pass; git diff --check passes.
++Implementation/evidence commit: 32d04a0052da4d68ad304be81cc1540046e58ab2.
++Status: VERIFIED. Remaining work: commit administrative report, then terminate.
+diff --git a/.experiment/baseline-responses.json b/.experiment/baseline-responses.json
+new file mode 100644
+index 0000000..8caf013
+--- /dev/null
++++ b/.experiment/baseline-responses.json
+@@ -0,0 +1,31 @@
++{
++  "/dashboard": [
++    200,
++    "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>"
++  ],
++  "/api/jobs": [
++    200,
++    {
++      "jobs": [
++        {
++          "enabled": false,
++          "id": "cleanup",
++          "max_attempts": 1,
++          "name": "Cleanup"
++        },
++        {
++          "enabled": true,
++          "id": "daily-report",
++          "max_attempts": 2,
++          "name": "Daily report"
++        }
++      ]
++    }
++  ],
++  "/api/alerts": [
++    200,
++    {
++      "alerts": []
++    }
++  ]
++}
+diff --git a/.experiment/baseline.log b/.experiment/baseline.log
+new file mode 100644
+index 0000000..25e39d0
+--- /dev/null
++++ b/.experiment/baseline.log
+@@ -0,0 +1 @@
++BASELINE: dashboard returns 200 and Jobs heading is Last result.
+diff --git a/.experiment/commands.json b/.experiment/commands.json
+new file mode 100644
+index 0000000..823c25b
+--- /dev/null
++++ b/.experiment/commands.json
+@@ -0,0 +1,62 @@
++[
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "pwd && rg --files -g 'AGENTS.md' -g 'TASK.md' -g 'METHOD.md' -g 'FIRST_MODE_V0.md' -g '!node_modules' -g '!.git' .",
++    "exit_code": 0,
++    "output": "/workspace/relayboard-round2-active/F-S01-002\n./METHOD.md\n./TASK.md\n"
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "cat TASK.md METHOD.md",
++    "exit_code": 0,
++    "output_source": "Assigned frozen TASK.md and METHOD.md at initial commit"
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "git status --short && git rev-parse HEAD && rg --files -g '!node_modules' -g '!.git' -g '!METHOD.md' -g '!TASK.md' -g '!package-lock.json' -g '!pnpm-lock.yaml' -g '!yarn.lock' . && rg -n 'Last result|Latest result|scripts|playwright|vitest' package.json src tests test app 2>/dev/null",
++    "exit_code": 2,
++    "note": "Clean git status; initial HEAD confirmed; repository file list found Python fixture. Final search assumed JS paths and found no matching files; corrected to actual Python paths."
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "rg -n 'Last result|Latest result|Jobs|dashboard' relayboard/web.py tests/test_public.py README.md pyproject.toml && cat pyproject.toml && sed -n '1,240p' relayboard/web.py && sed -n '1,260p' tests/test_public.py",
++    "exit_code": 0,
++    "output_source": "Assigned tracked files at initial commit; heading literal at web.py:153"
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "cat relayboard/testing.py && git ls-files && git status --porcelain=v1",
++    "exit_code": 0,
++    "note": "Public WSGI request helper inspected; tracked paths enumerated; status clean."
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "python .experiment/verify.py baseline > .experiment/baseline.log 2>&1 && cat .experiment/baseline.log",
++    "exit_code": 0,
++    "output_path": ".experiment/baseline.log"
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "python .experiment/verify.py verify > .experiment/verification.log 2>&1 && cat .experiment/verification.log",
++    "exit_code": 0,
++    "output_path": ".experiment/verification.log"
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "python -m unittest discover -s tests -v > .experiment/public-tests.log 2>&1 && cat .experiment/public-tests.log",
++    "exit_code": 0,
++    "output_path": ".experiment/public-tests.log"
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "git diff --check && git diff -- relayboard/web.py > .experiment/final-diff.patch && cat .experiment/final-diff.patch && git status --short",
++    "exit_code": 0,
++    "output_path": ".experiment/final-diff.patch"
++  },
++  {
++    "workdir": "/workspace/relayboard-round2-active/F-S01-002",
++    "command": "git add relayboard/web.py .experiment/WORK_LOG.md .experiment/verify.py .experiment/baseline-responses.json .experiment/baseline.log .experiment/verified-responses.json .experiment/verification.log .experiment/dashboard.html .experiment/public-tests.log .experiment/final-diff.patch && git commit -m 'Change Jobs dashboard heading to Latest result' && git rev-parse HEAD",
++    "exit_code": 0,
++    "commit": "32d04a0052da4d68ad304be81cc1540046e58ab2"
++  }
++]
+diff --git a/.experiment/dashboard.html b/.experiment/dashboard.html
+new file mode 100644
+index 0000000..6bb2347
+--- /dev/null
++++ b/.experiment/dashboard.html
+@@ -0,0 +1 @@
++<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Latest result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
+diff --git a/.experiment/final-diff.patch b/.experiment/final-diff.patch
+new file mode 100644
+index 0000000..cd82881
+--- /dev/null
++++ b/.experiment/final-diff.patch
+@@ -0,0 +1,13 @@
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..67de7f4 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -150,7 +150,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
+diff --git a/.experiment/public-tests.log b/.experiment/public-tests.log
+new file mode 100644
+index 0000000..741d816
+--- /dev/null
++++ b/.experiment/public-tests.log
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.013s
++
++OK
+diff --git a/.experiment/verification.log b/.experiment/verification.log
+new file mode 100644
+index 0000000..3bedccc
+--- /dev/null
++++ b/.experiment/verification.log
+@@ -0,0 +1,2 @@
++VERIFIED: GET /dashboard differs only by the requested heading; status 200.
++VERIFIED: GET /api/jobs and GET /api/alerts match baseline responses.
+diff --git a/.experiment/verified-responses.json b/.experiment/verified-responses.json
+new file mode 100644
+index 0000000..9d6974f
+--- /dev/null
++++ b/.experiment/verified-responses.json
+@@ -0,0 +1,31 @@
++{
++  "/dashboard": [
++    200,
++    "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Latest result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>"
++  ],
++  "/api/jobs": [
++    200,
++    {
++      "jobs": [
++        {
++          "enabled": false,
++          "id": "cleanup",
++          "max_attempts": 1,
++          "name": "Cleanup"
++        },
++        {
++          "enabled": true,
++          "id": "daily-report",
++          "max_attempts": 2,
++          "name": "Daily report"
++        }
++      ]
++    }
++  ],
++  "/api/alerts": [
++    200,
++    {
++      "alerts": []
++    }
++  ]
++}
+diff --git a/.experiment/verify.py b/.experiment/verify.py
+new file mode 100644
+index 0000000..839c367
+--- /dev/null
++++ b/.experiment/verify.py
+@@ -0,0 +1,37 @@
++"""Compare public WSGI responses before and after the heading edit."""
++import json
++import sys
++from pathlib import Path
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++root = Path(__file__).resolve().parent
++app = create_seeded_app()
++responses = {
++    path: request(app, "GET", path)
++    for path in ("/dashboard", "/api/jobs", "/api/alerts")
++}
++if sys.argv[1] == "baseline":
++    assert responses["/dashboard"][0] == 200
++    assert "<th>Last result</th>" in responses["/dashboard"][1]
++    (root / "baseline-responses.json").write_text(json.dumps(responses, indent=2) + "\n")
++    print("BASELINE: dashboard returns 200 and Jobs heading is Last result.")
++elif sys.argv[1] == "verify":
++    baseline = json.loads((root / "baseline-responses.json").read_text())
++    expected_html = baseline["/dashboard"][1].replace(
++        "<th>Last result</th>", "<th>Latest result</th>"
++    )
++    assert responses["/dashboard"][0] == 200
++    assert responses["/dashboard"][1] == expected_html
++    assert "<th>Latest result</th>" in responses["/dashboard"][1]
++    assert "<th>Last result</th>" not in responses["/dashboard"][1]
++    for path in ("/api/jobs", "/api/alerts"):
++        assert list(responses[path]) == baseline[path], path
++    (root / "verified-responses.json").write_text(json.dumps(responses, indent=2) + "\n")
++    (root / "dashboard.html").write_text(responses["/dashboard"][1] + "\n")
++    print("VERIFIED: GET /dashboard differs only by the requested heading; status 200.")
++    print("VERIFIED: GET /api/jobs and GET /api/alerts match baseline responses.")
++else:
++    raise SystemExit("Choose baseline or verify")
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..67de7f4 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -150,7 +150,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"
