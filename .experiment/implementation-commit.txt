@@ -1,0 +1,3 @@
+[candidate/F-S02-002 209f1c3] Add persisted Job pause and resume controls
+ 6 files changed, 219 insertions(+), 4 deletions(-)
+ create mode 100644 tests/test_pause.py
