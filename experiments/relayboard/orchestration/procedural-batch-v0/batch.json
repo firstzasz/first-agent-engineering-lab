@@ -34,8 +34,9 @@
       "branch": "treatment/neutral/N-S04-001",
       "prepared_sha": "6678bb4eb7c794ec349a65f89fd64ef89bf71b12",
       "prepared_tree_sha": "d620ed65680c614a8e65aba85dc0e0fba3dafcd3",
-      "status": "READY_PROCEDURAL",
-      "result_path": "results/N-S04-001/run.json"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result_path": "results/N-S04-001/run.json",
+      "candidate_sha": "cf25fc85ecf53a90d964c590f53f79f7270a7ad1"
     },
     {
       "run_id": "P-S01-001",
@@ -128,5 +129,5 @@
       "result_path": "results/F-S04-001/run.json"
     }
   ],
-  "completed_count": 1
+  "completed_count": 2
 }
