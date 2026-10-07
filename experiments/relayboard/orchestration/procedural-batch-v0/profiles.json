@@ -599,6 +599,58 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": ""
+    },
+    {
+      "run_id": "F-S01-001",
+      "treatment": "first-mode-v0",
+      "scenario": "S01-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 22,
+        "all_diff_stat": " .experiment/COMMAND_LOG.json           | 125 +++++++++++++++++++++++++++++++++\n .experiment/REPORT.json                |  80 +++++++++++++++++++++\n .experiment/baseline.txt               |   1 +\n .experiment/dashboard-after.json       |   4 ++\n .experiment/dashboard-before.json      |   4 ++\n .experiment/dashboard-verification.txt |   1 +\n .experiment/public-tests.txt           |  10 +++\n relayboard/web.py                      |   2 +-\n 8 files changed, 226 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/web.py",
+            "added": 1,
+            "removed": 1
+          }
+        ],
+        "visible_checkpoints": 0,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T12:06:20.418215+00:00",
+        "frozen_at": "2026-10-07T12:09:07.978518+00:00",
+        "wall_clock_seconds": 167.56,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }
