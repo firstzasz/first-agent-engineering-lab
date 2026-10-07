@@ -1,5 +1,6 @@
 (async()=>{
 const id=load("next_run_id"),run=load("procedural_runs").find(r=>r.run_id===id),repo=load("repo");
+const cq=load("active_queue");if(cq.runs.some(x=>x.status==="RUNNING"))throw Error("A prior contestant disposition is still running");if(cq.runs.find(x=>x.status==="READY_PROCEDURAL")?.run_id!==id)throw Error("Frozen execution order violation");
 const r=await tools.exec_command({cmd:"python runtime.py prepare "+id,workdir:"/workspace/relayboard-round2-control",max_output_tokens:12000});if(r.exit_code!==0)throw Error(r.output);
 const start=JSON.parse(r.output);store("active_start",start);store("active_run_id",id);store("operator_interactions",[]);
 const q=load("active_queue");q.runs.find(x=>x.run_id===id).status="RUNNING";store("active_queue",q);
