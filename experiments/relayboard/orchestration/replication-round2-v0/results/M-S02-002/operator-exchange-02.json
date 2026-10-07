@@ -1,0 +1,23 @@
+{
+  "run_id": "M-S02-002",
+  "round": 2,
+  "observed_at": "2026-10-07 13:38:54 UTC",
+  "question": "Recomputed frontier empty. Requests shared product confirmation: paused schedule skipped with no queue/catch-up; manual/current continue including retries/alerts; own representation/API/dashboard choices not supplied product guidance.",
+  "answer": "Now-requested no-catch-up: resume future schedule only, no catch-up. Prior scheduled/manual/current restatement matches answers. Engineering choices remain own; no extra preferences.",
+  "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+  "product_decisions_answered": [
+    "resume_behavior"
+  ],
+  "questions": [
+    {
+      "item": "Explicit no-catch-up shared product confirmation",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+    },
+    {
+      "item": "Earlier product restatement",
+      "classification": "LEGIBLE_CHECKPOINT"
+    }
+  ],
+  "volunteered_requirements": false,
+  "note": "Resume no-catch-up not answered in first frontier; it became explicitly requested in confirmation before implementation."
+}
