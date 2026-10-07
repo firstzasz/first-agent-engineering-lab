@@ -1,0 +1,607 @@
+{
+  "schema_version": 1,
+  "run_id": "M-S02-001",
+  "scenario": "S02-v0.1",
+  "treatment": "matt-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_m_s02_001"
+  },
+  "start": {
+    "run_id": "M-S02-001",
+    "workspace": "/workspace/relayboard-active/M-S02-001",
+    "local_start_sha": "1c8287bdf072be0b0a4248cded22951b95568928",
+    "local_start_tree": "3d55015c8e68464d4be73e3bc922b61a3b2f9006",
+    "remote_prepared_sha": "106e2286a3e942233cb2060effa0d701f592932b",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "matt-codex-port-v0",
+    "prepared_at": "2026-10-07T09:33:36.896043+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "d735ea5af2d34c65764fcc2050ada3d428a253bc",
+      "upstream/matt/skills/engineering/grill-with-docs/SKILL.md": "62b9efb6f991d1b229adee7506962f13ced0c499",
+      "upstream/matt/skills/engineering/implement/SKILL.md": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69",
+      "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md": "1b929e29fb519c26b500d3eda744177986883ac8",
+      "upstream/matt/skills/engineering/tdd/SKILL.md": "250871ccdfefa7525309acfebda090edf4046882",
+      "upstream/matt/skills/engineering/code-review/SKILL.md": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4",
+      "upstream/matt/skills/engineering/to-spec/SKILL.md": "3f52599ae2a4347aee5a07432c2707518e691a7f",
+      "upstream/matt/skills/engineering/to-tickets/SKILL.md": "e868c831fcfb1e124e010bcdf84a429ec879160f",
+      "upstream/matt/skills/productivity/grilling/SKILL.md": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3",
+      "upstream/matt/skills/engineering/domain-modeling/SKILL.md": "a4438c6879c517d1a08e2b5fbca049b632688dfe",
+      "upstream/matt/skills/engineering/implement-spec/SKILL.md": "183923797ab58f1b3ef09e03bc1f1f203c309f37",
+      "upstream/matt/LICENSE": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+      "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6",
+      "upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7",
+      "upstream/matt/skills/engineering/tdd/tests.md": "7ab86479f925a1f9e8ba680af33cb3b12e015381",
+      "upstream/matt/skills/engineering/tdd/mocking.md": "71cbfee674d93244ce81d1830b930ca9a69200bd",
+      ".experiment/RUN_MANIFEST.json": "430e76d3939b1d7f861caf8645d97916e482ac56"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 09:46:25 UTC",
+  "candidate_frozen_at": "2026-10-07T09:46:25.407764+00:00",
+  "local_candidate_sha": "2fe1defdfe9b524d7dd7a53e0015a005ec9de110",
+  "local_candidate_tree": "e59f4d419036cf463c0c2f3d70cb4aad4b36681c",
+  "remote_candidate": {
+    "sha": "8c0591a9e9181ebfcc118efd99661edba94a0229",
+    "tree_sha": "e59f4d419036cf463c0c2f3d70cb4aad4b36681c",
+    "branch": "candidate/M-S02-001"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/23",
+    "number": 23,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S02-v0.1 task in a fresh matt-codex-port-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-pilot. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "M-S02-001: matt-codex-port-v0 frozen benchmark candidate",
+    "base": "treatment/matt/M-S02-001",
+    "base_sha": "106e2286a3e942233cb2060effa0d701f592932b",
+    "head": "candidate/M-S02-001",
+    "head_sha": "8c0591a9e9181ebfcc118efd99661edba94a0229",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T09:46:36Z",
+    "updated_at": "2026-10-07T09:46:36Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 33,
+    "additions": 2031,
+    "deletions": 9,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/23",
+    "display_title": "M-S02-001: matt-codex-port-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "1c8287bdf072be0b0a4248cded22951b95568928",
+      "metadata": "commit 1c8287bdf072be0b0a4248cded22951b95568928\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 09:33:36 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 09:33:36 2026 +0000\n\n    benchmark: frozen standalone M-S02-001 starting packet\n"
+    },
+    {
+      "sha": "ea2567c20ba882bc5569e96aff020d4ab0b05f3c",
+      "metadata": "commit ea2567c20ba882bc5569e96aff020d4ab0b05f3c\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 09:39:06 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 09:39:06 2026 +0000\n\n    Add persisted Job pause and resume controls\n"
+    },
+    {
+      "sha": "6394689f9a1823c305dee3411d0edbe60cce8a50",
+      "metadata": "commit 6394689f9a1823c305dee3411d0edbe60cce8a50\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 09:44:18 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 09:44:18 2026 +0000\n\n    Address independent review duplication findings and preserve review evidence\n"
+    },
+    {
+      "sha": "2fe1defdfe9b524d7dd7a53e0015a005ec9de110",
+      "metadata": "commit 2fe1defdfe9b524d7dd7a53e0015a005ec9de110\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 09:46:01 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 09:46:01 2026 +0000\n\n    Record final public verification and frozen-port report\n"
+    }
+  ],
+  "diff_stat": " .experiment/REPORT.json                         | 273 +++++++++\n .experiment/activity.jsonl                      |   7 +\n .experiment/baseline-tests.txt                  |  10 +\n .experiment/candidate.diff                      | 406 ++++++++++++++\n .experiment/diff-check-final.txt                |   0\n .experiment/full-public-tests-before-review.txt |  16 +\n .experiment/full-public-tests-final.txt         |  16 +\n .experiment/local-commits.txt                   |   2 +\n .experiment/method-record.md                    |  17 +\n .experiment/operator-interactions.md            |  32 ++\n .experiment/preservation-04.txt                 |   9 +\n .experiment/preservation-05.txt                 |  10 +\n .experiment/review-assignments.json             |  61 +++\n .experiment/review-start.diff                   | 698 ++++++++++++++++++++++++\n .experiment/reviews.md                          |  15 +\n .experiment/spec-review-interruption.md         |  13 +\n .experiment/spec-review.md                      |  20 +\n .experiment/standards-review.md                 |  31 ++\n .experiment/tdd-01-green.txt                    |   6 +\n .experiment/tdd-01-red.txt                      |  14 +\n .experiment/tdd-02-green.txt                    |   7 +\n .experiment/tdd-02-red.txt                      |  34 ++\n .experiment/tdd-03-green.txt                    |   8 +\n .experiment/tdd-03-red.txt                      |  16 +\n .experiment/tdd-06-green.txt                    |  11 +\n .experiment/tdd-06-red.txt                      |  29 +\n .scratch/work/spec.md                           |  48 ++\n GLOSSARY.md                                     |   9 +-\n relayboard/models.py                            |   1 +\n relayboard/service.py                           |   8 +\n relayboard/store.py                             |  30 +-\n relayboard/web.py                               |  22 +-\n tests/test_pause.py                             | 161 ++++++\n 33 files changed, 2031 insertions(+), 9 deletions(-)\n",
+  "operator_interactions": [
+    {
+      "run_id": "M-S02-001",
+      "round": 1,
+      "observed_at": "2026-10-07 09:35:01 UTC",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "What execution does pause block? Code distinguishes scheduled, manual and existing Run attempts.",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+          "frozen_decisions_requested": [
+            "scheduled_start_while_paused",
+            "manual_run_while_paused",
+            "pause_in_progress_run"
+          ]
+        },
+        {
+          "id": "Q2",
+          "text": "How does pause relate to enabled/disabled? Proposed separate persisted boolean, default false, idempotent preserving enabled.",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        },
+        {
+          "id": "Q3",
+          "text": "How should pause appear on public surfaces? Proposed JSON field, POST responses, Paused dashboard column.",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+          "note": "Requested preferences beyond frozen product sheet; no extra product requirements supplied."
+        },
+        {
+          "id": "Q4",
+          "text": "Should resume catch up work missed while paused?",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+          "frozen_decisions_requested": [
+            "resume_behavior"
+          ]
+        }
+      ],
+      "answer": "Q1: scheduled start while paused skipped and not queued; manual Runs allowed; already progressing Run continues terminal with retries/alerts preserved. Q4: future schedule only, no catch-up. Q2/Q3: no additional product/interface preference; TASK.md/public interfaces/reversible engineering judgment.",
+      "frozen_decisions_answered": [
+        "scheduled_start_while_paused",
+        "manual_run_while_paused",
+        "pause_in_progress_run",
+        "resume_behavior"
+      ],
+      "volunteered_requirements": false
+    },
+    {
+      "run_id": "M-S02-001",
+      "round": 2,
+      "observed_at": "2026-10-07 09:35:24 UTC",
+      "classification": "LEGIBLE_CHECKPOINT",
+      "question": "Confirm shared understanding of already-resolved four product semantics; frontier empty. Q2/Q3 identified as own reversible choices.",
+      "answer": "Restatement matches four operator answers. Representation and presentation remain contestant engineering decisions; no new product guidance.",
+      "new_product_decisions": 0
+    },
+    {
+      "run_id": "M-S02-001",
+      "observed_at": "2026-10-07 09:41:57 UTC",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+      "administrative_scope_ruling": true,
+      "reported_call": "pwd && rg --files -g 'METHOD.md' -g 'TASK.md' -g 'GLOSSARY.md' -g 'SKILL.md' -g 'spec.md' -g 'operator-interactions.md' with explicit assigned-run workdir",
+      "worker_original_claim": "Spec helper stopped; contamination=yes because it considered other supplied Matt skill filenames unassigned.",
+      "allowlist_basis": "Prepared packet contains all discovered upstream/matt skills as assigned method sources; filenames within this arm/run are allowed. No outside path, content, evaluator/peer exposure was reported.",
+      "disposition": "No contamination established by this scoped filename discovery. Preserve original claim and ruling; continue same incomplete Spec helper, no fresh contestant or hidden feedback.",
+      "no_product_guidance": true,
+      "no_silent_retry": true
+    }
+  ],
+  "agent_completion_claim": "Completed pause/resume persistent state, scheduled-start blocking, manual/active Run preservation and dashboard/API visibility. Final HEAD 2fe1defdfe9b524d7dd7a53e0015a005ec9de110 clean. 11 public tests and whitespace pass. Standards two duplication findings addressed; Spec0. Original scope-stop/ruling preserved, no forbidden exposure established. .experiment/REPORT.json.",
+  "visible_checkpoints": [
+    {
+      "observed_at": "2026-10-07 09:40:52 UTC",
+      "message": "Frozen grill-with-docs/grilling/domain-modeling, to-spec, implement/TDD invoked; one implementation unit/no ticket graph. WSGI pause/resume/dashboard/legacy-persistence red then green; preservation increments already green. 11 public tests and diffcheck pass. Implementation ea2567c. Standards review complete: no hard breach, two low duplication heuristics; Spec fresh review active serially. No hidden/peer/remote access declared; runtime identity/usage unknown."
+    }
+  ],
+  "worker_report": {
+    "contestant": "M-S02-001",
+    "treatment": "matt-codex-port-v0",
+    "status": "completed",
+    "task": "Add ability to pause and resume a RelayBoard Job via POST pause/resume; paused Jobs do not start normal scheduled work.",
+    "workspace": "/workspace/relayboard-active/M-S02-001",
+    "method": {
+      "path": "METHOD.md",
+      "frozen_upstream": "mattpocock/skills",
+      "source_revision": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "binding": "Explicit non-native Codex port, applied unchanged",
+      "route": [
+        "read TASK/GLOSSARY/public code/tests",
+        "grill-with-docs: grilling + domain-modeling",
+        "operator frontier questions and shared-understanding confirmation",
+        "to-spec",
+        "implement, one lead unit",
+        "tdd public WSGI/real SQLite vertical cycles",
+        "code-review fixed initial commit: fresh Standards then fresh Spec helper",
+        "review-stage fixes and full public verification",
+        "local commits and report"
+      ],
+      "tracker": ".scratch/work/spec.md",
+      "ticket_graph": null,
+      "ticket_graph_reason": "One small end-to-end lead implementation unit; no independent delivery units or blocking edges. No to-tickets/implement-spec ceremony useful.",
+      "record": ".experiment/method-record.md",
+      "adaptations": [
+        "Explicit skill file reads replace native Claude skill invocation",
+        "Local files replace external issue tracker",
+        "Existing public WSGI/SQLite seams have standing reversible authorization",
+        "Fresh helper reviews sequential in same local integration branch, no native parallel throughput or model diversity",
+        "Local commits/orchestrator publication replace PR shipping and external issue closure"
+      ]
+    },
+    "identity": {
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning": "high",
+      "observed_model": null,
+      "observed_reasoning": null,
+      "usage": null
+    },
+    "commits": {
+      "starting_commit": "1c8287bdf072be0b0a4248cded22951b95568928",
+      "implementation_commit": "ea2567c20ba882bc5569e96aff020d4ab0b05f3c",
+      "review_fix_candidate_commit": "6394689f9a1823c305dee3411d0edbe60cce8a50",
+      "candidate_commit": "6394689f9a1823c305dee3411d0edbe60cce8a50",
+      "report_commit": "The enclosing final evidence-only local commit; SHA supplied in final response and recoverable with git rev-parse HEAD.",
+      "remote_operations": false,
+      "commit_list_path": ".experiment/local-commits.txt",
+      "candidate_diff_path": ".experiment/candidate.diff",
+      "reviewed_diff_path": ".experiment/review-start.diff"
+    },
+    "spec": {
+      "path": ".scratch/work/spec.md",
+      "status": "complete",
+      "glossary": "GLOSSARY.md",
+      "adrs": [],
+      "adr_reason": "No hard-to-reverse surprising tradeoff; separate state representation is reversible."
+    },
+    "decisions": {
+      "operator_product_semantics": [
+        "Scheduled starts while paused are skipped, never queued",
+        "Manual Runs remain allowed",
+        "In-progress Runs continue to terminal outcomes with retries and alerts preserved",
+        "Resume affects future schedule activity only, no catch-up"
+      ],
+      "engineering_choices": [
+        "Independent persistent paused boolean default false; enabled preserved",
+        "Idempotent pause/resume including disabled Jobs",
+        "200 with existing Job wrapper, 404 unknown Job, scheduled rejection uses existing 409 scheduling conflict",
+        "Paused in Job JSON and separate dashboard column preserving last result",
+        "Backward-compatible default model field and legacy schema migration"
+      ],
+      "not_operator_guidance": [
+        "representation",
+        "idempotence",
+        "response shape",
+        "dashboard presentation"
+      ],
+      "existing_alert_behavior": "Preserved as implemented, including one alert on retry failure and another on terminal failure; no reported-bug route or unrelated fix."
+    },
+    "operator_interactions": {
+      "record": ".experiment/operator-interactions.md",
+      "round_1": "Q1–Q4 asked before product answers; Q1/Q4 settled, Q2/Q3 delegated to engineering judgment",
+      "confirmation": "Explicit shared-understanding confirmation received before implementation",
+      "administrative_scope_event": "Spec helper initially stopped/self-flagged same-arm filename discovery. Lead paused, reported, preserved. Operator ruled filenames allowlisted and no forbidden exposure established, authorized same-helper continuation of incomplete Spec review. Original report retained.",
+      "product_guidance_beyond_requested_semantics": false
+    },
+    "verification": [
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "result": "pass",
+        "tests_run": 5,
+        "exit_code": 0,
+        "output_path": ".experiment/baseline-tests.txt",
+        "notes": "Test output shows OK; initial shell command ended with cat."
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "expected failure",
+        "tests_run": 1,
+        "exit_code": null,
+        "output_path": ".experiment/tdd-01-red.txt",
+        "notes": "404 != 200. unittest exit not directly retained because original shell command ended with cat (shell exit 0); actual failing output preserved."
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "pass",
+        "tests_run": 1,
+        "exit_code": 0,
+        "output_path": ".experiment/tdd-01-green.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "expected failure",
+        "tests_run": 2,
+        "exit_code": 1,
+        "output_path": ".experiment/tdd-02-red.txt",
+        "notes": "Missing resume route returns 404; paused scheduled start remains rejected."
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "pass",
+        "tests_run": 2,
+        "exit_code": 0,
+        "output_path": ".experiment/tdd-02-green.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "expected failure",
+        "tests_run": 3,
+        "exit_code": 1,
+        "output_path": ".experiment/tdd-03-red.txt",
+        "notes": "Paused dashboard header/column absent."
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "pass",
+        "tests_run": 3,
+        "exit_code": 0,
+        "output_path": ".experiment/tdd-03-green.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "pass",
+        "tests_run": 4,
+        "exit_code": 0,
+        "output_path": ".experiment/preservation-04.txt",
+        "notes": "Active Runs/manual/retries/alerts preservation already green, no manufactured red."
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "pass",
+        "tests_run": 5,
+        "exit_code": 0,
+        "output_path": ".experiment/preservation-05.txt",
+        "notes": "Existing not-found behavior already green, no manufactured red."
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "expected error",
+        "tests_run": 6,
+        "exit_code": 1,
+        "output_path": ".experiment/tdd-06-red.txt",
+        "notes": "Legacy Job schema lacks paused; public GET /api/jobs raises IndexError."
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_pause.py -v",
+        "result": "pass",
+        "tests_run": 6,
+        "exit_code": 0,
+        "output_path": ".experiment/tdd-06-green.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "result": "pass",
+        "tests_run": 11,
+        "exit_code": 0,
+        "output_path": ".experiment/full-public-tests-before-review.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "result": "pass",
+        "tests_run": 11,
+        "exit_code": 0,
+        "output_path": ".experiment/full-public-tests-final.txt",
+        "notes": "After legitimate review-stage refactors; no further source changes."
+      },
+      {
+        "command": "git diff --check",
+        "result": "pass",
+        "tests_run": null,
+        "exit_code": 0,
+        "output_path": ".experiment/diff-check-final.txt",
+        "notes": "Empty output means no whitespace errors; after final code refactors."
+      }
+    ],
+    "reviews": {
+      "fixed_point": "1c8287bdf072be0b0a4248cded22951b95568928",
+      "reviewed_candidate": "ea2567c20ba882bc5569e96aff020d4ab0b05f3c",
+      "execution": "strictly sequential, same requested model/reasoning, fresh fork_turns none, read-only, no descendants",
+      "assignments_path": ".experiment/review-assignments.json",
+      "standards": {
+        "task": "/root/contestant_m_s02_001/standards_review",
+        "hard_breaches": 0,
+        "heuristic_findings": 2,
+        "severity": "low",
+        "findings": [
+          "Duplicate pause/resume route shape",
+          "Duplicate Job row mapping"
+        ],
+        "resolution": "Both addressed by lead review-stage refactors",
+        "report": ".experiment/standards-review.md"
+      },
+      "spec": {
+        "task": "/root/contestant_m_s02_001/spec_review",
+        "findings": 0,
+        "report": ".experiment/spec-review.md",
+        "interruption_and_ruling": ".experiment/spec-review-interruption.md"
+      },
+      "aggregation": ".experiment/reviews.md",
+      "helpers_completed_before_final": true,
+      "independent_review_of_post_review_refactors": false,
+      "post_review_verification": "Lead inspected the refactor diff and all 11 public tests passed."
+    },
+    "action_path_log": ".experiment/activity.jsonl",
+    "available_commands_and_path_access": {
+      "tools_used": [
+        "functions.exec tools.exec_command",
+        "functions.exec tools.apply_patch",
+        "functions.exec tools.skills__read",
+        "ALL_TOOLS name discovery only",
+        "collaboration.send_message",
+        "collaboration.spawn_agent",
+        "collaboration.followup_task",
+        "collaboration.wait_agent"
+      ],
+      "local_commands_used": [
+        "pwd",
+        "rg --files",
+        "cat",
+        "sed (review helpers)",
+        "mkdir",
+        "python (standard-library scripts and unittest)",
+        "git status/rev-parse/diff/log/add/commit"
+      ],
+      "scope": "All shell commands explicit assigned workdir. No siblings/control/lab history beyond supplied initial local commit and contestant commits.",
+      "extra_skill_read": {
+        "source": "c3/cloud-environment-runtime",
+        "reason": "Mandatory developer instruction to read at start of managed environment work",
+        "operations": "SKILL.md read and environment_status tool name discovered; no status call, network policy, credentials, secrets or environment values inspected. Benchmark methodology remained assigned frozen Matt binding."
+      }
+    },
+    "evaluator_or_peer_material_accessed": false,
+    "contamination": {
+      "established": false,
+      "helper_initial_self_flag": true,
+      "nature": "Allowlisted same-arm bundled skill filenames only, no contents in initial stopped command",
+      "ruling": "Operator administrative scope ruling says no evaluator/oracle/reference solution/unassigned methodology/peer exposure established",
+      "preserved_original": ".experiment/spec-review-interruption.md",
+      "silent_retry": false
+    },
+    "limitations_and_evidence_gaps": [
+      "Requested model/reasoning recorded; observed identity and usage not available, unknown",
+      "Spec helper original discovery stdout was not returned; its exact command and filename-only exposure report are preserved, bounded by supplied inventory",
+      "Review helpers static only; no independent runtime test claims",
+      "No independent helper review of final small refactors; lead diff inspection and full public tests verify them",
+      "First red cycle preserved failing output but shell cat masked unittest exit status",
+      "Local activity and helper assignment records summarize some long script/read commands rather than reproducing every tool-call byte; public test stdout and review reports are retained",
+      "No hidden checks or feedback used; production/concurrency behavior outside local standard-library fixture not claimed"
+    ],
+    "prohibited_actions_performed": []
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_dashboard_and_job_listing_show_pause_without_losing_last_result (test_pause.PauseJobTests.test_dashboard_and_job_listing_show_pause_without_losing_last_result) ... ok\ntest_pause_and_resume_persist_when_reopening_an_existing_database (test_pause.PauseJobTests.test_pause_and_resume_persist_when_reopening_an_existing_database) ... ok\ntest_pause_preserves_active_run_retries_alerts_and_manual_runs (test_pause.PauseJobTests.test_pause_preserves_active_run_retries_alerts_and_manual_runs) ... ok\ntest_pause_skips_scheduled_starts_without_creating_runs (test_pause.PauseJobTests.test_pause_skips_scheduled_starts_without_creating_runs) ... ok\ntest_resume_allows_only_future_scheduled_starts_and_preserves_enabled (test_pause.PauseJobTests.test_resume_allows_only_future_scheduled_starts_and_preserves_enabled) ... ok\ntest_unknown_jobs_follow_not_found_convention_without_changing_jobs (test_pause.PauseJobTests.test_unknown_jobs_follow_not_found_convention_without_changing_jobs) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.027s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "source_pins": [
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/grill-with-docs/SKILL.md",
+      "blob_sha": "62b9efb6f991d1b229adee7506962f13ced0c499"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement/SKILL.md",
+      "blob_sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/diagnosing-bugs/SKILL.md",
+      "blob_sha": "1b929e29fb519c26b500d3eda744177986883ac8"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/SKILL.md",
+      "blob_sha": "250871ccdfefa7525309acfebda090edf4046882"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/code-review/SKILL.md",
+      "blob_sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-spec/SKILL.md",
+      "blob_sha": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-tickets/SKILL.md",
+      "blob_sha": "e868c831fcfb1e124e010bcdf84a429ec879160f"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/productivity/grilling/SKILL.md",
+      "blob_sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/SKILL.md",
+      "blob_sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement-spec/SKILL.md",
+      "blob_sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "LICENSE",
+      "blob_sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+      "blob_sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/ADR-FORMAT.md",
+      "blob_sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/tests.md",
+      "blob_sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/mocking.md",
+      "blob_sha": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+    }
+  ],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 66466,
+    "sha256": "4eb5636ef34aeade28f10b11f270487632cb3b62f0ed17c9ba600298d7bbe1b1",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}
