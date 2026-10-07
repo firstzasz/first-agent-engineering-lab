@@ -22,6 +22,7 @@ class RelayBoardApp:
     ) -> Iterable[bytes]:
         method = environ.get("REQUEST_METHOD", "GET").upper()
         path = environ.get("PATH_INFO", "/")
+        path_parts = path.split("/")
 
         try:
             if method == "GET" and path == "/dashboard":
@@ -49,6 +50,24 @@ class RelayBoardApp:
                             for alert in self.store.list_alerts()
                         ]
                     },
+                )
+
+            if (
+                method == "POST"
+                and len(path_parts) == 5
+                and path_parts[:3] == ["", "api", "jobs"]
+                and path_parts[3]
+                and path_parts[4] in ("pause", "resume")
+            ):
+                job_id = path_parts[3]
+                if path_parts[4] == "pause":
+                    job = self.service.pause_job(job_id)
+                else:
+                    job = self.service.resume_job(job_id)
+                return self._json(
+                    start_response,
+                    200,
+                    {"job": self._job_json(job)},
                 )
 
             if (
@@ -142,6 +161,7 @@ class RelayBoardApp:
                 f"<td>{html.escape(job.name)}</td>"
                 f"<td>{'yes' if job.enabled else 'no'}</td>"
                 f"<td>{html.escape(last)}</td>"
+                f"<td>{'yes' if job.paused else 'no'}</td>"
                 "</tr>"
             )
 
@@ -150,7 +170,7 @@ class RelayBoardApp:
             "<html><head><title>RelayBoard</title></head><body>"
             "<h1>Jobs</h1>"
             "<table id='jobs'><thead><tr>"
-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+            "<th>Job</th><th>Enabled</th><th>Last result</th><th>Paused</th>"
             "</tr></thead><tbody>"
             + "".join(rows)
             + "</tbody></table></body></html>"
@@ -163,6 +183,7 @@ class RelayBoardApp:
             "name": job.name,
             "enabled": job.enabled,
             "max_attempts": job.max_attempts,
+            "paused": job.paused,
         }
 
     @staticmethod

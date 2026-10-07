@@ -1,0 +1,7 @@
+b04219d feat: pause and resume jobs without changing enabled state
+ relayboard/models.py  |  1 +
+ relayboard/service.py | 10 +++++++++-
+ relayboard/store.py   | 23 +++++++++++++++++++++--
+ relayboard/web.py     | 23 ++++++++++++++++++++++-
+ tests/test_pause.py   |  4 +++-
+ 5 files changed, 56 insertions(+), 5 deletions(-)

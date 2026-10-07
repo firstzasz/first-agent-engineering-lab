@@ -1,0 +1,233 @@
+---
+name: how
+description: "Use for \"how does X work\", code walkthroughs before changing something, and placement / ownership / layering questions (\"where should this live\", \"which package owns this\", \"is this the right layer\"). Explains subsystem architecture, runtime flow, onboarding mental models. Use why for motivation."
+disable-model-invocation: true
+---
+
+# How
+
+Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
+
+Each spawn below names a role line in the `pstack-models.mdc` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If the Task tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message.
+
+## Step 1. Assess Complexity
+
+If the scope is ambiguous, state your interpretation and explore. The user can redirect.
+
+- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. One explainer explores and explains in a single pass. Go to Step 2b.
+- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): spawn parallel explorers first, then hand off to the explainer. Go to Step 2a.
+
+When in doubt, take the simple path.
+
+## Step 2a. Explore (complex questions only)
+
+Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers in a single message:
+
+- `subagent_type`: `generalPurpose`
+- `model`: the `how explorer` line, default `grok-4.7-xhigh-fast`
+- `readonly`: `true`
+
+Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
+
+## Step 2b. Direct Explain (simple questions)
+
+Spawn one Task subagent that explores and explains in one pass:
+
+- `subagent_type`: `generalPurpose`
+- `model`: the `how explainer` line, default `claude-opus-5-5-xhigh`
+- `readonly`: `true`
+
+Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
+
+## Step 3. Synthesize (complex questions only)
+
+Once all explorers have returned, spawn one Task subagent to synthesize their findings into one explanation:
+
+- `subagent_type`: `generalPurpose`
+- `model`: the `how explainer` line, default `claude-opus-5-5-xhigh`
+- `readonly`: `true`
+
+Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.
+
+## Step 4. Present
+
+Present the explainer's output to the user. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
+
+## Output Format
+
+The explanation uses the sections defined in `references/explainer-prompt.md`, dropping any that do not apply: Overview, Key Concepts, How It Works, Where Things Live, Gotchas.
+---
+name: architect
+description: "Sketch types, signatures, and module structure before code, then stay in the loop while implementation fills in. Use for /architect, 'architect this', 'design this', or non-trivial work where jumping to code would lock in the wrong shape."
+disable-model-invocation: true
+---
+
+# Architect
+
+Design before implementing. Sketch types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. Synthesize across multiple model perspectives, then fill in code against the chosen sketch. If implementation proves the sketch wrong, throw it out and redesign.
+
+## Start
+
+Open a todolist with one entry per phase before starting.
+
+1. Ground
+2. Sketch
+3. Agree
+4. Implement
+5. Scrap
+
+## Phase A: Ground the problem
+
+Build a real mental model of every system the new code touches. Run the **how** skill over the relevant subsystems.
+
+Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape so the rationale becomes a constraint, not a guess.
+
+Skip Phase A only when the work is genuinely greenfield with no surrounding system to integrate.
+
+## Phase B: Sketch
+
+Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`.
+
+Take the runners from the `architect runners` line in the `pstack-models.mdc` rule, in place of the `arena runners` line. If the rule or that line is missing, use `claude-opus-5-5-xhigh` and `grok-4.7-xhigh-fast`. Alias and rejected entries follow the runner rules in the **arena** skill's Phase A.
+
+Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill made concrete. Whole-shape alternatives, not point fixes inside one shape.
+
+Screen every candidate against [`references/design-red-flags.md`](references/design-red-flags.md) before synthesis. Assume the next contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Prefer the design where a change that looks right from one file is right for the whole repo.
+
+Compare viable candidates on interface depth. Prefer the design that hides more complexity behind a smaller, simpler public surface. A rich interface can keep call chains short by concentrating capability instead of scattering it across layers.
+
+Arena returns one synthesized design package. The synthesis decision populates the rationale's "Synthesis decision" section.
+
+## Phase C: Agree (opt-in)
+
+Default: proceed directly to implementation with the synthesized design. No human checkpoint.
+
+Opt in to a checkpoint when the invoker explicitly asks: "/architect with checkpoint," "stop and show me before implementing," or similar. Then surface the synthesized design and pause for sign-off.
+
+The synthesis can ship as its own commit either way, as the "scaffold first" mode of the **foundational-thinking** principle skill. Planned and scoped breakage during fill-in is fine, per the **outcome-oriented-execution** principle skill. For adversarial pressure on the design before implementing, run the **interrogate** skill on the synthesized sketch.
+
+If the human pushes back on the shape (in a checkpoint or after the fact), treat that as Phase A evidence. Re-ground and re-run Phase B before writing more code.
+
+## Phase D: Implement against the sketch
+
+Replace `not implemented` bodies with code, pseudocode with logic. The synthesized sketch is the contract.
+
+Deviations from the sketch are signal worth surfacing, not friction to absorb silently. If a function needs a parameter the sketch didn't anticipate, ask whether the sketch was wrong, the requirement was missed, or the implementation is overreaching.
+
+## Phase E: Scrap when the architecture is wrong
+
+If implementation keeps producing friction the sketch can't absorb, throw the sketch out. Don't bolt fixes onto a wrong design, per the **redesign-from-first-principles** and **fix-root-causes** principle skills.
+
+The signal is a *pattern*, not single instances. Tells:
+
+- The same shape of workaround appearing repeatedly across unrelated code.
+- Multiple unrelated edge cases that all need special-case branches.
+- Types that need escape hatches (`any`, casts, optional fields always set in practice) to compile.
+- The "we need a lock" reflex when the sketch said the state wasn't shared.
+- Callers having to know the abstraction's internal rules to use it.
+- Two or more independent Phase D deviations of the same shape across the implementation.
+
+Use judgment. A few edge cases don't condemn an architecture. Some problems are legitimately complex. Complexity in the data is not complexity in the design.
+
+When you scrap:
+
+1. Re-run the **how** skill over what's been built.
+2. Redesign as if the new constraints had been day-one assumptions, per redesign-from-first-principles.
+3. Subtract before adding, per the **subtract-before-you-add** principle skill. The new sketch should be smaller than the old one before it grows.
+4. Return to Phase B and re-run arena.
+
+## Outputs
+
+The caller's usage is written first and the type sketch derived from it. One file with new types and signatures for small changes. Module map plus type definitions for larger work. The rationale ships alongside, shaped per `references/rationale-template.md`, including the usage sketch and the synthesis decision.
+# Design red flags
+
+Screen every candidate before synthesis. A red flag is a reason to revise or reject the shape.
+
+## Shallow module
+
+A shallow module exposes a large interface while hiding little complexity. Judge depth by the capability and policy hidden behind the public surface relative to the size of that surface. Prefer a simple interface backed by substantial behavior.
+
+Do not confuse a deep module with a deep call chain. A deep call chain scatters understanding across layers. A deep module concentrates capability behind one interface.
+
+Look for these signs:
+
+- Callers coordinate several methods to complete one operation.
+- Public options expose internal stages or implementation choices.
+- Learning the interface does not save the caller from learning the implementation.
+
+## Information leakage
+
+Information leakage makes multiple modules depend on the same internal decision. A representation, policy, or protocol detail appears in more than one place, so changing it requires coordinated edits.
+
+Public re-exports of transport or wire types are leakage. Parse external data into domain types behind the interface. Keep storage schemas, framework objects, and protocol details private.
+
+## Temporal decomposition
+
+Temporal decomposition organizes modules by execution order instead of the knowledge they own. Separate load, validate, transform, and save stages often repeat one representation and its invariants across several boundaries.
+
+Group code around domain knowledge and ownership. Methods that run at different times can still belong to one module when they protect the same decisions.
+
+## Pass-through method
+
+A pass-through method forwards the same arguments to another method with the same shape. It adds a layer without hiding complexity.
+
+Remove it or move responsibility to the module that can complete the operation. Keep a forwarding boundary only when it adds policy, adaptation, or a distinct abstraction.
+
+## Split ownership
+
+More than one module writes the same state or keeps its own copy of it. An agent that edits one writer can't see the others, so their rules diverge.
+
+Give each piece of state one owner. Other modules read it or ask the owner to change it.
+
+## Two ways to do one task
+
+The design supports more than one way to do the same task. An agent copies whichever way it finds first, so every way keeps gaining callers.
+
+Keep one way. Move callers off the others and delete them in the same change.
+
+## Importable internals
+
+A caller can import a module's internals. An agent takes the shortest path that compiles, so it imports them directly and they become part of the interface.
+
+Make internals unreachable from outside the module, so an import from outside fails the build.
+
+## Hand-synced list
+
+Two or more places list the same items, and adding an item means editing every list. An agent that sees one list updates only that one.
+
+Keep one list and derive the others from it. If a list can't be derived, make the build fail when the lists disagree.
+# Rationale template
+
+The prose that ships alongside the type sketch. One page. Sentence-case headings, no boilerplate. Replace the italic notes with actual content.
+
+## Problem
+
+*One paragraph. What we're trying to do, and what about the existing system or constraints makes the shape non-obvious. If [Phase A](../SKILL.md#phase-a-ground-the-problem) surfaced constraints the design must honor (existing types to interop with, callers we can't break, invariants that crossed our boundary), name them here so the reader sees the same constraints you saw.*
+
+## Usage (caller's view)
+
+*Write this first, before the type sketch. Show the README or quickstart the consumer reads, plus two or three realistic call sites in their own code. What they import, what they call, what comes back. The type sketch in [Shape](#shape) is derived from this. The two must agree. When they diverge, reconcile the sketch to the usage, not the reverse. The caller's experience is the spec. The types serve it.*
+
+## Shape
+
+*The recommended architecture. Data structures first. Then how data flows through the signatures. Name the load-bearing decisions. State which invariants are encoded in types, where validation lives, and what the system deliberately does not do. Judge interface depth explicitly. State what complexity the public surface hides, what remains exposed to callers, and why the interface is no larger than needed. Cite the principle behind each decision (e.g., `per boundary-discipline`). Don't restate it.*
+
+## Synthesis decision
+
+*Filled in by [arena](../../arena/SKILL.md). Records which candidate became the base and why, what was adapted from each of the others, and what was rejected and why.*
+
+## Tradeoffs accepted
+
+*One bullet per tradeoff the chosen shape makes. Form: "we accept X in exchange for Y." Name anything a future reader might mistake for an oversight, including things that look like premature optimization or premature simplification.*
+
+## Alternatives considered
+
+*Required. Name at least one concrete alternative shape, with one line on why it lost. Judge each alternative on interface depth, not implementation simplicity alone. Name the complexity it exposes to callers and the complexity it hides. Two or three alternatives belong here when the design space had real contenders. One is fine when the constraints forced the answer, with the conclusion phrased as "this was the only viable shape because..." Avoid listing flavors of the same shape. This section covers design alternatives the chosen shape considered and rejected, not other runner candidates.*
+
+## Open questions and risks
+
+*Things you noticed during the sketch that the human needs to weigh in on, and risks worth flagging before implementation starts. Phrase as questions, not assertions, so the human's answer is the resolution rather than a comment.*
+
+## Next implementation step
+
+*The first thing to build against the sketch. One sentence. What you'd start writing immediately after synthesis (or after Phase D sign-off, if a checkpoint was opted into).*

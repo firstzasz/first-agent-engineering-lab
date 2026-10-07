@@ -1,0 +1,8 @@
+start | Fresh serial helper owns tests and four application files | Prior rows 2026-10-07T00:00:00Z through 2026-10-07T07:04:18.091471+00:00 were written by lead
+test | Add and run ten public pause behavior tests before production edits | Expected baseline failure: 7 failures and 3 errors; missing routes, field and service commands
+implementation | Persist independent paused bit and guard scheduled admission | Manual Runs, record_attempt and alert emission unchanged
+review | Require exact root prefix for pause/resume routes | One expected failure then ten focused tests pass
+verify | Complete focused and full public checks on final code | 10 focused and 15 full tests pass; git diff --check exits 0
+audit | Label early command-input capture limitations | Output and argv captured for checks; old inline input unknown from command artifacts
+handoff | Commit verified pause implementation locally | Implementation b04219d12bf6e1d60782a75e354bac273a7168bd; independent lead review pending
+Helper decision evidence resolves; final test, diff and commit artifacts present. Raw transcript is not claimed.

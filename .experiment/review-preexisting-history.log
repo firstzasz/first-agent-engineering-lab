@@ -1,0 +1,1 @@
+PASS legacy schema migration preserves genuinely preexisting Run, Attempt and Alert rows and dashboard history; pause and reopen block scheduling; resume allows scheduling.

@@ -1,0 +1,885 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Job:
+    id: str
+    name: str
+    enabled: bool
+    max_attempts: int
+    paused: bool = False
+
+
+@dataclass(frozen=True)
+class Run:
+    id: str
+    job_id: str
+    source: str
+    status: str
+
+
+@dataclass(frozen=True)
+class Attempt:
+    run_id: str
+    number: int
+    succeeded: bool
+
+
+@dataclass(frozen=True)
+class Alert:
+    id: int
+    run_id: str
+    job_id: str
+    kind: str
+    message: str
+from __future__ import annotations
+
+import sqlite3
+
+from .models import Alert, Attempt, Job, Run
+
+
+class Store:
+    def __init__(self, connection: sqlite3.Connection | None = None) -> None:
+        self.connection = connection or sqlite3.connect(":memory:")
+        self.connection.row_factory = sqlite3.Row
+        self._create_schema()
+
+    def _create_schema(self) -> None:
+        self.connection.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS jobs (
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                enabled INTEGER NOT NULL,
+                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
+                paused INTEGER NOT NULL DEFAULT 0
+            );
+            CREATE TABLE IF NOT EXISTS runs (
+                id TEXT PRIMARY KEY,
+                job_id TEXT NOT NULL REFERENCES jobs(id),
+                source TEXT NOT NULL CHECK(source IN ('manual', 'scheduled')),
+                status TEXT NOT NULL CHECK(status IN ('running', 'succeeded', 'failed'))
+            );
+            CREATE TABLE IF NOT EXISTS attempts (
+                run_id TEXT NOT NULL REFERENCES runs(id),
+                number INTEGER NOT NULL,
+                succeeded INTEGER NOT NULL,
+                PRIMARY KEY (run_id, number)
+            );
+            CREATE TABLE IF NOT EXISTS alerts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id TEXT NOT NULL REFERENCES runs(id),
+                job_id TEXT NOT NULL REFERENCES jobs(id),
+                kind TEXT NOT NULL,
+                message TEXT NOT NULL
+            );
+            """
+        )
+        columns = self.connection.execute("PRAGMA table_info(jobs)").fetchall()
+        if not any(column["name"] == "paused" for column in columns):
+            self.connection.execute(
+                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL DEFAULT 0"
+            )
+        self.connection.commit()
+
+    def add_job(
+        self,
+        job_id: str,
+        name: str,
+        *,
+        enabled: bool = True,
+        max_attempts: int = 1,
+    ) -> Job:
+        self.connection.execute(
+            "INSERT INTO jobs(id, name, enabled, max_attempts) VALUES (?, ?, ?, ?)",
+            (job_id, name, int(enabled), max_attempts),
+        )
+        self.connection.commit()
+        return self.get_job(job_id)
+
+    def get_job(self, job_id: str) -> Job:
+        row = self.connection.execute(
+            "SELECT * FROM jobs WHERE id = ?",
+            (job_id,),
+        ).fetchone()
+        if row is None:
+            raise KeyError(job_id)
+        return Job(
+            row["id"],
+            row["name"],
+            bool(row["enabled"]),
+            row["max_attempts"],
+            bool(row["paused"]),
+        )
+
+    def list_jobs(self) -> list[Job]:
+        rows = self.connection.execute(
+            "SELECT * FROM jobs ORDER BY id"
+        ).fetchall()
+        return [
+            Job(
+                r["id"], r["name"], bool(r["enabled"]), r["max_attempts"],
+                bool(r["paused"]),
+            )
+            for r in rows
+        ]
+
+    def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
+        self.get_job(job_id)
+        self.connection.execute(
+            "UPDATE jobs SET enabled = ? WHERE id = ?",
+            (int(enabled), job_id),
+        )
+        self.connection.commit()
+        return self.get_job(job_id)
+
+    def set_job_paused(self, job_id: str, paused: bool) -> Job:
+        self.get_job(job_id)
+        self.connection.execute(
+            "UPDATE jobs SET paused = ? WHERE id = ?",
+            (int(paused), job_id),
+        )
+        self.connection.commit()
+        return self.get_job(job_id)
+
+    def next_run_id(self) -> str:
+        row = self.connection.execute(
+            "SELECT COUNT(*) AS n FROM runs"
+        ).fetchone()
+        return f"run-{row['n'] + 1:03d}"
+
+    def create_run(self, job_id: str, source: str) -> Run:
+        self.get_job(job_id)
+        run_id = self.next_run_id()
+        self.connection.execute(
+            "INSERT INTO runs(id, job_id, source, status) VALUES (?, ?, ?, 'running')",
+            (run_id, job_id, source),
+        )
+        self.connection.commit()
+        return self.get_run(run_id)
+
+    def get_run(self, run_id: str) -> Run:
+        row = self.connection.execute(
+            "SELECT * FROM runs WHERE id = ?",
+            (run_id,),
+        ).fetchone()
+        if row is None:
+            raise KeyError(run_id)
+        return Run(
+            row["id"],
+            row["job_id"],
+            row["source"],
+            row["status"],
+        )
+
+    def set_run_status(self, run_id: str, status: str) -> Run:
+        self.get_run(run_id)
+        self.connection.execute(
+            "UPDATE runs SET status = ? WHERE id = ?",
+            (status, run_id),
+        )
+        self.connection.commit()
+        return self.get_run(run_id)
+
+    def add_attempt(self, run_id: str, succeeded: bool) -> Attempt:
+        self.get_run(run_id)
+        row = self.connection.execute(
+            "SELECT COUNT(*) AS n FROM attempts WHERE run_id = ?",
+            (run_id,),
+        ).fetchone()
+        number = row["n"] + 1
+        self.connection.execute(
+            "INSERT INTO attempts(run_id, number, succeeded) VALUES (?, ?, ?)",
+            (run_id, number, int(succeeded)),
+        )
+        self.connection.commit()
+        return Attempt(run_id, number, succeeded)
+
+    def list_attempts(self, run_id: str) -> list[Attempt]:
+        rows = self.connection.execute(
+            "SELECT * FROM attempts WHERE run_id = ? ORDER BY number",
+            (run_id,),
+        ).fetchall()
+        return [
+            Attempt(r["run_id"], r["number"], bool(r["succeeded"]))
+            for r in rows
+        ]
+
+    def add_alert(
+        self,
+        run_id: str,
+        job_id: str,
+        kind: str,
+        message: str,
+    ) -> Alert:
+        cur = self.connection.execute(
+            "INSERT INTO alerts(run_id, job_id, kind, message) VALUES (?, ?, ?, ?)",
+            (run_id, job_id, kind, message),
+        )
+        self.connection.commit()
+        return Alert(cur.lastrowid, run_id, job_id, kind, message)
+
+    def list_alerts(self) -> list[Alert]:
+        rows = self.connection.execute(
+            "SELECT * FROM alerts ORDER BY id"
+        ).fetchall()
+        return [
+            Alert(
+                r["id"],
+                r["run_id"],
+                r["job_id"],
+                r["kind"],
+                r["message"],
+            )
+            for r in rows
+        ]
+
+    def last_result_for_job(self, job_id: str) -> str | None:
+        row = self.connection.execute(
+            """
+            SELECT status
+            FROM runs
+            WHERE job_id = ? AND status != 'running'
+            ORDER BY rowid DESC
+            LIMIT 1
+            """,
+            (job_id,),
+        ).fetchone()
+        return None if row is None else row["status"]
+from __future__ import annotations
+
+from .models import Job, Run
+from .store import Store
+
+
+class JobNotSchedulable(RuntimeError):
+    pass
+
+
+class RunAlreadyTerminal(RuntimeError):
+    pass
+
+
+class RelayBoardService:
+    def __init__(self, store: Store) -> None:
+        self.store = store
+
+    def begin_manual_run(self, job_id: str) -> Run:
+        self.store.get_job(job_id)
+        return self.store.create_run(job_id, "manual")
+
+    def begin_scheduled_run(self, job_id: str) -> Run:
+        job = self.store.get_job(job_id)
+        if not job.enabled:
+            raise JobNotSchedulable(f"job {job_id} is disabled")
+        if job.paused:
+            raise JobNotSchedulable(f"job {job_id} is paused")
+        return self.store.create_run(job_id, "scheduled")
+
+    def pause_job(self, job_id: str) -> Job:
+        return self.store.set_job_paused(job_id, True)
+
+    def resume_job(self, job_id: str) -> Job:
+        return self.store.set_job_paused(job_id, False)
+
+    def set_job_enabled(self, job_id: str, enabled: bool) -> None:
+        self.store.set_job_enabled(job_id, enabled)
+
+    def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
+        run = self.store.get_run(run_id)
+        if run.status != "running":
+            raise RunAlreadyTerminal(run_id)
+
+        job = self.store.get_job(run.job_id)
+        attempt = self.store.add_attempt(run_id, succeeded)
+
+        if succeeded:
+            self.store.set_run_status(run_id, "succeeded")
+            return "succeeded"
+
+        if attempt.number < job.max_attempts:
+            self._emit_failure_alert(run_id)
+            return "retry"
+
+        self.store.set_run_status(run_id, "failed")
+        self._emit_failure_alert(run_id)
+        return "failed"
+
+    def _emit_failure_alert(self, run_id: str) -> None:
+        run = self.store.get_run(run_id)
+        job = self.store.get_job(run.job_id)
+        self.store.add_alert(
+            run.id,
+            job.id,
+            "run_failed",
+            f"Job {job.name} failed for run {run.id}",
+        )
+from __future__ import annotations
+
+import html
+import json
+from collections.abc import Callable, Iterable
+
+from .service import JobNotSchedulable, RelayBoardService
+from .store import Store
+
+StartResponse = Callable[[str, list[tuple[str, str]]], None]
+
+
+class RelayBoardApp:
+    def __init__(self, store: Store | None = None) -> None:
+        self.store = store or Store()
+        self.service = RelayBoardService(self.store)
+
+    def __call__(
+        self,
+        environ: dict,
+        start_response: StartResponse,
+    ) -> Iterable[bytes]:
+        method = environ.get("REQUEST_METHOD", "GET").upper()
+        path = environ.get("PATH_INFO", "/")
+        path_parts = path.split("/")
+
+        try:
+            if method == "GET" and path == "/dashboard":
+                return self._html(start_response, self.render_dashboard())
+
+            if method == "GET" and path == "/api/jobs":
+                return self._json(
+                    start_response,
+                    200,
+                    {
+                        "jobs": [
+                            self._job_json(job)
+                            for job in self.store.list_jobs()
+                        ]
+                    },
+                )
+
+            if method == "GET" and path == "/api/alerts":
+                return self._json(
+                    start_response,
+                    200,
+                    {
+                        "alerts": [
+                            alert.__dict__
+                            for alert in self.store.list_alerts()
+                        ]
+                    },
+                )
+
+            if (
+                method == "POST"
+                and len(path_parts) == 5
+                and path_parts[:3] == ["", "api", "jobs"]
+                and path_parts[3]
+                and path_parts[4] in ("pause", "resume")
+            ):
+                job_id = path_parts[3]
+                if path_parts[4] == "pause":
+                    job = self.service.pause_job(job_id)
+                else:
+                    job = self.service.resume_job(job_id)
+                return self._json(
+                    start_response,
+                    200,
+                    {"job": self._job_json(job)},
+                )
+
+            if (
+                method == "POST"
+                and path.startswith("/api/jobs/")
+                and path.endswith("/enabled")
+            ):
+                job_id = path.split("/")[3]
+                body = self._read_json(environ)
+                self.service.set_job_enabled(
+                    job_id,
+                    bool(body["enabled"]),
+                )
+                return self._json(
+                    start_response,
+                    200,
+                    {"job": self._job_json(self.store.get_job(job_id))},
+                )
+
+            if (
+                method == "POST"
+                and path.startswith("/api/jobs/")
+                and path.endswith("/runs")
+            ):
+                job_id = path.split("/")[3]
+                body = self._read_json(environ)
+                source = body.get("source", "manual")
+
+                if source == "scheduled":
+                    run = self.service.begin_scheduled_run(job_id)
+                elif source == "manual":
+                    run = self.service.begin_manual_run(job_id)
+                else:
+                    return self._json(
+                        start_response,
+                        400,
+                        {"error": "invalid source"},
+                    )
+
+                return self._json(
+                    start_response,
+                    201,
+                    {"run": run.__dict__},
+                )
+
+            if (
+                method == "POST"
+                and path.startswith("/api/runs/")
+                and path.endswith("/attempts")
+            ):
+                run_id = path.split("/")[3]
+                body = self._read_json(environ)
+                status = self.service.record_attempt(
+                    run_id,
+                    succeeded=bool(body["succeeded"]),
+                )
+                return self._json(
+                    start_response,
+                    200,
+                    {
+                        "status": status,
+                        "run": self.store.get_run(run_id).__dict__,
+                    },
+                )
+
+        except KeyError as exc:
+            return self._json(
+                start_response,
+                404,
+                {"error": f"not found: {exc.args[0]}"},
+            )
+        except JobNotSchedulable as exc:
+            return self._json(
+                start_response,
+                409,
+                {"error": str(exc)},
+            )
+
+        return self._json(
+            start_response,
+            404,
+            {"error": "not found"},
+        )
+
+    def render_dashboard(self) -> str:
+        rows: list[str] = []
+        for job in self.store.list_jobs():
+            last = self.store.last_result_for_job(job.id) or "never"
+            rows.append(
+                "<tr>"
+                f"<td>{html.escape(job.name)}</td>"
+                f"<td>{'yes' if job.enabled else 'no'}</td>"
+                f"<td>{html.escape(last)}</td>"
+                f"<td>{'yes' if job.paused else 'no'}</td>"
+                "</tr>"
+            )
+
+        return (
+            "<!doctype html>"
+            "<html><head><title>RelayBoard</title></head><body>"
+            "<h1>Jobs</h1>"
+            "<table id='jobs'><thead><tr>"
+            "<th>Job</th><th>Enabled</th><th>Last result</th><th>Paused</th>"
+            "</tr></thead><tbody>"
+            + "".join(rows)
+            + "</tbody></table></body></html>"
+        )
+
+    @staticmethod
+    def _job_json(job) -> dict:
+        return {
+            "id": job.id,
+            "name": job.name,
+            "enabled": job.enabled,
+            "max_attempts": job.max_attempts,
+            "paused": job.paused,
+        }
+
+    @staticmethod
+    def _read_json(environ: dict) -> dict:
+        length = int(environ.get("CONTENT_LENGTH") or 0)
+        raw = (
+            environ["wsgi.input"].read(length)
+            if length
+            else b"{}"
+        )
+        return json.loads(raw.decode("utf-8"))
+
+    @staticmethod
+    def _json(
+        start_response: StartResponse,
+        status_code: int,
+        payload: dict,
+    ) -> Iterable[bytes]:
+        body = json.dumps(
+            payload,
+            sort_keys=True,
+        ).encode("utf-8")
+        reason = {
+            200: "OK",
+            201: "Created",
+            400: "Bad Request",
+            404: "Not Found",
+            409: "Conflict",
+        }[status_code]
+        start_response(
+            f"{status_code} {reason}",
+            [
+                ("Content-Type", "application/json"),
+                ("Content-Length", str(len(body))),
+            ],
+        )
+        return [body]
+
+    @staticmethod
+    def _html(
+        start_response: StartResponse,
+        markup: str,
+    ) -> Iterable[bytes]:
+        body = markup.encode("utf-8")
+        start_response(
+            "200 OK",
+            [
+                ("Content-Type", "text/html; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+            ],
+        )
+        return [body]
+
+
+def create_seeded_app() -> RelayBoardApp:
+    app = RelayBoardApp()
+    app.store.add_job(
+        "daily-report",
+        "Daily report",
+        enabled=True,
+        max_attempts=2,
+    )
+    app.store.add_job(
+        "cleanup",
+        "Cleanup",
+        enabled=False,
+        max_attempts=1,
+    )
+    return app
+from __future__ import annotations
+
+import json
+from io import BytesIO
+from wsgiref.util import setup_testing_defaults
+
+
+def request(
+    app,
+    method: str,
+    path: str,
+    payload: dict | None = None,
+) -> tuple[int, dict | str]:
+    environ: dict = {}
+    setup_testing_defaults(environ)
+    environ["REQUEST_METHOD"] = method.upper()
+    environ["PATH_INFO"] = path
+
+    raw = b""
+    if payload is not None:
+        raw = json.dumps(payload).encode("utf-8")
+        environ["CONTENT_TYPE"] = "application/json"
+
+    environ["CONTENT_LENGTH"] = str(len(raw))
+    environ["wsgi.input"] = BytesIO(raw)
+
+    captured: dict = {}
+
+    def start_response(
+        status: str,
+        headers: list[tuple[str, str]],
+    ) -> None:
+        captured["status"] = status
+        captured["headers"] = dict(headers)
+
+    body = b"".join(app(environ, start_response))
+    code = int(captured["status"].split()[0])
+    content_type = captured["headers"].get("Content-Type", "")
+
+    if content_type.startswith("application/json"):
+        return code, json.loads(body.decode("utf-8"))
+
+    return code, body.decode("utf-8")
+import unittest
+
+from relayboard.service import JobNotSchedulable
+from relayboard.testing import request
+from relayboard.web import create_seeded_app
+
+
+class RelayBoardPublicTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.app = create_seeded_app()
+
+    def test_dashboard_has_jobs_table(self) -> None:
+        code, body = request(
+            self.app,
+            "GET",
+            "/dashboard",
+        )
+        self.assertEqual(code, 200)
+        self.assertIn("Daily report", body)
+
+    def test_disabled_job_blocks_scheduled_run(self) -> None:
+        with self.assertRaises(JobNotSchedulable):
+            self.app.service.begin_scheduled_run("cleanup")
+
+    def test_disabled_job_still_allows_manual_run(self) -> None:
+        run = self.app.service.begin_manual_run("cleanup")
+        self.assertEqual(run.source, "manual")
+        self.assertEqual(run.status, "running")
+
+    def test_single_attempt_failure_emits_one_alert(self) -> None:
+        run = self.app.service.begin_manual_run("cleanup")
+        state = self.app.service.record_attempt(
+            run.id,
+            succeeded=False,
+        )
+        self.assertEqual(state, "failed")
+
+        alerts = self.app.store.list_alerts()
+        self.assertEqual(len(alerts), 1)
+        self.assertEqual(alerts[0].run_id, run.id)
+
+    def test_api_can_create_run_and_record_attempt(self) -> None:
+        code, payload = request(
+            self.app,
+            "POST",
+            "/api/jobs/daily-report/runs",
+            {"source": "manual"},
+        )
+        self.assertEqual(code, 201)
+        run_id = payload["run"]["id"]
+
+        code, payload = request(
+            self.app,
+            "POST",
+            f"/api/runs/{run_id}/attempts",
+            {"succeeded": True},
+        )
+        self.assertEqual(code, 200)
+        self.assertEqual(
+            payload["run"]["status"],
+            "succeeded",
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
+# RelayBoard Fixture
+
+Status: EXECUTABLE PILOT FIXTURE IMPLEMENTED, CI verification pending
+
+RelayBoard is the shared synthetic application used by the first FIRST Agent Engineering Lab benchmark scenarios.
+
+It contains no production FIRST logic, credentials, private endpoints, financial records, or personal data.
+
+## Runtime
+
+The base fixture uses Python standard library components only:
+
+- SQLite in-memory persistence;
+- a small WSGI API and dashboard;
+- deterministic synthetic seed data;
+- `unittest` public tests.
+
+The base intentionally contains the pre-treatment state for S01/S02/S04. Evaluator self-tests must prove those scenarios are red-capable while public baseline tests remain green.
+
+## Pilot scope
+
+The first implementation slice supports only:
+
+- S01: tiny reversible change;
+- S02: ambiguous product requirement;
+- S04: deterministic hard bug.
+
+Other designed scenarios remain out of scope until the pilot harness is validated.
+
+## Intended shape
+
+RelayBoard is a small job-control application with:
+
+- Jobs;
+- Runs;
+- Attempts;
+- retry policy;
+- alert rules;
+- a minimal operator dashboard;
+- deterministic storage and tests.
+
+The implementation should remain small enough that a reviewer can inspect the whole system.
+
+## Treatment isolation
+
+Treatment agents receive the fixture workspace and scenario prompt.
+
+They do **not** receive the evaluator directory as part of the task workspace.
+
+The lab repository is public, so this is protocol isolation rather than cryptographic secrecy. A treatment that deliberately looks up evaluator material is contaminated and must be marked invalid.
+
+See:
+
+- [GLOSSARY.md](./GLOSSARY.md)
+- [benchmark scoring](../../docs/benchmarks/SCORING_V0.md)
+- [evaluator protocol](../../docs/benchmarks/EVALUATOR_PROTOCOL_V0.md)
+# RelayBoard Domain Glossary
+
+Status: FROZEN FOR PILOT
+
+Date frozen: 2026-10-06
+
+This glossary defines the base domain shared by S01, S02, and S04.
+
+It intentionally does **not** define the semantics of pausing a Job. Those semantics are the ambiguity under test in S02.
+
+## Job
+
+A configured unit of work that may produce Runs.
+
+A Job has:
+
+- a stable id;
+- a display name;
+- an enabled/disabled scheduling state;
+- a retry policy;
+- zero or more alert rules.
+
+## Run
+
+One execution of a Job.
+
+A Run has a stable id and one terminal outcome:
+
+- succeeded;
+- failed.
+
+A Run may contain one or more Attempts.
+
+## Attempt
+
+One try within a Run.
+
+The first try is attempt 1.
+
+A failed Attempt may produce another Attempt when the Job's RetryPolicy permits it.
+
+Attempts are not separate Runs.
+
+## RetryPolicy
+
+Rules that determine the maximum number of Attempts for a Run.
+
+For the pilot fixture, retry behavior must be deterministic.
+
+A retry does not create a new Run id.
+
+## AlertRule
+
+A rule that can emit an Alert after a Run reaches a terminal outcome.
+
+For the pilot, the relevant rule is a failure alert.
+
+The alert is associated with the Run, not with an individual Attempt.
+
+## Alert
+
+A synthetic notification emitted by an AlertRule.
+
+No real external messaging service is used.
+
+Each Alert records enough synthetic data for tests to determine which Run caused it.
+
+## Dashboard
+
+A minimal operator-facing view of Jobs and recent Runs.
+
+The Dashboard exists partly to provide a real user-facing surface for tiny-change and later verification experiments.
+
+## Scheduler
+
+The component that determines whether a scheduled Job should start a new Run.
+
+Its exact implementation is fixture detail, not a domain term.
+
+## Manual run
+
+A Run explicitly requested by an operator/API call rather than started by the scheduler.
+
+## Pause
+
+Not defined in the base glossary.
+
+S02 intentionally asks the treatment to introduce pause behavior while several product semantics remain unresolved.
+{"direction": "outgoing", "target": "/root", "message": "OPERATOR QUESTION P-S02-001. What should pause do beyond blocking new scheduled Runs? Manual Runs, current Attempts/retries/alerts, independent enabled state, dashboard visibility? Preserve existing behavior except product-required changes."}
+{"direction": "incoming", "source": "/root", "message": "For the requested product decisions: manual Runs remain allowed while a Job is paused. A Run already in progress continues to its terminal outcome, including its existing retry and alert behavior. No additional product guidance is supplied for the enabled/disabled representation or dashboard presentation; use the supplied task's preservation requirement and workspace evidence to make those reversible implementation choices.", "ts": "2026-10-07T07:03:38.484764+00:00"}
+{"direction": "outgoing-exact-record", "target": "/root", "message": "OPERATOR QUESTION P-S02-001. The public glossary deliberately leaves pause semantics undefined. What should pause do beyond blocking new scheduled Runs? Please specify whether manual Runs remain allowed, existing Runs/Attempts/retries and alerts continue, whether pause is independent of enabled/disabled (resume restores prior enabled state), and whether/how dashboard should show paused state. Current implementation has enabled scheduling, manual Runs allowed even disabled, synchronous Attempts, and a dashboard with Enabled and Last result. I will preserve existing behavior by default except where your product answer requires change. Workspace and frozen method only have been read."}
+ts	phase	decision	why	evidence	result
+2026-10-07T00:00:00Z	start	Invoke frozen Feature route	New behavior requires design and verified implementation	METHOD.md	Open; timestamp is run date only, actual start time unknown
+2026-10-07T07:03:38.484764+00:00	ground	Trace small subsystem serially	METHOD permits lead How explainer for simple scope	.experiment/grounding.md	5 baseline tests pass
+2026-10-07T07:03:38.484764+00:00	product	Preserve manual and existing Run behavior	Operator supplied product decisions	.experiment/operator-interactions.jsonl	Resolved
+2026-10-07T07:03:38.484764+00:00	design	Persist independent Job.paused and show dashboard column	Model the Domain keeps state on Job; Laziness Protocol avoids separate relation; enabled state survives resume	.experiment/design.md	Chosen before implementation
+2026-10-07T07:03:38.484764+00:00	throughput	One serial bounded implementation helper then fresh review	Shared Job state and branch favor cohesive ownership	.experiment/throughput.md	Ready
+2026-10-07T07:04:18.091471+00:00	audit	Narrow paths-read manifest to files actually consulted	Initial manifest included listing-only files; those were not read	.experiment/sources.json	Corrected; no extra material read
+2026-10-07T07:04:52.518647+00:00	start	Fresh serial helper owns tests and four application files	Bounded implementation follows lead design; no descendants or external access	.experiment/helper-implementation-report.md	Prior rows 2026-10-07T00:00:00Z through 2026-10-07T07:04:18.091471+00:00 were written by lead
+2026-10-07T07:06:13.523265+00:00	test	Add and run ten public pause behavior tests before production edits	WSGI and SQLite tests encode chosen behavior and current retry-alert preservation	.experiment/pause-focused-before.log	Expected baseline failure: 7 failures and 3 errors; missing routes, field and service commands
+2026-10-07T07:08:20.685466+00:00	implementation	Persist independent paused bit and guard scheduled admission	Model the Domain places pause on Job; Laziness Protocol uses existing Store/service boundaries	.experiment/pause-final-scoped-diff.log	Manual Runs, record_attempt and alert emission unchanged
+2026-10-07T07:08:20.685480+00:00	review	Require exact root prefix for pause/resume routes	Self-review found a prefix without leading slash was accepted; reproduce before correcting guard	.experiment/pause-route-boundary-before.log	One expected failure then ten focused tests pass
+2026-10-07T07:08:20.685484+00:00	verify	Complete focused and full public checks on final code	Prove It Works observes WSGI responses, SQLite persistence and preserved behavior	.experiment/pause-focused-final.log; .experiment/pause-full-public-final.log; .experiment/pause-final-diff-check.log	10 focused and 15 full tests pass; git diff --check exits 0
+2026-10-07T07:08:20.685486+00:00	audit	Label early command-input capture limitations	Do not claim a complete raw transcript; initial listing bypassed wrapper and old wrapper omitted stdin script source	.experiment/helper-implementation-report.md	Output and argv captured for checks; old inline input unknown from command artifacts
+2026-10-07T07:08:45.531210+00:00	handoff	Commit verified pause implementation locally	Sequence Work into Verifiable Units retains failing tests then feature; METHOD replaces PR with local immutable handoff	.experiment/pause-implementation-commit.log; .experiment/pause-implementation-identity.log	Implementation b04219d12bf6e1d60782a75e354bac273a7168bd; independent lead review pending
+2026-10-07T07:09:44.569952+00:00	verify	Lead verified original WSGI API and full public suite	Prove It Works requires observed artifact; tests exercise behavior	.experiment/lead-api-surface.log	10 focused and 15 public tests pass
+2026-10-07T07:09:44.569952+00:00	review	Accept scoped implementation after direct diff review	One owner and scheduler admission guard preserve existing behavior	.experiment/lead-review.md	Fresh serial review pending
+# Feature steps copied from bundled playbook
+1. `how` over the affected subsystem.
+2. `architect` for parallel design exploration.
+3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
+   - **Blocking first steps.** Gates run before fan-out.
+   - **Independent workstreams.** Disjoint files, services, or layers parallelize. Shared writes serialize.
+   - **Shared mutable state.** Default to splitting the target (the **separate-before-serializing-shared-state** principle skill). Serialize only for real invariants.
+   - **Smallest safe decomposition.** If one worker is best, name why.
+4. Delegate code-writing to a subagent using your configured feature model (default `grok-4.7-xhigh-fast`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). When the implementation admits multiple valid shapes (error handling, abstraction layer, test structure), delegate via the **arena** skill instead so the runners surface the alternatives and the cross-judge guards the pick. Mandatory: no skip-with-reason escape, and Laziness Protocol does not override it (the gain is review separation, not lines saved). A subagent forbidden to spawn satisfies this by owning the diff directly with the same review separation. No "standing by" reply that waits on a nested agent. Comments per **Comments**. Surgical edits, re-ground against the source for upstream-derived files. Port shared-primitive improvements to all consumers and verify each. Commit liberally.
+5. Verify on the matching surface. "Inconclusive" or wrong-surface is not a pass. Flag it.
+6. Rebase into small, ordered commits. Stack follow-ups.
+   Use the **sequence-verifiable-units** principle skill, building, verifying, and committing each small unit before the next.
+7. If the design is contested, `interrogate` before shipping.
+8. Run **Opening a PR**.
+
+# Status and port bindings
+1. In progress. Lead serial How tracing under METHOD step 3.
+2. Pending. Two serial lead sketches per METHOD rather than native parallel exploration.
+3. Pending. Checkpoint before implementation.
+4. Pending. One bounded fresh same-model serial helper per METHOD.
+5. Pending. WSGI original API, focused tests, full public suite.
+6. Pending. Existing isolated branch; no rebase to unassigned branch. Small ordered local commits.
+7. Skip unless contested; interrogate is unbundled and cannot be fetched.
+8. Native PR route unbundled. METHOD replaces it with local commit handoff to orchestrator.
+
+# Architect phases
+1. Ground. In progress.
+2. Sketch. Pending.
+3. Agree. Skip opt-in human checkpoint; no request for design approval.
+4. Implement. Pending.
+5. Scrap. Conditional if sketch fails, otherwise n/a.
+
+# Arena design phases
+1. Frame. In progress.
+2. Fan out. Port uses serial lead sketches, no native fan-out.
+3. Cross-judge. Pending fresh final reviewer; no claimed native cross-model design judgement.
+4. Pick. Pending.
+5. Graft. Pending or n/a if no useful loser contribution.
+6. Verify. Pending.

@@ -1,0 +1,683 @@
+
+FILE relayboard/models.py
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Job:
+    id: str
+    name: str
+    enabled: bool
+    max_attempts: int
+
+
+@dataclass(frozen=True)
+class Run:
+    id: str
+    job_id: str
+    source: str
+    status: str
+
+
+@dataclass(frozen=True)
+class Attempt:
+    run_id: str
+    number: int
+    succeeded: bool
+
+
+@dataclass(frozen=True)
+class Alert:
+    id: int
+    run_id: str
+    job_id: str
+    kind: str
+    message: str
+
+
+FILE relayboard/store.py
+from __future__ import annotations
+
+import sqlite3
+
+from .models import Alert, Attempt, Job, Run
+
+
+class Store:
+    def __init__(self, connection: sqlite3.Connection | None = None) -> None:
+        self.connection = connection or sqlite3.connect(":memory:")
+        self.connection.row_factory = sqlite3.Row
+        self._create_schema()
+
+    def _create_schema(self) -> None:
+        self.connection.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS jobs (
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                enabled INTEGER NOT NULL,
+                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+            );
+            CREATE TABLE IF NOT EXISTS runs (
+                id TEXT PRIMARY KEY,
+                job_id TEXT NOT NULL REFERENCES jobs(id),
+                source TEXT NOT NULL CHECK(source IN ('manual', 'scheduled')),
+                status TEXT NOT NULL CHECK(status IN ('running', 'succeeded', 'failed'))
+            );
+            CREATE TABLE IF NOT EXISTS attempts (
+                run_id TEXT NOT NULL REFERENCES runs(id),
+                number INTEGER NOT NULL,
+                succeeded INTEGER NOT NULL,
+                PRIMARY KEY (run_id, number)
+            );
+            CREATE TABLE IF NOT EXISTS alerts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id TEXT NOT NULL REFERENCES runs(id),
+                job_id TEXT NOT NULL REFERENCES jobs(id),
+                kind TEXT NOT NULL,
+                message TEXT NOT NULL
+            );
+            """
+        )
+        self.connection.commit()
+
+    def add_job(
+        self,
+        job_id: str,
+        name: str,
+        *,
+        enabled: bool = True,
+        max_attempts: int = 1,
+    ) -> Job:
+        self.connection.execute(
+            "INSERT INTO jobs(id, name, enabled, max_attempts) VALUES (?, ?, ?, ?)",
+            (job_id, name, int(enabled), max_attempts),
+        )
+        self.connection.commit()
+        return self.get_job(job_id)
+
+    def get_job(self, job_id: str) -> Job:
+        row = self.connection.execute(
+            "SELECT * FROM jobs WHERE id = ?",
+            (job_id,),
+        ).fetchone()
+        if row is None:
+            raise KeyError(job_id)
+        return Job(
+            row["id"],
+            row["name"],
+            bool(row["enabled"]),
+            row["max_attempts"],
+        )
+
+    def list_jobs(self) -> list[Job]:
+        rows = self.connection.execute(
+            "SELECT * FROM jobs ORDER BY id"
+        ).fetchall()
+        return [
+            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
+            for r in rows
+        ]
+
+    def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
+        self.get_job(job_id)
+        self.connection.execute(
+            "UPDATE jobs SET enabled = ? WHERE id = ?",
+            (int(enabled), job_id),
+        )
+        self.connection.commit()
+        return self.get_job(job_id)
+
+    def next_run_id(self) -> str:
+        row = self.connection.execute(
+            "SELECT COUNT(*) AS n FROM runs"
+        ).fetchone()
+        return f"run-{row['n'] + 1:03d}"
+
+    def create_run(self, job_id: str, source: str) -> Run:
+        self.get_job(job_id)
+        run_id = self.next_run_id()
+        self.connection.execute(
+            "INSERT INTO runs(id, job_id, source, status) VALUES (?, ?, ?, 'running')",
+            (run_id, job_id, source),
+        )
+        self.connection.commit()
+        return self.get_run(run_id)
+
+    def get_run(self, run_id: str) -> Run:
+        row = self.connection.execute(
+            "SELECT * FROM runs WHERE id = ?",
+            (run_id,),
+        ).fetchone()
+        if row is None:
+            raise KeyError(run_id)
+        return Run(
+            row["id"],
+            row["job_id"],
+            row["source"],
+            row["status"],
+        )
+
+    def set_run_status(self, run_id: str, status: str) -> Run:
+        self.get_run(run_id)
+        self.connection.execute(
+            "UPDATE runs SET status = ? WHERE id = ?",
+            (status, run_id),
+        )
+        self.connection.commit()
+        return self.get_run(run_id)
+
+    def add_attempt(self, run_id: str, succeeded: bool) -> Attempt:
+        self.get_run(run_id)
+        row = self.connection.execute(
+            "SELECT COUNT(*) AS n FROM attempts WHERE run_id = ?",
+            (run_id,),
+        ).fetchone()
+        number = row["n"] + 1
+        self.connection.execute(
+            "INSERT INTO attempts(run_id, number, succeeded) VALUES (?, ?, ?)",
+            (run_id, number, int(succeeded)),
+        )
+        self.connection.commit()
+        return Attempt(run_id, number, succeeded)
+
+    def list_attempts(self, run_id: str) -> list[Attempt]:
+        rows = self.connection.execute(
+            "SELECT * FROM attempts WHERE run_id = ? ORDER BY number",
+            (run_id,),
+        ).fetchall()
+        return [
+            Attempt(r["run_id"], r["number"], bool(r["succeeded"]))
+            for r in rows
+        ]
+
+    def add_alert(
+        self,
+        run_id: str,
+        job_id: str,
+        kind: str,
+        message: str,
+    ) -> Alert:
+        cur = self.connection.execute(
+            "INSERT INTO alerts(run_id, job_id, kind, message) VALUES (?, ?, ?, ?)",
+            (run_id, job_id, kind, message),
+        )
+        self.connection.commit()
+        return Alert(cur.lastrowid, run_id, job_id, kind, message)
+
+    def list_alerts(self) -> list[Alert]:
+        rows = self.connection.execute(
+            "SELECT * FROM alerts ORDER BY id"
+        ).fetchall()
+        return [
+            Alert(
+                r["id"],
+                r["run_id"],
+                r["job_id"],
+                r["kind"],
+                r["message"],
+            )
+            for r in rows
+        ]
+
+    def last_result_for_job(self, job_id: str) -> str | None:
+        row = self.connection.execute(
+            """
+            SELECT status
+            FROM runs
+            WHERE job_id = ? AND status != 'running'
+            ORDER BY rowid DESC
+            LIMIT 1
+            """,
+            (job_id,),
+        ).fetchone()
+        return None if row is None else row["status"]
+
+
+FILE relayboard/service.py
+from __future__ import annotations
+
+from .models import Run
+from .store import Store
+
+
+class JobNotSchedulable(RuntimeError):
+    pass
+
+
+class RunAlreadyTerminal(RuntimeError):
+    pass
+
+
+class RelayBoardService:
+    def __init__(self, store: Store) -> None:
+        self.store = store
+
+    def begin_manual_run(self, job_id: str) -> Run:
+        self.store.get_job(job_id)
+        return self.store.create_run(job_id, "manual")
+
+    def begin_scheduled_run(self, job_id: str) -> Run:
+        job = self.store.get_job(job_id)
+        if not job.enabled:
+            raise JobNotSchedulable(f"job {job_id} is disabled")
+        return self.store.create_run(job_id, "scheduled")
+
+    def set_job_enabled(self, job_id: str, enabled: bool) -> None:
+        self.store.set_job_enabled(job_id, enabled)
+
+    def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
+        run = self.store.get_run(run_id)
+        if run.status != "running":
+            raise RunAlreadyTerminal(run_id)
+
+        job = self.store.get_job(run.job_id)
+        attempt = self.store.add_attempt(run_id, succeeded)
+
+        if succeeded:
+            self.store.set_run_status(run_id, "succeeded")
+            return "succeeded"
+
+        if attempt.number < job.max_attempts:
+            self._emit_failure_alert(run_id)
+            return "retry"
+
+        self.store.set_run_status(run_id, "failed")
+        self._emit_failure_alert(run_id)
+        return "failed"
+
+    def _emit_failure_alert(self, run_id: str) -> None:
+        run = self.store.get_run(run_id)
+        job = self.store.get_job(run.job_id)
+        self.store.add_alert(
+            run.id,
+            job.id,
+            "run_failed",
+            f"Job {job.name} failed for run {run.id}",
+        )
+
+
+FILE relayboard/web.py
+from __future__ import annotations
+
+import html
+import json
+from collections.abc import Callable, Iterable
+
+from .service import JobNotSchedulable, RelayBoardService
+from .store import Store
+
+StartResponse = Callable[[str, list[tuple[str, str]]], None]
+
+
+class RelayBoardApp:
+    def __init__(self, store: Store | None = None) -> None:
+        self.store = store or Store()
+        self.service = RelayBoardService(self.store)
+
+    def __call__(
+        self,
+        environ: dict,
+        start_response: StartResponse,
+    ) -> Iterable[bytes]:
+        method = environ.get("REQUEST_METHOD", "GET").upper()
+        path = environ.get("PATH_INFO", "/")
+
+        try:
+            if method == "GET" and path == "/dashboard":
+                return self._html(start_response, self.render_dashboard())
+
+            if method == "GET" and path == "/api/jobs":
+                return self._json(
+                    start_response,
+                    200,
+                    {
+                        "jobs": [
+                            self._job_json(job)
+                            for job in self.store.list_jobs()
+                        ]
+                    },
+                )
+
+            if method == "GET" and path == "/api/alerts":
+                return self._json(
+                    start_response,
+                    200,
+                    {
+                        "alerts": [
+                            alert.__dict__
+                            for alert in self.store.list_alerts()
+                        ]
+                    },
+                )
+
+            if (
+                method == "POST"
+                and path.startswith("/api/jobs/")
+                and path.endswith("/enabled")
+            ):
+                job_id = path.split("/")[3]
+                body = self._read_json(environ)
+                self.service.set_job_enabled(
+                    job_id,
+                    bool(body["enabled"]),
+                )
+                return self._json(
+                    start_response,
+                    200,
+                    {"job": self._job_json(self.store.get_job(job_id))},
+                )
+
+            if (
+                method == "POST"
+                and path.startswith("/api/jobs/")
+                and path.endswith("/runs")
+            ):
+                job_id = path.split("/")[3]
+                body = self._read_json(environ)
+                source = body.get("source", "manual")
+
+                if source == "scheduled":
+                    run = self.service.begin_scheduled_run(job_id)
+                elif source == "manual":
+                    run = self.service.begin_manual_run(job_id)
+                else:
+                    return self._json(
+                        start_response,
+                        400,
+                        {"error": "invalid source"},
+                    )
+
+                return self._json(
+                    start_response,
+                    201,
+                    {"run": run.__dict__},
+                )
+
+            if (
+                method == "POST"
+                and path.startswith("/api/runs/")
+                and path.endswith("/attempts")
+            ):
+                run_id = path.split("/")[3]
+                body = self._read_json(environ)
+                status = self.service.record_attempt(
+                    run_id,
+                    succeeded=bool(body["succeeded"]),
+                )
+                return self._json(
+                    start_response,
+                    200,
+                    {
+                        "status": status,
+                        "run": self.store.get_run(run_id).__dict__,
+                    },
+                )
+
+        except KeyError as exc:
+            return self._json(
+                start_response,
+                404,
+                {"error": f"not found: {exc.args[0]}"},
+            )
+        except JobNotSchedulable as exc:
+            return self._json(
+                start_response,
+                409,
+                {"error": str(exc)},
+            )
+
+        return self._json(
+            start_response,
+            404,
+            {"error": "not found"},
+        )
+
+    def render_dashboard(self) -> str:
+        rows: list[str] = []
+        for job in self.store.list_jobs():
+            last = self.store.last_result_for_job(job.id) or "never"
+            rows.append(
+                "<tr>"
+                f"<td>{html.escape(job.name)}</td>"
+                f"<td>{'yes' if job.enabled else 'no'}</td>"
+                f"<td>{html.escape(last)}</td>"
+                "</tr>"
+            )
+
+        return (
+            "<!doctype html>"
+            "<html><head><title>RelayBoard</title></head><body>"
+            "<h1>Jobs</h1>"
+            "<table id='jobs'><thead><tr>"
+            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+            "</tr></thead><tbody>"
+            + "".join(rows)
+            + "</tbody></table></body></html>"
+        )
+
+    @staticmethod
+    def _job_json(job) -> dict:
+        return {
+            "id": job.id,
+            "name": job.name,
+            "enabled": job.enabled,
+            "max_attempts": job.max_attempts,
+        }
+
+    @staticmethod
+    def _read_json(environ: dict) -> dict:
+        length = int(environ.get("CONTENT_LENGTH") or 0)
+        raw = (
+            environ["wsgi.input"].read(length)
+            if length
+            else b"{}"
+        )
+        return json.loads(raw.decode("utf-8"))
+
+    @staticmethod
+    def _json(
+        start_response: StartResponse,
+        status_code: int,
+        payload: dict,
+    ) -> Iterable[bytes]:
+        body = json.dumps(
+            payload,
+            sort_keys=True,
+        ).encode("utf-8")
+        reason = {
+            200: "OK",
+            201: "Created",
+            400: "Bad Request",
+            404: "Not Found",
+            409: "Conflict",
+        }[status_code]
+        start_response(
+            f"{status_code} {reason}",
+            [
+                ("Content-Type", "application/json"),
+                ("Content-Length", str(len(body))),
+            ],
+        )
+        return [body]
+
+    @staticmethod
+    def _html(
+        start_response: StartResponse,
+        markup: str,
+    ) -> Iterable[bytes]:
+        body = markup.encode("utf-8")
+        start_response(
+            "200 OK",
+            [
+                ("Content-Type", "text/html; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+            ],
+        )
+        return [body]
+
+
+def create_seeded_app() -> RelayBoardApp:
+    app = RelayBoardApp()
+    app.store.add_job(
+        "daily-report",
+        "Daily report",
+        enabled=True,
+        max_attempts=2,
+    )
+    app.store.add_job(
+        "cleanup",
+        "Cleanup",
+        enabled=False,
+        max_attempts=1,
+    )
+    return app
+
+
+FILE relayboard/testing.py
+from __future__ import annotations
+
+import json
+from io import BytesIO
+from wsgiref.util import setup_testing_defaults
+
+
+def request(
+    app,
+    method: str,
+    path: str,
+    payload: dict | None = None,
+) -> tuple[int, dict | str]:
+    environ: dict = {}
+    setup_testing_defaults(environ)
+    environ["REQUEST_METHOD"] = method.upper()
+    environ["PATH_INFO"] = path
+
+    raw = b""
+    if payload is not None:
+        raw = json.dumps(payload).encode("utf-8")
+        environ["CONTENT_TYPE"] = "application/json"
+
+    environ["CONTENT_LENGTH"] = str(len(raw))
+    environ["wsgi.input"] = BytesIO(raw)
+
+    captured: dict = {}
+
+    def start_response(
+        status: str,
+        headers: list[tuple[str, str]],
+    ) -> None:
+        captured["status"] = status
+        captured["headers"] = dict(headers)
+
+    body = b"".join(app(environ, start_response))
+    code = int(captured["status"].split()[0])
+    content_type = captured["headers"].get("Content-Type", "")
+
+    if content_type.startswith("application/json"):
+        return code, json.loads(body.decode("utf-8"))
+
+    return code, body.decode("utf-8")
+
+
+FILE tests/test_public.py
+import unittest
+
+from relayboard.service import JobNotSchedulable
+from relayboard.testing import request
+from relayboard.web import create_seeded_app
+
+
+class RelayBoardPublicTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.app = create_seeded_app()
+
+    def test_dashboard_has_jobs_table(self) -> None:
+        code, body = request(
+            self.app,
+            "GET",
+            "/dashboard",
+        )
+        self.assertEqual(code, 200)
+        self.assertIn("Daily report", body)
+
+    def test_disabled_job_blocks_scheduled_run(self) -> None:
+        with self.assertRaises(JobNotSchedulable):
+            self.app.service.begin_scheduled_run("cleanup")
+
+    def test_disabled_job_still_allows_manual_run(self) -> None:
+        run = self.app.service.begin_manual_run("cleanup")
+        self.assertEqual(run.source, "manual")
+        self.assertEqual(run.status, "running")
+
+    def test_single_attempt_failure_emits_one_alert(self) -> None:
+        run = self.app.service.begin_manual_run("cleanup")
+        state = self.app.service.record_attempt(
+            run.id,
+            succeeded=False,
+        )
+        self.assertEqual(state, "failed")
+
+        alerts = self.app.store.list_alerts()
+        self.assertEqual(len(alerts), 1)
+        self.assertEqual(alerts[0].run_id, run.id)
+
+    def test_api_can_create_run_and_record_attempt(self) -> None:
+        code, payload = request(
+            self.app,
+            "POST",
+            "/api/jobs/daily-report/runs",
+            {"source": "manual"},
+        )
+        self.assertEqual(code, 201)
+        run_id = payload["run"]["id"]
+
+        code, payload = request(
+            self.app,
+            "POST",
+            f"/api/runs/{run_id}/attempts",
+            {"succeeded": True},
+        )
+        self.assertEqual(code, 200)
+        self.assertEqual(
+            payload["run"]["status"],
+            "succeeded",
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+FILE .experiment/decisions.tsv
+ts	phase	decision	why	evidence	result
+2026-10-07T00:00:00Z	start	Invoke frozen Feature route	New behavior requires design and verified implementation	METHOD.md	Open; timestamp is run date only, actual start time unknown
+2026-10-07T07:03:38.484764+00:00	ground	Trace small subsystem serially	METHOD permits lead How explainer for simple scope	.experiment/grounding.md	5 baseline tests pass
+2026-10-07T07:03:38.484764+00:00	product	Preserve manual and existing Run behavior	Operator supplied product decisions	.experiment/operator-interactions.jsonl	Resolved
+2026-10-07T07:03:38.484764+00:00	design	Persist independent Job.paused and show dashboard column	Model the Domain keeps state on Job; Laziness Protocol avoids separate relation; enabled state survives resume	.experiment/design.md	Chosen before implementation
+2026-10-07T07:03:38.484764+00:00	throughput	One serial bounded implementation helper then fresh review	Shared Job state and branch favor cohesive ownership	.experiment/throughput.md	Ready
+2026-10-07T07:04:18.091471+00:00	audit	Narrow paths-read manifest to files actually consulted	Initial manifest included listing-only files; those were not read	.experiment/sources.json	Corrected; no extra material read
+
+
+FILE .experiment/run_command.py
+import datetime
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+label, *command = sys.argv[1:]
+if command[:1] == ["--"]:
+    command = command[1:]
+root = Path(__file__).resolve().parent.parent
+result = subprocess.run(command, cwd=root, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+output = root / ".experiment" / (label + ".log")
+output.write_text(result.stdout)
+record = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(), "cwd": str(root), "argv": command, "exit_code": result.returncode, "output_path": str(output.relative_to(root))}
+with (root / ".experiment" / "commands.jsonl").open("a") as log:
+    log.write(json.dumps(record) + "\n")
+print(result.stdout, end="")
+sys.exit(result.returncode)
+

@@ -1,0 +1,6 @@
+{"input": null, "method": "POST", "path": "/api/jobs/daily-report/pause", "response": {"job": {"enabled": true, "id": "daily-report", "max_attempts": 2, "name": "Daily report", "paused": true}}, "status": 200}
+{"input": {"source": "scheduled"}, "method": "POST", "path": "/api/jobs/daily-report/runs", "response": {"error": "job daily-report is paused"}, "status": 409}
+{"input": {"source": "manual"}, "method": "POST", "path": "/api/jobs/daily-report/runs", "response": {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}}, "status": 201}
+{"input": null, "method": "POST", "path": "/api/jobs/daily-report/resume", "response": {"job": {"enabled": true, "id": "daily-report", "max_attempts": 2, "name": "Daily report", "paused": false}}, "status": 200}
+{"input": {"source": "scheduled"}, "method": "POST", "path": "/api/jobs/daily-report/runs", "response": {"run": {"id": "run-002", "job_id": "daily-report", "source": "scheduled", "status": "running"}}, "status": 201}
+PASS original WSGI API pause/resume and preserved manual admission

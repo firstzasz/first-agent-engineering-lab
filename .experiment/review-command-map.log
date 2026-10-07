@@ -1,0 +1,56 @@
+0 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-v'] -> 0 .experiment/baseline.log
+1 ['python', '-c', 'from pathlib import Path; paths=["TASK.md","METHOD.md",".experiment/design.md",".experiment/grounding.md",".experiment/throughput.md"]; [(print("\\nFILE "+p),print(Path(p).read_text())) for p in paths]'] -> 0 .experiment/pause-read-instructions.log
+2 ['rg', '--files', '--hidden', '-g', '! .git', '-g', '!*.pyc', '-g', '! .experiment/logs/**', '.experiment', 'upstream', 'relayboard', 'tests'] -> 0 .experiment/pause-list-public-files.log
+3 ['python', '-c', 'from pathlib import Path; paths=["upstream/pstack/skills/poteto-mode/SKILL.md","upstream/pstack/skills/poteto-mode/playbooks/feature.md","upstream/pstack/skills/principle-laziness-protocol/SKILL.md","upstream/pstack/skills/principle-model-the-domain/SKILL.md","upstream/pstack/skills/principle-prove-it-works/SKILL.md","upstream/pstack/skills/principle-fix-root-causes/SKILL.md","upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md","upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md","upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md","upstream/pstack/skills/tdd/SKILL.md","upstream/pstack/skills/show-me-your-work/SKILL.md"]; [(print("\\nFILE "+p),print(Path(p).read_text())) for p in paths]'] -> 0 .experiment/pause-read-method-sources.log
+4 ['python', '-c', 'from pathlib import Path; paths=["upstream/pstack/skills/poteto-mode/playbooks/feature.md","upstream/pstack/skills/principle-laziness-protocol/SKILL.md","upstream/pstack/skills/principle-model-the-domain/SKILL.md"]; [(print("\\nFILE "+p),print(Path(p).read_text())) for p in paths]'] -> 0 .experiment/pause-read-feature-leaves.log
+5 ['python', '-c', 'from pathlib import Path; paths=["relayboard/models.py","relayboard/store.py","relayboard/service.py","relayboard/web.py","relayboard/testing.py","tests/test_public.py",".experiment/decisions.tsv",".experiment/run_command.py"]; [(print("\\nFILE "+p),print(Path(p).read_text())) for p in paths]'] -> 0 .experiment/pause-read-application.log
+6 ['rg', '--files', '--hidden', '-g', 'AGENTS.md', '-g', 'pyproject.toml', '-g', 'README.md', '-g', '.gitignore', '-g', '! .git/**', '.'] -> 0 .experiment/pause-check-local-guidance.log
+7 ['python', '-'] -> 0 .experiment/pause-record-assignment.log
+8 ['python', '-c', 'from pathlib import Path; [(print("FILE "+p),print(Path(p).read_text())) for p in ["pyproject.toml",".gitignore"]]'] -> 0 .experiment/pause-read-test-config.log
+9 ['python', '-'] -> 0 .experiment/pause-write-behavior-tests.log
+10 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_pause.py', '-v'] -> 1 .experiment/pause-focused-before.log
+11 ['git', 'diff', '--stat'] -> 0 .experiment/pause-test-only-diff.log
+12 ['git', 'status', '--short'] -> 0 .experiment/pause-test-only-status.log
+13 ['python', '-'] -> 0 .experiment/pause-record-red-tests.log
+14 ['git', 'add', 'tests/test_pause.py'] -> 0 .experiment/pause-commit-tests.log
+15 ['git', 'commit', '-m', 'test: specify job pause and resume behavior'] -> 0 .experiment/pause-test-commit.log
+16 ['python', '-'] -> 0 .experiment/pause-implement-feature.log
+17 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_pause.py', '-v'] -> 0 .experiment/pause-focused-after.log
+18 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-v'] -> 0 .experiment/pause-full-public-suite.log
+19 ['git', 'diff', '--', 'relayboard/models.py', 'relayboard/store.py', 'relayboard/service.py', 'relayboard/web.py'] -> 0 .experiment/pause-production-diff.log
+20 ['git', 'diff', '--check'] -> 0 .experiment/pause-whitespace-check.log
+21 ['python', '-'] -> 0 .experiment/pause-add-route-boundary-test.log
+22 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_pause.py', '-v'] -> 1 .experiment/pause-route-boundary-before.log
+23 ['python', '-'] -> 0 .experiment/pause-fix-route-boundary.log
+24 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_pause.py', '-v'] -> 0 .experiment/pause-focused-final.log
+25 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-v'] -> 0 .experiment/pause-full-public-final.log
+26 ['git', 'diff', '--check'] -> 0 .experiment/pause-final-diff-check.log
+27 ['cat', 'upstream/pstack/skills/poteto-mode/SKILL.md'] -> 0 .experiment/pause-read-complete-core.log
+28 ['git', 'diff', '--', 'relayboard/models.py', 'relayboard/store.py', 'relayboard/service.py', 'relayboard/web.py', 'tests/test_pause.py'] -> 0 .experiment/pause-final-scoped-diff.log
+29 ['git', 'rev-parse', 'HEAD'] -> 0 .experiment/pause-tests-commit-identity.log
+30 ['python', '-'] -> 0 .experiment/pause-record-implementation-evidence.log
+31 ['git', 'add', 'relayboard/models.py', 'relayboard/store.py', 'relayboard/service.py', 'relayboard/web.py', 'tests/test_pause.py'] -> 0 .experiment/pause-stage-implementation.log
+32 ['git', 'commit', '-m', 'feat: pause and resume jobs without changing enabled state'] -> 0 .experiment/pause-implementation-commit.log
+33 ['git', 'rev-parse', 'HEAD'] -> 0 .experiment/pause-implementation-identity.log
+34 ['git', 'show', '--stat', '--oneline', 'HEAD'] -> 0 .experiment/pause-committed-files.log
+35 ['python', '-'] -> 0 .experiment/pause-finalize-helper-report.log
+36 ['python', '-'] -> 0 .experiment/pause-helper-evidence-audit.log
+37 ['git', 'diff', '--exit-code', 'HEAD', '--', 'relayboard/models.py', 'relayboard/store.py', 'relayboard/service.py', 'relayboard/web.py', 'tests/test_pause.py', 'tests/test_public.py', 'upstream'] -> 0 .experiment/pause-clean-assigned-files.log
+38 ['git', 'diff', '6621c8b2f3618b35dc6f0c784acf51f44fa053e8', 'HEAD', '--', 'relayboard', 'tests'] -> 0 .experiment/lead-review-diff.log
+39 ['cat', '.experiment/helper-implementation-report.md', '.experiment/pause-focused-before.log', 'tests/test_pause.py'] -> 0 .experiment/lead-read-evidence.log
+40 ['cat', '.experiment/helper-implementation-report.md'] -> 0 .experiment/lead-helper-report.log
+41 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-v'] -> 0 .experiment/lead-full-public.log
+42 ['python', '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_pause.py', '-v'] -> 0 .experiment/lead-focused.log
+43 ['python', '-'] -> 0 .experiment/lead-api-surface.log
+44 ['git', 'diff', '--check', '6621c8b2f3618b35dc6f0c784acf51f44fa053e8', 'HEAD'] -> 0 .experiment/lead-diff-check.log
+45 ['python', '-'] -> 0 .experiment/lead-record-review.log
+46 ['cat', 'TASK.md', 'METHOD.md', '.experiment/design.md', '.experiment/grounding.md', '.experiment/throughput.md', '.experiment/lead-review.md', '.experiment/helper-implementation-report.md'] -> 0 .experiment/review-instructions.log
+47 ['rg', '--files', 'upstream/pstack', '.experiment', 'relayboard', 'tests'] -> 0 .experiment/review-file-index.log
+48 ['git', 'diff', '6621c8b2f3618b35dc6f0c784acf51f44fa053e8', 'b04219d12bf6e1d60782a75e354bac273a7168bd', '--', 'relayboard', 'tests'] -> 0 .experiment/review-scoped-diff.log
+49 ['cat', 'upstream/pstack/skills/poteto-mode/SKILL.md', 'upstream/pstack/skills/poteto-mode/playbooks/feature.md', 'upstream/pstack/skills/principle-laziness-protocol/SKILL.md', 'upstream/pstack/skills/principle-model-the-domain/SKILL.md', 'upstream/pstack/skills/principle-prove-it-works/SKILL.md', 'upstream/pstack/skills/principle-fix-root-causes/SKILL.md', 'upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md', 'upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md', 'upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md', 'upstream/pstack/skills/show-me-your-work/SKILL.md'] -> 0 .experiment/review-method-sources.log
+50 ['cat', '.experiment/operator-interactions.jsonl', '.experiment/decisions.tsv', '.experiment/commands.jsonl', '.experiment/initial-actions.json', '.experiment/RUN_MANIFEST.json', '.experiment/helper-assignments.jsonl', '.experiment/sources.json'] -> 0 .experiment/review-evidence-index.log
+51 ['python', '-'] -> 0 .experiment/lead-record-review-assignment.log
+52 ['cat', '.experiment/review-scoped-diff.log'] -> 0 .experiment/review-diff-visible.log
+53 ['cat', 'relayboard/models.py', 'relayboard/store.py', 'relayboard/service.py', 'relayboard/web.py', 'relayboard/testing.py', 'tests/test_public.py', 'README.md', 'GLOSSARY.md', '.experiment/operator-interactions.jsonl', '.experiment/decisions.tsv', '.experiment/TODO.md'] -> 0 .experiment/review-source-visible.log
+54 ['cat', 'upstream/pstack/skills/poteto-mode/playbooks/feature.md', 'upstream/pstack/skills/principle-laziness-protocol/SKILL.md', 'upstream/pstack/skills/principle-model-the-domain/SKILL.md', 'upstream/pstack/skills/principle-prove-it-works/SKILL.md', 'upstream/pstack/skills/principle-fix-root-causes/SKILL.md', 'upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md', 'upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md', 'upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md', 'upstream/pstack/skills/show-me-your-work/SKILL.md'] -> 0 .experiment/review-leaf-visible.log
+MISSING OUTPUTS []

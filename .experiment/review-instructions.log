@@ -1,0 +1,176 @@
+# Task
+
+Add the ability to pause and resume a RelayBoard Job.
+
+A paused Job must not start normal scheduled work until it is resumed.
+
+Preserve existing Run, retry, alert, and dashboard behavior unless the pause feature requires a change.
+
+Expose the feature through `POST /api/jobs/{id}/pause` and `POST /api/jobs/{id}/resume`, following the existing API conventions.
+
+Implement the feature and verify it.
+# pstack-codex-port-v0
+
+Status: FROZEN BEFORE NEW BENCHMARK OUTCOMES
+Upstream: cursor/plugins, pstack/, df581122cde17e6e27686b5a448bde23e4ad4318.
+License: MIT, Lauren Tan. Exact consulted source files are bundled unchanged under upstream/pstack/.
+Version changes require a new label and comparison cohort.
+
+## Defined adaptation
+
+The Codex lead explicitly invokes Poteto Mode by reading upstream/pstack/skills/poteto-mode/SKILL.md, then the matched bundled playbook and applicable leaf principles. This document is the executable instruction binding when native surfaces conflict. Sources not bundled are not silently invented or fetched during a run. Record an unsupported/unbundled native route and use the explicit bindings below.
+
+Cursor Task and poteto-agent become Codex collaboration.spawn_agent with a role in the message, fork_turns=none and the normalized model/reasoning. Native slash commands become reading the matching bundled file and executing its steps. Cursor /loop becomes an ordinary evidence/change/verify loop inside the contestant turn. Native model-family diversity becomes separate fresh same-model helpers; do not claim multi-model validation. Plugins control-ui/control-cli, deslop, no-comments and native PR automation are not installed; map to direct WSGI/CLI public checks, a scoped diff cleanup/review and orchestrator publication. No upstream source is modified.
+
+## Invocation and routing
+
+1. Read TASK.md and the core Poteto Mode source. State the task classification and checkable done predicate. For changed/new behavior use Feature. For a reported defect use Bug fix. For a narrow mechanical change take the smallest justified route; retain nonapplicable playbook steps with reasons.
+2. Read applicable bundled leaf principles before applying or citing them. Core bindings include laziness-protocol, model-the-domain, prove-it-works, fix-root-causes, test-behavior-not-implementation, sequence-verifiable-units and never-block-on-the-human. Do not apply another arm's method.
+3. Ground nontrivial work with How. Simple scope can be traced directly by the lead, which is the declared serial port of its single explainer. Cross-function design invokes Architect: write two structurally distinct sketches, screen against bundled red flags, compare interface depth, choose and record synthesis using the bundled rationale template. Two written sketches can be produced serially by the lead; this is a declared reduction of native parallel design exploration. If fresh helper review would materially improve the choice, use a serial same-model helper.
+4. Before nontrivial multi-step implementation record all four throughput items: blocking first steps, independent workstreams, shared mutable state, smallest safe decomposition. Keep an item with n/a and reason where it does not apply.
+5. For feature/bug implementation delegate a specific bounded code-writing scope to one fresh serial Codex helper. The lead stays responsible for design, review and verification. A truly mechanical one-file edit can be owned directly with an explicit skip reason and separate fresh review, a declared Codex-port exception. Helpers may not themselves spawn helpers; all operate in the same run area serially. If delegation tools fail, stop and report host failure rather than quietly turning this into a native-method claim.
+6. For bugs, reproduce the stated symptom on the real public surface before changing production code. Generate falsifiable hypotheses, narrow with observed runtime evidence, add targeted instrumentation when useful, and confirm the mechanism. Use the bundled TDD skill where a cheap meaningful local target exists: failing check before fix, then passing original-surface check. Keep failing-test-first history where practical. Inconclusive or wrong-surface verification is recorded, never called pass.
+7. For features, discover empirical facts from the workspace; classify questions before asking. Genuine product/preference decisions go to the operator. The pilot task is not a blanket authorization to invent unasked product behavior. Record the chosen data shape before writing stateful logic; use surgical changes and verified small units.
+8. Verify the original task surface, focused tests and full public suite. Review the diff as lead and obtain one fresh serial helper's scoped code/evidence review before completion; a separate helper may combine diff and trail review. This substitutes fresh same-model review for the native cross-model review. Correct public-review issues before freezing, without hidden evaluation.
+9. Use the bundled Show me your work format for nontrivial/unattended decisions: append-only TSV with ts, phase, decision, why, evidence, result. Paths must resolve inside this run. No native transcript directory is available; audit against captured commands, public logs and visible checkpoints. Do not claim a full raw transcript when none was exported.
+10. Commit the candidate locally on its run branch. End with what changed, design/root cause where applicable, actual failing/passing evidence, throughput checkpoint, open decisions and Attention review flags. Native Opening a PR is replaced by handing the immutable local commit and evidence to the orchestrator.
+
+## Declared semantic losses
+
+No native Cursor mode/router lifetime, watchers, editor/browser controllers, plugin dependencies, multi-model reviewers or native parallel throughput. Serialized helpers and written design alternatives preserve some separation but are not equivalent to the full upstream system. Method effects are interpretable only for this frozen port.
+
+## Binding precedence and experiment boundary
+
+This is a frozen, explicitly non-native Codex port. The pilot protocol and task scope override upstream shipping/deploy/external-message instructions. Work only in the assigned contestant area. No other run, evaluator/oracle/reference-solution, lab history or result inspection. The repository is public; deliberate hidden-material retrieval is contamination, not a reason to pretend hard secrecy. Stop and report any such access; preserve evidence.
+
+Use GPT-6.1 Sol with High reasoning for the lead and any helpers where supported. Record requested versus observed identity. Every helper uses fork_turns=none, receives only this run's task/method/files, and works only under this run's root. Execute helpers sequentially and wait for each to finish before another. No helper may fetch the lab repository. No native plugin, native model diversity or throughput claim is made.
+
+Questions go to the benchmark operator through collaboration.send_message(target="/root", message="OPERATOR QUESTION ..."), not to a human UI. Ask genuine product/preferences only when the method calls for them; do not receive product answers before asking. Administrative authorizations for reversible local work are standing. If the method seeks approval of a reversible test seam or ticket shape, use existing public fixture interfaces and record the standing authorization; do not treat it as product guidance.
+
+All work is local Python/SQLite/WSGI and git. No paid API, credentials, production system, production repository, deployment, shipping or merging to main. The orchestrator, after termination, publishes candidate commits/PRs to the assigned treatment branch and separately evaluates the frozen candidate. Hidden evaluation is never part of the contestant workflow. No hidden-feedback retries.
+
+Preserve source version, routes/skills invoked, adaptations, local commits, decisions, tests and available evidence. Claims require their actual command/output or an explicit unknown label.
+# Problem
+
+Pausing a Job must block new scheduled Runs while preserving manual Runs, current Attempts, retries, alerts and historical results. Enabled/disabled already governs scheduling and must survive pause/resume. The operator explicitly confirmed manual and current-Run behavior.
+
+# Usage (caller’s view)
+
+POST /api/jobs/daily-report/pause with no body returns 200 and {"job": {"id": "daily-report", "name": "Daily report", "enabled": true, "max_attempts": 2, "paused": true}}.
+POST /api/jobs/daily-report/runs with {"source":"scheduled"} returns 409 while paused. A manual request still returns 201. POST /api/jobs/daily-report/resume returns the same Job envelope with paused false. Repeating either command converges to that state. Unknown Job ids return the existing 404 error envelope. GET /api/jobs includes paused. Dashboard includes a Paused column alongside existing data.
+
+# Shape
+
+Candidate A adds Job.paused: bool = False as an independent persisted scheduling control. All four enabled/paused combinations are valid. Pause is not represented by temporarily overwriting enabled. Store owns set_job_paused(job_id, paused) and SQLite paused INTEGER NOT NULL DEFAULT 0. Additive migration handles a preexisting jobs table. Service pause_job/resume_job return Job after Store mutation and own scheduling admission. begin_scheduled_run checks paused before creating a Run and raises existing JobNotSchedulable. API routes adapt command names and return the existing envelope. Neither Run state nor record_attempt changes.
+
+Usage sketch derives signatures pause_job(job_id: str) -> Job and resume_job(job_id: str) -> Job. Paused state belongs to the existing Job domain per Model the Domain, with no synchronized derived flags. One Store write path owns it. Small service methods preserve the established command boundary rather than add new layering. Public interface hides state persistence and scheduler policy; callers need only two commands and one readable field. This keeps interface depth in the current service.
+
+Candidate B stores pause membership in a separate paused_jobs(job_id PRIMARY KEY REFERENCES jobs) relation. pause inserts idempotently, resume deletes, scheduler reads membership, and Job serialization/dashboard join the relation. No migration of jobs is needed. This hides a separate persistence representation, but either spreads pause queries across readers or requires joining all Job reads and projecting the same boolean anyway. Its public API has no extra useful capability over A.
+
+# Synthesis decision
+
+Choose A as the base. Its Job snapshot directly carries scheduling controls and a single Store method owns state. B avoids a column migration but adds a second table and lookup/join ownership for one independent bit. No graft is useful. Rubric results favor A on preservation of enabled state, single state ownership, compatibility with existing snapshots, and compact service policy. Both can satisfy user behavior and idempotence. The lead produced and screened both sketches serially under METHOD. Native parallel arena/cross-model synthesis is not claimed.
+
+# Red-flag screen and interface depth
+
+A has no new module, no multi-call public protocol, no internal options exposed, and no second writer of paused state. The bool remains independent rather than synchronized with enabled. SQLite shape stays behind Store. Existing web projection must include the new public field, as it already explicitly lists existing fields. The service forwards mutations through the established application boundary and also owns scheduling policy.
+
+B has potential split ownership between membership and Job snapshots, exposes the same public interface while hiding less cohesive domain state, and requires coordination of joins/readers. Reject it on interface depth and maintenance cost rather than claiming it cannot work.
+
+# Tradeoffs accepted
+
+- We accept one additive schema migration in exchange for self-contained Job snapshots and preserving existing connections.
+- We accept one added dashboard column in exchange for making the new state visible without changing Enabled or Last result.
+- We accept sequential helpers in exchange for the frozen port’s confined shared workspace; no native throughput claim is made.
+
+# Open questions and risks
+
+No product decisions remain open after the operator answer and task preservation requirement. Existing retry failure alert emission appears broader than the glossary terminal-only description. Preserve its observed behavior as explicitly instructed. Atomic scheduling across concurrent SQLite connections is an existing limitation and is not expanded into this feature.
+
+# Next implementation step
+
+Delegate tests-first WSGI behavior checks, then the bounded Job/Store/service/web additions to one fresh serial helper.
+# How grounding
+
+Scope is small despite crossing four files. The lead is the declared serial How explainer per METHOD step 3. Bundled native explorer/explainer prompt references are unavailable.
+
+A Job is an immutable dataclass returned by Store from SQLite. Store alone owns job state writes. RelayBoardService controls run admission and completion. begin_scheduled_run currently checks enabled before creating a Run. begin_manual_run bypasses scheduling eligibility. record_attempt rereads Job only for max_attempts and completes the same Run; retry and alert logic must stay unchanged.
+
+The WSGI API delegates commands to the service and serializes Job via one _job_json function. KeyError becomes JSON 404; JobNotSchedulable becomes JSON 409. Mutating Job commands return 200 with a job envelope. Runs return 201. Dashboard reads list_jobs and last terminal Run result. relayboard.testing.request exercises the actual WSGI app with deterministic input.
+
+The injected SQLite connection means existing jobs tables may predate this change. New state should default to unpaused, preserve enabled and historical Runs, and survive Store reopening on that connection. The app has no background scheduler thread or async worker to redesign. Concurrency redesign is outside this task.
+
+The baseline test run passed 5 tests. See baseline.log and commands.jsonl. The glossary explicitly declines to define pause. Operator response supplies manual/current-Run semantics; remaining representation and dashboard decisions are reversible under the preservation requirement.
+# Throughput checkpoint
+
+1. Blocking first steps. Read task/method, traced subsystem, baseline public suite, operator pause semantics, and choose the data shape before any implementation. Complete.
+2. Independent workstreams. Tests/evidence and production changes are conceptually separable, but the same helper owns the cohesive cross-file feature. Native parallel work is n/a under the frozen serial port.
+3. Shared mutable state. Job rows and the local branch are shared. Store is the single pause writer. Only one helper edits at a time; the lead does not edit its assigned files until it finishes.
+4. Smallest safe decomposition. One bounded feature owner writes tests and four application modules; the lead reviews and verifies; a later fresh serial helper reviews diff and evidence. This avoids fragmented state ownership for a small feature.
+Lead read the complete scoped production/test diff and implementation report. No production correctness issue was found. One Store writer controls paused state, and the scheduler blocks before run creation. No manual or Attempt/retry/alert logic changed. Additive schema migration preserves preexisting connection use. The final exact route match rejects root/prefix/nesting ambiguities. Dashboard preserves existing columns and values with one appended visibility column.
+
+Test Behavior, Not Implementation shaped the WSGI and persistence outcome assertions. Prove It Works led to the independent literal API surface check in lead-api-surface.log. Sequence Work into Verifiable Units is evidenced by tests-only commit 087535a1e0b0ddf43cf4e9e843f76c297d6bce66, red focused-before log, then implementation b04219d12bf6e1d60782a75e354bac273a7168bd and green checks.
+
+Lead independently ran ten focused tests and all fifteen public tests, all passing. lead-diff-check.log passes. Native deslop/no-comments plugins are unavailable. Lead applied scoped diff cleanup and reviewed comments directly instead. No new phase-narrating comments or unnecessary production abstraction was found. Fresh same-model review remains pending. No cross-model validation is claimed.
+
+The lead-read-evidence tool display was truncated, but its complete output is stored. The diff and report were then checked separately; the new test tail was present in the visible output. Full raw transcript and observed model identity remain unknown. Early inline scripts were not source-archived by the original wrapper; this is a disclosed evidence limitation, not claimed as a complete transcript.
+# Implementation helper assignment
+
+Agent /root/contestant_p_s02_001/pause_implementation owns relayboard/models.py, store.py, service.py, web.py and tests/test_pause.py. Implement the lead-selected independent persisted Job.paused bool. Pausing blocks normal scheduled admission, permits manual Runs and preserves current Runs, Attempts, retries, alerts and enabled state. Exact POST pause/resume commands return 200 Job envelopes. GET jobs and dashboard expose paused. Additive migration supports legacy SQLite.
+
+Requested identity is GPT-6.1 Sol with High reasoning under METHOD. Observed model identity is unknown. This is one fresh serial implementation delegate. No descendants, native plugins, external access, other branches or hidden material.
+
+Feature route and core/leaf sources read locally. Model the Domain places independent pause state on the existing immutable Job snapshot. Laziness Protocol keeps one Store writer and the existing service admission boundary. Test Behavior, Not Implementation and Prove It Works require actual WSGI and SQLite outcomes. Sequence Work into Verifiable Units uses tests first and separate commits. Never Block on the Human allows the already-authorized reversible local work. Fix Root Causes does not justify changing the unrelated observed retry-alert behavior.
+
+Implementation and check evidence will be completed before handoff. Lead retains design, independent verification and fresh serial review. The assignment forbids descendants, so no nested helper is awaited. Native PR is replaced by immutable local commit handoff under METHOD.
+
+## Failing-before evidence
+
+`python .experiment/run_command.py pause-focused-before -- python -m unittest discover -s tests -p test_pause.py -v` exited 1. Ten tests produced 7 failures and 3 errors. Missing pause/resume routes returned generic 404, Job snapshots lacked paused, and service pause_job was absent. The captured output is `.experiment/pause-focused-before.log`. No production files had been edited; `.experiment/pause-test-only-diff.log` was empty because new tests and experiment files were untracked.
+
+## Implemented behavior
+
+Job now has `paused: bool = False`. Store initializes `paused INTEGER NOT NULL DEFAULT 0`, adds that column when a legacy jobs schema lacks it, reads it into Job snapshots and owns the single `set_job_paused` writer. Service pause_job/resume_job return Job and converge idempotently. Scheduled admission checks paused before creating any Run. Existing disabled rejection retains precedence for disabled and paused Jobs.
+
+The WSGI adapter accepts exact POST `/api/jobs/{id}/pause` and `/api/jobs/{id}/resume` routes without requiring a body and returns 200 with the existing Job envelope. Unknown Job ids use the existing 404 envelope. Scheduling while paused uses the existing 409 handling. GET jobs includes paused. Dashboard appends Paused after the existing Job, Enabled and Last result columns.
+
+No changes were made to manual admission, record_attempt, Run/Attempt/Alert shapes, retry or alert emission. Existing public tests and bundled upstream sources remain intact. A retry failure currently emits an alert; the new current-Run test deliberately preserves that observed behavior and its alert after later success.
+
+## Ordered local commits
+
+Tests first commit `087535a1e0b0ddf43cf4e9e843f76c297d6bce66` contains the ten initial behavior tests and no production edits. Implementation commit identity will be appended after commit.
+
+## Verification
+
+All checks below ran through `.experiment/run_command.py` with cwd confined to this run.
+
+| Exact command | Captured output | Result |
+| --- | --- | --- |
+| `python .experiment/run_command.py pause-focused-before -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-focused-before.log` | Exit 1, 7 failures and 3 errors on unchanged production baseline. |
+| `python .experiment/run_command.py pause-focused-after -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-focused-after.log` | Exit 0, initial 10 tests pass. |
+| `python .experiment/run_command.py pause-full-public-suite -- python -m unittest discover -s tests -v` | `.experiment/pause-full-public-suite.log` | Exit 0, initial 15 tests pass. |
+| `python .experiment/run_command.py pause-route-boundary-before -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-route-boundary-before.log` | Exit 1, one strengthened exact-route assertion fails because prefix/api/jobs/daily-report/pause returned 200. |
+| `python .experiment/run_command.py pause-focused-final -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-focused-final.log` | Exit 0, final 10 tests pass after requiring exact root prefix. |
+| `python .experiment/run_command.py pause-full-public-final -- python -m unittest discover -s tests -v` | `.experiment/pause-full-public-final.log` | Exit 0, final 15 tests pass. |
+| `python .experiment/run_command.py pause-final-diff-check -- git diff --check` | `.experiment/pause-final-diff-check.log` | Exit 0, no whitespace errors. |
+| `python .experiment/run_command.py pause-final-scoped-diff -- git diff -- relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py tests/test_pause.py` | `.experiment/pause-final-scoped-diff.log` | Self-reviewed final scoped diff. |
+
+The ten tests cover default unpaused state, repeated pause/resume, rejected scheduling without creating a Run, allowed manual Runs, enabled/paused independence, resume while disabled, unknown ids, exact routes, current retry/success and preserved alert, paused manual terminal failure, dashboard existing values and pause visibility, file database reopening, and a legacy jobs schema migration followed by Store reopening with preserved history.
+
+## Throughput and open decisions
+
+Blocking grounding/design work was supplied by the lead and read before production edits. This helper owned tests and the cohesive four-file implementation serially. Store remained the only pause writer. The smallest safe decomposition remains implementation helper, lead independent verification, fresh serial review. No native parallel throughput or multi-model review is claimed. No product decisions remain open in this scope.
+
+## Evidence capture limitations
+
+The first read-only tool command ran `pwd && rg --files ...` directly in the assigned root before using the required wrapper. It was a method capture deviation, not hidden-material retrieval. All subsequent checks used the wrapper. That listing output exists in the tool conversation but has no dedicated `.experiment` command record.
+
+Earlier inline-input commands `pause-record-assignment`, `pause-write-behavior-tests`, `pause-record-red-tests`, and `pause-implement-feature` were executed by the old wrapper. It saved argv and output but did not archive Python stdin source. The resulting tests and code are reviewable in ordered commits and captured diffs; the raw input is not recoverable from those command artifacts and is not claimed. The lead updated the wrapper before `pause-add-route-boundary-test`, so later inline source is archived as `.stdin.py` beside its log. File-read commands used `python -c` and retained their script in argv.
+
+## Attention
+
+Independent review is pending with the lead. Observed model identity is unknown. No hidden material was deliberately retrieved, no descendants spawned and no external material fetched. Existing concurrent scheduling admission and retry-alert behavior are outside scope. The capture limitations above should remain visible in the final trail.
+
+## Immutable handoff
+
+Implementation commit is `b04219d12bf6e1d60782a75e354bac273a7168bd`. Captured creation and identity are `.experiment/pause-implementation-commit.log` and `.experiment/pause-implementation-identity.log`. Its parent is the tests-first commit above. Production and test changes are committed. Experiment records remain for lead review and final evidence preservation.

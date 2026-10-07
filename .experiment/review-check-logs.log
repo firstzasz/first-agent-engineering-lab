@@ -1,0 +1,351 @@
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.004s
+
+OK
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... FAIL
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ERROR
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... FAIL
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... FAIL
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ERROR
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... FAIL
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... FAIL
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... FAIL
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ERROR
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... FAIL
+
+======================================================================
+ERROR: test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 177, in test_pause_survives_reopening_file_database
+    self.assertFalse(store.add_job("persist", "Persist", enabled=False).paused)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'paused'
+
+======================================================================
+ERROR: test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 29, in test_default_unpaused_jobs_can_schedule
+    self.assertFalse(Job("new", "New", True, 1).paused)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'paused'
+
+======================================================================
+ERROR: test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 64, in test_service_commands_return_job_and_do_not_change_enabled
+    self.assertEqual(self.app.service.pause_job("cleanup"),
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'RelayBoardService' object has no attribute 'pause_job'
+
+======================================================================
+FAIL: test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 211, in test_legacy_database_migration_keeps_jobs_and_history
+    self.assertEqual(request(app, "GET", "/api/jobs"), (200, {"jobs": [expected]}))
+AssertionError: Tuples differ: (200, {'jobs': [{'enabled': True, 'id': 'legacy', 'max_atte[25 chars]'}]}) != (200, {'jobs': [{'id': 'legacy', 'name': 'Legacy', 'enabled[42 chars]e}]})
+
+First differing element 1:
+{'jobs': [{'enabled': True, 'id': 'legacy', 'max_atte[24 chars]y'}]}
+{'jobs': [{'id': 'legacy', 'name': 'Legacy', 'enabled[41 chars]se}]}
+
+  (200,
+   {'jobs': [{'enabled': True,
+              'id': 'legacy',
+              'max_attempts': 2,
+-             'name': 'Legacy'}]})
+?                             ^^^^
+
++             'name': 'Legacy',
+?                             ^
+
++             'paused': False}]})
+
+======================================================================
+FAIL: test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 115, in test_current_run_retries_attempts_and_alerts_survive_pause
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (200, {'job': {'id': 'daily-report', 'name[67 chars]ue}})
+
+First differing element 0:
+404
+200
+
+- (404, {'error': 'not found'})
++ (200,
++  {'job': {'enabled': True,
++           'id': 'daily-report',
++           'max_attempts': 2,
++           'name': 'Daily report',
++           'paused': True}})
+
+======================================================================
+FAIL: test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 160, in test_dashboard_preserves_values_and_shows_pause
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 75, in test_enabled_and_paused_remain_independent
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (200, {'job': {'id': 'daily-report', 'name[67 chars]ue}})
+
+First differing element 0:
+404
+200
+
+- (404, {'error': 'not found'})
++ (200,
++  {'job': {'enabled': True,
++           'id': 'daily-report',
++           'max_attempts': 2,
++           'name': 'Daily report',
++           'paused': True}})
+
+======================================================================
+FAIL: test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 45, in test_pause_resume_are_idempotent_and_block_only_scheduling
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (200, {'job': {'id': 'daily-report', 'name[67 chars]ue}})
+
+First differing element 0:
+404
+200
+
+- (404, {'error': 'not found'})
++ (200,
++  {'job': {'enabled': True,
++           'id': 'daily-report',
++           'max_attempts': 2,
++           'name': 'Daily report',
++           'paused': True}})
+
+======================================================================
+FAIL: test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 141, in test_paused_manual_run_keeps_terminal_failure_alert
+    self.assertEqual(request(self.app, "POST", "/api/jobs/cleanup/pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 96, in test_unknown_jobs_and_inexact_routes_do_not_mutate
+    self.assertEqual(request(self.app, "POST", f"/api/jobs/missing/{action}"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (404, {'error': 'not found: missing'})
+
+First differing element 1:
+{'error': 'not found'}
+{'error': 'not found: missing'}
+
+- (404, {'error': 'not found'})
++ (404, {'error': 'not found: missing'})
+?                           +++++++++
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.022s
+
+FAILED (failures=7, errors=3)
+?? .experiment/TODO.md
+?? .experiment/baseline.log
+?? .experiment/commands.jsonl
+?? .experiment/decisions.tsv
+?? .experiment/design.md
+?? .experiment/grounding.md
+?? .experiment/helper-assignments.jsonl
+?? .experiment/helper-implementation-report.md
+?? .experiment/initial-actions.json
+?? .experiment/operator-interactions.jsonl
+?? .experiment/pause-check-local-guidance.log
+?? .experiment/pause-focused-before.log
+?? .experiment/pause-list-public-files.log
+?? .experiment/pause-read-application.log
+?? .experiment/pause-read-feature-leaves.log
+?? .experiment/pause-read-instructions.log
+?? .experiment/pause-read-method-sources.log
+?? .experiment/pause-read-test-config.log
+?? .experiment/pause-record-assignment.log
+?? .experiment/pause-test-only-diff.log
+?? .experiment/pause-write-behavior-tests.log
+?? .experiment/run_command.py
+?? .experiment/sources.json
+?? .experiment/throughput.md
+?? tests/test_pause.py
+[candidate/P-S02-001 087535a] test: specify job pause and resume behavior
+ 1 file changed, 232 insertions(+)
+ create mode 100644 tests/test_pause.py
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... ok
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ok
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... ok
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... ok
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ok
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... ok
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... ok
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... ok
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ok
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... FAIL
+
+======================================================================
+FAIL: test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 104, in test_unknown_jobs_and_inexact_routes_do_not_mutate
+    self.assertEqual(request(self.app, "POST", path),
+AssertionError: Tuples differ: (200, {'job': {'enabled': True, 'id': 'dai[67 chars]ue}}) != (404, {'error': 'not found'})
+
+First differing element 0:
+200
+404
+
++ (404, {'error': 'not found'})
+- (200,
+-  {'job': {'enabled': True,
+-           'id': 'daily-report',
+-           'max_attempts': 2,
+-           'name': 'Daily report',
+-           'paused': True}})
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.025s
+
+FAILED (failures=1)
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... ok
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ok
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... ok
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... ok
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ok
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... ok
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... ok
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... ok
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ok
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.013s
+
+OK
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... ok
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ok
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... ok
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... ok
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ok
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... ok
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... ok
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... ok
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ok
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... ok
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.024s
+
+OK
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... ok
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ok
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... ok
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... ok
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ok
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... ok
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... ok
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... ok
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ok
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.011s
+
+OK
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... ok
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ok
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... ok
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... ok
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ok
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... ok
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... ok
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... ok
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ok
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... ok
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.011s
+
+OK
+import json
+from relayboard.testing import request
+from relayboard.web import create_seeded_app
+app=create_seeded_app()
+def check(method,path,payload,code,expected):
+    actual=request(app,method,path,payload)
+    print(json.dumps({'method':method,'path':path,'input':payload,'status':actual[0],'response':actual[1]},sort_keys=True))
+    assert actual[0] == code, actual
+    assert actual[1] == expected, actual
+job={'id':'daily-report','name':'Daily report','enabled':True,'max_attempts':2,'paused':True}
+check('POST','/api/jobs/daily-report/pause',None,200,{'job':job})
+check('POST','/api/jobs/daily-report/runs',{'source':'scheduled'},409,{'error':'job daily-report is paused'})
+check('POST','/api/jobs/daily-report/runs',{'source':'manual'},201,{'run':{'id':'run-001','job_id':'daily-report','source':'manual','status':'running'}})
+job['paused']=False
+check('POST','/api/jobs/daily-report/resume',None,200,{'job':job})
+check('POST','/api/jobs/daily-report/runs',{'source':'scheduled'},201,{'run':{'id':'run-002','job_id':'daily-report','source':'scheduled','status':'running'}})
+print('PASS original WSGI API pause/resume and preserved manual admission')
+{"input": null, "method": "POST", "path": "/api/jobs/daily-report/pause", "response": {"job": {"enabled": true, "id": "daily-report", "max_attempts": 2, "name": "Daily report", "paused": true}}, "status": 200}
+{"input": {"source": "scheduled"}, "method": "POST", "path": "/api/jobs/daily-report/runs", "response": {"error": "job daily-report is paused"}, "status": 409}
+{"input": {"source": "manual"}, "method": "POST", "path": "/api/jobs/daily-report/runs", "response": {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}}, "status": 201}
+{"input": null, "method": "POST", "path": "/api/jobs/daily-report/resume", "response": {"job": {"enabled": true, "id": "daily-report", "max_attempts": 2, "name": "Daily report", "paused": false}}, "status": 200}
+{"input": {"source": "scheduled"}, "method": "POST", "path": "/api/jobs/daily-report/runs", "response": {"run": {"id": "run-002", "job_id": "daily-report", "source": "scheduled", "status": "running"}}, "status": 201}
+PASS original WSGI API pause/resume and preserved manual admission
+[candidate/P-S02-001 b04219d] feat: pause and resume jobs without changing enabled state
+ 5 files changed, 56 insertions(+), 5 deletions(-)
+b04219d12bf6e1d60782a75e354bac273a7168bd
+import datetime
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+label, *command = sys.argv[1:]
+if command[:1] == ["--"]:
+    command = command[1:]
+root = Path(__file__).resolve().parent.parent
+script_input = sys.stdin.read() if command[:2] == ["python", "-"] else None
+if script_input is not None:
+    (root / ".experiment" / (label + ".stdin.py")).write_text(script_input)
+result = subprocess.run(command, cwd=root, input=script_input, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+output = root / ".experiment" / (label + ".log")
+output.write_text(result.stdout)
+record = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(), "cwd": str(root), "argv": command, "exit_code": result.returncode, "output_path": str(output.relative_to(root))}
+if script_input is not None:
+    record["stdin_path"] = ".experiment/" + label + ".stdin.py"
+with (root / ".experiment" / "commands.jsonl").open("a") as log:
+    log.write(json.dumps(record) + "\n")
+print(result.stdout, end="")
+sys.exit(result.returncode)

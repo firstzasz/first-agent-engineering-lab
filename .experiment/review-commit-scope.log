@@ -1,0 +1,10 @@
+commit 087535a1e0b0ddf43cf4e9e843f76c297d6bce66
+Author:     RelayBoard Pilot <benchmark@example.invalid>
+AuthorDate: Wed Oct 7 07:06:14 2026 +0000
+Commit:     RelayBoard Pilot <benchmark@example.invalid>
+CommitDate: Wed Oct 7 07:06:14 2026 +0000
+
+    test: specify job pause and resume behavior
+
+ tests/test_pause.py | 232 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 232 insertions(+)
