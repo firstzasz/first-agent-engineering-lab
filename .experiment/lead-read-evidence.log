@@ -1,0 +1,453 @@
+# Implementation helper assignment
+
+Agent /root/contestant_p_s02_001/pause_implementation owns relayboard/models.py, store.py, service.py, web.py and tests/test_pause.py. Implement the lead-selected independent persisted Job.paused bool. Pausing blocks normal scheduled admission, permits manual Runs and preserves current Runs, Attempts, retries, alerts and enabled state. Exact POST pause/resume commands return 200 Job envelopes. GET jobs and dashboard expose paused. Additive migration supports legacy SQLite.
+
+Requested identity is GPT-6.1 Sol with High reasoning under METHOD. Observed model identity is unknown. This is one fresh serial implementation delegate. No descendants, native plugins, external access, other branches or hidden material.
+
+Feature route and core/leaf sources read locally. Model the Domain places independent pause state on the existing immutable Job snapshot. Laziness Protocol keeps one Store writer and the existing service admission boundary. Test Behavior, Not Implementation and Prove It Works require actual WSGI and SQLite outcomes. Sequence Work into Verifiable Units uses tests first and separate commits. Never Block on the Human allows the already-authorized reversible local work. Fix Root Causes does not justify changing the unrelated observed retry-alert behavior.
+
+Implementation and check evidence will be completed before handoff. Lead retains design, independent verification and fresh serial review. The assignment forbids descendants, so no nested helper is awaited. Native PR is replaced by immutable local commit handoff under METHOD.
+
+## Failing-before evidence
+
+`python .experiment/run_command.py pause-focused-before -- python -m unittest discover -s tests -p test_pause.py -v` exited 1. Ten tests produced 7 failures and 3 errors. Missing pause/resume routes returned generic 404, Job snapshots lacked paused, and service pause_job was absent. The captured output is `.experiment/pause-focused-before.log`. No production files had been edited; `.experiment/pause-test-only-diff.log` was empty because new tests and experiment files were untracked.
+
+## Implemented behavior
+
+Job now has `paused: bool = False`. Store initializes `paused INTEGER NOT NULL DEFAULT 0`, adds that column when a legacy jobs schema lacks it, reads it into Job snapshots and owns the single `set_job_paused` writer. Service pause_job/resume_job return Job and converge idempotently. Scheduled admission checks paused before creating any Run. Existing disabled rejection retains precedence for disabled and paused Jobs.
+
+The WSGI adapter accepts exact POST `/api/jobs/{id}/pause` and `/api/jobs/{id}/resume` routes without requiring a body and returns 200 with the existing Job envelope. Unknown Job ids use the existing 404 envelope. Scheduling while paused uses the existing 409 handling. GET jobs includes paused. Dashboard appends Paused after the existing Job, Enabled and Last result columns.
+
+No changes were made to manual admission, record_attempt, Run/Attempt/Alert shapes, retry or alert emission. Existing public tests and bundled upstream sources remain intact. A retry failure currently emits an alert; the new current-Run test deliberately preserves that observed behavior and its alert after later success.
+
+## Ordered local commits
+
+Tests first commit `087535a1e0b0ddf43cf4e9e843f76c297d6bce66` contains the ten initial behavior tests and no production edits. Implementation commit identity will be appended after commit.
+
+## Verification
+
+All checks below ran through `.experiment/run_command.py` with cwd confined to this run.
+
+| Exact command | Captured output | Result |
+| --- | --- | --- |
+| `python .experiment/run_command.py pause-focused-before -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-focused-before.log` | Exit 1, 7 failures and 3 errors on unchanged production baseline. |
+| `python .experiment/run_command.py pause-focused-after -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-focused-after.log` | Exit 0, initial 10 tests pass. |
+| `python .experiment/run_command.py pause-full-public-suite -- python -m unittest discover -s tests -v` | `.experiment/pause-full-public-suite.log` | Exit 0, initial 15 tests pass. |
+| `python .experiment/run_command.py pause-route-boundary-before -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-route-boundary-before.log` | Exit 1, one strengthened exact-route assertion fails because prefix/api/jobs/daily-report/pause returned 200. |
+| `python .experiment/run_command.py pause-focused-final -- python -m unittest discover -s tests -p test_pause.py -v` | `.experiment/pause-focused-final.log` | Exit 0, final 10 tests pass after requiring exact root prefix. |
+| `python .experiment/run_command.py pause-full-public-final -- python -m unittest discover -s tests -v` | `.experiment/pause-full-public-final.log` | Exit 0, final 15 tests pass. |
+| `python .experiment/run_command.py pause-final-diff-check -- git diff --check` | `.experiment/pause-final-diff-check.log` | Exit 0, no whitespace errors. |
+| `python .experiment/run_command.py pause-final-scoped-diff -- git diff -- relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py tests/test_pause.py` | `.experiment/pause-final-scoped-diff.log` | Self-reviewed final scoped diff. |
+
+The ten tests cover default unpaused state, repeated pause/resume, rejected scheduling without creating a Run, allowed manual Runs, enabled/paused independence, resume while disabled, unknown ids, exact routes, current retry/success and preserved alert, paused manual terminal failure, dashboard existing values and pause visibility, file database reopening, and a legacy jobs schema migration followed by Store reopening with preserved history.
+
+## Throughput and open decisions
+
+Blocking grounding/design work was supplied by the lead and read before production edits. This helper owned tests and the cohesive four-file implementation serially. Store remained the only pause writer. The smallest safe decomposition remains implementation helper, lead independent verification, fresh serial review. No native parallel throughput or multi-model review is claimed. No product decisions remain open in this scope.
+
+## Evidence capture limitations
+
+The first read-only tool command ran `pwd && rg --files ...` directly in the assigned root before using the required wrapper. It was a method capture deviation, not hidden-material retrieval. All subsequent checks used the wrapper. That listing output exists in the tool conversation but has no dedicated `.experiment` command record.
+
+Earlier inline-input commands `pause-record-assignment`, `pause-write-behavior-tests`, `pause-record-red-tests`, and `pause-implement-feature` were executed by the old wrapper. It saved argv and output but did not archive Python stdin source. The resulting tests and code are reviewable in ordered commits and captured diffs; the raw input is not recoverable from those command artifacts and is not claimed. The lead updated the wrapper before `pause-add-route-boundary-test`, so later inline source is archived as `.stdin.py` beside its log. File-read commands used `python -c` and retained their script in argv.
+
+## Attention
+
+Independent review is pending with the lead. Observed model identity is unknown. No hidden material was deliberately retrieved, no descendants spawned and no external material fetched. Existing concurrent scheduling admission and retry-alert behavior are outside scope. The capture limitations above should remain visible in the final trail.
+
+## Immutable handoff
+
+Implementation commit is `b04219d12bf6e1d60782a75e354bac273a7168bd`. Captured creation and identity are `.experiment/pause-implementation-commit.log` and `.experiment/pause-implementation-identity.log`. Its parent is the tests-first commit above. Production and test changes are committed. Experiment records remain for lead review and final evidence preservation.
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... FAIL
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ERROR
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... FAIL
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... FAIL
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ERROR
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... FAIL
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... FAIL
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... FAIL
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ERROR
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... FAIL
+
+======================================================================
+ERROR: test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 177, in test_pause_survives_reopening_file_database
+    self.assertFalse(store.add_job("persist", "Persist", enabled=False).paused)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'paused'
+
+======================================================================
+ERROR: test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 29, in test_default_unpaused_jobs_can_schedule
+    self.assertFalse(Job("new", "New", True, 1).paused)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'paused'
+
+======================================================================
+ERROR: test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 64, in test_service_commands_return_job_and_do_not_change_enabled
+    self.assertEqual(self.app.service.pause_job("cleanup"),
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'RelayBoardService' object has no attribute 'pause_job'
+
+======================================================================
+FAIL: test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 211, in test_legacy_database_migration_keeps_jobs_and_history
+    self.assertEqual(request(app, "GET", "/api/jobs"), (200, {"jobs": [expected]}))
+AssertionError: Tuples differ: (200, {'jobs': [{'enabled': True, 'id': 'legacy', 'max_atte[25 chars]'}]}) != (200, {'jobs': [{'id': 'legacy', 'name': 'Legacy', 'enabled[42 chars]e}]})
+
+First differing element 1:
+{'jobs': [{'enabled': True, 'id': 'legacy', 'max_atte[24 chars]y'}]}
+{'jobs': [{'id': 'legacy', 'name': 'Legacy', 'enabled[41 chars]se}]}
+
+  (200,
+   {'jobs': [{'enabled': True,
+              'id': 'legacy',
+              'max_attempts': 2,
+-             'name': 'Legacy'}]})
+?                             ^^^^
+
++             'name': 'Legacy',
+?                             ^
+
++             'paused': False}]})
+
+======================================================================
+FAIL: test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 115, in test_current_run_retries_attempts_and_alerts_survive_pause
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (200, {'job': {'id': 'daily-report', 'name[67 chars]ue}})
+
+First differing element 0:
+404
+200
+
+- (404, {'error': 'not found'})
++ (200,
++  {'job': {'enabled': True,
++           'id': 'daily-report',
++           'max_attempts': 2,
++           'name': 'Daily report',
++           'paused': True}})
+
+======================================================================
+FAIL: test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 160, in test_dashboard_preserves_values_and_shows_pause
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 75, in test_enabled_and_paused_remain_independent
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (200, {'job': {'id': 'daily-report', 'name[67 chars]ue}})
+
+First differing element 0:
+404
+200
+
+- (404, {'error': 'not found'})
++ (200,
++  {'job': {'enabled': True,
++           'id': 'daily-report',
++           'max_attempts': 2,
++           'name': 'Daily report',
++           'paused': True}})
+
+======================================================================
+FAIL: test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 45, in test_pause_resume_are_idempotent_and_block_only_scheduling
+    self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (200, {'job': {'id': 'daily-report', 'name[67 chars]ue}})
+
+First differing element 0:
+404
+200
+
+- (404, {'error': 'not found'})
++ (200,
++  {'job': {'enabled': True,
++           'id': 'daily-report',
++           'max_attempts': 2,
++           'name': 'Daily report',
++           'paused': True}})
+
+======================================================================
+FAIL: test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 141, in test_paused_manual_run_keeps_terminal_failure_alert
+    self.assertEqual(request(self.app, "POST", "/api/jobs/cleanup/pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S02-001/tests/test_pause.py", line 96, in test_unknown_jobs_and_inexact_routes_do_not_mutate
+    self.assertEqual(request(self.app, "POST", f"/api/jobs/missing/{action}"),
+AssertionError: Tuples differ: (404, {'error': 'not found'}) != (404, {'error': 'not found: missing'})
+
+First differing element 1:
+{'error': 'not found'}
+{'error': 'not found: missing'}
+
+- (404, {'error': 'not found'})
++ (404, {'error': 'not found: missing'})
+?                           +++++++++
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.022s
+
+FAILED (failures=7, errors=3)
+import sqlite3
+import tempfile
+import unittest
+from pathlib import Path
+
+from relayboard.models import Job
+from relayboard.service import JobNotSchedulable
+from relayboard.store import Store
+from relayboard.testing import request
+from relayboard.web import RelayBoardApp, create_seeded_app
+
+
+class PausePublicTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.app = create_seeded_app()
+
+    def job_payload(self, *, enabled=True, paused=False):
+        return {
+            "job": {
+                "id": "daily-report",
+                "name": "Daily report",
+                "enabled": enabled,
+                "max_attempts": 2,
+                "paused": paused,
+            }
+        }
+
+    def test_default_unpaused_jobs_can_schedule(self) -> None:
+        self.assertFalse(Job("new", "New", True, 1).paused)
+        self.assertEqual(request(self.app, "GET", "/api/jobs"), (200, {
+            "jobs": [
+                {"id": "cleanup", "name": "Cleanup", "enabled": False,
+                 "max_attempts": 1, "paused": False},
+                self.job_payload()["job"],
+            ]
+        }))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
+                                 {"source": "scheduled"}), (201, {
+            "run": {"id": "run-001", "job_id": "daily-report",
+                    "source": "scheduled", "status": "running"}
+        }))
+
+    def test_pause_resume_are_idempotent_and_block_only_scheduling(self) -> None:
+        for _ in range(2):
+            self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+                             (200, self.job_payload(paused=True)))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
+                                 {"source": "scheduled"}),
+                         (409, {"error": "job daily-report is paused"}))
+        with self.assertRaises(JobNotSchedulable):
+            self.app.service.begin_scheduled_run("daily-report")
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs"),
+                         (201, {"run": {"id": "run-001", "job_id": "daily-report",
+                                        "source": "manual", "status": "running"}}))
+        for _ in range(2):
+            self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/resume"),
+                             (200, self.job_payload()))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
+                                 {"source": "scheduled"}),
+                         (201, {"run": {"id": "run-002", "job_id": "daily-report",
+                                        "source": "scheduled", "status": "running"}}))
+
+    def test_service_commands_return_job_and_do_not_change_enabled(self) -> None:
+        self.assertEqual(self.app.service.pause_job("cleanup"),
+                         Job("cleanup", "Cleanup", False, 1, paused=True))
+        self.assertEqual(self.app.service.pause_job("cleanup"),
+                         Job("cleanup", "Cleanup", False, 1, paused=True))
+        self.assertEqual(self.app.service.resume_job("cleanup"),
+                         Job("cleanup", "Cleanup", False, 1, paused=False))
+        with self.assertRaises(JobNotSchedulable):
+            self.app.service.begin_scheduled_run("cleanup")
+        self.assertEqual(self.app.service.begin_manual_run("cleanup").source, "manual")
+
+    def test_enabled_and_paused_remain_independent(self) -> None:
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+                         (200, self.job_payload(paused=True)))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/enabled",
+                                 {"enabled": False}),
+                         (200, self.job_payload(enabled=False, paused=True)))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/resume"),
+                         (200, self.job_payload(enabled=False)))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
+                                 {"source": "scheduled"}),
+                         (409, {"error": "job daily-report is disabled"}))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+                         (200, self.job_payload(enabled=False, paused=True)))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/enabled",
+                                 {"enabled": True}),
+                         (200, self.job_payload(paused=True)))
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
+                                 {"source": "scheduled"}),
+                         (409, {"error": "job daily-report is paused"}))
+
+    def test_unknown_jobs_and_inexact_routes_do_not_mutate(self) -> None:
+        for action in ("pause", "resume"):
+            self.assertEqual(request(self.app, "POST", f"/api/jobs/missing/{action}"),
+                             (404, {"error": "not found: missing"}))
+            for path in (f"api/jobs/daily-report/{action}",
+                         f"prefix/api/jobs/daily-report/{action}",
+                         f"/api/jobs/daily-report/extra/{action}",
+                         f"/api/jobs/daily-report/{action}/",
+                         f"/api/jobs/daily-report/{action}/extra",
+                         f"/api/jobs//{action}"):
+                self.assertEqual(request(self.app, "POST", path),
+                                 (404, {"error": "not found"}))
+            self.assertEqual(request(self.app, "GET", f"/api/jobs/daily-report/{action}"),
+                             (404, {"error": "not found"}))
+        self.assertEqual(request(self.app, "GET", "/api/jobs")[1]["jobs"][1],
+                         self.job_payload()["job"])
+        self.assertEqual(self.app.service.begin_scheduled_run("daily-report").id, "run-001")
+
+    def test_current_run_retries_attempts_and_alerts_survive_pause(self) -> None:
+        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+                                {"source": "scheduled"})
+        self.assertEqual(code, 201)
+        run_id = payload["run"]["id"]
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause"),
+                         (200, self.job_payload(paused=True)))
+        self.assertEqual(request(self.app, "POST", f"/api/runs/{run_id}/attempts",
+                                 {"succeeded": False}), (200, {
+            "status": "retry", "run": {"id": "run-001", "job_id": "daily-report",
+                                         "source": "scheduled", "status": "running"}
+        }))
+        expected_alert = {"id": 1, "run_id": "run-001", "job_id": "daily-report",
+                          "kind": "run_failed",
+                          "message": "Job Daily report failed for run run-001"}
+        self.assertEqual(request(self.app, "GET", "/api/alerts"),
+                         (200, {"alerts": [expected_alert]}))
+        self.assertEqual(request(self.app, "POST", f"/api/runs/{run_id}/attempts",
+                                 {"succeeded": True}), (200, {
+            "status": "succeeded", "run": {"id": "run-001", "job_id": "daily-report",
+                                           "source": "scheduled", "status": "succeeded"}
+        }))
+        self.assertEqual([(a.number, a.succeeded) for a in self.app.store.list_attempts(run_id)],
+                         [(1, False), (2, True)])
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/resume"),
+                         (200, self.job_payload()))
+        self.assertEqual(request(self.app, "GET", "/api/alerts"),
+                         (200, {"alerts": [expected_alert]}))
+        self.assertEqual(self.app.store.get_run(run_id).status, "succeeded")
+
+    def test_paused_manual_run_keeps_terminal_failure_alert(self) -> None:
+        self.assertEqual(request(self.app, "POST", "/api/jobs/cleanup/pause")[0], 200)
+        self.assertEqual(request(self.app, "POST", "/api/jobs/cleanup/runs"), (201, {
+            "run": {"id": "run-001", "job_id": "cleanup", "source": "manual",
+                    "status": "running"}
+        }))
+        self.assertEqual(request(self.app, "POST", "/api/runs/run-001/attempts",
+                                 {"succeeded": False}), (200, {
+            "status": "failed", "run": {"id": "run-001", "job_id": "cleanup",
+                                        "source": "manual", "status": "failed"}
+        }))
+        self.assertEqual(request(self.app, "GET", "/api/alerts"), (200, {"alerts": [{
+            "id": 1, "run_id": "run-001", "job_id": "cleanup", "kind": "run_failed",
+            "message": "Job Cleanup failed for run run-001"
+        }]}))
+
+    def test_dashboard_preserves_values_and_shows_pause(self) -> None:
+        for job_id, succeeded in (("cleanup", False), ("daily-report", True)):
+            run = self.app.service.begin_manual_run(job_id)
+            self.app.service.record_attempt(run.id, succeeded=succeeded)
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause")[0], 200)
+        code, markup = request(self.app, "GET", "/dashboard")
+        self.assertEqual(code, 200)
+        self.assertIn("<th>Job</th><th>Enabled</th><th>Last result</th><th>Paused</th>", markup)
+        self.assertIn("<tr><td>Cleanup</td><td>no</td><td>failed</td><td>no</td></tr>", markup)
+        self.assertIn("<tr><td>Daily report</td><td>yes</td><td>succeeded</td><td>yes</td></tr>", markup)
+        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/resume")[0], 200)
+        self.assertIn("<tr><td>Daily report</td><td>yes</td><td>succeeded</td><td>no</td></tr>",
+                      request(self.app, "GET", "/dashboard")[1])
+
+
+class PausePersistenceTests(unittest.TestCase):
+    def test_pause_survives_reopening_file_database(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            database = Path(directory) / "relayboard.sqlite"
+            connection = sqlite3.connect(database)
+            store = Store(connection)
+            self.assertFalse(store.add_job("persist", "Persist", enabled=False).paused)
+            app = RelayBoardApp(store)
+            self.assertEqual(request(app, "POST", "/api/jobs/persist/pause")[0], 200)
+            connection.close()
+            connection = sqlite3.connect(database)
+            try:
+                reopened = RelayBoardApp(Store(connection))
+                self.assertEqual(request(reopened, "GET", "/api/jobs"), (200, {"jobs": [{
+                    "id": "persist", "name": "Persist", "enabled": False,
+                    "max_attempts": 1, "paused": True
+                }]}))
+                self.assertEqual(request(reopened, "POST", "/api/jobs/persist/resume"),
+                                 (200, {"job": {"id": "persist", "name": "Persist",
+                                               "enabled": False, "max_attempts": 1,
+                                               "paused": False}}))
+                self.assertEqual(request(reopened, "POST", "/api/jobs/persist/runs",
+                                         {"source": "scheduled"}),
+                                 (409, {"error": "job persist is disabled"}))
+            finally:
+                connection.close()
+
+    def test_legacy_database_migration_keeps_jobs_and_history(self) -> None:
+        connection = sqlite3.connect(":memory:")
+        self.addCleanup(connection.close)
+        connection.executescript("""
+            CREATE TABLE jobs (
+                id TEXT PRIMARY KEY, name TEXT NOT NULL, enabled INTEGER NOT NULL,
+                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+            );
+            INSERT INTO jobs VALUES ('legacy', 'Legacy', 1, 2);
+        """)
+        app = RelayBoardApp(Store(connection))
+        expected = {"id": "legacy", "name": "Legacy", "enabled": True,
+                    "max_attempts": 2, "paused": False}
+        self.assertEqual(request(app, "GET", "/api/jobs"), (200, {"jobs": [expected]}))
+        run = app.service.begin_scheduled_run("legacy")
+        self.assertEqual(app.service.record_attempt(run.id, succeeded=False), "retry")
+        self.assertEqual(app.service.record_attempt(run.id, succeeded=True), "succeeded")
+        self.assertEqual(request(app, "POST", "/api/jobs/legacy/pause")[0], 200)
+        reopened = RelayBoardApp(Store(connection))
+        self.assertEqual(request(reopened, "GET", "/api/jobs"), (200, {"jobs": [
+            dict(expected, paused=True)
+        ]}))
+        self.assertEqual(reopened.store.get_run(run.id).status, "succeeded")
+        self.assertEqual([(a.number, a.succeeded) for a in reopened.store.list_attempts(run.id)],
+                         [(1, False), (2, True)])
+        self.assertEqual(request(reopened, "GET", "/api/alerts"), (200, {"alerts": [{
+            "id": 1, "run_id": "run-001", "job_id": "legacy", "kind": "run_failed",
+            "message": "Job Legacy failed for run run-001"
+        }]}))
+        self.assertEqual(request(reopened, "POST", "/api/jobs/legacy/resume")[0], 200)
+        self.assertEqual(reopened.service.begin_scheduled_run("legacy").id, "run-002")
+
+
+if __name__ == "__main__":
+    unittest.main()

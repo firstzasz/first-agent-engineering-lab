@@ -1,0 +1,15 @@
+test_legacy_database_migration_keeps_jobs_and_history (test_pause.PausePersistenceTests.test_legacy_database_migration_keeps_jobs_and_history) ... ok
+test_pause_survives_reopening_file_database (test_pause.PausePersistenceTests.test_pause_survives_reopening_file_database) ... ok
+test_current_run_retries_attempts_and_alerts_survive_pause (test_pause.PausePublicTests.test_current_run_retries_attempts_and_alerts_survive_pause) ... ok
+test_dashboard_preserves_values_and_shows_pause (test_pause.PausePublicTests.test_dashboard_preserves_values_and_shows_pause) ... ok
+test_default_unpaused_jobs_can_schedule (test_pause.PausePublicTests.test_default_unpaused_jobs_can_schedule) ... ok
+test_enabled_and_paused_remain_independent (test_pause.PausePublicTests.test_enabled_and_paused_remain_independent) ... ok
+test_pause_resume_are_idempotent_and_block_only_scheduling (test_pause.PausePublicTests.test_pause_resume_are_idempotent_and_block_only_scheduling) ... ok
+test_paused_manual_run_keeps_terminal_failure_alert (test_pause.PausePublicTests.test_paused_manual_run_keeps_terminal_failure_alert) ... ok
+test_service_commands_return_job_and_do_not_change_enabled (test_pause.PausePublicTests.test_service_commands_return_job_and_do_not_change_enabled) ... ok
+test_unknown_jobs_and_inexact_routes_do_not_mutate (test_pause.PausePublicTests.test_unknown_jobs_and_inexact_routes_do_not_mutate) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.026s
+
+OK

@@ -1,0 +1,55 @@
+ts	phase	decision	why	evidence	result
+2026-10-07T00:00:00Z	start	Invoke frozen Feature route	New behavior requires design and verified implementation	METHOD.md	Open; timestamp is run date only, actual start time unknown
+2026-10-07T07:03:38.484764+00:00	ground	Trace small subsystem serially	METHOD permits lead How explainer for simple scope	.experiment/grounding.md	5 baseline tests pass
+2026-10-07T07:03:38.484764+00:00	product	Preserve manual and existing Run behavior	Operator supplied product decisions	.experiment/operator-interactions.jsonl	Resolved
+2026-10-07T07:03:38.484764+00:00	design	Persist independent Job.paused and show dashboard column	Model the Domain keeps state on Job; Laziness Protocol avoids separate relation; enabled state survives resume	.experiment/design.md	Chosen before implementation
+2026-10-07T07:03:38.484764+00:00	throughput	One serial bounded implementation helper then fresh review	Shared Job state and branch favor cohesive ownership	.experiment/throughput.md	Ready
+2026-10-07T07:04:18.091471+00:00	audit	Narrow paths-read manifest to files actually consulted	Initial manifest included listing-only files; those were not read	.experiment/sources.json	Corrected; no extra material read
+2026-10-07T07:04:52.518647+00:00	start	Fresh serial helper owns tests and four application files	Bounded implementation follows lead design; no descendants or external access	.experiment/helper-implementation-report.md	Prior rows 2026-10-07T00:00:00Z through 2026-10-07T07:04:18.091471+00:00 were written by lead
+2026-10-07T07:06:13.523265+00:00	test	Add and run ten public pause behavior tests before production edits	WSGI and SQLite tests encode chosen behavior and current retry-alert preservation	.experiment/pause-focused-before.log	Expected baseline failure: 7 failures and 3 errors; missing routes, field and service commands
+2026-10-07T07:08:20.685466+00:00	implementation	Persist independent paused bit and guard scheduled admission	Model the Domain places pause on Job; Laziness Protocol uses existing Store/service boundaries	.experiment/pause-final-scoped-diff.log	Manual Runs, record_attempt and alert emission unchanged
+2026-10-07T07:08:20.685480+00:00	review	Require exact root prefix for pause/resume routes	Self-review found a prefix without leading slash was accepted; reproduce before correcting guard	.experiment/pause-route-boundary-before.log	One expected failure then ten focused tests pass
+2026-10-07T07:08:20.685484+00:00	verify	Complete focused and full public checks on final code	Prove It Works observes WSGI responses, SQLite persistence and preserved behavior	.experiment/pause-focused-final.log; .experiment/pause-full-public-final.log; .experiment/pause-final-diff-check.log	10 focused and 15 full tests pass; git diff --check exits 0
+2026-10-07T07:08:20.685486+00:00	audit	Label early command-input capture limitations	Do not claim a complete raw transcript; initial listing bypassed wrapper and old wrapper omitted stdin script source	.experiment/helper-implementation-report.md	Output and argv captured for checks; old inline input unknown from command artifacts
+2026-10-07T07:08:45.531210+00:00	handoff	Commit verified pause implementation locally	Sequence Work into Verifiable Units retains failing tests then feature; METHOD replaces PR with local immutable handoff	.experiment/pause-implementation-commit.log; .experiment/pause-implementation-identity.log	Implementation b04219d12bf6e1d60782a75e354bac273a7168bd; independent lead review pending
+2026-10-07T07:09:44.569952+00:00	verify	Lead verified original WSGI API and full public suite	Prove It Works requires observed artifact; tests exercise behavior	.experiment/lead-api-surface.log	10 focused and 15 public tests pass
+2026-10-07T07:09:44.569952+00:00	review	Accept scoped implementation after direct diff review	One owner and scheduler admission guard preserve existing behavior	.experiment/lead-review.md	Fresh serial review pending
+# Feature steps copied from bundled playbook
+1. `how` over the affected subsystem.
+2. `architect` for parallel design exploration.
+3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
+   - **Blocking first steps.** Gates run before fan-out.
+   - **Independent workstreams.** Disjoint files, services, or layers parallelize. Shared writes serialize.
+   - **Shared mutable state.** Default to splitting the target (the **separate-before-serializing-shared-state** principle skill). Serialize only for real invariants.
+   - **Smallest safe decomposition.** If one worker is best, name why.
+4. Delegate code-writing to a subagent using your configured feature model (default `grok-4.7-xhigh-fast`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). When the implementation admits multiple valid shapes (error handling, abstraction layer, test structure), delegate via the **arena** skill instead so the runners surface the alternatives and the cross-judge guards the pick. Mandatory: no skip-with-reason escape, and Laziness Protocol does not override it (the gain is review separation, not lines saved). A subagent forbidden to spawn satisfies this by owning the diff directly with the same review separation. No "standing by" reply that waits on a nested agent. Comments per **Comments**. Surgical edits, re-ground against the source for upstream-derived files. Port shared-primitive improvements to all consumers and verify each. Commit liberally.
+5. Verify on the matching surface. "Inconclusive" or wrong-surface is not a pass. Flag it.
+6. Rebase into small, ordered commits. Stack follow-ups.
+   Use the **sequence-verifiable-units** principle skill, building, verifying, and committing each small unit before the next.
+7. If the design is contested, `interrogate` before shipping.
+8. Run **Opening a PR**.
+
+# Status and port bindings
+1. In progress. Lead serial How tracing under METHOD step 3.
+2. Pending. Two serial lead sketches per METHOD rather than native parallel exploration.
+3. Pending. Checkpoint before implementation.
+4. Pending. One bounded fresh same-model serial helper per METHOD.
+5. Pending. WSGI original API, focused tests, full public suite.
+6. Pending. Existing isolated branch; no rebase to unassigned branch. Small ordered local commits.
+7. Skip unless contested; interrogate is unbundled and cannot be fetched.
+8. Native PR route unbundled. METHOD replaces it with local commit handoff to orchestrator.
+
+# Architect phases
+1. Ground. In progress.
+2. Sketch. Pending.
+3. Agree. Skip opt-in human checkpoint; no request for design approval.
+4. Implement. Pending.
+5. Scrap. Conditional if sketch fails, otherwise n/a.
+
+# Arena design phases
+1. Frame. In progress.
+2. Fan out. Port uses serial lead sketches, no native fan-out.
+3. Cross-judge. Pending fresh final reviewer; no claimed native cross-model design judgement.
+4. Pick. Pending.
+5. Graft. Pending or n/a if no useful loser contribution.
+6. Verify. Pending.

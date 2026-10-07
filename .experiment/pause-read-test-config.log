@@ -1,0 +1,12 @@
+FILE pyproject.toml
+[project]
+name = "relayboard-fixture"
+version = "0.0.0"
+description = "Synthetic agent-engineering benchmark fixture"
+requires-python = ">=3.11"
+
+FILE .gitignore
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
