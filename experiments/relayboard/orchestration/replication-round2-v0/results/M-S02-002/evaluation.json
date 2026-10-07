@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "run_id": "M-S02-002",
+  "started_at": "2026-10-07T13:50:08.706961+00:00",
+  "finished_at": "2026-10-07T13:50:08.879270+00:00",
+  "context": "separate orchestrator-owned Python process after contestant termination",
+  "local_candidate_sha": "3e1e62cd4c0e08e2dde75442c7e9fd98591e3e8c",
+  "candidate_tree": "e03e0ef88b47a79091b78ab68c6b8dd3044c97fa",
+  "frozen_evaluator_ref": "b8048c069277ae3a6d15a2ad324d60c4b1500c2a",
+  "evaluator_blob_sha": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok\ntest_enable_changes_do_not_clear_pause (test_pause.PauseJobTests.test_enable_changes_do_not_clear_pause) ... ok\ntest_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok\ntest_pause_and_resume_missing_jobs_use_existing_not_found_response (test_pause.PauseJobTests.test_pause_and_resume_missing_jobs_use_existing_not_found_response) ... ok\ntest_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok\ntest_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok\ntest_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok\ntest_repeated_pause_and_resume_are_idempotent (test_pause.PauseJobTests.test_repeated_pause_and_resume_are_idempotent) ... ok\ntest_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok\ntest_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.011s\n\nOK\n"
+  },
+  "oracle": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "feedback_to_contestant": false
+}
