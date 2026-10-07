@@ -1,0 +1,3 @@
+{
+  "stdout": ".experiment/evidence-diff-check.txt:2: trailing whitespace.\n++ \n.experiment/evidence-diff-check.txt:4: trailing whitespace.\n++ \n.experiment/evidence-diff-check.txt:6: trailing whitespace.\n++ \n.experiment/evidence-diff-check.txt:8: trailing whitespace.\n++ \n"
+}

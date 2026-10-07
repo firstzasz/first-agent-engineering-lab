@@ -1,0 +1,6 @@
+test_retrying_run_alerts_only_after_terminal_failure (test_public.RelayBoardPublicTests.test_retrying_run_alerts_only_after_terminal_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK
