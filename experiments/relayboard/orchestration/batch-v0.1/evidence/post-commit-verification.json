@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "verified_research_commit": "82797d76095eb46c710a69feed8df238a6e38cdc",
+  "checks": {
+    "research_head_matches": true,
+    "main_unchanged": true,
+    "completed_treatment_branch_unchanged": true,
+    "completed_record_unchanged": true,
+    "all_existing_except_index_unchanged": true,
+    "exact_expected_path_set": true,
+    "tree_complete": true,
+    "all_artifact_content_matches": true
+  },
+  "refs": [
+    {
+      "kind": "ref",
+      "branch": "research/batch-orchestration-pilot",
+      "sha": "82797d76095eb46c710a69feed8df238a6e38cdc"
+    },
+    {
+      "kind": "ref",
+      "branch": "main",
+      "sha": "d7d277c0e684d1e9aed0c30259796deb48c7c207"
+    },
+    {
+      "kind": "ref",
+      "branch": "treatment/neutral/N-S01-001",
+      "sha": "563952fab378eda87da696cda4df12fe5c9d4e5e"
+    }
+  ],
+  "artifact_content_readback_count": 24,
+  "frozen_benchmark_and_methodology_definitions": "unchanged exact blob SHAs",
+  "no_remaining_benchmark_runs_executed": true,
+  "no_pr_merges_performed": true,
+  "scope": "GitHub connector post-commit reads; no runtime benchmark claims"
+}
