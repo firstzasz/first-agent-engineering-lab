@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "protocol": "Frozen Evaluator Protocol v0, procedural interpretation",
-  "status": "RUNNING",
+  "status": "COMPLETED",
   "source_commit": "b8048c069277ae3a6d15a2ad324d60c4b1500c2a",
   "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
   "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
@@ -133,9 +133,10 @@
       "branch": "treatment/first-mode/F-S04-001",
       "prepared_sha": "9069e82b54b0c6e6bd940be29b447227b8d63e15",
       "prepared_tree_sha": "b326225f6e351ed98876357c5b2d0d0c5ec52f75",
-      "status": "READY_PROCEDURAL",
-      "result_path": "results/F-S04-001/run.json"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result_path": "results/F-S04-001/run.json",
+      "candidate_sha": "9c37b277518bfec5ac5e4ada37c6d57b4b351321"
     }
   ],
-  "completed_count": 10
+  "completed_count": 11
 }

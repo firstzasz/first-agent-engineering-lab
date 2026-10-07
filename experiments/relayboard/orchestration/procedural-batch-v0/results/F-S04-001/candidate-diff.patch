@@ -1,0 +1,965 @@
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..421a93c
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,307 @@
++{
++  "schema_version": 1,
++  "run_id": "F-S04-001",
++  "status": "VERIFIED",
++  "task": "Diagnose and fix duplicate failure alerts on retried Runs without suppressing distinct Runs or changing retry behavior.",
++  "method": {
++    "supplied_path": "METHOD.md",
++    "canonical_name": "FIRST_MODE_V0.md",
++    "route": "L1: Legible autonomous execution",
++    "delivery_note": "Operator confirmed METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name is intentional."
++  },
++  "identity": {
++    "requested_model": "gpt-6.1-sol",
++    "requested_reasoning": "high",
++    "observed_runtime_model": "Unavailable to contestant; no model introspection tool used.",
++    "observed_role": "Codex task agent /root/contestant_f_s04_001",
++    "usage": "Token/cost/model telemetry unavailable to contestant."
++  },
++  "initial_local_commit": "f0cb3e77746bc0a8e25df5609d6249b01dbddd45",
++  "local_commits": [
++    {
++      "sha": "013d72a96ec562273c9d0dd766d5d17b670ae13d",
++      "purpose": "Implementation and regression tests"
++    }
++  ],
++  "report_commit_locator": "HEAD after the evidence commit; report cannot embed its own Git commit hash. Final response carries the resolved hash.",
++  "success_predicate": "Failure alerts are emitted once per terminal failed Run, never for a retry or successful Run, with retry budgets and separate Run identities preserved.",
++  "diagnosis": "record_attempt emitted run_failed on a failed Attempt eligible for retry and again after terminal failure. Alerts belong to terminal Runs, so retried Runs produced duplicates and recovered Runs produced false failure alerts.",
++  "change": "Removed only _emit_failure_alert(run_id) from the retry branch. Terminal failure emission, retry budget comparison, Attempt recording, Run IDs and terminal guard are preserved.",
++  "testcommands": [
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "phase": "baseline",
++      "exit_code": 0,
++      "result": "5 public tests passed",
++      "outputpath": ".experiment/baseline-tests.txt"
++    },
++    {
++      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
++      "phase": "before_fix",
++      "exit_code": 1,
++      "result": "Expected reproduction failure: API alert counts 1,2,3,4 for two 2-attempt Runs; retry and terminal failure both emit alerts.",
++      "outputpath": ".experiment/repro-before.txt"
++    },
++    {
++      "command": "python -m unittest discover -s tests -p 'test_retry_alerts.py' -v",
++      "phase": "before_fix",
++      "exit_code": 1,
++      "result": "3 regression methods executed; 9 subtest/test failures expose premature alerts and alerts on recovered Runs.",
++      "outputpath": ".experiment/regression-before.txt"
++    },
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "phase": "after_fix",
++      "exit_code": 0,
++      "result": "8 public tests passed, including retry budgets 1,2,4; manual/scheduled Runs; recovered success; interleaved distinct Runs on same/different Jobs; terminal guard.",
++      "outputpath": ".experiment/final-tests.txt"
++    },
++    {
++      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
++      "phase": "after_fix",
++      "exit_code": 0,
++      "result": "Unchanged reproduction passes: API alert counts 0,1,1,2; retry/failed outcomes and running/failed Run statuses preserved.",
++      "outputpath": ".experiment/repro-after.txt"
++    },
++    {
++      "command": "git diff --check",
++      "phase": "after_fix",
++      "exit_code": 0,
++      "result": "No whitespace errors in tracked production diff; new regression file was untracked at this check.",
++      "outputpath": ".experiment/diff-check.txt"
++    }
++  ],
++  "outputpaths": [
++    ".experiment/baseline-tests.txt",
++    ".experiment/repro-before.txt",
++    ".experiment/regression-before.txt",
++    ".experiment/final-tests.txt",
++    ".experiment/repro-after.txt",
++    ".experiment/diff-check.txt",
++    ".experiment/production-diff.txt"
++  ],
++  "output_sha256": {
++    ".experiment/baseline-tests.txt": "179d7dc5da2444134d04b0e46caedb208b6b9eb4589bfae66bd0fc12dbcb80b4",
++    ".experiment/repro-before.txt": "bb51e3c21d321844f984468958e640d4c0f10e80b8ce59e71f19f51b26112833",
++    ".experiment/regression-before.txt": "f8624c38de60a0dc6835bcbf6bbe5d63d173b5d60b77915a15d3d697a8a4950a",
++    ".experiment/final-tests.txt": "d24d4e855ff7f7c552d5ff8f140df10af51415200bab20b4fc247e364c70b3e0",
++    ".experiment/repro-after.txt": "d1de6980eb8e3d3b08b797d5cba22b879ee2af5e10b740746259e7ff7dd043a0",
++    ".experiment/diff-check.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++    ".experiment/production-diff.txt": "4e516a692b102a5295e6b86c1e2384ca73dc6b9760ce92fc5cc00c1969923d9e"
++  },
++  "operator_interactions": [
++    {
++      "direction": "outgoing",
++      "type": "administrative note; not a question",
++      "target": "/root",
++      "message": "Supplied METHOD.md contains full frozen method; no separate FIRST_MODE_V0.md delivery file; applying canonical supplied content only. Public API reproduction planned."
++    },
++    {
++      "direction": "incoming",
++      "type": "administrative clarification",
++      "source": "/root",
++      "message": "METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name intentional. Apply that content only; preserve note and continue public reproduction/verification."
++    }
++  ],
++  "operator_questions": 0,
++  "helpers": [],
++  "decisions": [
++    {
++      "class": "FACT",
++      "decision": "AlertRule applies to terminal Run outcomes, not failed Attempts.",
++      "evidence": "GLOSSARY.md: AlertRule, Alert, Run, Attempt"
++    },
++    {
++      "class": "REVERSIBLE_ENGINEERING",
++      "decision": "Remove the retry-branch emission rather than deduplicate per Job or change persistence.",
++      "reason": "The exact reproduction demonstrates emission at both retry and terminal failure; the existing terminal guard prevents repeated recording after completion. Run-level timing fixes premature and duplicate alerts without suppressing separate Runs."
++    },
++    {
++      "class": "REVERSIBLE_ENGINEERING",
++      "decision": "Use public service and WSGI regressions as executable verification; no helper or alternative architecture needed.",
++      "reason": "Deterministic one-line root-cause fix, small inspected blast radius, matching API surface available. Evidence is independently inspectable; no reviewer was used."
++    }
++  ],
++  "action_path_log": [
++    {
++      "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'FIRST_MODE_V0.md' -g 'AGENTS.md' -g 'package.json' -g 'README*' -g '!node_modules' -g '!.git'",
++      "exit_code": 0,
++      "result": "Run area confirmed; README.md METHOD.md TASK.md found.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "command": "cat METHOD.md TASK.md",
++      "exit_code": 0,
++      "result": "Read assigned frozen FIRST-mode v0 and requested task.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "command": "rg --files -g '!node_modules' -g '!.git' -g '!vendor' -g '!dist' && git status --short && git rev-parse HEAD",
++      "exit_code": 0,
++      "result": "Clean status, HEAD f0cb3e77746bc0a8e25df5609d6249b01dbddd45; supplied application/public tests only.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "command": "rg --files --hidden -g '!.git' -g '!node_modules' && cat README.md GLOSSARY.md pyproject.toml relayboard/service.py relayboard/models.py relayboard/store.py tests/test_public.py",
++      "exit_code": 0,
++      "result": "Read fixture docs, domain, service, store and public tests; found premature emission in retry branch.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "command": "cat .experiment/RUN_MANIFEST.json .gitignore relayboard/web.py relayboard/testing.py",
++      "exit_code": 0,
++      "result": "Read supplied manifest, WSGI routes and public request utility.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "exec_command: write durable STATE.json with Python",
++      "paths_written": [
++        ".experiment/STATE.json"
++      ],
++      "result": "Method route, predicate, initial command/path log and administrative operator note preserved.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "apply_patch",
++      "paths_written": [
++        ".experiment/repro_retry_alerts.py",
++        "tests/test_retry_alerts.py"
++      ],
++      "result": "Created exact public API reproduction and service/API regression coverage before changing production code.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "apply_patch",
++      "paths_written": [
++        "relayboard/service.py"
++      ],
++      "result": "Removed premature failure-alert emission from retry branch.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "command": "git diff -- relayboard/service.py > .experiment/production-diff.txt\ncat .experiment/production-diff.txt\ngit status --short",
++      "exit_code": 0,
++      "paths_written": [
++        ".experiment/production-diff.txt"
++      ],
++      "result": "Reviewed one-line production fix and pending scoped files.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "command": "git add relayboard/service.py tests/test_retry_alerts.py\ngit commit -m \"Emit failure alerts only after retries are exhausted\"",
++      "exit_code": 0,
++      "result": "013d72a96ec562273c9d0dd766d5d17b670ae13d",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "exec_command: update STATE.json and write REPORT.json with Python",
++      "paths_written": [
++        ".experiment/STATE.json",
++        ".experiment/REPORT.json"
++      ],
++      "result": "Persist verified status, decisions, command/path log, outputs and evidence gaps.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "planned finalization",
++      "command": "git add .experiment\ngit commit -m \"Preserve FIRST-mode reproduction and verification evidence\"\ngit status --short\ngit rev-parse HEAD",
++      "result": "Final evidence commit hash is reported in final answer; this report is included in that commit.",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "public check",
++      "command": "python -m unittest discover -s tests -v",
++      "phase": "baseline",
++      "exit_code": 0,
++      "result": "5 public tests passed",
++      "outputpath": ".experiment/baseline-tests.txt",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "public check",
++      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
++      "phase": "before_fix",
++      "exit_code": 1,
++      "result": "Expected reproduction failure: API alert counts 1,2,3,4 for two 2-attempt Runs; retry and terminal failure both emit alerts.",
++      "outputpath": ".experiment/repro-before.txt",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "public check",
++      "command": "python -m unittest discover -s tests -p 'test_retry_alerts.py' -v",
++      "phase": "before_fix",
++      "exit_code": 1,
++      "result": "3 regression methods executed; 9 subtest/test failures expose premature alerts and alerts on recovered Runs.",
++      "outputpath": ".experiment/regression-before.txt",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "public check",
++      "command": "python -m unittest discover -s tests -v",
++      "phase": "after_fix",
++      "exit_code": 0,
++      "result": "8 public tests passed, including retry budgets 1,2,4; manual/scheduled Runs; recovered success; interleaved distinct Runs on same/different Jobs; terminal guard.",
++      "outputpath": ".experiment/final-tests.txt",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "public check",
++      "command": "PYTHONPATH=. python .experiment/repro_retry_alerts.py",
++      "phase": "after_fix",
++      "exit_code": 0,
++      "result": "Unchanged reproduction passes: API alert counts 0,1,1,2; retry/failed outcomes and running/failed Run statuses preserved.",
++      "outputpath": ".experiment/repro-after.txt",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    },
++    {
++      "action": "public check",
++      "command": "git diff --check",
++      "phase": "after_fix",
++      "exit_code": 0,
++      "result": "No whitespace errors in tracked production diff; new regression file was untracked at this check.",
++      "outputpath": ".experiment/diff-check.txt",
++      "workdir": "/workspace/relayboard-active/F-S04-001"
++    }
++  ],
++  "paths_read": [
++    "METHOD.md",
++    "TASK.md",
++    "README.md",
++    "GLOSSARY.md",
++    "pyproject.toml",
++    "relayboard/service.py",
++    "relayboard/models.py",
++    "relayboard/store.py",
++    "tests/test_public.py",
++    ".experiment/RUN_MANIFEST.json",
++    ".gitignore",
++    "relayboard/web.py",
++    "relayboard/testing.py",
++    "tests/test_retry_alerts.py",
++    ".experiment/STATE.json"
++  ],
++  "paths_written": [
++    "relayboard/service.py",
++    "tests/test_retry_alerts.py",
++    ".experiment/repro_retry_alerts.py",
++    ".experiment/STATE.json",
++    ".experiment/REPORT.json",
++    ".experiment/baseline-tests.txt",
++    ".experiment/repro-before.txt",
++    ".experiment/regression-before.txt",
++    ".experiment/final-tests.txt",
++    ".experiment/repro-after.txt",
++    ".experiment/diff-check.txt",
++    ".experiment/production-diff.txt"
++  ],
++  "evaluator_or_peer_material_accessed": false,
++  "external_actions": [],
++  "evidence_gaps": [
++    "Initial tool outputs were inspected in-session; this file preserves exact commands and factual summaries, not verbatim initial output.",
++    "No independent human/helper review. Executable service and matching public WSGI checks are persisted and inspectable, but authored by implementing agent.",
++    "Verification uses supplied deterministic WSGI/SQLite fixture; no production deployment, external notification delivery, hidden evaluator, or concurrency/recovery guarantees were tested.",
++    "Runtime model identity and usage telemetry unavailable; requested identity comes from supplied RUN_MANIFEST.json.",
++    "Final evidence commit and final clean-status command outputs exist in the session; the report records their command and self-reference-safe commit locator."
++  ],
++  "known_unresolved_task_issues": []
++}
+diff --git a/.experiment/STATE.json b/.experiment/STATE.json
+new file mode 100644
+index 0000000..6549efd
+--- /dev/null
++++ b/.experiment/STATE.json
+@@ -0,0 +1,96 @@
++{
++  "method": {
++    "supplied_path": "METHOD.md",
++    "canonical_name": "FIRST_MODE_V0.md",
++    "route": "L1: Legible autonomous execution",
++    "delivery_note": "Operator confirmed METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name is intentional."
++  },
++  "goal": "Failure alerts are emitted once per terminal failed Run, never for a retry or successful Run, with retry budgets and separate Run identities preserved.",
++  "decision_class": "FACT: glossary defines Run-terminal alert timing; REVERSIBLE_ENGINEERING: remove the premature alert call only.",
++  "checkpoint": "VERIFIED: baseline passed; unchanged WSGI reproduction failed before and passed after; new regressions failed before and all 8 public tests passed after. The production change removes only the retry-branch failure alert call.",
++  "plan": [
++    "Run public baseline and exact API reproduction",
++    "Add regression coverage that fails before the fix",
++    "Remove retry-branch alert emission",
++    "Run complete public tests and original API reproduction",
++    "Commit code/tests and persist report"
++  ],
++  "helpers": [],
++  "operator_interactions": [
++    {
++      "direction": "outgoing",
++      "type": "administrative note; not a question",
++      "target": "/root",
++      "message": "Supplied METHOD.md contains full frozen method; no separate FIRST_MODE_V0.md delivery file; applying canonical supplied content only. Public API reproduction planned."
++    },
++    {
++      "direction": "incoming",
++      "type": "administrative clarification",
++      "source": "/root",
++      "message": "METHOD.md is the byte-identical supplied copy of frozen FIRST_MODE_V0.md; delivery name intentional. Apply that content only; preserve note and continue public reproduction/verification."
++    }
++  ],
++  "initial_command_log": [
++    {
++      "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'FIRST_MODE_V0.md' -g 'AGENTS.md' -g 'package.json' -g 'README*' -g '!node_modules' -g '!.git'",
++      "exit_code": 0,
++      "result": "Run area confirmed; README.md METHOD.md TASK.md found."
++    },
++    {
++      "command": "cat METHOD.md TASK.md",
++      "exit_code": 0,
++      "result": "Read assigned frozen FIRST-mode v0 and requested task."
++    },
++    {
++      "command": "rg --files -g '!node_modules' -g '!.git' -g '!vendor' -g '!dist' && git status --short && git rev-parse HEAD",
++      "exit_code": 0,
++      "result": "Clean status, HEAD f0cb3e77746bc0a8e25df5609d6249b01dbddd45; supplied application/public tests only."
++    },
++    {
++      "command": "rg --files --hidden -g '!.git' -g '!node_modules' && cat README.md GLOSSARY.md pyproject.toml relayboard/service.py relayboard/models.py relayboard/store.py tests/test_public.py",
++      "exit_code": 0,
++      "result": "Read fixture docs, domain, service, store and public tests; found premature emission in retry branch."
++    },
++    {
++      "command": "cat .experiment/RUN_MANIFEST.json .gitignore relayboard/web.py relayboard/testing.py",
++      "exit_code": 0,
++      "result": "Read supplied manifest, WSGI routes and public request utility."
++    }
++  ],
++  "working_directory": "/workspace/relayboard-active/F-S04-001",
++  "paths_read": [
++    "METHOD.md",
++    "TASK.md",
++    "README.md",
++    "GLOSSARY.md",
++    "pyproject.toml",
++    "relayboard/service.py",
++    "relayboard/models.py",
++    "relayboard/store.py",
++    "tests/test_public.py",
++    ".experiment/RUN_MANIFEST.json",
++    ".gitignore",
++    "relayboard/web.py",
++    "relayboard/testing.py"
++  ],
++  "evaluator_or_peer_material_accessed": false,
++  "initial_output_gap": "Initial tool outputs were inspected in-session; this file preserves exact commands and factual summaries, not verbatim initial output.",
++  "remaining": "Persist evidence report and commit it; no implementation work remains.",
++  "decisions": [
++    {
++      "class": "FACT",
++      "decision": "AlertRule applies to terminal Run outcomes, not failed Attempts.",
++      "evidence": "GLOSSARY.md: AlertRule, Alert, Run, Attempt"
++    },
++    {
++      "class": "REVERSIBLE_ENGINEERING",
++      "decision": "Remove the retry-branch emission rather than deduplicate per Job or change persistence.",
++      "reason": "The exact reproduction demonstrates emission at both retry and terminal failure; the existing terminal guard prevents repeated recording after completion. Run-level timing fixes premature and duplicate alerts without suppressing separate Runs."
++    },
++    {
++      "class": "REVERSIBLE_ENGINEERING",
++      "decision": "Use public service and WSGI regressions as executable verification; no helper or alternative architecture needed.",
++      "reason": "Deterministic one-line root-cause fix, small inspected blast radius, matching API surface available. Evidence is independently inspectable; no reviewer was used."
++    }
++  ]
++}
+diff --git a/.experiment/baseline-tests.txt b/.experiment/baseline-tests.txt
+new file mode 100644
+index 0000000..151af1a
+--- /dev/null
++++ b/.experiment/baseline-tests.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.003s
++
++OK
+diff --git a/.experiment/diff-check.txt b/.experiment/diff-check.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/final-tests.txt b/.experiment/final-tests.txt
+new file mode 100644
+index 0000000..638d5bb
+--- /dev/null
++++ b/.experiment/final-tests.txt
+@@ -0,0 +1,13 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++test_distinct_failed_runs_keep_their_own_alerts_via_api (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_keep_their_own_alerts_via_api) ... ok
++test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) ... ok
++test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 8 tests in 0.011s
++
++OK
+diff --git a/.experiment/production-diff.txt b/.experiment/production-diff.txt
+new file mode 100644
+index 0000000..035d048
+--- /dev/null
++++ b/.experiment/production-diff.txt
+@@ -0,0 +1,12 @@
++diff --git a/relayboard/service.py b/relayboard/service.py
++index e924be0..7cdb0c4 100644
++--- a/relayboard/service.py
+++++ b/relayboard/service.py
++@@ -42,7 +42,6 @@ class RelayBoardService:
++             return "succeeded"
++ 
++         if attempt.number < job.max_attempts:
++-            self._emit_failure_alert(run_id)
++             return "retry"
++ 
++         self.store.set_run_status(run_id, "failed")
+diff --git a/.experiment/regression-before.txt b/.experiment/regression-before.txt
+new file mode 100644
+index 0000000..3d0b652
+--- /dev/null
++++ b/.experiment/regression-before.txt
+@@ -0,0 +1,207 @@
++test_distinct_failed_runs_keep_their_own_alerts_via_api (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_keep_their_own_alerts_via_api) ... FAIL
++test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) ... 
++  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='manual') ... FAIL
++  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='scheduled') ... FAIL
++  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='manual') ... FAIL
++  test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='scheduled') ... FAIL
++test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) ... 
++  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=2, success_number=2) ... FAIL
++  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=2) ... FAIL
++  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=3) ... FAIL
++  test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=4) ... FAIL
++
++======================================================================
++FAIL: test_distinct_failed_runs_keep_their_own_alerts_via_api (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_keep_their_own_alerts_via_api)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 85, in test_distinct_failed_runs_keep_their_own_alerts_via_api
++    self.assertEqual(payload["alerts"], [])
++AssertionError: Lists differ: [{'id': 1, 'job_id': 'daily-report', 'kind[221 chars]02'}] != []
++
++First list contains 2 additional elements.
++First extra element 0:
++{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}
++
+++ []
++- [{'id': 1,
++-   'job_id': 'daily-report',
++-   'kind': 'run_failed',
++-   'message': 'Job Daily report failed for run run-001',
++-   'run_id': 'run-001'},
++-  {'id': 2,
++-   'job_id': 'daily-report',
++-   'kind': 'run_failed',
++-   'message': 'Job Daily report failed for run run-002',
++-   'run_id': 'run-002'}]
++
++======================================================================
++FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='manual')
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
++
++First list contains 1 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++======================================================================
++FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=2, source='scheduled')
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
++
++First list contains 1 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++======================================================================
++FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='manual')
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
++
++First list contains 1 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++======================================================================
++FAIL: test_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) (budget=4, source='scheduled')
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 27, in test_failure_alert_waits_for_terminal_attempt
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
++
++First list contains 1 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++======================================================================
++FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=2, success_number=2)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
++
++First list contains 1 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++======================================================================
++FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=2)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[64 chars]01')] != []
++
++First list contains 1 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++======================================================================
++FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=3)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[175 chars]01')] != []
++
++First list contains 2 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001'),
++-  Alert(id=2,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++======================================================================
++FAIL: test_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) (budget=4, success_number=4)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/tests/test_retry_alerts.py", line 59, in test_success_after_retries_emits_no_failure_alert
++    self.assertEqual(store.list_alerts(), [])
++AssertionError: Lists differ: [Alert(id=1, run_id='run-001', job_id='job[286 chars]01')] != []
++
++First list contains 3 additional elements.
++First extra element 0:
++Alert(id=1, run_id='run-001', job_id='job', kind='run_failed', message='Job Test job failed for run run-001')
++
+++ []
++- [Alert(id=1,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001'),
++-  Alert(id=2,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001'),
++-  Alert(id=3,
++-        run_id='run-001',
++-        job_id='job',
++-        kind='run_failed',
++-        message='Job Test job failed for run run-001')]
++
++----------------------------------------------------------------------
++Ran 3 tests in 0.021s
++
++FAILED (failures=9)
+diff --git a/.experiment/repro-after.txt b/.experiment/repro-after.txt
+new file mode 100644
+index 0000000..007bbde
+--- /dev/null
++++ b/.experiment/repro-after.txt
+@@ -0,0 +1,44 @@
++{
++  "trace": [
++    {
++      "source": "manual",
++      "run_id": "run-001",
++      "attempt_number": 1,
++      "attempt_result": "retry",
++      "run_status": "running",
++      "alert_run_ids": []
++    },
++    {
++      "source": "manual",
++      "run_id": "run-001",
++      "attempt_number": 2,
++      "attempt_result": "failed",
++      "run_status": "failed",
++      "alert_run_ids": [
++        "run-001"
++      ]
++    },
++    {
++      "source": "scheduled",
++      "run_id": "run-002",
++      "attempt_number": 1,
++      "attempt_result": "retry",
++      "run_status": "running",
++      "alert_run_ids": [
++        "run-001"
++      ]
++    },
++    {
++      "source": "scheduled",
++      "run_id": "run-002",
++      "attempt_number": 2,
++      "attempt_result": "failed",
++      "run_status": "failed",
++      "alert_run_ids": [
++        "run-001",
++        "run-002"
++      ]
++    }
++  ]
++}
++PASS: public API preserves retries and emits one failure alert per distinct failed Run
+diff --git a/.experiment/repro-before.txt b/.experiment/repro-before.txt
+new file mode 100644
+index 0000000..8e97ae7
+--- /dev/null
++++ b/.experiment/repro-before.txt
+@@ -0,0 +1,55 @@
++{
++  "trace": [
++    {
++      "source": "manual",
++      "run_id": "run-001",
++      "attempt_number": 1,
++      "attempt_result": "retry",
++      "run_status": "running",
++      "alert_run_ids": [
++        "run-001"
++      ]
++    },
++    {
++      "source": "manual",
++      "run_id": "run-001",
++      "attempt_number": 2,
++      "attempt_result": "failed",
++      "run_status": "failed",
++      "alert_run_ids": [
++        "run-001",
++        "run-001"
++      ]
++    },
++    {
++      "source": "scheduled",
++      "run_id": "run-002",
++      "attempt_number": 1,
++      "attempt_result": "retry",
++      "run_status": "running",
++      "alert_run_ids": [
++        "run-001",
++        "run-001",
++        "run-002"
++      ]
++    },
++    {
++      "source": "scheduled",
++      "run_id": "run-002",
++      "attempt_number": 2,
++      "attempt_result": "failed",
++      "run_status": "failed",
++      "alert_run_ids": [
++        "run-001",
++        "run-001",
++        "run-002",
++        "run-002"
++      ]
++    }
++  ]
++}
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/F-S04-001/.experiment/repro_retry_alerts.py", line 40, in <module>
++    assert [t["alert_run_ids"] for t in trace] == [
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: Each Run must alert only on terminal failure
+diff --git a/.experiment/repro_retry_alerts.py b/.experiment/repro_retry_alerts.py
+new file mode 100644
+index 0000000..8d7580c
+--- /dev/null
++++ b/.experiment/repro_retry_alerts.py
+@@ -0,0 +1,43 @@
++"""Public WSGI reproduction; run unchanged before and after the fix."""
++
++import json
++
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++
++app = create_seeded_app()
++trace = []
++failed_run_ids = []
++for source in ("manual", "scheduled"):
++    code, payload = request(
++        app, "POST", "/api/jobs/daily-report/runs", {"source": source}
++    )
++    assert code == 201
++    run_id = payload["run"]["id"]
++    failed_run_ids.append(run_id)
++    for number in (1, 2):
++        code, payload = request(
++            app, "POST", f"/api/runs/{run_id}/attempts", {"succeeded": False}
++        )
++        assert code == 200
++        alerts_code, alerts_payload = request(app, "GET", "/api/alerts")
++        assert alerts_code == 200
++        trace.append(
++            {
++                "source": source,
++                "run_id": run_id,
++                "attempt_number": number,
++                "attempt_result": payload["status"],
++                "run_status": payload["run"]["status"],
++                "alert_run_ids": [a["run_id"] for a in alerts_payload["alerts"]],
++            }
++        )
++
++print(json.dumps({"trace": trace}, indent=2), flush=True)
++assert [t["attempt_result"] for t in trace] == ["retry", "failed", "retry", "failed"]
++assert [t["run_status"] for t in trace] == ["running", "failed", "running", "failed"]
++assert [t["alert_run_ids"] for t in trace] == [
++    [], [failed_run_ids[0]], [failed_run_ids[0]], failed_run_ids
++], "Each Run must alert only on terminal failure"
++print("PASS: public API preserves retries and emits one failure alert per distinct failed Run")
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..7cdb0c4 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -42,7 +42,6 @@ class RelayBoardService:
+             return "succeeded"
+ 
+         if attempt.number < job.max_attempts:
+-            self._emit_failure_alert(run_id)
+             return "retry"
+ 
+         self.store.set_run_status(run_id, "failed")
+diff --git a/tests/test_retry_alerts.py b/tests/test_retry_alerts.py
+new file mode 100644
+index 0000000..55649d7
+--- /dev/null
++++ b/tests/test_retry_alerts.py
+@@ -0,0 +1,103 @@
++import unittest
++
++from relayboard.service import RelayBoardService, RunAlreadyTerminal
++from relayboard.store import Store
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++
++class RetryAlertTests(unittest.TestCase):
++    def test_failure_alert_waits_for_terminal_attempt(self) -> None:
++        for budget in (1, 2, 4):
++            for source in ("manual", "scheduled"):
++                with self.subTest(budget=budget, source=source):
++                    store = Store()
++                    store.add_job("job", "Test job", max_attempts=budget)
++                    service = RelayBoardService(store)
++                    if source == "manual":
++                        run = service.begin_manual_run("job")
++                    else:
++                        run = service.begin_scheduled_run("job")
++
++                    for number in range(1, budget + 1):
++                        result = service.record_attempt(run.id, succeeded=False)
++                        if number < budget:
++                            self.assertEqual(result, "retry")
++                            self.assertEqual(store.get_run(run.id).status, "running")
++                            self.assertEqual(store.list_alerts(), [])
++                        else:
++                            self.assertEqual(result, "failed")
++                            self.assertEqual(store.get_run(run.id).status, "failed")
++                            alerts = store.list_alerts()
++                            self.assertEqual(len(alerts), 1)
++                            self.assertEqual(alerts[0].run_id, run.id)
++                            self.assertEqual(alerts[0].job_id, "job")
++                            self.assertEqual(alerts[0].kind, "run_failed")
++
++                    attempts = store.list_attempts(run.id)
++                    self.assertEqual([a.number for a in attempts], list(range(1, budget + 1)))
++                    self.assertTrue(all(not a.succeeded for a in attempts))
++                    with self.assertRaises(RunAlreadyTerminal):
++                        service.record_attempt(run.id, succeeded=False)
++                    self.assertEqual(len(store.list_attempts(run.id)), budget)
++                    self.assertEqual(len(store.list_alerts()), 1)
++
++    def test_success_after_retries_emits_no_failure_alert(self) -> None:
++        for budget in (2, 4):
++            for success_number in range(1, budget + 1):
++                with self.subTest(budget=budget, success_number=success_number):
++                    store = Store()
++                    store.add_job("job", "Test job", max_attempts=budget)
++                    service = RelayBoardService(store)
++                    run = service.begin_manual_run("job")
++
++                    for _ in range(success_number - 1):
++                        self.assertEqual(service.record_attempt(run.id, succeeded=False), "retry")
++                    self.assertEqual(service.record_attempt(run.id, succeeded=True), "succeeded")
++                    self.assertEqual(store.get_run(run.id).status, "succeeded")
++                    self.assertEqual(len(store.list_attempts(run.id)), success_number)
++                    self.assertEqual(store.list_alerts(), [])
++
++    def test_distinct_failed_runs_keep_their_own_alerts_via_api(self) -> None:
++        app = create_seeded_app()
++        failed_run_ids = []
++        # Same job and different jobs, including interleaved retries, must alert independently.
++        for job_id, source in (
++            ("daily-report", "manual"),
++            ("daily-report", "scheduled"),
++            ("cleanup", "manual"),
++        ):
++            code, payload = request(
++                app, "POST", f"/api/jobs/{job_id}/runs", {"source": source}
++            )
++            self.assertEqual(code, 201)
++            failed_run_ids.append(payload["run"]["id"])
++
++        for run_id in failed_run_ids[:2]:
++            code, payload = request(
++                app, "POST", f"/api/runs/{run_id}/attempts", {"succeeded": False}
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["status"], "retry")
++            self.assertEqual(payload["run"]["status"], "running")
++        code, payload = request(app, "GET", "/api/alerts")
++        self.assertEqual(code, 200)
++        self.assertEqual(payload["alerts"], [])
++
++        for completed_count, run_id in enumerate(failed_run_ids, start=1):
++            code, payload = request(
++                app, "POST", f"/api/runs/{run_id}/attempts", {"succeeded": False}
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["status"], "failed")
++            self.assertEqual(payload["run"]["status"], "failed")
++            code, payload = request(app, "GET", "/api/alerts")
++            self.assertEqual(code, 200)
++            self.assertEqual(
++                [a["run_id"] for a in payload["alerts"]],
++                failed_run_ids[:completed_count],
++            )
++
++
++if __name__ == "__main__":
++    unittest.main()
