@@ -1,0 +1,11 @@
+{
+  "label": "scope-check",
+  "cmd": "python - <<'PY'\nimport json\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\napp = create_seeded_app()\ncode, dashboard = request(app, 'GET', '/dashboard')\nassert code == 200\nbefore = Path('.experiment/baseline-dashboard.html').read_text()\nassert before.count('<th>Last result</th>') == 1\nassert dashboard == before.replace('<th>Last result</th>', '<th>Latest result</th>')\ncode, jobs = request(app, 'GET', '/api/jobs')\nassert code == 200\nassert json.dumps(jobs, sort_keys=True) == Path('.experiment/baseline-jobs.json').read_text()\nprint('PASS: dashboard response differs only by requested heading; GET /api/jobs output unchanged.')\nPY",
+  "result": {
+    "chunk_id": "4c66cf",
+    "wall_time_seconds": 0.000027681,
+    "exit_code": 0,
+    "original_token_count": 23,
+    "output": "PASS: dashboard response differs only by requested heading; GET /api/jobs output unchanged.\n"
+  }
+}

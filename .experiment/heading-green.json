@@ -1,0 +1,11 @@
+{
+  "label": "heading-green",
+  "cmd": "PYTHONPATH=. python .experiment/verify_heading.py",
+  "result": {
+    "chunk_id": "d1274d",
+    "wall_time_seconds": 0.019892349,
+    "exit_code": 0,
+    "original_token_count": 25,
+    "output": "Observed Jobs headings: ['Job', 'Enabled', 'Latest result']\nPASS: Jobs table shows Latest result\n"
+  }
+}

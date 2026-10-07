@@ -1,0 +1,11 @@
+{
+  "label": "baseline-public",
+  "cmd": "python -m unittest discover -s tests -v",
+  "result": {
+    "chunk_id": "3411dd",
+    "wall_time_seconds": 0.308677279,
+    "exit_code": 0,
+    "original_token_count": 178,
+    "output": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.005s\n\nOK\n"
+  }
+}

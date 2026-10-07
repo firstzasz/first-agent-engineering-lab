@@ -1,0 +1,12 @@
+{
+  "cmd": "python - <<'PY'\nimport json\nfrom pathlib import Path\nreport = json.loads(Path('REPORT.json').read_text())\nassert report['status'] == 'completed'\nassert report['evaluator_or_peer_material_accessed'] is False\nprint('PASS: REPORT.json parses and records completed status without forbidden access.')\nPY\n git diff --check",
+  "result": {
+    "chunk_id": "945849",
+    "wall_time_seconds": 0.00002688,
+    "exit_code": 0,
+    "original_token_count": 20,
+    "output": "PASS: REPORT.json parses and records completed status without forbidden access.\n"
+  },
+  "final_commit_command": "git add .experiment REPORT.json; git commit -m 'Preserve M-S01-001 method and public verification evidence'; git status --short; git rev-parse HEAD",
+  "commit_output_location": "Final parent response and immutable local Git commit metadata; not self-embedded in its own commit."
+}
