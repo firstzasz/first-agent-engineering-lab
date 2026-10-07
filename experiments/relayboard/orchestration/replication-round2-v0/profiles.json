@@ -455,6 +455,60 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": ""
+    },
+    {
+      "run_id": "M-S01-002",
+      "treatment": "matt-codex-port-v0",
+      "scenario": "S01-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "helper_context_count": 2,
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 48,
+        "new_process_artifact_file_count": 18,
+        "all_diff_stat": " .experiment/ACTION_PATHS.json      |  80 +++++++++++++\n .experiment/DECISIONS.json         |  46 +++++++\n .experiment/REPORT.json            | 205 ++++++++++++++++++++++++++++++++\n .experiment/application-diff.txt   |  13 ++\n .experiment/baseline.txt           |  10 ++\n .experiment/check_dashboard.py     |   8 ++\n .experiment/checks.json            |  81 +++++++++++++\n .experiment/diff-check.txt         |   0\n .experiment/heading-green.txt      |   1 +\n .experiment/heading-red.txt        |   5 +\n .experiment/public-full.txt        |  10 ++\n .experiment/review-candidate.txt   |   1 +\n .experiment/review-commands.json   |  39 ++++++\n .experiment/review-commits.txt     |   1 +\n .experiment/review-diff.txt        | 238 +++++++++++++++++++++++++++++++++++++\n .experiment/review-fixed-point.txt |   1 +\n .experiment/spec-review.txt        |  12 ++\n .experiment/standards-review.txt   |  11 ++\n relayboard/web.py                  |   2 +-\n 19 files changed, 763 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/web.py",
+            "added": 1,
+            "removed": 1
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T13:50:17.887807+00:00",
+        "frozen_at": "2026-10-07T13:57:01.254500+00:00",
+        "wall_clock_seconds": 403.367,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }
