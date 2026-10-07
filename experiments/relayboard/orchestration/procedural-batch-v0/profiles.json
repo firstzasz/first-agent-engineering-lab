@@ -542,6 +542,63 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": "Same-arm source filename discovery self-flagged; original preserved and allowlist ruling established no forbidden exposure; same incomplete reviewer resumed."
+    },
+    {
+      "run_id": "M-S04-001",
+      "treatment": "matt-codex-port-v0",
+      "scenario": "S04-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 59,
+        "all_diff_stat": " .experiment/ACTION_LOG.json                 | 355 ++++++++++++++++++++++++++++\n .experiment/DECISIONS.md                    |  38 +++\n .experiment/REPORT.json                     | 353 +++++++++++++++++++++++++++\n .experiment/baseline.txt                    |  10 +\n .experiment/boundary-probe.txt              |   2 +\n .experiment/candidate-diff.txt.gz           | Bin 0 -> 989 bytes\n .experiment/checks.jsonl                    |  19 ++\n .experiment/diff-check.txt                  |   0\n .experiment/evidence-diff-check-second.json |   3 +\n .experiment/evidence-diff-check.txt.gz      | Bin 0 -> 94 bytes\n .experiment/evidence-final-check.txt        |   0\n .experiment/focused.txt                     |  13 +\n .experiment/full-suite.txt                  |  13 +\n .experiment/helper-requests.json            |  65 +++++\n .experiment/implementation-commits.txt      |   1 +\n .experiment/instrumentation-clean.txt       |   0\n .experiment/minimal-red.txt                 |   8 +\n .experiment/no-retry-control.txt            |   2 +\n .experiment/original-green.txt              |   3 +\n .experiment/original-red.txt                |   8 +\n .experiment/probe.py                        |  18 ++\n .experiment/regression-green.txt            |   6 +\n .experiment/regression-red.txt              |  25 ++\n .experiment/remove-second-attempt.txt       |   2 +\n .experiment/repeat-red.txt                  |   8 +\n .experiment/repro.py                        |  31 +++\n .experiment/review-spec.md                  |  15 ++\n .experiment/review-standards.md             |  21 ++\n .experiment/run_check.py                    |  19 ++\n relayboard/service.py                       |   1 -\n tests/test_public.py                        |  74 ++++++\n 31 files changed, 1112 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_public.py",
+            "added": 74,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T09:46:44.776669+00:00",
+        "frozen_at": "2026-10-07T09:56:00.336182+00:00",
+        "wall_clock_seconds": 555.56,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }

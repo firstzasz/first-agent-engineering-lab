@@ -1,13 +1,13 @@
 # Procedural remaining batch v0
 
-Status: RUNNING. 7/11 dispositions preserved: 6 public/evaluator PASS, 0 FAIL, 1 excluded. N-S01-001 remains independently verified, untouched and outside this batch.
+Status: RUNNING. 8/11 dispositions preserved: 7 public/evaluator PASS, 0 FAIL, 1 excluded. N-S01-001 remains independently verified, untouched and outside this batch.
 
 | Treatment | S01 | S02 | S04 |
 | --- | --- | --- | --- |
 | Neutral | [Prior verified run](../../runs/neutral/N-S01-001.json) | [PASS](./results/N-S02-001/run.json) | [PASS](./results/N-S04-001/run.json) |
 | pstack-codex-port-v0 | [PASS](./results/P-S01-001/run.json) | [PASS](./results/P-S02-001/run.json) | [CONTAMINATED](./results/P-S04-001/run.json) |
-| matt-codex-port-v0 | [PASS](./results/M-S01-001/run.json) | [PASS](./results/M-S02-001/run.json) | [RUNNING](./results/M-S04-001/run.json) |
-| FIRST-mode v0 | [READY_PROCEDURAL](./results/F-S01-001/run.json) | [READY_PROCEDURAL](./results/F-S02-001/run.json) | [READY_PROCEDURAL](./results/F-S04-001/run.json) |
+| matt-codex-port-v0 | [PASS](./results/M-S01-001/run.json) | [PASS](./results/M-S02-001/run.json) | [PASS](./results/M-S04-001/run.json) |
+| FIRST-mode v0 | [RUNNING](./results/F-S01-001/run.json) | [READY_PROCEDURAL](./results/F-S02-001/run.json) | [READY_PROCEDURAL](./results/F-S04-001/run.json) |
 
 This control plane supersedes the historical hard-access gate without modifying Frozen Evaluator Protocol v0. That prior gate exceeded the frozen public-repository protocol. Synthetic clean and deliberate-contamination controls passed; all synthetic material was removed before real delivery. See evidence/procedural-pilot.json and the correction record.
 
