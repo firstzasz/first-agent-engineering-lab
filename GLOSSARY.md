@@ -6,7 +6,7 @@ Date frozen: 2026-10-06
 
 This glossary defines the base domain shared by S01, S02, and S04.
 
-It intentionally does **not** define the semantics of pausing a Job. Those semantics are the ambiguity under test in S02.
+Pause semantics below were resolved for this feature with the operator.
 
 ## Job
 
@@ -83,6 +83,9 @@ A Run explicitly requested by an operator/API call rather than started by the sc
 
 ## Pause
 
-Not defined in the base glossary.
+A temporary Job state that skips new scheduled Runs without queuing them, while manual Runs and in-progress Runs continue.
+_Avoid_: Disable, cancel
 
-S02 intentionally asks the treatment to introduce pause behavior while several product semantics remain unresolved.
+## Resume
+
+Ending a Job's Pause for future schedule activity, without catching up skipped work.

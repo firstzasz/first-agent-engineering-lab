@@ -1,0 +1,10 @@
+test_dashboard_and_job_listing_show_pause_without_losing_last_result (test_pause.PauseJobTests.test_dashboard_and_job_listing_show_pause_without_losing_last_result) ... ok
+test_pause_preserves_active_run_retries_alerts_and_manual_runs (test_pause.PauseJobTests.test_pause_preserves_active_run_retries_alerts_and_manual_runs) ... ok
+test_pause_skips_scheduled_starts_without_creating_runs (test_pause.PauseJobTests.test_pause_skips_scheduled_starts_without_creating_runs) ... ok
+test_resume_allows_only_future_scheduled_starts_and_preserves_enabled (test_pause.PauseJobTests.test_resume_allows_only_future_scheduled_starts_and_preserves_enabled) ... ok
+test_unknown_jobs_follow_not_found_convention_without_changing_jobs (test_pause.PauseJobTests.test_unknown_jobs_follow_not_found_convention_without_changing_jobs) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.006s
+
+OK

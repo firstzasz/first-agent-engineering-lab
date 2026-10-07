@@ -1,0 +1,17 @@
+Frozen treatment: matt-codex-port-v0. Upstream mattpocock/skills revision 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d. Assigned bundled sources only.
+
+Route started: read TASK, glossary, public code and tests; invoked grill-with-docs by opening it plus composed grilling and domain-modeling. Product frontier sent to operator; no implementation before answers/shared understanding.
+
+Host adaptations: Codex explicit file invocation; local .scratch/work tracker; existing public SQLite/WSGI seams have standing authorization; fresh reviews sequential with normalized requested gpt-6.1-sol high; no native model diversity or throughput claim. Local commit/publication replaces external tracker and shipping.
+
+Requested lead identity gpt-6.1-sol high per parent and METHOD; observed identity and usage not exposed, unknown. Available interfaces: functions exec + nested exec_command/apply_patch and collaboration message/spawn/wait. Work cwd /workspace/relayboard-active/M-S02-001. Cloud runtime skill read as managed environment instruction; status/credentials/network inspection skipped because run boundary permits only assigned area and no credentials/network needed. No cloud skill operations.
+
+Invoked to-spec, implement, tdd (plus tests.md and mocking.md) by reading exact assigned source. Shared understanding confirmed. WSGI/real SQLite seams use standing authorization under METHOD rather than native seam approval. One small feature implemented by lead, no graph/tickets/to-tickets needed; tests are vertical increments within a single delivery unit. No typechecker invented. No ADR: representation is reversible. No bug report, diagnosing-bugs inapplicable; existing alert behavior intentionally preserved.
+
+Implementation completed through six single-test increments: cycles 01 pause/scheduled skip, 02 resume/idempotence/disabled preservation, 03 dashboard visibility, 06 persistence/schema compatibility each red then green. Increments 04 active/manual/retry/alerts and 05 unknown Jobs already green: preservation checks require no behavior change, so no manufactured red. Existing two retry-failure alerts remain unchanged even though glossary describes terminal alerts; not a bug-fix task. Migration compatibility seam is public WSGI over legacy SQLite fixture setup, not private SQL assertions.
+
+Full public suite before review: 11 tests pass. git diff --check passes. Invoked bundled code-review on fixed parent-supplied starting commit 1c8287bdf072be0b0a4248cded22951b95568928. Review standards sources: README standard-library/small-system constraints, fixture code conventions; no explicit coding standards file in supplied file inventory. The upstream Fowler smell baseline applies as heuristics. Two fresh read-only helpers will be run serially under binding, distinct Standards and Spec axes.
+
+Review completed: Standards 0 hard breaches, 2 low-severity duplication heuristics; Spec 0 findings. Both Standards suggestions accepted as small review-stage refactors; literal enabled test expectations improved. Full public suite after refactors 11/11 pass; diff check clean. No additional helper review of final refactors claimed. All helpers finished before completion.
+
+Spec helper initially self-flagged assigned packet filename discovery and stopped. Lead paused/reported/preserved; operator classified same-arm filename discovery allowlisted, no forbidden exposure established, and authorized same-helper continuation. Original report plus ruling/addendum preserved. This was an incomplete review continuation, not a hidden-feedback retry.
