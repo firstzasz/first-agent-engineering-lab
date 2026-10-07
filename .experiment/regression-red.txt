@@ -1,0 +1,21 @@
+test_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run) ... FAIL
+
+======================================================================
+FAIL: test_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/M-S04-002/tests/test_public.py", line 66, in test_retry_failure_emits_one_alert_for_each_distinct_run
+    self.assertEqual(
+AssertionError: Lists differ: ['run-001'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'run-001'
+
+- ['run-001']
++ []
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

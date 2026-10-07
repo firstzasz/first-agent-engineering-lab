@@ -1,0 +1,26 @@
+[
+  {
+    "axis": "Standards",
+    "task_name": "/root/contestant_m_s04_002/standards_review",
+    "fork_turns": "none",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "high",
+    "observed_runtime_identity": "unavailable",
+    "status": "completed; scoped list_agents confirmed before Spec spawn",
+    "access": "read-only assigned area; no forbidden material reported",
+    "findings": 0,
+    "report_path": ".experiment/review-standards.md"
+  },
+  {
+    "axis": "Spec",
+    "task_name": "/root/contestant_m_s04_002/spec_review",
+    "fork_turns": "none",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "high",
+    "observed_runtime_identity": "unavailable",
+    "status": "completed; scoped list_agents confirms both helpers completed",
+    "access": "read-only assigned area; no forbidden material reported",
+    "findings": 0,
+    "report_path": ".experiment/review-spec.md"
+  }
+]

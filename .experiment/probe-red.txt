@@ -1,0 +1,2 @@
+{'boundary': 'record_attempt return', 'return': 'retry', 'run_status': 'running', 'attempt_numbers': [1], 'alert_count': 1}
+{'boundary': 'record_attempt return', 'return': 'failed', 'run_status': 'failed', 'attempt_numbers': [1, 2], 'alert_count': 2}

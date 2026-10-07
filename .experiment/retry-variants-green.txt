@@ -1,0 +1,4 @@
+{'run': 'run-001', 'job': 'daily-report', 'states': ['retry', 'succeeded'], 'terminal': 'succeeded', 'alert_count': 0}
+{'run': 'run-002', 'job': 'three-tries', 'states': ['retry', 'retry', 'failed'], 'terminal': 'failed', 'alert_count': 1}
+{'run': 'run-003', 'job': 'three-tries', 'states': ['retry', 'retry', 'failed'], 'terminal': 'failed', 'alert_count': 2}
+retry variants passed

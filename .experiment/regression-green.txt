@@ -1,0 +1,6 @@
+test_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.019s
+
+OK
