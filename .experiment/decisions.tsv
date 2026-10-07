@@ -1,0 +1,11 @@
+ts	phase	decision	why	evidence	result
+2026-10-07T06:55:36.336930+00:00	start	Use only assigned task workspace and frozen pstack Codex port	Parent assignment sets experiment boundary	METHOD.md	No outside material accessed
+2026-10-07T06:55:36.336951+00:00	route	Choose Feature with lead-owned mechanical edit and fresh review	One HTML literal changes; frozen method permits this exception	.experiment/PLAN.md	No architecture or product decisions needed
+2026-10-07T06:55:36.336956+00:00	baseline	Check requested heading before changing source	Observe the actual public WSGI output	.experiment/baseline-dashboard.txt	Expected failure; Last result present
+2026-10-07T06:55:36.336959+00:00	baseline	Run all public tests before source edit	Establish the public baseline	.experiment/baseline-suite.txt	5 tests passed
+2026-10-07T06:55:53.904113+00:00	implementation	Change only the Jobs heading literal to Latest result	Smallest code change satisfies exact requested copy	.experiment/lead-diff.txt	One production line changed
+2026-10-07T06:55:53.904128+00:00	verification	Compare WSGI dashboard and API responses with captured baseline	Check actual behavior and prove unrelated markup stayed identical	.experiment/after-dashboard.txt	Passed
+2026-10-07T06:55:53.904131+00:00	verification	Run full public suite and check diff whitespace	Verify public regressions and clean the scoped diff	.experiment/after-suite.txt, .experiment/diff-check.txt	5 tests passed; diff check passed
+2026-10-07T06:58:39.818375+00:00	review	Accept fresh helper PASS and correct stale pending plan status	Reviewer reran actual WSGI output and five public tests; remaining flags concern evidence limits	.experiment/reviewer-report.md	No code issues; audit and identity limits recorded
+2026-10-07T06:59:28.424054+00:00	delivery	Commit the verified one-line source change on the assigned local branch	Frozen port hands local commits to orchestrator without remote operations	.experiment/code-commit.txt, .experiment/code-commit-id.txt	89f11c9b5b1725dd3126606fffcb846cf60c61b9
+2026-10-07T06:59:28.424070+00:00	audit	Freeze captured evidence with explicit attestation limits	No exported raw transcript exists and exact runtime identity is unavailable	.experiment/reviewer-report.md, .experiment/commands.jsonl	Review complete; no open product decisions

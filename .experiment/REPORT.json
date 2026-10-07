@@ -1,0 +1,320 @@
+{
+  "task_id": "P-S01-001",
+  "declared_status": "completed_public_checks_passed",
+  "task": "Change dashboard Jobs heading from Last result to Latest result only",
+  "workspace": "/workspace/relayboard-active/P-S01-001",
+  "branch": "candidate/P-S01-001",
+  "initial_local_commit": "b8130bbeaaeb90e170028d6899c0373ef88cc4f2",
+  "local_commits": [
+    {
+      "sha": "89f11c9b5b1725dd3126606fffcb846cf60c61b9",
+      "purpose": "Verified source change"
+    },
+    {
+      "sha": "resolve with git rev-parse HEAD after evidence commit",
+      "purpose": "Evidence containing this report; literal self hash cannot be embedded in its own commit"
+    }
+  ],
+  "method": {
+    "label": "pstack-codex-port-v0",
+    "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
+    "native_cursor": false,
+    "routes_and_skips": ".experiment/PLAN.md",
+    "source_hashes": ".experiment/source-bundle-hashes.txt",
+    "upstream_modified": false,
+    "mechanical_exception": "METHOD.md step 5; direct one-file edit plus separate fresh review"
+  },
+  "change": {
+    "path": "relayboard/web.py",
+    "line": 153,
+    "old": "Last result",
+    "new": "Latest result",
+    "production_diff": ".experiment/lead-diff.txt",
+    "data_shape": "Existing HTML table/string heading; no stateful logic or API changes"
+  },
+  "public_commands": [
+    {
+      "ts": "2026-10-07T06:55:07.156655+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "env",
+        "PYTHONPATH=.",
+        "python",
+        ".experiment/check_dashboard.py",
+        "before"
+      ],
+      "exit_code": 1,
+      "output": ".experiment/baseline-dashboard.txt"
+    },
+    {
+      "ts": "2026-10-07T06:55:07.655416+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/baseline-suite.txt"
+    },
+    {
+      "ts": "2026-10-07T06:55:38.188923+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "env",
+        "PYTHONPATH=.",
+        "python",
+        ".experiment/check_dashboard.py",
+        "after"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/after-dashboard.txt"
+    },
+    {
+      "ts": "2026-10-07T06:55:38.681497+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/after-suite.txt"
+    },
+    {
+      "ts": "2026-10-07T06:55:39.084232+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "diff",
+        "--",
+        "relayboard/web.py"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/lead-diff.txt"
+    },
+    {
+      "ts": "2026-10-07T06:55:39.139378+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/diff-check.txt"
+    },
+    {
+      "ts": "2026-10-07T06:57:04.307297+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "env",
+        "PYTHONPATH=.",
+        "python",
+        "-c",
+        "import csv, json, subprocess\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\nroot = Path.cwd().resolve()\ne = root / \".experiment\"\napp = create_seeded_app()\ncode, body = request(app, \"GET\", \"/dashboard\")\nassert code == 200\nassert body.count(\"<th>Latest result</th>\") == 1\nassert \"<th>Last result</th>\" not in body\nassert body == (e / \"dashboard_after.html\").read_text()\nassert body == (e / \"dashboard_before.html\").read_text().replace(\"<th>Last result</th>\", \"<th>Latest result</th>\")\njobs_code, jobs = request(app, \"GET\", \"/api/jobs\")\nalerts_code, alerts = request(app, \"GET\", \"/api/alerts\")\napi = {\"jobs_status\": jobs_code, \"jobs\": jobs, \"alerts_status\": alerts_code, \"alerts\": alerts}\nassert api == json.loads((e / \"api_before.json\").read_text())\nassert api == json.loads((e / \"api_after.json\").read_text())\nassert subprocess.check_output([\"git\", \"diff\", \"--\", \"relayboard/web.py\"], text=True) == (e / \"lead-diff.txt\").read_text()\nwith (e / \"decisions.tsv\").open() as stream:\n    rows = list(csv.DictReader(stream, delimiter=\"\\t\"))\nassert len(rows) == 7\nfor row in rows:\n    for pointer in row[\"evidence\"].split(\", \"):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nrecords = [json.loads(line) for line in (e / \"commands.jsonl\").read_text().splitlines()]\nfor record in records:\n    assert record[\"cwd\"] == str(root)\n    path = (root / record[\"output\"]).resolve()\n    assert path.is_relative_to(root) and path.is_file()\nassert records[0][\"exit_code\"] == 1\nassert all(record[\"exit_code\"] == 0 for record in records[1:])\nfor action in json.loads((e / \"action-path-log.json\").read_text()):\n    for pointer in action.get(\"paths\", []):\n        path = (root / pointer).resolve()\n        assert path.is_relative_to(root) and path.is_file(), pointer\nprint(\"PASS: live WSGI heading, exact before/after markup, captured GET jobs/alerts equality, actual diff equality, seven TSV evidence rows, command output pointers, action-log path pointers.\")\nprint(\"Audit limit: captured command/checkpoint evidence only; no exported raw transcript.\")\n"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/reviewer-surface-evidence.txt"
+    },
+    {
+      "ts": "2026-10-07T06:57:04.793864+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/reviewer-public-suite.txt"
+    },
+    {
+      "ts": "2026-10-07T06:57:05.202504+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/reviewer-diff-check.txt"
+    },
+    {
+      "ts": "2026-10-07T06:57:14.088998+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "python",
+        "-c",
+        "from pathlib import Path; import hashlib; print('\\n'.join(str(p) + ' ' + hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path('upstream/pstack').rglob('*')) if p.is_file()))"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/source-bundle-hashes.txt"
+    },
+    {
+      "ts": "2026-10-07T06:57:19.361994+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/precommit-status.txt"
+    },
+    {
+      "ts": "2026-10-07T06:57:19.427521+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "diff",
+        "--",
+        "upstream/pstack"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/upstream-diff.txt"
+    },
+    {
+      "ts": "2026-10-07T06:58:39.882741+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "add",
+        "relayboard/web.py"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/code-stage.txt"
+    },
+    {
+      "ts": "2026-10-07T06:58:39.934548+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "Change Jobs heading to Latest result"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/code-commit.txt"
+    },
+    {
+      "ts": "2026-10-07T06:58:39.988978+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/code-commit-id.txt"
+    },
+    {
+      "ts": "2026-10-07T06:59:28.532293+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/final-diff-check.txt"
+    },
+    {
+      "ts": "2026-10-07T06:59:28.591865+00:00",
+      "cwd": "/workspace/relayboard-active/P-S01-001",
+      "argv": [
+        "git",
+        "show",
+        "--stat",
+        "--oneline",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": ".experiment/final-code-scope.txt"
+    }
+  ],
+  "public_results": {
+    "baseline_surface": "Expected failing requested-heading assertion, exit 1; response status 200 and old heading present",
+    "after_surface": "Pass; exact baseline HTML with only heading replacement; sampled GET jobs and alerts payloads unchanged",
+    "full_public_suite": "5 tests passed before and after; reviewer rerun passed 5 tests",
+    "diff_check": "Pass",
+    "browser_visual_check": "Not performed; matching public WSGI surface is directly checked"
+  },
+  "helpers": [
+    {
+      "agent": "/root/contestant_p_s01_001/fresh_review",
+      "role": "Fresh scoped code and evidence review",
+      "fork_turns": "none",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning": "high",
+      "observed_identity": "unknown",
+      "serial": true,
+      "descendants": false,
+      "status": "completed",
+      "assignment": ".experiment/reviewer-assignment.txt",
+      "report": ".experiment/reviewer-report.md",
+      "verdict": "PASS"
+    }
+  ],
+  "operator_interactions": [],
+  "operator_questions": "None; exact product copy and standing local authorization were sufficient",
+  "action_path_log": ".experiment/action-path-log.json",
+  "command_log": ".experiment/commands.jsonl",
+  "decision_log": ".experiment/decisions.tsv",
+  "throughput": {
+    "blocking_first_steps": "Task/method/leaf reads and WSGI baseline",
+    "independent_workstreams": "n/a; one literal",
+    "shared_mutable_state": "n/a; lead edit then read-only fresh review",
+    "smallest_safe_decomposition": "One lead edit/check unit and one fresh serial reviewer"
+  },
+  "attention": {
+    "reviewer_requested_identity": "GPT-6.1 Sol High",
+    "flags": [
+      "No raw transcript export; audit covers captured commands and checkpoints only",
+      "Runtime model identity and usage attestation unknown"
+    ],
+    "resolved_flags": [
+      "Pending plan status updated",
+      "Local code commit completed; evidence commit is final local handoff"
+    ]
+  },
+  "open_decisions": [],
+  "access_declaration": {
+    "evaluator_material_accessed": false,
+    "peer_or_control_material_accessed": false,
+    "hidden_reference_solution_accessed": false,
+    "outside_assigned_workspace_inspected": false,
+    "public_lab_material_fetched": false,
+    "network_or_remote_operation": false,
+    "fresh_assigned_helper_report_accessed": true,
+    "complete_access_attestation": "unknown; declaration based on visible run, not independent full transcript attestation"
+  },
+  "identity_and_usage": {
+    "lead_requested_model": "GPT-6.1 Sol",
+    "lead_requested_reasoning": "High",
+    "lead_observed_identity": "unknown",
+    "helper_observed_identity": "unknown",
+    "token_counts": "unknown",
+    "cost": "unknown",
+    "provider_usage": "unknown",
+    "model_diversity": "No native multi-model claim"
+  },
+  "evidence_limits": "Read commands preceding creation of command logger are summarized in action-path-log.json. Exact captured subsequent command argv and outputs are in commands.jsonl. No full raw transcript was exported. Hidden evaluation is outside this run and unknown.",
+  "final_evidence_commit_command": [
+    "git",
+    "commit",
+    "-m",
+    "Record frozen port verification evidence"
+  ]
+}

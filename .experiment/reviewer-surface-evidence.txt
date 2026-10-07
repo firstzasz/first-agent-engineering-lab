@@ -1,0 +1,2 @@
+PASS: live WSGI heading, exact before/after markup, captured GET jobs/alerts equality, actual diff equality, seven TSV evidence rows, command output pointers, action-log path pointers.
+Audit limit: captured command/checkpoint evidence only; no exported raw transcript.
