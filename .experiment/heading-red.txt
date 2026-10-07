@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/M-S01-002/.experiment/check_dashboard.py", line 6, in <module>
+    assert "<th>Latest result</th>" in body, body
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: <!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
