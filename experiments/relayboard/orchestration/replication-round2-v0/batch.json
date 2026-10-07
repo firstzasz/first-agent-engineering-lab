@@ -27,7 +27,7 @@
     "N-S01-002"
   ],
   "order_change_after_outcomes_allowed": false,
-  "completed_count": 6,
+  "completed_count": 7,
   "runs": [
     {
       "run_id": "F-S04-002",
@@ -120,11 +120,12 @@
       "treatment": "pstack-codex-port-v0",
       "branch": "treatment/pstack/P-S04-002",
       "operator_interactions": [],
-      "status": "READY_PROCEDURAL",
+      "status": "COMPLETED_EVALUATED_PASS",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
       "prepared_sha": "344d562895e1c3372117edaa438d364390938aa6",
       "prepared_tree_sha": "9904c860cac740c1ae1c272b85ab5324ed9959b7",
-      "result_path": "results/P-S04-002/run.json"
+      "result_path": "results/P-S04-002/run.json",
+      "candidate_sha": "2602d66e39f84e64f41f26721ef89dfb9815cfba"
     },
     {
       "run_id": "P-S02-002",

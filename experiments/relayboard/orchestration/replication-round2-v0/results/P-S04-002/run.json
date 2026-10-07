@@ -1,0 +1,587 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "independent_replication_not_retry": true,
+  "run_id": "P-S04-002",
+  "scenario": "S04-v0",
+  "treatment": "pstack-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_p_s04_002"
+  },
+  "start": {
+    "run_id": "P-S04-002",
+    "workspace": "/workspace/relayboard-round2-active/P-S04-002",
+    "local_start_sha": "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24",
+    "local_start_tree": "9904c860cac740c1ae1c272b85ab5324ed9959b7",
+    "remote_prepared_sha": "344d562895e1c3372117edaa438d364390938aa6",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "pstack-codex-port-v0",
+    "prepared_at": "2026-10-07T13:57:17.839092+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca",
+      "upstream/pstack/skills/poteto-mode/SKILL.md": "de51c56164ff3da8f958437e207d14cec7d7fe99",
+      "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md": "eeebc42b7477d435d8ac61d631d84822f908f59c",
+      "upstream/pstack/skills/poteto-mode/playbooks/feature.md": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6",
+      "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md": "12c3a7d84effcacf3550cb893be67498d7b28a4a",
+      "upstream/pstack/skills/tdd/SKILL.md": "ca6f24c963001d9d518db2936dfe3d12f29b4e94",
+      "upstream/pstack/skills/how/SKILL.md": "139cac5e4dce5d5889daaf77faa8d5f81dd87318",
+      "upstream/pstack/skills/architect/SKILL.md": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9",
+      "upstream/pstack/skills/principle-laziness-protocol/SKILL.md": "e5bc77e62aa96ae13e482a84df61b3c711c5d828",
+      "upstream/pstack/skills/principle-model-the-domain/SKILL.md": "e1d664a19243c90a84e5e7a816e9e05146c88720",
+      "upstream/pstack/skills/principle-prove-it-works/SKILL.md": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125",
+      "upstream/pstack/skills/principle-fix-root-causes/SKILL.md": "7e5a419aeec97b4076fa517865013677428a9fa3",
+      "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab",
+      "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9",
+      "upstream/pstack/LICENSE": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+      "upstream/pstack/skills/show-me-your-work/SKILL.md": "d350a150c36ca16382b4aa6d4196b39e67454ad1",
+      "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md": "986371260ebccd9a5a6818c9561e88c1d270d0ee",
+      "upstream/pstack/skills/arena/SKILL.md": "bd260a064d6e07a06073df6841e3d180d643372a",
+      "upstream/pstack/skills/architect/references/rationale-template.md": "a10f77f59510c532cd909faaf3bfeee5ffbfd588",
+      "upstream/pstack/skills/architect/references/design-red-flags.md": "f8503c9595b289c607ff5088f82b21197edf94ec",
+      ".experiment/RUN_MANIFEST.json": "4f9684169363d2c651d9d0f84c13dac7e7b19782"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 14:14:40 UTC",
+  "candidate_frozen_at": "2026-10-07T14:14:40.725696+00:00",
+  "local_candidate_sha": "dc57cea4b100ab9ab409eec1928d4fcaa73b0dea",
+  "local_candidate_tree": "0ddce0fa6c025fe727320e96db39101f4c496b47",
+  "remote_candidate": {
+    "sha": "2602d66e39f84e64f41f26721ef89dfb9815cfba",
+    "tree_sha": "0ddce0fa6c025fe727320e96db39101f4c496b47",
+    "branch": "candidate/P-S04-002"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/34",
+    "number": 34,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S04-v0 task in a fresh pstack-codex-port-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-round2. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "P-S04-002: pstack-codex-port-v0 frozen benchmark candidate",
+    "base": "treatment/pstack/P-S04-002",
+    "base_sha": "344d562895e1c3372117edaa438d364390938aa6",
+    "head": "candidate/P-S04-002",
+    "head_sha": "2602d66e39f84e64f41f26721ef89dfb9815cfba",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T14:15:03Z",
+    "updated_at": "2026-10-07T14:15:03Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 54,
+    "additions": 5172,
+    "deletions": 1,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/34",
+    "display_title": "P-S04-002: pstack-codex-port-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24",
+      "metadata": "commit 610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:57:17 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:57:17 2026 +0000\n\n    benchmark: frozen standalone P-S04-002 starting packet\n"
+    },
+    {
+      "sha": "2c31d06aecab04691e44fbd4de00b632b2093b59",
+      "metadata": "commit 2c31d06aecab04691e44fbd4de00b632b2093b59\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 14:03:29 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 14:03:29 2026 +0000\n\n    Add API regressions for failure alerts across retries\n"
+    },
+    {
+      "sha": "67ab210734f5504ca0fadee586cd18c3b2960540",
+      "metadata": "commit 67ab210734f5504ca0fadee586cd18c3b2960540\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 14:11:24 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 14:11:24 2026 +0000\n\n    Emit failure alerts only when a Run fails\n"
+    },
+    {
+      "sha": "dc57cea4b100ab9ab409eec1928d4fcaa73b0dea",
+      "metadata": "commit dc57cea4b100ab9ab409eec1928d4fcaa73b0dea\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 14:13:58 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 14:13:58 2026 +0000\n\n    Preserve frozen-method public verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/DESIGN.md                              |   47 +\n .experiment/GROUNDING.md                           |   35 +\n .experiment/HELPER_STATUS.json                     |   11 +\n .experiment/IMPLEMENTATION_REPORT.json             |  266 +++++\n .experiment/LEAD_REVIEW.md                         |   13 +\n .experiment/REPORT.json                            |  259 +++++\n .experiment/REVIEW_REPORT.json                     |  246 +++++\n .experiment/TODO.md                                |   36 +\n .experiment/capture.py                             |   24 +\n .experiment/commands.jsonl                         |   34 +\n .experiment/decisions.tsv                          |   19 +\n .experiment/early-actions.json                     |   47 +\n .experiment/early-command-evidence.json            |   14 +\n .experiment/helper-invocations.json                |   45 +\n .experiment/operator-exchanges.json                |   19 +\n .experiment/outputs/assigned-manifest.txt          |   15 +\n .experiment/outputs/baseline-api.txt               |   16 +\n .experiment/outputs/baseline-public.txt            |   10 +\n .experiment/outputs/commit-production-fix.txt      |    2 +\n .experiment/outputs/final-diff-check.txt           |    0\n .../outputs/freeze-authored-whitespace-check.txt   |    0\n .../outputs/freeze-production-whitespace-check.txt |    0\n .../outputs/freeze-raw-output-whitespace-check.txt |  314 ++++++\n .experiment/outputs/implementation-diff-check.txt  |    0\n .../outputs/implementation-failing-test-commit.txt |    3 +\n .experiment/outputs/implementation-final-diff.txt  |   12 +\n .../outputs/implementation-final-status.txt        |   13 +\n .../outputs/implementation-focused-after.txt       |    8 +\n .../outputs/implementation-focused-before.txt      |  245 +++++\n .experiment/outputs/implementation-full-public.txt |   13 +\n .../outputs/implementation-original-api-after.txt  |    7 +\n .experiment/outputs/implementation-stage-tests.txt |    0\n .../outputs/implementation-staged-tests.txt        |    2 +\n .../outputs/implementation-test-commit-sha.txt     |    1 +\n .experiment/outputs/lead-frozen-source-check.txt   |    0\n .experiment/outputs/lead-original-api-after.txt    |    7 +\n .experiment/outputs/lead-review.txt                |  133 +++\n .experiment/outputs/lead-test-commit-check.txt     |   10 +\n .experiment/outputs/production-fix-sha.txt         |    1 +\n .experiment/outputs/review-bootstrap-sources.txt   |  303 +++++\n .experiment/outputs/review-code-and-diff.txt       | 1158 ++++++++++++++++++++\n .experiment/outputs/review-design-sources.txt      |  233 ++++\n .experiment/outputs/review-evidence-audit.txt      |   86 ++\n .../outputs/review-frozen-and-alert-paths.txt      |   13 +\n .experiment/outputs/review-method-sources.txt      |  208 ++++\n .experiment/outputs/review-report-validation.txt   |    2 +\n .../outputs/review-test-and-runtime-evidence.txt   |  570 ++++++++++\n .experiment/outputs/review-trail.txt               |  505 +++++++++\n .experiment/outputs/review-write-report.txt        |    1 +\n .experiment/reproduce.py                           |   20 +\n .experiment/review-decisions.tsv                   |    5 +\n .experiment/source-hashes.json                     |   26 +\n relayboard/service.py                              |    1 -\n tests/test_failure_alerts.py                       |  115 ++\n 54 files changed, 5172 insertions(+), 1 deletion(-)\n",
+  "operator_interactions": [],
+  "helper_contexts_observed": [
+    {
+      "agent_name": "/root/contestant_p_s04_002/implementation",
+      "agent_status": "completed",
+      "observed_final": "Scoped implementation helper completed; test-only commit 2c31d06aecab04691e44fbd4de00b632b2093b59; recorded 10 red failures, focused3/full8 pass, original API single final failure alert; service deletion still uncommitted for lead. No forbidden access declared."
+    },
+    {
+      "agent_name": "/root/contestant_p_s04_002/review",
+      "agent_status": "completed",
+      "observed_final": "PASS no corrections. Exact retry-branch deletion; red-before/3focused/8public/original API evidence; frozen sources unchanged. REVIEW_REPORT.json. No code edits, commits or forbidden access declared. Fresh serial requested same model/high; identity/usage/rawtrace unknown."
+    }
+  ],
+  "requested_helper_configuration": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "agent_completion_claim": "COMPLETE candidate dc57cea4b100ab9ab409eec1928d4fcaa73b0dea clean. Retry-branch alert deletion; original WSGI2alerts→1withattempts[1,2]; 3regression methods red→green/full8pass; fresh review no corrections; both helpers completed. No contamination/open decisions. Throughput, sources/principles and command evidence REPORT. Requested model/high but actual identity/usage/rawtrace unavailable.",
+  "visible_checkpoints": [
+    {
+      "observed_at": "2026-10-07 14:03:37 UTC",
+      "source": "/root/contestant_p_s04_002",
+      "message": "Public WSGI reproduction captured before production changes. First failed Attempt returns retry while already exposing one run_failed alert; terminal failure adds a second for same Run. Existing 5 public tests pass. Grounding, hypotheses, two serial design sketches and four-item throughput checkpoint preserved in assigned .experiment. Next fresh serial implementation helper, then lead checks and fresh review helper. No forbidden material accessed."
+    },
+    {
+      "observed_at": "2026-10-07 14:11:02 UTC",
+      "source": "/root/contestant_p_s04_002",
+      "message": "Implementation helper terminated. Test-only commit 2c31d06aecab04691e44fbd4de00b632b2093b59: 3 WSGI regression methods, 10 red subtests before fix; one-line retry-branch alert deletion; focused3/full8 pass. Lead independently reran original WSGI reproduction: no alert during retry, one terminal failure alert, attempts[1,2]. Frozen sources unchanged. Fresh review helper running; no blocker or forbidden access declared."
+    }
+  ],
+  "worker_report": {
+    "schema_version": 1,
+    "run_id": "P-S04-002",
+    "status": "COMPLETE",
+    "task": "Fix duplicate failure alerts for retrying Jobs while preserving distinct Run alerts and retry behavior",
+    "method": {
+      "name": "pstack-codex-port-v0",
+      "status": "unchanged frozen Codex port",
+      "upstream_commit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "source_hashes": ".experiment/source-hashes.json",
+      "routes": ".experiment/GROUNDING.md",
+      "design": ".experiment/DESIGN.md",
+      "principles_applied": {
+        "Laziness Protocol": "One-line deletion without new abstraction",
+        "Model the Domain": "Existing Run/Attempt state machine and terminal Run alert ownership",
+        "Fix Root Causes": "Remove premature retry emission instead of deduplication",
+        "Test Behavior, Not Implementation": "WSGI state/alert assertions and positive failed-Run control",
+        "Prove It Works": "Real API reproduction and preserved focused/full outputs",
+        "Sequence Work into Verifiable Units": "Failing-test commit before fix commit",
+        "Never Block on the Human": "Standing authorization for reversible local fixture tests; no unnecessary question"
+      }
+    },
+    "identity": {
+      "lead_requested_model": "gpt-6.1-sol",
+      "lead_requested_reasoning_effort": "high",
+      "lead_observed_identity": "unknown; no runtime identity telemetry exposed",
+      "observed_usage": "unknown; no usage telemetry exposed",
+      "helpers": ".experiment/helper-invocations.json",
+      "native_model_diversity_claimed": false
+    },
+    "commits": {
+      "initial_independent": "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24",
+      "failing_tests": "2c31d06aecab04691e44fbd4de00b632b2093b59",
+      "production_fix": "67ab210734f5504ca0fadee586cd18c3b2960540",
+      "evidence_commit": "The evidence-only commit containing this report. Its immutable full SHA is supplied in the final handoff because a commit cannot embed its own SHA."
+    },
+    "root_cause": "record_attempt emitted a Run failure alert from both the retry branch and the terminal failure branch. The retry emission occurs while the Run is running and may later succeed.",
+    "change": {
+      "production": "Delete retry-branch _emit_failure_alert call in relayboard/service.py",
+      "tests": "Three public WSGI regression methods cover terminal notification, eventual success and distinct failed Runs with manual/scheduled sources and attempt limits 1/2/3"
+    },
+    "testcommands_results_outputpaths": [
+      {
+        "ts": "2026-10-07T13:59:28.586595+00:00",
+        "label": "baseline-api",
+        "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+        "argv": [
+          "python",
+          "-c",
+          "import runpy; runpy.run_path('.experiment/reproduce.py')"
+        ],
+        "exit_code": 1,
+        "stdout_stderr_path": ".experiment/outputs/baseline-api.txt"
+      },
+      {
+        "ts": "2026-10-07T13:59:28.597897+00:00",
+        "label": "baseline-public",
+        "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "stdout_stderr_path": ".experiment/outputs/baseline-public.txt"
+      },
+      {
+        "ts": "2026-10-07T14:03:09.523008+00:00",
+        "label": "implementation-focused-before",
+        "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_failure_alerts.py",
+          "-v"
+        ],
+        "exit_code": 1,
+        "stdout_stderr_path": ".experiment/outputs/implementation-focused-before.txt"
+      },
+      {
+        "ts": "2026-10-07T14:03:36.511994+00:00",
+        "label": "implementation-focused-after",
+        "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_failure_alerts.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "stdout_stderr_path": ".experiment/outputs/implementation-focused-after.txt"
+      },
+      {
+        "ts": "2026-10-07T14:03:43.378511+00:00",
+        "label": "implementation-full-public",
+        "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+        "argv": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "stdout_stderr_path": ".experiment/outputs/implementation-full-public.txt"
+      },
+      {
+        "ts": "2026-10-07T14:04:06.367490+00:00",
+        "label": "implementation-original-api-after",
+        "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+        "argv": [
+          "python",
+          "-c",
+          "import runpy; runpy.run_path('.experiment/reproduce.py', run_name='__main__')"
+        ],
+        "exit_code": 0,
+        "stdout_stderr_path": ".experiment/outputs/implementation-original-api-after.txt"
+      },
+      {
+        "ts": "2026-10-07T14:06:12.947735+00:00",
+        "label": "lead-original-api-after",
+        "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+        "argv": [
+          "python",
+          "-c",
+          "import runpy; runpy.run_path('.experiment/reproduce.py')"
+        ],
+        "exit_code": 0,
+        "stdout_stderr_path": ".experiment/outputs/lead-original-api-after.txt"
+      }
+    ],
+    "throughput_checkpoint": ".experiment/GROUNDING.md",
+    "decisions": ".experiment/decisions.tsv",
+    "helper_reports": [
+      ".experiment/IMPLEMENTATION_REPORT.json",
+      ".experiment/REVIEW_REPORT.json"
+    ],
+    "lead_review": ".experiment/LEAD_REVIEW.md",
+    "operator_exchanges": ".experiment/operator-exchanges.json",
+    "operator_questions": [],
+    "action_path_evidence": [
+      ".experiment/early-actions.json",
+      ".experiment/early-command-evidence.json",
+      ".experiment/commands.jsonl",
+      ".experiment/source-hashes.json",
+      ".experiment/outputs/lead-review.txt",
+      ".experiment/outputs/lead-test-commit-check.txt",
+      ".experiment/outputs/lead-frozen-source-check.txt",
+      ".experiment/outputs/freeze-raw-output-whitespace-check.txt",
+      ".experiment/outputs/freeze-authored-whitespace-check.txt",
+      ".experiment/outputs/freeze-production-whitespace-check.txt"
+    ],
+    "evaluator_or_peer_material_accessed": false,
+    "contamination": false,
+    "external_fetches_or_paid_apis": false,
+    "open_decisions": [],
+    "gaps": [
+      "No full raw transcript export. Pre-capture commands and artifact writes have summarized available tool evidence.",
+      "Requested model and reasoning are known; actual runtime identity and usage are unknown.",
+      "No hidden evaluation or native Cursor plugins/model-family diversity were used.",
+      "The final evidence commit cannot store its own immutable hash. Its commands are recorded here; actual final command output and hash are available in the tool call and final handoff. No full raw transcript is claimed."
+    ],
+    "candidate_code_commit": "67ab210734f5504ca0fadee586cd18c3b2960540",
+    "all_helpers_completed": true,
+    "helper_status_evidence": ".experiment/HELPER_STATUS.json",
+    "review_verdict": "PASS",
+    "attention_flags": [
+      {
+        "id": "A1",
+        "classification": "nonblocking evidence limitation",
+        "requires_correction": false,
+        "flag": "No raw transcript export exists. The audit covers preserved commands and outputs, with early reads and edits reconstructed from available tool calls. This supports the scoped fix but cannot establish full transcript completeness.",
+        "paths": [
+          ".experiment/early-command-evidence.json",
+          ".experiment/IMPLEMENTATION_REPORT.json",
+          ".experiment/commands.jsonl"
+        ]
+      },
+      {
+        "id": "A2",
+        "classification": "nonblocking identity and adaptation limitation",
+        "requires_correction": false,
+        "flag": "Requested gpt-6.1-sol/high is recorded; actual model, reasoning and usage telemetry are unknown. This is fresh serial same-model review under the frozen port, with no native cross-model or parallel-throughput claim.",
+        "paths": [
+          "METHOD.md",
+          ".experiment/helper-invocations.json",
+          ".experiment/GROUNDING.md"
+        ]
+      },
+      {
+        "id": "A3",
+        "classification": "nonblocking verification scope",
+        "requires_correction": false,
+        "flag": "Checks exercise the local sequential Python/SQLite/WSGI fixture. Concurrency, transaction recovery and removal of existing historical alerts were neither changed nor verified and are outside the demonstrated duplicate-attempt mechanism.",
+        "paths": [
+          ".experiment/DESIGN.md",
+          ".experiment/IMPLEMENTATION_REPORT.json"
+        ]
+      }
+    ],
+    "committed_code_matches_tested_and_reviewed_code": true,
+    "test_results": {
+      "baseline_public": "5 methods passed",
+      "baseline_original_api": "exit 1, expected 1 alert observed 2",
+      "focused_before": "3 methods, 10 failing subtests, intended alert-count/lifecycle reason",
+      "focused_after": "3 methods passed",
+      "full_public_after": "8 methods passed",
+      "original_api_after_lead": "exit 0, retry alerts [], terminal failure alert count 1, attempts [1, 2]"
+    },
+    "checks_after_source_change": "No production change occurred after passing focused/full/original checks. Fresh reviewer inspected exact tested deletion; final diff check passed. No redundant suite rerun was performed.",
+    "throughput_items": {
+      "blocking_first_steps": "API reproduction and observed lifecycle mechanism before implementation",
+      "independent_workstreams": "Baseline API and public checks independent; all implementation and helpers serialized",
+      "shared_mutable_state": "Assigned worktree/index and evidence only; single helper writer at a time, fresh in-memory test stores",
+      "smallest_safe_decomposition": "Baseline, two sketches, helper test-first commit and one-line fix, lead surface verification, fresh review, local commits"
+    },
+    "final_local_freeze_commands": [
+      "git add -- .experiment",
+      "git diff --cached --check -- .experiment ':(exclude).experiment/outputs/**'",
+      "git commit -m \"Preserve frozen-method public verification evidence\" -- .experiment",
+      "git rev-parse HEAD",
+      "git status --short",
+      "git diff --exit-code 67ab210734f5504ca0fadee586cd18c3b2960540 -- relayboard tests upstream METHOD.md TASK.md"
+    ],
+    "final_report_generated_utc": "2026-10-07T14:12:52.731016+00:00",
+    "evidence_freeze_check": {
+      "initial_broad_check": {
+        "exit_code": 2,
+        "outputpath": ".experiment/outputs/freeze-raw-output-whitespace-check.txt",
+        "cause": "Trailing spaces already present in raw captured diff/unittest output; no authored source error"
+      },
+      "decision": "Preserve captured outputs exactly and exclude .experiment/outputs from authored-evidence whitespace checking",
+      "authored_check": {
+        "exit_code": 0,
+        "outputpath": ".experiment/outputs/freeze-authored-whitespace-check.txt"
+      },
+      "production_check": {
+        "exit_code": 0,
+        "outputpath": ".experiment/outputs/freeze-production-whitespace-check.txt"
+      },
+      "production_changed_after_review": false
+    }
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... ok\ntest_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... ok\ntest_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.035s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S04-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "source_pins": [
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/SKILL.md",
+      "blob_sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "blob_sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+      "blob_sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+      "blob_sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/tdd/SKILL.md",
+      "blob_sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/how/SKILL.md",
+      "blob_sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/SKILL.md",
+      "blob_sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "blob_sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+      "blob_sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "blob_sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "blob_sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "blob_sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "blob_sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/LICENSE",
+      "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/show-me-your-work/SKILL.md",
+      "blob_sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "blob_sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/arena/SKILL.md",
+      "blob_sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/rationale-template.md",
+      "blob_sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/design-red-flags.md",
+      "blob_sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+    }
+  ],
+  "available_evidence_paths": [
+    ".experiment/IMPLEMENTATION_REPORT.json",
+    ".experiment/REPORT.json",
+    ".experiment/REVIEW_REPORT.json",
+    ".experiment/decisions.tsv",
+    ".experiment/outputs/review-report-validation.txt",
+    ".experiment/outputs/review-write-report.txt",
+    ".experiment/review-decisions.tsv"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 140989,
+    "sha256": "abc754875aaf4c24a392d512679bc6c7d3247f34987d476122887181e24bbdd9",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}
