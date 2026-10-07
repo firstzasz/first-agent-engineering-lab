@@ -1,0 +1,460 @@
+{
+  "observed_at": "2026-10-07 12:21:13 UTC",
+  "repository": "firstzasz/first-agent-engineering-lab",
+  "branch": "research/batch-orchestration-pilot",
+  "verified_research_head": "a7928a42f2b51da98a456da673174a00b99c89f5",
+  "branch_and_remote_ref_match": true,
+  "main_head": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+  "main_unchanged": true,
+  "N_S01_001": {
+    "record_blob": "f54d06d29f9f7880778b877300d341fdb6810f0a",
+    "treatment_head": "563952fab378eda87da696cda4df12fe5c9d4e5e",
+    "unchanged": true,
+    "rerun": false
+  },
+  "frozen_blob_checks": [
+    {
+      "path": "docs/approaches/FIRST_MODE_V0.md",
+      "sha": "22ef0c77d90c3410785dd593f2b5c161edaed531"
+    },
+    {
+      "path": "docs/benchmarks/EVALUATOR_PROTOCOL_V0.md",
+      "sha": "b1c6edd0291336fce4eb3327c852acd008346e87"
+    },
+    {
+      "path": "docs/benchmarks/NEUTRAL_EXECUTION_HANDOFF.md",
+      "sha": "184bc0c866cb424cb149db76bbb47b04646e45c4"
+    },
+    {
+      "path": "docs/benchmarks/PILOT_START_STATE_V0.md",
+      "sha": "1b409a481378e821271d53823a501ad9e37f42ff"
+    },
+    {
+      "path": "docs/benchmarks/PILOT_START_STATE_V0_1.md",
+      "sha": "b77fde72438bf51b807957ab8b6423f01bb7f5fc"
+    },
+    {
+      "path": "docs/benchmarks/README.md",
+      "sha": "fa90f96caea643df05ec729fb060bc105aeb2c3c"
+    },
+    {
+      "path": "docs/benchmarks/S01_TINY_CHANGE.md",
+      "sha": "9c3d3839fa8ee5c02b7a6abf29ecd5bb836c9329"
+    },
+    {
+      "path": "docs/benchmarks/S02_AMBIGUOUS_REQUIREMENT.md",
+      "sha": "18c909eab7bd72b8b8401acab74bdad7a6bfa3a3"
+    },
+    {
+      "path": "docs/benchmarks/S04_HARD_BUG.md",
+      "sha": "c9d7ae230a9a4dbc73dc4b532168f3fa8ebe71d7"
+    },
+    {
+      "path": "docs/benchmarks/SCORING_V0.md",
+      "sha": "7e71337e2eacc62d0d4cac2dd2a9cc2b0a3357a3"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/README.md",
+      "sha": "b4e8037a79b4466643930ee7528d8ddfbb4d4625"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/S02_OPERATOR_ORACLE_V0.json",
+      "sha": "a16bbfd647863bc00dd9511d2102fcdaaa190d6c"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/S02_OPERATOR_ORACLE_V0_1.json",
+      "sha": "054a302c6233321fa3988ce2f2be4a723039fa80"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/S04_ROOT_CAUSE_ORACLE_V0.md",
+      "sha": "c32dc6d360ff391b5631eb4f790e508810074ab0"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/evaluator.py",
+      "sha": "3aaaa9924f09ba18a5888d94373a9edc04187926"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/harness_selftest.py",
+      "sha": "d41860d02da366d5561c8f8d335284d11944f729"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/reference_solutions/S01-v0/relayboard/web.py",
+      "sha": "67de7f486a2d54af0eb4755a26e1d632ef318d4f"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/reference_solutions/S02-v0.1/relayboard/models.py",
+      "sha": "e973fd9ce9a551cf4d587b109276d15418a9ce0c"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/reference_solutions/S02-v0.1/relayboard/service.py",
+      "sha": "5be763ff3806cc7582ed44f313c9dd2890a75046"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/reference_solutions/S02-v0.1/relayboard/store.py",
+      "sha": "075fbd4c31e2b95de222c16d7cb156dce0c08f44"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/reference_solutions/S02-v0.1/relayboard/web.py",
+      "sha": "387db21ba81ac6db8b85d93046cfdfceeecc9b73"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/reference_solutions/S04-v0/relayboard/service.py",
+      "sha": "7cdb0c4e366f263219403f2edf9f44ccfd0e4963"
+    },
+    {
+      "path": "experiments/relayboard/evaluator/solution_selftest.py",
+      "sha": "1be15d9e5de714c31c59143a83b030334945338f"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/MATT_CODEX_PORT_V0.md",
+      "sha": "d735ea5af2d34c65764fcc2050ada3d428a253bc"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/PSTACK_CODEX_PORT_V0.md",
+      "sha": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/SOURCE_INDEX.json",
+      "sha": "d20a6c33ade47b7cccd91512580a30228ae860ba"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/LICENSE",
+      "sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/code-review/SKILL.md",
+      "sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md",
+      "sha": "1b929e29fb519c26b500d3eda744177986883ac8"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md",
+      "sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+      "sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/domain-modeling/SKILL.md",
+      "sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/grill-with-docs/SKILL.md",
+      "sha": "62b9efb6f991d1b229adee7506962f13ced0c499"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/implement-spec/SKILL.md",
+      "sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/implement/SKILL.md",
+      "sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/tdd/SKILL.md",
+      "sha": "250871ccdfefa7525309acfebda090edf4046882"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/tdd/mocking.md",
+      "sha": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/tdd/tests.md",
+      "sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/to-spec/SKILL.md",
+      "sha": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/engineering/to-tickets/SKILL.md",
+      "sha": "e868c831fcfb1e124e010bcdf84a429ec879160f"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/matt/skills/productivity/grilling/SKILL.md",
+      "sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/LICENSE",
+      "sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/architect/SKILL.md",
+      "sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/architect/references/design-red-flags.md",
+      "sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/architect/references/rationale-template.md",
+      "sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/arena/SKILL.md",
+      "sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/how/SKILL.md",
+      "sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/poteto-mode/SKILL.md",
+      "sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+      "sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/poteto-mode/playbooks/feature.md",
+      "sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
+      "sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
+      "sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/principle-model-the-domain/SKILL.md",
+      "sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/principle-prove-it-works/SKILL.md",
+      "sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/show-me-your-work/SKILL.md",
+      "sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+    },
+    {
+      "path": "experiments/relayboard/orchestration/codex-ports-v0/upstream/pstack/skills/tdd/SKILL.md",
+      "sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+    },
+    {
+      "path": "fixtures/relayboard/GLOSSARY.md",
+      "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+    },
+    {
+      "path": "fixtures/relayboard/README.md",
+      "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+    },
+    {
+      "path": "fixtures/relayboard/pyproject.toml",
+      "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+    },
+    {
+      "path": "fixtures/relayboard/relayboard/__init__.py",
+      "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+    },
+    {
+      "path": "fixtures/relayboard/relayboard/__main__.py",
+      "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+    },
+    {
+      "path": "fixtures/relayboard/relayboard/models.py",
+      "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+    },
+    {
+      "path": "fixtures/relayboard/relayboard/service.py",
+      "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+    },
+    {
+      "path": "fixtures/relayboard/relayboard/store.py",
+      "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+    },
+    {
+      "path": "fixtures/relayboard/relayboard/testing.py",
+      "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+    },
+    {
+      "path": "fixtures/relayboard/relayboard/web.py",
+      "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+    },
+    {
+      "path": "fixtures/relayboard/tests/test_public.py",
+      "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+    },
+    {
+      "path": "experiments/relayboard/runs/neutral/N-S01-001.json",
+      "sha": "f54d06d29f9f7880778b877300d341fdb6810f0a"
+    }
+  ],
+  "drift": [],
+  "candidate_pr_checks": [
+    {
+      "run_id": "N-S02-001",
+      "sha": "c42d25164d01a0bc07213d8bf011bd93894a2617",
+      "tree_sha": "bb42d4e96f2640659312f3e922fb5b270bb36532",
+      "pr": 17,
+      "base": "treatment/neutral/N-S02-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "N-S04-001",
+      "sha": "cf25fc85ecf53a90d964c590f53f79f7270a7ad1",
+      "tree_sha": "8ba0378fc278df2f5d45a0e817441c33935f2902",
+      "pr": 18,
+      "base": "treatment/neutral/N-S04-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "P-S01-001",
+      "sha": "6f4d32a522cf9674dd9d7ad87f6896dc61d100c7",
+      "tree_sha": "cbedc8f3e2bada87aa08214eaf111b5862dabed1",
+      "pr": 19,
+      "base": "treatment/pstack/P-S01-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "P-S02-001",
+      "sha": "f090ecf5df8175e8feac57c2a8c1a664ca94d0f9",
+      "tree_sha": "bd86986ea8032ec3ddddb3af5b8105243189f0f0",
+      "pr": 20,
+      "base": "treatment/pstack/P-S02-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "P-S04-001",
+      "sha": "8e93f4fc218008604e4b6e5e28ce890f75455550",
+      "tree_sha": "d24ba9f36922efad8846de8fe4b30566c6f33c04",
+      "pr": 21,
+      "base": "treatment/pstack/P-S04-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "M-S01-001",
+      "sha": "2889feb576465058a099fe6fa24249c53066722c",
+      "tree_sha": "b7db0f768c6f368484d8e09655b326469a6487de",
+      "pr": 22,
+      "base": "treatment/matt/M-S01-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "M-S02-001",
+      "sha": "8c0591a9e9181ebfcc118efd99661edba94a0229",
+      "tree_sha": "e59f4d419036cf463c0c2f3d70cb4aad4b36681c",
+      "pr": 23,
+      "base": "treatment/matt/M-S02-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "M-S04-001",
+      "sha": "f7c90c01ee8ede873a25a95f0bc989176160a8d1",
+      "tree_sha": "ff2bbf411b5cedabb30d4d3c19409c29b07b5d84",
+      "pr": 24,
+      "base": "treatment/matt/M-S04-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "F-S01-001",
+      "sha": "62fb2061cff76d2e6fc231aa861341e94be2466f",
+      "tree_sha": "ffa3d46551e79d481e1b0b4574c7be62bb1f529b",
+      "pr": 25,
+      "base": "treatment/first-mode/F-S01-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "F-S02-001",
+      "sha": "fb4fb8d78c46699d75f7ff9bfc3945d531a3bba6",
+      "tree_sha": "9b1fe3ca90dfa1827058a835def1cbc550922c6b",
+      "pr": 26,
+      "base": "treatment/first-mode/F-S02-001",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "run_id": "F-S04-001",
+      "sha": "9c37b277518bfec5ac5e4ada37c6d57b4b351321",
+      "tree_sha": "6f7b86c881f76315b83f97f592d4471eedd6d194",
+      "pr": 27,
+      "base": "treatment/first-mode/F-S04-001",
+      "draft": true,
+      "merged": false
+    }
+  ],
+  "merge_performed": false,
+  "all_dispositions": [
+    {
+      "run_id": "N-S02-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "N-S04-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "P-S01-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "P-S02-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "P-S04-001",
+      "status": "CONTAMINATED"
+    },
+    {
+      "run_id": "M-S01-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "M-S02-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "M-S04-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "F-S01-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "F-S02-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    },
+    {
+      "run_id": "F-S04-001",
+      "status": "COMPLETED_EVALUATED_PASS"
+    }
+  ],
+  "cleanup": {
+    "active_workspaces_empty": true,
+    "evaluator_removed": true,
+    "synthetic_preflight_removed": true,
+    "procedural_toys_removed": true
+  }
+}

@@ -82,17 +82,21 @@ The common analysis frame is:
 
 ## Phase 1: Comparative experiments
 
-Status: **PILOT IN PROGRESS — PROCEDURAL BATCH EXECUTING**
+Status: **PILOT BATCH EXECUTED; SINGLE-SHOT EVIDENCE PRESERVED**
 
 ### Phase 1K: Frozen procedural protocol continuation
 
-Status: **PORTS FROZEN; PROCEDURAL PREFLIGHT VERIFIED; EXECUTING**
+Status: **EXECUTED and VERIFIED for behavior; one contamination exclusion**
 
-- The prior hard-access gate exceeded Frozen Evaluator Protocol v0 and is now historical, not the pilot gate.
-- pstack-codex-port-v0 and matt-codex-port-v0 were frozen at `311871987a48a072e36f434e199b1cb28563c81b` before new outcomes; these are non-native Codex ports.
-- Synthetic clean/contamination controls passed; all synthetic files were removed from delivery.
-- Eleven assigned-only snapshot branches are prepared. Contestants run serially in fresh contexts; candidates freeze before separate evaluation.
-- [Active procedural batch](./experiments/relayboard/orchestration/procedural-batch-v0/README.md)
+- Eleven remaining runs attempted serially in fresh contexts from Pilot Start State v0.1: ten public/frozen-evaluator PASS, P-S04-001 CONTAMINATED after peer-status exposure and excluded without retry.
+- N-S01-001 remains completed and untouched. No candidate or orchestration work merged to main.
+- Prior hard-access BLOCKED_ISOLATION is historical and exceeded the frozen public-repository protocol.
+- Non-native pstack-codex-port-v0 and matt-codex-port-v0 were frozen before outcomes at `311871987a48a072e36f434e199b1cb28563c81b`; FIRST used its exact original frozen method.
+- S02 product decisions surfaced: Neutral 0/4, pstack port 2/4, Matt port 4/4, FIRST-mode 3/4; passing correctness does not remove silent-assumption counts.
+- GitHub final audit verified 72 protected blobs, eleven unmerged treatment-targeted draft PRs, unchanged main and N-S01 state.
+- Partial execution evidence, unknown runtime identity/usage and single-shot/port limitations remain explicit.
+- [Completed batch and run evidence](./experiments/relayboard/orchestration/procedural-batch-v0/README.md)
+- [EXP-0012 findings](./docs/experiments/0012-procedural-batch-results.md)
 - [Correction record](./docs/experiments/0011-procedural-orchestration-correction.md)
 
 ### Phase 1J: Remaining batch orchestration preflight (historical hard-isolation gate)
@@ -100,7 +104,7 @@ Status: **PORTS FROZEN; PROCEDURAL PREFLIGHT VERIFIED; EXECUTING**
 Status: **PREPARATION IMPLEMENTED and VERIFIED; EXECUTION BLOCKED**
 
 - GitHub connector verified the requested repository and research branch at `d7d277c0e684d1e9aed0c30259796deb48c7c207`.
-- Two GPT-6.1 Sol High pilot workers used fresh task contexts. Synthetic probes demonstrated shared filesystem access; inherited tools and lab Git history prevent the required evaluator-access boundary.
+- Two GPT-6.1 Sol High pilot workers used fresh task contexts. Synthetic probes demonstrated shared filesystem access; inherited tools and lab Git history prevent the previous orchestration gate's hard evaluator-access denial.
 - Eleven remaining run manifests are staged; nine new treatment branches plus the two existing neutral branches passed current-tree fixture/prompt/allowlist checks.
 - pstack/Matt pins are recorded but packages are not installed. FIRST-mode branches contain the exact frozen method.
 - No remaining benchmark run or hidden evaluation started. N-S01-001 remains completed and untouched.
@@ -293,9 +297,7 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Continue the serial procedural queue in [the active batch](./experiments/relayboard/orchestration/procedural-batch-v0/README.md); the earlier hard-access gate is historical and exceeded the frozen protocol.
-2. Preserve the already-frozen non-native pstack-codex-port-v0 and matt-codex-port-v0 bindings; do not claim native installation or change treatment definitions after outcomes.
-3. Preserve completed/excluded run evidence without silent retries; N-S01-001 remains completed and untouched.
-4. Capture available model, host, methodology, operator interaction, commit, test and execution evidence; label unavailable metrics.
-5. Terminate each contestant, evaluate its exact immutable candidate separately and persist results. Do not merge contestant PRs into main.
-6. Compare evidence by scenario and mechanism; distinguish host effects and portability from methodology quality.
+1. Review the completed per-scenario profiles and preserved failures without assigning a universal winner.
+2. If extending the experiment, declare a new repeated-run cohort and host/port controls before outcomes; do not silently replace contaminated P-S04-001.
+3. Arrange blind subjective rationale/maintainability review where practical; current reports do not assign those scores.
+4. Improve export of raw execution traces and model/usage attestation for future runs. Keep frozen pilot definitions unchanged.

@@ -749,6 +749,63 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": ""
+    },
+    {
+      "run_id": "F-S04-001",
+      "treatment": "first-mode-v0",
+      "scenario": "S04-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 26,
+        "all_diff_stat": " .experiment/REPORT.json           | 307 ++++++++++++++++++++++++++++++++++++++\n .experiment/STATE.json            |  96 ++++++++++++\n .experiment/baseline-tests.txt    |  10 ++\n .experiment/diff-check.txt        |   0\n .experiment/final-tests.txt       |  13 ++\n .experiment/production-diff.txt   |  12 ++\n .experiment/regression-before.txt | 207 +++++++++++++++++++++++++\n .experiment/repro-after.txt       |  44 ++++++\n .experiment/repro-before.txt      |  55 +++++++\n .experiment/repro_retry_alerts.py |  43 ++++++\n relayboard/service.py             |   1 -\n tests/test_retry_alerts.py        | 103 +++++++++++++\n 12 files changed, 890 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 103,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T12:15:40.179737+00:00",
+        "frozen_at": "2026-10-07T12:20:44.462957+00:00",
+        "wall_clock_seconds": 304.283,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }
