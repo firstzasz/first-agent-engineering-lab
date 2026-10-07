@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scope": "orchestrator artifacts only; no contestant or evaluator execution",
+  "environment": "managed cloud Python standard library",
+  "checks": [
+    {
+      "command": "python orchestrate.py audit",
+      "exit_code": 0,
+      "result": {
+        "audit": "PASS",
+        "remaining_runs": 11,
+        "benchmark_runs_executed": 0,
+        "dispatch_status": "BLOCKED"
+      }
+    },
+    {
+      "command": "python -m unittest test_orchestrate -v",
+      "exit_code": 0,
+      "passed": 3,
+      "tests": [
+        "completed run cannot enter queue",
+        "drifted fixture is rejected",
+        "contestant packet excludes operator oracle references and peer results"
+      ]
+    },
+    {
+      "command": "python orchestrate.py packet --run-id N-S02-001",
+      "exit_code": 2,
+      "launched": false,
+      "status": "BLOCKED",
+      "operator_oracle_reference_excluded": true,
+      "missing_capabilities": [
+        "per_run_filesystem_boundary",
+        "evaluator_material_access_denied",
+        "cross_run_material_access_denied",
+        "contestant_connector_scope_restricted",
+        "snapshot_without_lab_git_history",
+        "independent_runner_adapter_available"
+      ]
+    }
+  ],
+  "remote_preparation": {
+    "verified_branches": 11,
+    "passed": 11
+  },
+  "public_benchmark_tests_run": false,
+  "hidden_evaluation_run": false,
+  "limitations": "Offline audit validates recorded remote preparation evidence; requery refs and trees before dispatch. No isolated runner behavior is claimed."
+}

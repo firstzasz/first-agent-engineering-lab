@@ -1,0 +1,16 @@
+{
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "fixture_blobs": {
+    "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+    "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+    "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+    "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+    "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+    "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+    "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+    "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+    "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+    "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+    "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+  }
+}

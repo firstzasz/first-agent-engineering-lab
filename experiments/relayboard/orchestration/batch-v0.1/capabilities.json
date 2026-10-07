@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-07",
+  "status": "BLOCKED_ISOLATION",
+  "benchmark_execution_allowed": false,
+  "isolated_conversation_context_supported": true,
+  "model_configuration_supported": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "spawn_accepted": true,
+    "runtime_independently_attested": false
+  },
+  "required_capabilities": {
+    "fresh_context": true,
+    "per_run_filesystem_boundary": false,
+    "evaluator_material_access_denied": false,
+    "cross_run_material_access_denied": false,
+    "contestant_connector_scope_restricted": false,
+    "snapshot_without_lab_git_history": false,
+    "independent_runner_adapter_available": false
+  },
+  "blockers": [
+    {
+      "code": "SHARED_FILESYSTEM",
+      "evidence": "Both pilots read a parent-created synthetic evaluator surrogate; B read A's marker."
+    },
+    {
+      "code": "INHERITED_CONNECTOR_TOOLS",
+      "evidence": "Spawn exposes no per-worker tool/path/branch/network restriction; both pilots successfully queried the public lab's metadata with broad reported repository permissions."
+    },
+    {
+      "code": "LAB_IN_BRANCH_HISTORY",
+      "evidence": "Prepared neutral commits have frozen full-lab commit as parent. New staged commits also have that parent. Current-tree allowlists do not sanitize ancestry."
+    },
+    {
+      "code": "NO_ISOLATED_LAUNCH_ADAPTER",
+      "evidence": "Available subagent interface controls conversation inheritance, model, and reasoning but not workspace or connector access. No suitable isolated agent launcher was established."
+    }
+  ],
+  "policy": "No contestants or hidden evaluations may start in this environment. Instructions against fetching are not proof of inaccessible material.",
+  "runtime": {
+    "provider": "cloud",
+    "phase": "running",
+    "capabilities": [],
+    "secrets": [],
+    "outbound_identities": [],
+    "network_policy": {
+      "mode": "unrestricted",
+      "state": "unknown"
+    },
+    "observations_current": true
+  },
+  "limits": "Permission flags do not establish OAuth scopes; synthetic probes demonstrate the specified paths only. Fresh-context observations are worker reports. No actual evaluator/oracle/reference-solution content was read by either pilot."
+}

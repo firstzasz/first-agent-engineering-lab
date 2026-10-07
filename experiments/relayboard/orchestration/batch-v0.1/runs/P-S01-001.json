@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "run_id": "P-S01-001",
+  "arm": "pstack",
+  "scenario": "S01-v0",
+  "treatment": "pstack-pinned",
+  "status": "BLOCKED_ISOLATION",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "branch": "treatment/pstack/P-S01-001",
+  "prepared_sha": "32a15dd6209996fab8f4e6e25f1e3e87bfae77d2",
+  "candidate_branch": "candidate/P-S01-001",
+  "candidate_pr_base": "treatment/pstack/P-S01-001",
+  "merge_to_main": false,
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "actual_model": null,
+  "actual_reasoning": null,
+  "workspace": {
+    "export": "exact prepared commit current tree only; initialize standalone history with no lab remote",
+    "files": [
+      {
+        "path": ".experiment/RUN_MANIFEST.json",
+        "sha": "a6561e5bdb5ec43b18611faf8b4a701c38a5ed98"
+      },
+      {
+        "path": ".gitignore",
+        "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+      },
+      {
+        "path": "GLOSSARY.md",
+        "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+      },
+      {
+        "path": "README.md",
+        "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+      },
+      {
+        "path": "TASK.md",
+        "sha": "5d142e5a9c03b9e82ec6a567457deaf7adb29834"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+      },
+      {
+        "path": "relayboard/__init__.py",
+        "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+      },
+      {
+        "path": "relayboard/__main__.py",
+        "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+      },
+      {
+        "path": "relayboard/models.py",
+        "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+      },
+      {
+        "path": "relayboard/service.py",
+        "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+      },
+      {
+        "path": "relayboard/store.py",
+        "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+      },
+      {
+        "path": "relayboard/testing.py",
+        "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+      },
+      {
+        "path": "relayboard/web.py",
+        "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+      },
+      {
+        "path": "tests/test_public.py",
+        "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+      }
+    ],
+    "git_ancestry_in_source_branch_contains_full_lab": true,
+    "full_clone_in_contestant_forbidden": true
+  },
+  "methodology": {
+    "source": null,
+    "blob_sha": null,
+    "upstream": {
+      "repository": "cursor/plugins",
+      "scope": "pstack/",
+      "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "native_install_required": true
+    },
+    "installation_status": "NOT_INSTALLED",
+    "host_binding_status": "UNVERIFIED",
+    "substitution_allowed": false,
+    "note": "Install only this exact upstream pin. Preserve license and source. Native binding or a separately labelled portability protocol must be established before execution; do not treat source notes or pin metadata as the methodology."
+  },
+  "gates": [
+    "fresh_context",
+    "per_run_filesystem_boundary",
+    "evaluator_material_access_denied",
+    "cross_run_material_access_denied",
+    "contestant_connector_scope_restricted",
+    "snapshot_without_lab_git_history",
+    "independent_runner_adapter_available",
+    "assigned_pinned_methodology_installed_and_host_binding_verified"
+  ],
+  "contestant_instruction": "Work only in the supplied workspace. Read TASK.md and use only the assigned, installed, pinned methodology. Implement and verify the task. Do not fetch other branches, evaluator/oracle/reference material, other methodologies, or previous outcomes.",
+  "public_test_command": "python -m unittest discover -s tests -v",
+  "operator": {
+    "channel": "normal_operator_channel",
+    "answer_source": null,
+    "protocol": "Operator-only source. Answer only a valid asked product/preference question with its frozen answer, without extra requirements. Persist question, answer, timestamps and classification. Do not send the answer sheet to the contestant."
+  },
+  "completion": {
+    "freeze_candidate_sha_before_evaluation": true,
+    "preserve": [
+      "host/model/reasoning evidence",
+      "methodology pin and invoked skills",
+      "initial and final commit/tree SHAs",
+      "diff and commits",
+      "public test command/output/exit code",
+      "operator question/answer records",
+      "visible checkpoints",
+      "start/end time when measurable",
+      "available tool and usage traces, with missing data explicitly labelled"
+    ]
+  },
+  "hidden_evaluation": {
+    "phase": "AFTER_CONTESTANT_TERMINATED",
+    "runner": "separate evaluator context",
+    "harness_ref": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "command": "python experiments/relayboard/runner/evaluate_workspace.py --scenario S01-v0 --workspace <immutable-candidate-snapshot> --output <evaluation.json>",
+    "candidate_input": "verified immutable candidate SHA only",
+    "feedback_to_same_contestant": false
+  },
+  "run_record": {
+    "schema_version": 1,
+    "run_id": "P-S01-001",
+    "scenario": "S01-v0",
+    "treatment": "pstack-pinned",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "host": null,
+    "model": null,
+    "reasoning": null,
+    "started_at": null,
+    "finished_at": null,
+    "status": "NOT_STARTED",
+    "contaminated": null,
+    "contamination_reason": null,
+    "operator_interactions": [],
+    "legible_checkpoints": [],
+    "agent_completion_claim": null,
+    "candidate_sha": null,
+    "candidate_commits": [],
+    "public_tests": null,
+    "evaluation_path": null,
+    "execution_evidence": [],
+    "unavailable_metrics": [],
+    "notes": "Queue planning is not contestant execution; no unknown field is inferred from requested configuration."
+  }
+}

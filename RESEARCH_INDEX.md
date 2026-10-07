@@ -84,6 +84,18 @@ The common analysis frame is:
 
 Status: **PILOT IN PROGRESS**
 
+### Phase 1J: Remaining batch orchestration preflight
+
+Status: **PREPARATION IMPLEMENTED and VERIFIED; EXECUTION BLOCKED**
+
+- GitHub connector verified the requested repository and research branch at `d7d277c0e684d1e9aed0c30259796deb48c7c207`.
+- Two GPT-6.1 Sol High pilot workers used fresh task contexts. Synthetic probes demonstrated shared filesystem access; inherited tools and lab Git history prevent the required evaluator-access boundary.
+- Eleven remaining run manifests are staged; nine new treatment branches plus the two existing neutral branches passed current-tree fixture/prompt/allowlist checks.
+- pstack/Matt pins are recorded but packages are not installed. FIRST-mode branches contain the exact frozen method.
+- No remaining benchmark run or hidden evaluation started. N-S01-001 remains completed and untouched.
+- [Batch artifacts and resumption protocol](./experiments/relayboard/orchestration/batch-v0.1/README.md)
+- [EXP-0010 capability preflight](./docs/experiments/0010-batch-orchestration-preflight.md)
+
 ### Phase 1I: First neutral S01 execution
 
 Status: **VERIFIED (behavior), process metrics incomplete**
@@ -270,11 +282,9 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Execute the remaining N-S02-001 and N-S04-001 in fresh evaluator-blind coding-agent contexts using the prepared treatment branches.
-2. Evaluate each completed run outside its treatment context and persist the evidence.
-3. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
-4. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
-5. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral execution protocol is proven.
-6. Keep full-workflow and mechanism-isolation conclusions separate.
-7. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
-8. Compare evidence by scenario and mechanism rather than declaring an overall winner.
+1. Provide an isolated runner that passes the two-worker evaluator/peer-access denial preflight in [the batch handoff](./experiments/relayboard/orchestration/batch-v0.1/README.md).
+2. Verify pstack/Matt pinned installation and host binding before their runs; preserve methodology definitions.
+3. Dispatch the eleven staged manifests in fresh independent contexts from Pilot Start State v0.1. Exclude completed N-S01-001.
+4. Capture available model, host, methodology, operator interaction, commit, test and execution evidence; label unavailable metrics.
+5. Terminate each contestant, evaluate its exact immutable candidate separately and persist results. Do not merge contestant PRs into main.
+6. Compare evidence by scenario and mechanism; distinguish host effects and portability from methodology quality.

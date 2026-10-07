@@ -1,0 +1,40 @@
+{
+  "repository": "firstzasz/first-agent-engineering-lab",
+  "repository_id": "1406588983",
+  "connector": "GitHub",
+  "branch": "research/batch-orchestration-pilot",
+  "initial_remote_head": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+  "repeat_remote_head": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+  "initial_tree_sha": "b7f1a3a88e8b0469bddd8fe7b7e852ead666d1f3",
+  "head_verified_by": [
+    "github_get_repo",
+    "github_search_branches",
+    "github_fetch git/ref/heads/research/batch-orchestration-pilot",
+    "github_fetch_commit exact SHA",
+    "github_fetch git/commits exact SHA",
+    "repeated git/ref"
+  ],
+  "branch_url_encoding_note": "branches/research%2Fbatch-orchestration-pilot rejected as invalid path; git/ref/heads/research/batch-orchestration-pilot succeeded.",
+  "operations": "All remote repository reads and writes use the GitHub connector. No local git clone or shell network access.",
+  "main_initial_sha": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+  "completed_run": {
+    "id": "N-S01-001",
+    "excluded_from_queue": true,
+    "run_record_blob_sha": "f54d06d29f9f7880778b877300d341fdb6810f0a",
+    "treatment_branch_sha": "563952fab378eda87da696cda4df12fe5c9d4e5e",
+    "protection": "Do not rerun, modify record, branch, candidate PR, or evaluate again."
+  },
+  "frozen_base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "upstreams": [
+    {
+      "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "tree_sha": "48f4daea97564bb3f4a90905d20f0198ab41d44e",
+      "url": "https://github.com/cursor/plugins/commit/df581122cde17e6e27686b5a448bde23e4ad4318"
+    },
+    {
+      "sha": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "tree_sha": "c18bc3c417bb8c97fe2581c4013b3077956e82db",
+      "url": "https://github.com/mattpocock/skills/commit/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+    }
+  ]
+}
