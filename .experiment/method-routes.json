@@ -1,0 +1,67 @@
+{
+  "treatment": "pstack-codex-port-v0",
+  "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
+  "read_sources": [
+    "poteto-mode/SKILL.md",
+    "poteto-mode/playbooks/bug-fix.md",
+    "how/SKILL.md",
+    "tdd/SKILL.md",
+    "show-me-your-work/SKILL.md",
+    "principle-laziness-protocol/SKILL.md",
+    "principle-model-the-domain/SKILL.md",
+    "principle-prove-it-works/SKILL.md",
+    "principle-fix-root-causes/SKILL.md",
+    "principle-test-behavior-not-implementation/SKILL.md",
+    "principle-sequence-verifiable-units/SKILL.md",
+    "principle-never-block-on-the-human/SKILL.md"
+  ],
+  "root": "/workspace/relayboard-active/P-S04-001",
+  "how": "simple direct lead explainer per METHOD.md",
+  "architect": "skipped; one local deletion with no interface or cross-function design",
+  "tdd": "cheap public WSGI test target; red test commit required before fix",
+  "native_unavailable": [
+    "why",
+    "unslop",
+    "technical-writing",
+    "create-skill",
+    "deslop",
+    "no-comments",
+    "control-ui",
+    "control-cli",
+    "opening-a-pr",
+    "Cursor /loop",
+    "native transcript export",
+    "native multi-model review"
+  ],
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_requested": "high",
+  "model_observed": "unknown",
+  "reasoning_observed": "unknown",
+  "helpers": [
+    {
+      "role": "bounded code-writing",
+      "agent": "/root/contestant_p_s04_001/bounded_fix",
+      "fork_turns": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_requested": "high",
+      "model_observed": "unknown",
+      "reasoning_observed": "unknown",
+      "spawn_result": "accepted",
+      "serial": true,
+      "scope": "WSGI regression tests and deletion of premature retry alert call",
+      "report_path": ".experiment/helper-implementation.json",
+      "status": "completed; stopped task work after halt notice",
+      "tests_first_commit": "9a4af6c6ba431462451cee0965481b7c9c639359",
+      "final_report": ".experiment/helper-completion.json"
+    }
+  ],
+  "operator_interactions": [
+    {
+      "request": "OPERATOR QUESTION Boundary incident. I called collaboration.list_agents without path_prefix to check whether my code helper had finished. It returned full-team statuses including peer-run final summaries. I have accessed peer material unintentionally through this status tool; no peer files or hidden checks were retrieved. I am stopping implementation/review and preserving the incident under .experiment. The task had reached a tests-first commit and one-line production deletion. Please confirm administrative disposition; I will not continue a valid-method claim. This is not a product guidance request.",
+      "response": "Administrative disposition: preserve this run as CONTAMINATED/invalid due to peer-result exposure through the unscoped status call, even though you report it accidental. Do not continue implementation or review and do not retry this run. Have any active same-run helper stop and preserve current evidence; wait until it has finished. Record the exact call, observed peer material and sequence honestly in .experiment/REPORT.json and incident evidence, including the candidate reached so far. Commit available local evidence, give a concise final and terminate. No hidden evaluation feedback will be supplied. This answer contains no product guidance.",
+      "product_guidance": false
+    }
+  ],
+  "evaluator_or_peer_material_accessed": true,
+  "completion_review": "not performed; halted on contamination per operator"
+}

@@ -1,0 +1,11 @@
+test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts) ... ok
+test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert) ... ok
+test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert) ... ok
+test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+OK
+
+EXIT_CODE=0

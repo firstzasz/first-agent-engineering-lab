@@ -1,0 +1,33 @@
+COMMAND=['git', 'diff', '--check']
+EXIT_CODE=0
+
+COMMAND=['git', 'diff', '--', 'relayboard/service.py']
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..7cdb0c4 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -42,7 +42,6 @@ class RelayBoardService:
+             return "succeeded"
+ 
+         if attempt.number < job.max_attempts:
+-            self._emit_failure_alert(run_id)
+             return "retry"
+ 
+         self.store.set_run_status(run_id, "failed")
+EXIT_CODE=0
+
+COMMAND=['git', 'show', '--stat', '--oneline', 'HEAD']
+9a4af6c test: cover failure alerts across retrying run lifecycles
+ tests/test_public.py | 124 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 124 insertions(+)
+EXIT_CODE=0
+
+COMMAND=['git', 'status', '--short']
+ M relayboard/service.py
+?? .experiment/PLAN.md
+?? .experiment/commands.json
+?? .experiment/decisions.tsv
+?? .experiment/method-routes.json
+?? .experiment/outputs/
+?? .experiment/reproduce_alerts.py
+EXIT_CODE=0

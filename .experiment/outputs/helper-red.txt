@@ -1,0 +1,81 @@
+test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts) ... FAIL
+test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert) ... FAIL
+test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert) ... FAIL
+test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert) ... FAIL
+
+======================================================================
+FAIL: test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 67, in test_pending_retries_do_not_emit_failure_alerts
+    self.assertEqual(payload, {"alerts": []})
+AssertionError: {'alerts': [{'id': 1, 'job_id': 'retrying', 'kind': '[80 chars]1'}]} != {'alerts': []}
++ {'alerts': []}
+- {'alerts': [{'id': 1,
+-              'job_id': 'retrying',
+-              'kind': 'run_failed',
+-              'message': 'Job Retrying failed for run run-001',
+-              'run_id': 'run-001'}]}
+
+======================================================================
+FAIL: test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 99, in test_exhausted_retries_emit_one_failure_alert
+    self.assertEqual(
+AssertionError: Lists differ: [('ru[28 chars]led'), ('run-001', 'retrying', 'run_failed'), [33 chars]ed')] != [('ru[28 chars]led')]
+
+First list contains 2 additional elements.
+First extra element 1:
+('run-001', 'retrying', 'run_failed')
+
+- [('run-001', 'retrying', 'run_failed'),
+?                                       ^
+
++ [('run-001', 'retrying', 'run_failed')]
+?                                       ^
+
+-  ('run-001', 'retrying', 'run_failed'),
+-  ('run-001', 'retrying', 'run_failed')]
+
+======================================================================
+FAIL: test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 128, in test_distinct_failed_runs_of_same_job_each_emit_alert
+    self.assertEqual(
+AssertionError: Lists differ: [('ru[42 chars]un-001', 'daily-report', 'run_failed'), ('run-[74 chars]ed')] != [('ru[42 chars]un-002', 'daily-report', 'run_failed')]
+
+First differing element 1:
+('run-001', 'daily-report', 'run_failed')
+('run-002', 'daily-report', 'run_failed')
+
+First list contains 2 additional elements.
+First extra element 2:
+('run-002', 'daily-report', 'run_failed')
+
+  [('run-001', 'daily-report', 'run_failed'),
+-  ('run-001', 'daily-report', 'run_failed'),
+-  ('run-002', 'daily-report', 'run_failed'),
+   ('run-002', 'daily-report', 'run_failed')]
+
+======================================================================
+FAIL: test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 164, in test_successful_retry_does_not_emit_failure_alert
+    self.assertEqual(payload, {"alerts": []})
+AssertionError: {'alerts': [{'id': 1, 'job_id': 'daily-report', 'kind[88 chars]1'}]} != {'alerts': []}
++ {'alerts': []}
+- {'alerts': [{'id': 1,
+-              'job_id': 'daily-report',
+-              'kind': 'run_failed',
+-              'message': 'Job Daily report failed for run run-001',
+-              'run_id': 'run-001'}]}
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.007s
+
+FAILED (failures=4)
+
+EXIT_CODE=1

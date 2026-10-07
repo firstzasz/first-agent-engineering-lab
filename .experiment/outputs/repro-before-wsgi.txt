@@ -1,0 +1,10 @@
+{"alert_count": 1, "attempt": 1, "outcome": "retry", "run_id": "run-001", "run_status": "running", "source": "manual"}
+{"alert_count": 2, "attempt": 2, "outcome": "failed", "run_id": "run-001", "run_status": "failed", "source": "manual"}
+{"alert_count": 1, "attempt": 1, "outcome": "retry", "run_id": "run-002", "run_status": "running", "source": "scheduled"}
+{"alert_count": 2, "attempt": 2, "outcome": "failed", "run_id": "run-002", "run_status": "failed", "source": "scheduled"}
+{"alert_runs": ["run-001", "run-001", "run-002", "run-002", "run-003"], "recovered_run": "run-003"}
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/P-S04-001/.experiment/reproduce_alerts.py", line 34, in <module>
+    assert all(checks), "failure alerts must occur once per failed Run and only after retries are exhausted"
+           ^^^^^^^^^^^
+AssertionError: failure alerts must occur once per failed Run and only after retries are exhausted
