@@ -2,7 +2,7 @@
   "schema_version": 2,
   "replication_round": 2,
   "protocol": "Frozen Evaluator Protocol v0; any forbidden peer/evaluator receipt contaminated",
-  "status": "PREPARING",
+  "status": "READY_PROCEDURAL",
   "source_commit": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
   "research_branch": "research/batch-orchestration-round2",
   "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
@@ -38,6 +38,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "60e1a63dda8a1698b2f36f8add4bb8b4578ac4a6",
+      "prepared_tree_sha": "0683c75f5164a87ddf5af6d5ed1d13e067661585",
       "result_path": "results/F-S04-002/run.json"
     },
     {
@@ -49,6 +51,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "a9e3042ebb068b8a43ed66ced38858a23cc179aa",
+      "prepared_tree_sha": "47f245c97913f71d5f37448ab9b858aeca1d84da",
       "result_path": "results/F-S02-002/run.json"
     },
     {
@@ -60,6 +64,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "c7d6f8e5152ef095d0323a8dd13b5eb17fa00f3f",
+      "prepared_tree_sha": "8bbfdce6daf031286cffaef2580f7592388816c8",
       "result_path": "results/F-S01-002/run.json"
     },
     {
@@ -71,6 +77,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "9dab77e03ae2edf70d3ca906d9147861ab5d2827",
+      "prepared_tree_sha": "546a722ce9f2e58e897bc8fed76609ed21ed2ff5",
       "result_path": "results/M-S04-002/run.json"
     },
     {
@@ -82,6 +90,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "02665edfb15ae962c5a7bfb63a92ea4d64c54195",
+      "prepared_tree_sha": "26515d02003cccb743e8e87344855fd36c3bb960",
       "result_path": "results/M-S02-002/run.json"
     },
     {
@@ -93,6 +103,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "030f9a565c19b564111d4a6b0edc877123bc1c03",
+      "prepared_tree_sha": "798aaf8c349e7c3ccd9d214aca9d76237dc3cdb7",
       "result_path": "results/M-S01-002/run.json"
     },
     {
@@ -104,6 +116,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "344d562895e1c3372117edaa438d364390938aa6",
+      "prepared_tree_sha": "9904c860cac740c1ae1c272b85ab5324ed9959b7",
       "result_path": "results/P-S04-002/run.json"
     },
     {
@@ -115,6 +129,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "576b346380d446bc7bd4562542e3019561f30923",
+      "prepared_tree_sha": "828b1121a8f818e7df32413a1261422b6484bc52",
       "result_path": "results/P-S02-002/run.json"
     },
     {
@@ -126,6 +142,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "3444ef7771e14fe54cb1574c00e39761f62f5127",
+      "prepared_tree_sha": "4830dd9522c413fad427026f3c55287b6b2eab3a",
       "result_path": "results/P-S01-002/run.json"
     },
     {
@@ -137,6 +155,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "bb2dd27751cd476ce1f4b42c7ef6328014253c7c",
+      "prepared_tree_sha": "0d366ac9fbc1dd3b4d8cd8d99467b9c2f0be80ad",
       "result_path": "results/N-S04-002/run.json"
     },
     {
@@ -148,6 +168,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "2b2339f5e295cc2931a723363caa9ccc9f1772ef",
+      "prepared_tree_sha": "ed7459f87358f0bd74e52dc7979946ed514a360d",
       "result_path": "results/N-S02-002/run.json"
     },
     {
@@ -159,6 +181,8 @@
       "operator_interactions": [],
       "status": "READY_PROCEDURAL",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "prepared_sha": "8ce4ec8311d37beddd662573f45523df5a5128a9",
+      "prepared_tree_sha": "a91a2af750acc5d5100f9c705bd95cfd3c964036",
       "result_path": "results/N-S01-002/run.json"
     }
   ]
