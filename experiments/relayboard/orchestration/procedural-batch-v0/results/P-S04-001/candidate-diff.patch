@@ -1,0 +1,1118 @@
+diff --git a/.experiment/INCIDENT.json b/.experiment/INCIDENT.json
+new file mode 100644
+index 0000000..e2d87d3
+--- /dev/null
++++ b/.experiment/INCIDENT.json
+@@ -0,0 +1,41 @@
++{
++  "status": "CONTAMINATED",
++  "valid": false,
++  "trigger_call": {
++    "tool": "collaboration.list_agents",
++    "arguments": {}
++  },
++  "purpose": "Check whether same-run bounded_fix helper had finished after wait_agent returned.",
++  "observed_material": {
++    "peer_run_ids": [
++      "P-S01-001",
++      "P-S02-001"
++    ],
++    "peer_s01_summary": "Completed and committed Last result to Latest result in relayboard/web.py; WSGI before/after check passed; 5 public tests passed; reviewer PASS; source commit 89f11c9b5b1725dd3126606fffcb846cf60c61b9; final evidence commit 085855fbb248ddfcab0aeb8a4ff0368af6664f63; clean tree; report path; Laziness Protocol, serial review, no open decisions; identity/usage unknown.",
++    "peer_s02_summary": "Completed pause/resume with independent persisted state; scheduled Runs reject paused Jobs; manual Runs, retries/alerts, enabled and dashboard preserved; final commit 4d4ce07308ff16861baab097f839ccc4d3484213; tests failed before implementation then 10 focused and 15 public passed; WSGI and legacy migration passed; review accepted; no blockers; early capture gaps and concurrent admission limits; finalization.log untracked.",
++    "peer_s02_helper_summaries": [
++      "Implementation tests-first commit 087535a1e0b0ddf43cf4e9e843f76c297d6bce66 and implementation commit b04219d12bf6e1d60782a75e354bac273a7168bd; baseline 7 failures and 3 errors; final 10 focused and 15 public checks pass; diff passes; persisted state, legacy migration, routes, scheduling guard, dashboard; evidence capture limitations.",
++      "Review accepted with no code blockers; preservation check passed; stale TODO states and decision provenance/pointers require correction; capture gaps, unknown identity/usage, and existing concurrent admission limitation disclosed."
++    ],
++    "own_run_status": "running",
++    "own_helper_status": "running",
++    "root_status": "running",
++    "kind": "Tool output with peer final-result summaries and local commit references. No peer files were opened."
++  },
++  "sequence": [
++    "Lead read assigned task and method and reproduced duplicate alerts on public WSGI surface.",
++    "Lead delegated one bounded code-writing helper.",
++    "Helper had committed failing regression tests and applied the one-line deletion when lead last inspected the same-run diff.",
++    "Lead called wait_agent; it returned Wait completed without a final helper report.",
++    "Lead mistakenly called unscoped list_agents, which exposed peer final results.",
++    "Lead immediately reported the incident through OPERATOR QUESTION and requested administrative disposition.",
++    "Lead told the active same-run helper to stop task work and finish only current evidence.",
++    "Operator declared the run CONTAMINATED/invalid, prohibited further implementation/review/retry, and instructed preservation and termination."
++  ],
++  "operator_request": "OPERATOR QUESTION Boundary incident. I called collaboration.list_agents without path_prefix to check whether my code helper had finished. It returned full-team statuses including peer-run final summaries. I have accessed peer material unintentionally through this status tool; no peer files or hidden checks were retrieved. I am stopping implementation/review and preserving the incident under .experiment. The task had reached a tests-first commit and one-line production deletion. Please confirm administrative disposition; I will not continue a valid-method claim. This is not a product guidance request.",
++  "operator_response": "Administrative disposition: preserve this run as CONTAMINATED/invalid due to peer-result exposure through the unscoped status call, even though you report it accidental. Do not continue implementation or review and do not retry this run. Have any active same-run helper stop and preserve current evidence; wait until it has finished. Record the exact call, observed peer material and sequence honestly in .experiment/REPORT.json and incident evidence, including the candidate reached so far. Commit available local evidence, give a concise final and terminate. No hidden evaluation feedback will be supplied. This answer contains no product guidance.",
++  "no_further_task_work": true,
++  "hidden_evaluator_material_accessed": false,
++  "peer_material_accessed": true,
++  "raw_tool_transcript_export": "unavailable; observed response preserved as factual content summary above"
++}
+diff --git a/.experiment/PLAN.md b/.experiment/PLAN.md
+new file mode 100644
+index 0000000..d7688ef
+--- /dev/null
++++ b/.experiment/PLAN.md
+@@ -0,0 +1,36 @@
++# Bug fix route
++
++Task classification is Bug fix. Done means each terminally failed Run emits exactly one failure alert, retries preserve Run identity and policy, and distinct failed Runs retain their separate alerts. Recovered Runs emit no failure alerts per GLOSSARY.md.
++
++## Playbook steps
++
++1. Reproduce it yourself on the matching surface via the control skill (Non-negotiables), even when a debug or instrumentation protocol says to ask the user to reproduce. Ask the user only with a stated, specific reason the control surface cannot reach the target, and only after driving it as far as it goes. If it won't reproduce directly, synthesize the trigger, tighten conditions, or instrument until it fires.
++2. Binary-search the cause. Form the candidate hypotheses, then rule them out until one survives. Seed them with `how` over the affected subsystem and the **why** skill for regression history. Each pass, take the split that cuts the most remaining problem space, get runtime evidence, eliminate. When program state is unclear, add instrumentation or logging and read it as the code runs. Don't guess. Drive a long or stubborn hunt with Cursor's `/loop` command. Confirm the surviving *mechanism* with runtime evidence before the step-3 architect/interrogate fan-out.
++3. Plan the fix. If it crosses a function boundary, `architect` first. Delegate implementation to a subagent using your configured bug-fix model (default `grok-4.7-xhigh-fast`) with a specific scope.
++4. Verify on the same surface. The original repro now passes. "Inconclusive" or wrong-surface is not a pass. Flag it. Unit tests show branch behavior, not bug absence.
++5. Stage the commits so the failing repro lands before the fix in git history. See the **tdd** skill for the failing-test-first cadence when the bug has a cheap local test path. Skip it when the test would be expensive, integration-heavy, or unclear.
++   This is the canonical **sequence-verifiable-units** principle skill, the failing test first and the fix on top.
++6. Run **Opening a PR**.
++
++Step 6 is adapted to a local commit and orchestrator handoff by METHOD.md. No PR or remote operation occurs in this run.
++
++## Throughput checkpoint before implementation
++
++- Blocking first steps. Read task, frozen method and applicable sources; reproduce via WSGI; confirm the lifecycle mechanism before delegation.
++- Independent workstreams. Diagnosis, regression coverage, and evidence review are conceptually separate. Helpers execute strictly serially under METHOD.md.
++- Shared mutable state. All helpers share this checkout, git index and .experiment artifacts. Only one helper runs at a time. The lead does not edit code while a code helper runs.
++- Smallest safe decomposition. Lead reproduces and selects the local fix; code helper adds failing public API regression tests, records red evidence and commits tests, then removes the premature alert call; lead verifies and reviews; fresh review helper audits diff and trail; lead freezes a local candidate.
++
++## Data shape and direct How trace
++
++A Job owns max_attempts. A stable Run owns ordered Attempts and one terminal outcome. Alerts reference Run identity, not attempt identity. WSGI routes call RelayBoardService.record_attempt; the service records an Attempt, decides retry or terminal outcome, and writes alerts through Store. Store simply inserts the provided alert. No additional alert path exists in the supplied web surface.
++
++How uses the simple direct lead explainer route explicitly permitted by METHOD.md. Native How references are unbundled. The scope is one lifecycle branch in one service function.
++
++## Native routes unavailable
++
++The bundled sources do not supply why, unslop, technical-writing, create-skill, deslop, no-comments, control-ui/control-cli or Opening a PR. These routes are not fetched or invented. METHOD.md maps control surfaces to direct WSGI checks, cleanup to a scoped diff review, and PR opening to local immutable commit handoff. Prose follows core bundled writing rules. No lab history is inspected. Native /loop becomes evidence/change/verify inside this turn. No native multi-model or parallel-throughput claim is made.
++
++## Scope choice
++
++The candidate fix is one deletion within record_attempt, leaving its existing terminal failure alert as the sole emission. It changes no function interface or boundary. Architect is skipped because this fix does not cross a function boundary or require cross-function design. No schema deduplication or additional abstraction is justified by the observed sequential fixture behavior. The real invariant is terminal Run failure, not one alert per Job.
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..178d2b4
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,256 @@
++{
++  "schema_version": 1,
++  "run_id": "P-S04-001",
++  "treatment": "pstack-codex-port-v0",
++  "declared_status": "CONTAMINATED",
++  "valid": false,
++  "completed_task": false,
++  "disposition": "Operator declared invalid after peer-result exposure. No retry, further implementation, fresh review or hidden evaluation feedback.",
++  "working_area": "/workspace/relayboard-active/P-S04-001",
++  "initial_local_commit": "a736d8366f95b1b586ab8b0c31f52dc876cf2e6a",
++  "local_commits": [
++    {
++      "sha": "9a4af6c6ba431462451cee0965481b7c9c639359",
++      "kind": "tests-first",
++      "files": [
++        "tests/test_public.py"
++      ],
++      "result": "Four public WSGI regression tests fail before production changes"
++    },
++    {
++      "sha": "c6d5358836f21881a7c4715e0858cac7d8fc8c73",
++      "kind": "halted-candidate-and-evidence",
++      "result": "Preserves the already-reached one-line deletion and contamination evidence; invalid candidate"
++    },
++    {
++      "sha": null,
++      "kind": "final-report-evidence",
++      "identity": "The self-containing final REPORT.json commit is identified by local HEAD in the handoff; hash cannot be embedded in its own contents"
++    }
++  ],
++  "candidate_reached": {
++    "change": "Removed _emit_failure_alert from the pending retry branch in record_attempt",
++    "root_cause": "Each failed Attempt with retries remaining emitted a Run failure alert while the Run was still running, then terminal failure emitted again",
++    "changed_code_paths": [
++      "relayboard/service.py",
++      "tests/test_public.py"
++    ],
++    "no_code_work_after_incident": true
++  },
++  "method": {
++    "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
++    "binding": "METHOD.md",
++    "routes": ".experiment/method-routes.json",
++    "plan": ".experiment/PLAN.md",
++    "principles": "Laziness Protocol kept production to one deletion. Model the Domain retained stable Run identity. Fix Root Causes selected lifecycle emission, not Job-level suppression. Test Behavior used WSGI observable alerts. Sequence Work into Verifiable Units committed failing tests first. Prove It Works captured real public outputs. Never Block on the Human used standing local authorization.",
++    "completed_steps": [
++      "classification and direct How trace",
++      "throughput checkpoint",
++      "WSGI reproduction and mechanism diagnosis",
++      "serial bounded helper code implementation",
++      "red test commit",
++      "helper focused and full public checks"
++    ],
++    "cancelled_steps": [
++      "lead after-fix original script verification",
++      "complete lead review",
++      "fresh serial helper review and audit",
++      "valid candidate freeze"
++    ],
++    "adaptation_limits": "No native Cursor control/plugin/PR automation, raw transcript export, model diversity or parallel throughput. Unbundled routes were not fetched."
++  },
++  "model": {
++    "lead_requested": "gpt-6.1-sol",
++    "lead_reasoning_requested": "high",
++    "lead_observed": null,
++    "lead_reasoning_observed": null,
++    "helper_requested": "gpt-6.1-sol",
++    "helper_reasoning_requested": "high",
++    "helper_observed": null,
++    "usage": null
++  },
++  "helpers": [
++    {
++      "agent": "/root/contestant_p_s04_001/bounded_fix",
++      "fork_turns": "none",
++      "status": "completed",
++      "serial": true,
++      "descendants": false,
++      "assignment": ".experiment/method-routes.json",
++      "report": ".experiment/helper-implementation.json",
++      "completion": ".experiment/helper-completion.json"
++    }
++  ],
++  "all_helpers_terminated": true,
++  "test_commands_results": [
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "phase": "baseline",
++      "exit_code": 0,
++      "tests": 5,
++      "output_path": ".experiment/outputs/baseline-public.txt"
++    },
++    {
++      "command": "python -m .experiment.reproduce_alerts",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "phase": "initial harness error",
++      "exit_code": 1,
++      "result": "Relative module names not supported; inconclusive product check",
++      "output_path": ".experiment/outputs/repro-before.txt"
++    },
++    {
++      "command": "PYTHONPATH=. python .experiment/reproduce_alerts.py",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "phase": "lead original WSGI reproduction before fix",
++      "exit_code": 1,
++      "result": "Two alerts on each failed retrying Run; one premature alert retained on recovered Run",
++      "output_path": ".experiment/outputs/repro-before-wsgi.txt"
++    },
++    {
++      "command": "PYTHONPATH=tests:. python -m unittest -v test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert",
++      "actual_invocation_detail": ".experiment/helper-implementation.json commands uses Python subprocess and PYTHONPATH=tests:.",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "phase": "helper red before production change",
++      "exit_code": 1,
++      "tests": 4,
++      "failures": 4,
++      "verbatim_summary": "FAILED (failures=4)\nEXIT_CODE=1",
++      "output_path": ".experiment/outputs/helper-red.txt"
++    },
++    {
++      "command": "PYTHONPATH=tests:. python -m unittest -v test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert",
++      "actual_invocation_detail": ".experiment/helper-implementation.json",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "phase": "helper passing after deletion and before halt notice",
++      "exit_code": 0,
++      "tests": 4,
++      "verbatim_summary": "Ran 4 tests in 0.004s\n\nOK\n\nEXIT_CODE=0",
++      "output_path": ".experiment/outputs/helper-focused.txt"
++    },
++    {
++      "command": "python -m unittest discover -s tests -v",
++      "actual_invocation_detail": ".experiment/helper-implementation.json",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "phase": "helper full public after deletion and before halt notice",
++      "exit_code": 0,
++      "tests": 9,
++      "verbatim_summary": "Ran 9 tests in 0.008s\n\nOK\n\nEXIT_CODE=0",
++      "output_path": ".experiment/outputs/helper-public.txt"
++    },
++    {
++      "command": "git diff --check",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "phase": "helper scoped self-check before halt",
++      "exit_code": 0,
++      "output_path": ".experiment/outputs/helper-review.txt"
++    },
++    {
++      "command": "PYTHONPATH=. python .experiment/reproduce_alerts.py",
++      "phase": "lead after-fix original script",
++      "result": "NOT RUN; cancelled on contamination",
++      "exit_code": null,
++      "output_path": null
++    }
++  ],
++  "operator_interactions": [
++    {
++      "request": "OPERATOR QUESTION Boundary incident. I called collaboration.list_agents without path_prefix to check whether my code helper had finished. It returned full-team statuses including peer-run final summaries. I have accessed peer material unintentionally through this status tool; no peer files or hidden checks were retrieved. I am stopping implementation/review and preserving the incident under .experiment. The task had reached a tests-first commit and one-line production deletion. Please confirm administrative disposition; I will not continue a valid-method claim. This is not a product guidance request.",
++      "response": "Administrative disposition: preserve this run as CONTAMINATED/invalid due to peer-result exposure through the unscoped status call, even though you report it accidental. Do not continue implementation or review and do not retry this run. Have any active same-run helper stop and preserve current evidence; wait until it has finished. Record the exact call, observed peer material and sequence honestly in .experiment/REPORT.json and incident evidence, including the candidate reached so far. Commit available local evidence, give a concise final and terminate. No hidden evaluation feedback will be supplied. This answer contains no product guidance.",
++      "product_guidance": false
++    }
++  ],
++  "action_path_log": {
++    "lead_commands": ".experiment/commands.json",
++    "helper_commands_and_patches": ".experiment/helper-implementation.json",
++    "decisions": ".experiment/decisions.tsv",
++    "incident": ".experiment/INCIDENT.json",
++    "paths_read": [
++      "TASK.md",
++      "METHOD.md",
++      ".experiment/RUN_MANIFEST.json",
++      "README.md",
++      "GLOSSARY.md",
++      "pyproject.toml",
++      ".gitignore",
++      "relayboard/models.py",
++      "relayboard/service.py",
++      "relayboard/store.py",
++      "relayboard/testing.py",
++      "relayboard/web.py",
++      "tests/test_public.py",
++      "assigned bundled upstream/pstack skill sources enumerated in method-routes.json",
++      "same-run public output files and helper report",
++      "local git HEAD, status and own-change diff only"
++    ],
++    "paths_written": [
++      "tests/test_public.py",
++      "relayboard/service.py",
++      "local git index/commits",
++      ".experiment evidence files"
++    ],
++    "nonfilesystem_access": "Unscoped collaboration.list_agents({}) exposed peer final summaries, violating the boundary. Incident recorded immediately.",
++    "post_halt_actions": [
++      "operator and helper halt messages",
++      "incident and operator exchange preservation",
++      "read existing helper evidence for REPORT, not further code review",
++      "wait for helper final completion message",
++      "commit reached candidate/evidence",
++      "write and commit final report"
++    ],
++    "shell_policy": "All shell commands used explicit assigned workdir. No remote, deployment, paid API, external message or merge occurred."
++  },
++  "evaluator_or_peer_material_accessed": true,
++  "evaluator_material_accessed": false,
++  "peer_material_accessed": true,
++  "incident": {
++    "exact_call": {
++      "tool": "collaboration.list_agents",
++      "arguments": {}
++    },
++    "observed_peer_material": {
++      "peer_run_ids": [
++        "P-S01-001",
++        "P-S02-001"
++      ],
++      "peer_s01_summary": "Completed and committed Last result to Latest result in relayboard/web.py; WSGI before/after check passed; 5 public tests passed; reviewer PASS; source commit 89f11c9b5b1725dd3126606fffcb846cf60c61b9; final evidence commit 085855fbb248ddfcab0aeb8a4ff0368af6664f63; clean tree; report path; Laziness Protocol, serial review, no open decisions; identity/usage unknown.",
++      "peer_s02_summary": "Completed pause/resume with independent persisted state; scheduled Runs reject paused Jobs; manual Runs, retries/alerts, enabled and dashboard preserved; final commit 4d4ce07308ff16861baab097f839ccc4d3484213; tests failed before implementation then 10 focused and 15 public passed; WSGI and legacy migration passed; review accepted; no blockers; early capture gaps and concurrent admission limits; finalization.log untracked.",
++      "peer_s02_helper_summaries": [
++        "Implementation tests-first commit 087535a1e0b0ddf43cf4e9e843f76c297d6bce66 and implementation commit b04219d12bf6e1d60782a75e354bac273a7168bd; baseline 7 failures and 3 errors; final 10 focused and 15 public checks pass; diff passes; persisted state, legacy migration, routes, scheduling guard, dashboard; evidence capture limitations.",
++        "Review accepted with no code blockers; preservation check passed; stale TODO states and decision provenance/pointers require correction; capture gaps, unknown identity/usage, and existing concurrent admission limitation disclosed."
++      ],
++      "own_run_status": "running",
++      "own_helper_status": "running",
++      "root_status": "running",
++      "kind": "Tool output with peer final-result summaries and local commit references. No peer files were opened."
++    },
++    "sequence": [
++      "Lead read assigned task and method and reproduced duplicate alerts on public WSGI surface.",
++      "Lead delegated one bounded code-writing helper.",
++      "Helper had committed failing regression tests and applied the one-line deletion when lead last inspected the same-run diff.",
++      "Lead called wait_agent; it returned Wait completed without a final helper report.",
++      "Lead mistakenly called unscoped list_agents, which exposed peer final results.",
++      "Lead immediately reported the incident through OPERATOR QUESTION and requested administrative disposition.",
++      "Lead told the active same-run helper to stop task work and finish only current evidence.",
++      "Operator declared the run CONTAMINATED/invalid, prohibited further implementation/review/retry, and instructed preservation and termination."
++    ],
++    "evidence_path": ".experiment/INCIDENT.json",
++    "reported_as_accidental": true,
++    "operator_invalidated": true
++  },
++  "unavailable_evidence": [
++    "Observed runtime model identity, reasoning and token usage are unknown",
++    "No full raw transcript export; early lead command entries are summarized rather than exact multiline inputs",
++    "No fresh independent code or decision-trail review because halt was required",
++    "No post-fix run of the lead original reproduction script",
++    "The full raw agent-list response is not exported; exact call and factual observed peer-summary content are preserved",
++    "Final report self-containing commit hash is provided in handoff, not embedded in REPORT.json"
++  ],
++  "attention": [
++    "CONTAMINATED/invalid. Peer results were exposed by an unscoped status-tool call.",
++    "Candidate evidence is preserved only; no valid completion or independent review claimed.",
++    "Decision trail incident row preceded its delayed resumed-lead start row; append-only record retains the sequence."
++  ],
++  "open_decisions": [],
++  "no_retry": true
++}
+diff --git a/.experiment/commands.json b/.experiment/commands.json
+new file mode 100644
+index 0000000..ecf3101
+--- /dev/null
++++ b/.experiment/commands.json
+@@ -0,0 +1,47 @@
++[
++  {
++    "cmd": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'AGENTS.md' -g '*'",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "result": "Listed supplied run only, including local .git paths; no file contents from other runs were read"
++  },
++  {
++    "cmd": "cat TASK.md METHOD.md .experiment/RUN_MANIFEST.json && git status --short && git rev-parse HEAD",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "result": "Clean initial commit a736d8366f95b1b586ab8b0c31f52dc876cf2e6a"
++  },
++  {
++    "cmd": "cat bundled Poteto Mode, bug-fix, seven core leaf skills",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "result": "Read unchanged assigned sources only"
++  },
++  {
++    "cmd": "cat bundled How, TDD, Show me your work, README.md, GLOSSARY.md, pyproject.toml, models, service, store, testing, public tests",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "result": "Direct narrow subsystem trace; README outside-run links were not followed"
++  },
++  {
++    "cmd": "cat relayboard/web.py .gitignore && python -m unittest discover -s tests -v",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "result": "5 tests passed"
++  },
++  {
++    "cmd": "python -m unittest discover -s tests -v",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "output": ".experiment/outputs/baseline-public.txt",
++    "exit_code": 0
++  },
++  {
++    "cmd": "python -m .experiment.reproduce_alerts",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "output": ".experiment/outputs/repro-before.txt",
++    "exit_code": 1,
++    "result": "Invalid relative module name; inconclusive harness invocation"
++  },
++  {
++    "cmd": "PYTHONPATH=. python .experiment/reproduce_alerts.py",
++    "workdir": "/workspace/relayboard-active/P-S04-001",
++    "output": ".experiment/outputs/repro-before-wsgi.txt",
++    "exit_code": 1,
++    "result": "Expected Run alert invariant fails; exit observed directly below"
++  }
++]
+diff --git a/.experiment/decisions.tsv b/.experiment/decisions.tsv
+new file mode 100644
+index 0000000..df34c5e
+--- /dev/null
++++ b/.experiment/decisions.tsv
+@@ -0,0 +1,19 @@
++ts	phase	decision	why	evidence	result
++2026-10-07T07:19:30.501057+00:00	frame	Selected the bundled Bug fix route and direct How trace	METHOD.md permits lead tracing for this narrow lifecycle branch	METHOD.md; .experiment/PLAN.md	classified
++2026-10-07T07:19:30.501074+00:00	baseline	Ran the original public suite before production changes	Prove It Works requires observed public behavior	.experiment/outputs/baseline-public.txt	5 tests passed
++2026-10-07T07:19:30.501080+00:00	reproduce	Kept the initial invalid module invocation and corrected its command	Relative module invocation was a harness error, not a product failure	.experiment/outputs/repro-before.txt	corrected with PYTHONPATH=. script invocation
++2026-10-07T07:19:30.501086+00:00	diagnose	Selected premature retry-branch alert emission as root cause	Running Run already has one alert and terminal failure adds another; recovered Run retains one	.experiment/outputs/repro-before-wsgi.txt; relayboard/service.py	reproduced duplicate alerts on WSGI
++2026-10-07T07:19:30.501092+00:00	design	Remove only the retry-branch alert call and keep terminal emission	Fix Root Causes and Laziness Protocol favor the observed lifecycle error over storage suppression	.experiment/PLAN.md; GLOSSARY.md	implementation delegated next
++2026-10-07T07:19:30.501097+00:00	throughput	Recorded blocking work, independent work, shared state and safe decomposition	METHOD.md requires a checkpoint and strictly serial helpers	.experiment/PLAN.md	ready for bounded delegation
++2026-10-07T07:19:30.501103+00:00	authorization	Use existing fixture WSGI and Store interfaces without a product question	Never Block on the Human and METHOD.md grant reversible local work; terminal Run semantics are public	METHOD.md; GLOSSARY.md	no operator interaction needed
++2026-10-07T07:21:04.632288+00:00	start	Fresh bounded helper read prior rows from 2026-10-07T07:19:30.501057+00:00 through 2026-10-07T07:19:30.501103+00:00	Serial implementation follows the lead reproduction and frozen method	.experiment/PLAN.md; /root/contestant_p_s04_001/bounded_fix	sole code writer active
++2026-10-07T07:21:04.632330+00:00	helper-scope	Keep the existing Job, stable Run and ordered Attempt structure	Model the Domain needs no new abstraction; Test Behavior calls the public WSGI routes	GLOSSARY.md; relayboard/web.py; tests/test_public.py	four focused lifecycle regression tests selected
++2026-10-07T07:22:47.268859+00:00	helper-red	Added four WSGI lifecycle regression tests before changing production	TDD and Test Behavior require failures on the public observable alert state	.experiment/outputs/helper-red.txt	4 tests failed on alert assertions; exit 1
++2026-10-07T07:22:47.268888+00:00	helper-delivery	Committed only the failing regression tests as 9a4af6c6ba431462451cee0965481b7c9c639359	Sequence Work into Verifiable Units preserves the failing-before checkpoint	tests/test_public.py; 9a4af6c6ba431462451cee0965481b7c9c639359	124 test lines committed before production fix
++2026-10-07T07:22:47.268896+00:00	helper-fix	Deleted only the retry-branch failure alert emission	Fix Root Causes and Laziness Protocol retain the terminal Run failure emission without storage suppression	relayboard/service.py	one production line removed; fix left uncommitted
++2026-10-07T07:22:47.268901+00:00	helper-verify	Ran focused regression checks and the full public suite after the deletion	Prove It Works requires observed WSGI behavior and preserved retry policy	.experiment/outputs/helper-focused.txt; .experiment/outputs/helper-public.txt	4 focused tests and all 9 public tests passed; exits 0
++2026-10-07T07:22:47.268908+00:00	helper-model	Recorded requested gpt-6.1-sol with high reasoning and unknown observed runtime identity	The frozen method requires separating requested identity from verified observation	METHOD.md; .experiment/helper-implementation.json	no multi-model validation claimed; fresh lead review pending
++2026-10-07T07:24:22.990523+00:00	incident	Halted after unscoped status tool exposed peer final summaries	Operator declared run contaminated and prohibited further implementation or review	.experiment/INCIDENT.json	CONTAMINATED; invalid; evidence preservation only
++2026-10-07T07:25:08.839775+00:00	start	Lead resumed after helper rows from 2026-10-07T07:21:04.632288+00:00 through 2026-10-07T07:22:47.268908+00:00	This delayed start row records the resumed lead segment honestly; incident row was already appended	.experiment/helper-implementation.json; .experiment/INCIDENT.json	evidence preservation only
++2026-10-07T07:25:08.839806+00:00	halt	Confirmed helper completion and preserved its existing checks	Operator requires all helpers stopped and no further implementation or review	.experiment/helper-completion.json; .experiment/helper-implementation.json	helper complete; no independent review
++2026-10-07T07:25:08.839813+00:00	preserve	Preserve the reached one-line candidate and captured evidence in a local commit	Operator explicitly requested preservation of the invalid run without retry	.experiment/INCIDENT.json; .experiment/helper-implementation.json	CONTAMINATED; not a completed valid-method candidate
+diff --git a/.experiment/helper-completion.json b/.experiment/helper-completion.json
+new file mode 100644
+index 0000000..492e344
+--- /dev/null
++++ b/.experiment/helper-completion.json
+@@ -0,0 +1,8 @@
++{
++  "agent": "/root/contestant_p_s04_001/bounded_fix",
++  "status": "completed",
++  "observed_final_message": "Stopped. Production fix remains uncommitted. Tests-only commit is 9a4af6c6ba431462451cee0965481b7c9c639359. helper-red.txt has 4 failures and exit 1. helper-focused.txt has 4 tests OK and exit 0. helper-public.txt has 9 tests OK and exit 0. helper-review.txt records whitespace check and one-line deletion. Independent review pending. Runtime identity unknown. Halt notice received; no further checks or implementation.",
++  "descendants_spawned": false,
++  "no_helpers_active": true,
++  "evidence_basis": "helper final answer delivered through collaboration mailbox"
++}
+diff --git a/.experiment/helper-implementation.json b/.experiment/helper-implementation.json
+new file mode 100644
+index 0000000..b2792d1
+--- /dev/null
++++ b/.experiment/helper-implementation.json
+@@ -0,0 +1,204 @@
++{
++  "schema_version": 1,
++  "helper": "/root/contestant_p_s04_001/bounded_fix",
++  "created_utc": "2026-10-07T07:23:48.493Z",
++  "workdir": "/workspace/relayboard-active/P-S04-001",
++  "method": "pstack-codex-port-v0",
++  "role": "Fresh serial bounded code-writing helper",
++  "model": {
++    "requested_name": "gpt-6.1-sol",
++    "requested_reasoning": "high",
++    "requested_basis": "METHOD.md requires GPT-6.1 Sol with High reasoning for helpers where supported; parent assigned same-model work.",
++    "observed_name": null,
++    "observed_reasoning": null,
++    "observation": "Unknown. No host runtime identity or reasoning setting was exposed for verification. No model diversity is claimed."
++  },
++  "classification": "Bug fix",
++  "done_predicate": "No failure alerts for pending or recovered Runs; one failure alert per terminally failed Run; distinct failed Runs keep separate alerts; retry identity, count, and status preserved.",
++  "sources_read": [
++    "TASK.md",
++    "METHOD.md",
++    ".experiment/PLAN.md",
++    "upstream/pstack/skills/poteto-mode/SKILL.md",
++    "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md",
++    "upstream/pstack/skills/tdd/SKILL.md",
++    "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
++    "upstream/pstack/skills/principle-laziness-protocol/SKILL.md",
++    "upstream/pstack/skills/principle-model-the-domain/SKILL.md",
++    "upstream/pstack/skills/principle-prove-it-works/SKILL.md",
++    "upstream/pstack/skills/principle-fix-root-causes/SKILL.md",
++    "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
++    "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md",
++    "upstream/pstack/skills/show-me-your-work/SKILL.md"
++  ],
++  "data_shape": "Job owns max_attempts. Stable Run owns ordered Attempts and terminal outcome. Failure Alert belongs to a terminally failed Run.",
++  "red_commit": "9a4af6c6ba431462451cee0965481b7c9c639359",
++  "red_commit_files": [
++    "tests/test_public.py"
++  ],
++  "production_fix": {
++    "path": "relayboard/service.py",
++    "change": "Delete only self._emit_failure_alert(run_id) in attempt.number < job.max_attempts branch.",
++    "committed": false
++  },
++  "tests": [
++    {
++      "path": ".experiment/outputs/helper-red.txt",
++      "tests": 4,
++      "failures": 4,
++      "exit_code": 1,
++      "production_state": "unchanged",
++      "failure_reason": "Premature alert during pending retry, three alerts after three failed attempts, duplicate alerts for distinct failed Runs, retained alert after successful recovery."
++    },
++    {
++      "path": ".experiment/outputs/helper-focused.txt",
++      "tests": 4,
++      "failures": 0,
++      "exit_code": 0,
++      "production_state": "one-line deletion"
++    },
++    {
++      "path": ".experiment/outputs/helper-public.txt",
++      "tests": 9,
++      "failures": 0,
++      "exit_code": 0,
++      "production_state": "one-line deletion"
++    }
++  ],
++  "changed_paths": [
++    "tests/test_public.py",
++    "relayboard/service.py",
++    ".experiment/decisions.tsv",
++    ".experiment/helper-implementation.json",
++    ".experiment/outputs/helper-red.txt",
++    ".experiment/outputs/helper-focused.txt",
++    ".experiment/outputs/helper-public.txt",
++    ".experiment/outputs/helper-review.txt"
++  ],
++  "review_evidence": ".experiment/outputs/helper-review.txt",
++  "scope_review": "git diff --check passed. Tests-only commit contains 124 added lines in tests/test_public.py. Uncommitted tracked diff contains only the premature alert-call deletion.",
++  "decision_log": ".experiment/decisions.tsv",
++  "principles_and_choices": [
++    {
++      "principle": "Test Behavior, Not Implementation",
++      "choice": "Create Runs and record Attempts through WSGI; read synthetic alerts through GET /api/alerts. Inspect ordered stored Attempts only for count and retry preservation."
++    },
++    {
++      "principle": "Model the Domain",
++      "choice": "Keep the existing Job, stable Run, ordered Attempt structure."
++    },
++    {
++      "principle": "Laziness Protocol",
++      "choice": "Delete one incorrect emission without a new abstraction, storage suppression, schema, or interface change."
++    },
++    {
++      "principle": "Fix Root Causes",
++      "choice": "Remove the emission from the pending retry state rather than deduplicating alerts by Job."
++    },
++    {
++      "principle": "Sequence Work into Verifiable Units",
++      "choice": "Commit the four actually failing tests before the production fix."
++    },
++    {
++      "principle": "Prove It Works",
++      "choice": "Run focused and full public WSGI checks and retain their actual outputs and exit codes."
++    }
++  ],
++  "adaptations": [
++    "No native deslop or no-comments plugin is installed; review performed with local scoped diff and whitespace checks per METHOD.md.",
++    "No native technical-writing, unslop, or Opening a PR route fetched; local tests-only commit and uncommitted fix handed to lead.",
++    "No helper descendants; fresh independent review remains the lead's responsibility."
++  ],
++  "unknowns": [
++    "Observed runtime model and reasoning setting are unknown.",
++    "Independent fresh review and final candidate commit are pending lead action.",
++    "No raw transcript was exported; exact shell commands, edit patches, and public outputs are preserved instead."
++  ],
++  "contamination_observed": false,
++  "delegation_host_failure_observed": false,
++  "commands": [
++    {
++      "cmd": "pwd\nrg --files -g 'TASK.md' -g 'METHOD.md' -g 'PLAN.md' -g 'AGENTS.md' -g '*poteto*' -g '*SKILL.md' -g '*laziness*' -g '*domain*' -g '*test-behavior*' -g '*bug-fix*' -g '*tdd*' -g '*TDD*'",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "cat TASK.md METHOD.md .experiment/PLAN.md upstream/pstack/skills/poteto-mode/SKILL.md upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md upstream/pstack/skills/tdd/SKILL.md upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md upstream/pstack/skills/principle-laziness-protocol/SKILL.md upstream/pstack/skills/principle-model-the-domain/SKILL.md",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "cat upstream/pstack/skills/poteto-mode/SKILL.md",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "cat tests/test_public.py relayboard/service.py relayboard/store.py GLOSSARY.md .experiment/outputs/repro-before-wsgi.txt\ncat .experiment/decisions.tsv\nrg --files -g '!upstream/**' -g '!*.pyc' -g '!__pycache__/**'\ngit status --short",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "cat relayboard/web.py relayboard/testing.py README.md pyproject.toml upstream/pstack/skills/principle-prove-it-works/SKILL.md upstream/pstack/skills/principle-fix-root-causes/SKILL.md upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md upstream/pstack/skills/show-me-your-work/SKILL.md",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "python - <<'PY'\nimport csv\nfrom datetime import datetime, timezone\nfrom pathlib import Path\npath = Path('.experiment/decisions.tsv')\nwith path.open(newline='') as f:\n    rows = list(csv.DictReader(f, delimiter='\\t'))\nwith path.open('a', newline='') as f:\n    writer = csv.writer(f, delimiter='\\t')\n    writer.writerow([datetime.now(timezone.utc).isoformat(), 'start', 'Fresh bounded helper read prior rows from ' + rows[0]['ts'] + ' through ' + rows[-1]['ts'], 'Serial implementation follows the lead reproduction and frozen method', '.experiment/PLAN.md; /root/contestant_p_s04_001/bounded_fix', 'sole code writer active'])\n    writer.writerow([datetime.now(timezone.utc).isoformat(), 'helper-scope', 'Keep the existing Job, stable Run and ordered Attempt structure', 'Model the Domain needs no new abstraction; Test Behavior calls the public WSGI routes', 'GLOSSARY.md; relayboard/web.py; tests/test_public.py', 'four focused lifecycle regression tests selected'])\nPY",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "python - <<'PY'\nimport os\nfrom pathlib import Path\nimport subprocess\nimport sys\nargv = [sys.executable, '-m', 'unittest', '-v',\n        'test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts',\n        'test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert',\n        'test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert',\n        'test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert']\nenv = dict(os.environ, PYTHONPATH='tests:.')\nresult = subprocess.run(argv, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\noutput = result.stdout + f'\\nEXIT_CODE={result.returncode}\\n'\nwith Path('.experiment/outputs/helper-red.txt').open('x') as f:\n    f.write(output)\nprint(output, end='')\nsys.exit(result.returncode)\nPY",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 1,
++      "evidence": ".experiment/outputs/helper-red.txt"
++    },
++    {
++      "cmd": "git diff --check\ngit diff -- tests/test_public.py\ngit diff -- relayboard/service.py\ngit diff --cached --name-only",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "git add tests/test_public.py\ngit commit -m \"test: cover failure alerts across retrying run lifecycles\"\ngit rev-parse HEAD",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "evidence": ".experiment/outputs/helper-focused.txt",
++      "cmd": "python - <<'PY'\nimport os\nfrom pathlib import Path\nimport subprocess\nimport sys\nargv = [sys.executable, '-m', 'unittest', '-v',\n        'test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts',\n        'test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert',\n        'test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert',\n        'test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert']\nenv = dict(os.environ, PYTHONPATH='tests:.')\nresult = subprocess.run(argv, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\noutput = result.stdout + f'\\nEXIT_CODE={result.returncode}\\n'\nwith Path('.experiment/outputs/helper-focused.txt').open('x') as f:\n    f.write(output)\nprint(output, end='')\nsys.exit(result.returncode)\nPY",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "evidence": ".experiment/outputs/helper-public.txt",
++      "cmd": "python - <<'PY'\nfrom pathlib import Path\nimport subprocess\nimport sys\nresult = subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-v'], text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\noutput = result.stdout + f'\\nEXIT_CODE={result.returncode}\\n'\nwith Path('.experiment/outputs/helper-public.txt').open('x') as f:\n    f.write(output)\nprint(output, end='')\nsys.exit(result.returncode)\nPY",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "python - <<'PY'\nimport csv\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nrows = [\n    ('helper-red', 'Added four WSGI lifecycle regression tests before changing production', 'TDD and Test Behavior require failures on the public observable alert state', '.experiment/outputs/helper-red.txt', '4 tests failed on alert assertions; exit 1'),\n    ('helper-delivery', 'Committed only the failing regression tests as 9a4af6c6ba431462451cee0965481b7c9c639359', 'Sequence Work into Verifiable Units preserves the failing-before checkpoint', 'tests/test_public.py; 9a4af6c6ba431462451cee0965481b7c9c639359', '124 test lines committed before production fix'),\n    ('helper-fix', 'Deleted only the retry-branch failure alert emission', 'Fix Root Causes and Laziness Protocol retain the terminal Run failure emission without storage suppression', 'relayboard/service.py', 'one production line removed; fix left uncommitted'),\n    ('helper-verify', 'Ran focused regression checks and the full public suite after the deletion', 'Prove It Works requires observed WSGI behavior and preserved retry policy', '.experiment/outputs/helper-focused.txt; .experiment/outputs/helper-public.txt', '4 focused tests and all 9 public tests passed; exits 0'),\n    ('helper-model', 'Recorded requested gpt-6.1-sol with high reasoning and unknown observed runtime identity', 'The frozen method requires separating requested identity from verified observation', 'METHOD.md; .experiment/helper-implementation.json', 'no multi-model validation claimed; fresh lead review pending'),\n]\nwith Path('.experiment/decisions.tsv').open('a', newline='') as f:\n    writer = csv.writer(f, delimiter='\\t')\n    for row in rows:\n        writer.writerow([datetime.now(timezone.utc).isoformat(), *row])\nPY",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0
++    },
++    {
++      "cmd": "python - <<'PY'\nfrom pathlib import Path\nimport subprocess\nimport sys\nchecks = [\n    ['git', 'diff', '--check'],\n    ['git', 'diff', '--', 'relayboard/service.py'],\n    ['git', 'show', '--stat', '--oneline', 'HEAD'],\n    ['git', 'status', '--short'],\n]\noutputs = []\nexit_code = 0\nfor argv in checks:\n    result = subprocess.run(argv, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\n    outputs.append('COMMAND=' + repr(argv) + '\\n' + result.stdout + f'EXIT_CODE={result.returncode}\\n')\n    exit_code = max(exit_code, result.returncode)\nfor name, ending in [('helper-red.txt', 'EXIT_CODE=1'), ('helper-focused.txt', 'EXIT_CODE=0'), ('helper-public.txt', 'EXIT_CODE=0')]:\n    path = Path('.experiment/outputs') / name\n    assert path.read_text().rstrip().endswith(ending), path\noutput = '\\n'.join(outputs)\nwith Path('.experiment/outputs/helper-review.txt').open('x') as f:\n    f.write(output)\nprint(output, end='')\nsys.exit(exit_code)\nPY",
++      "workdir": "/workspace/relayboard-active/P-S04-001",
++      "exit_code": 0,
++      "evidence": ".experiment/outputs/helper-review.txt"
++    }
++  ],
++  "edits": [
++    {
++      "tool": "apply_patch",
++      "patch": "*** Begin Patch\n*** Update File: /workspace/relayboard-active/P-S04-001/tests/test_public.py\n@@\n-    def test_api_can_create_run_and_record_attempt(self) -> None:\n+    def test_pending_retries_do_not_emit_failure_alerts(self) -> None:\n+        self.app.store.add_job(\"retrying\", \"Retrying\", max_attempts=3)\n+        code, payload = request(\n+            self.app, \"POST\", \"/api/jobs/retrying/runs\", {\"source\": \"manual\"}\n+        )\n+        self.assertEqual(code, 201)\n+        run_id = payload[\"run\"][\"id\"]\n+\n+        for number in (1, 2):\n+            code, payload = request(\n+                self.app,\n+                \"POST\",\n+                f\"/api/runs/{run_id}/attempts\",\n+                {\"succeeded\": False},\n+            )\n+            self.assertEqual(code, 200)\n+            self.assertEqual(payload[\"status\"], \"retry\")\n+            self.assertEqual(payload[\"run\"][\"id\"], run_id)\n+            self.assertEqual(payload[\"run\"][\"status\"], \"running\")\n+            self.assertEqual(\n+                [(a.number, a.succeeded) for a in self.app.store.list_attempts(run_id)],\n+                [(n, False) for n in range(1, number + 1)],\n+            )\n+            code, payload = request(self.app, \"GET\", \"/api/alerts\")\n+            self.assertEqual(code, 200)\n+            self.assertEqual(payload, {\"alerts\": []})\n+\n+    def test_exhausted_retries_emit_one_failure_alert(self) -> None:\n+        self.app.store.add_job(\"retrying\", \"Retrying\", max_attempts=3)\n+        code, payload = request(\n+            self.app, \"POST\", \"/api/jobs/retrying/runs\", {\"source\": \"scheduled\"}\n+        )\n+        self.assertEqual(code, 201)\n+        run_id = payload[\"run\"][\"id\"]\n+\n+        for outcome, status in (\n+            (\"retry\", \"running\"),\n+            (\"retry\", \"running\"),\n+            (\"failed\", \"failed\"),\n+        ):\n+            code, payload = request(\n+                self.app,\n+                \"POST\",\n+                f\"/api/runs/{run_id}/attempts\",\n+                {\"succeeded\": False},\n+            )\n+            self.assertEqual(code, 200)\n+            self.assertEqual(payload[\"status\"], outcome)\n+            self.assertEqual(payload[\"run\"][\"id\"], run_id)\n+            self.assertEqual(payload[\"run\"][\"status\"], status)\n+\n+        self.assertEqual(\n+            [(a.number, a.succeeded) for a in self.app.store.list_attempts(run_id)],\n+            [(1, False), (2, False), (3, False)],\n+        )\n+        code, payload = request(self.app, \"GET\", \"/api/alerts\")\n+        self.assertEqual(code, 200)\n+        self.assertEqual(\n+            [(a[\"run_id\"], a[\"job_id\"], a[\"kind\"]) for a in payload[\"alerts\"]],\n+            [(run_id, \"retrying\", \"run_failed\")],\n+        )\n+\n+    def test_distinct_failed_runs_of_same_job_each_emit_alert(self) -> None:\n+        run_ids = []\n+        for source in (\"manual\", \"scheduled\"):\n+            code, payload = request(\n+                self.app, \"POST\", \"/api/jobs/daily-report/runs\", {\"source\": source}\n+            )\n+            self.assertEqual(code, 201)\n+            run_id = payload[\"run\"][\"id\"]\n+            run_ids.append(run_id)\n+            for outcome, status in ((\"retry\", \"running\"), (\"failed\", \"failed\")):\n+                code, payload = request(\n+                    self.app,\n+                    \"POST\",\n+                    f\"/api/runs/{run_id}/attempts\",\n+                    {\"succeeded\": False},\n+                )\n+                self.assertEqual(code, 200)\n+                self.assertEqual(payload[\"status\"], outcome)\n+                self.assertEqual(payload[\"run\"][\"id\"], run_id)\n+                self.assertEqual(payload[\"run\"][\"status\"], status)\n+\n+        self.assertNotEqual(run_ids[0], run_ids[1])\n+        code, payload = request(self.app, \"GET\", \"/api/alerts\")\n+        self.assertEqual(code, 200)\n+        self.assertEqual(\n+            [(a[\"run_id\"], a[\"job_id\"], a[\"kind\"]) for a in payload[\"alerts\"]],\n+            [\n+                (run_ids[0], \"daily-report\", \"run_failed\"),\n+                (run_ids[1], \"daily-report\", \"run_failed\"),\n+            ],\n+        )\n+\n+    def test_successful_retry_does_not_emit_failure_alert(self) -> None:\n+        code, payload = request(\n+            self.app, \"POST\", \"/api/jobs/daily-report/runs\", {\"source\": \"manual\"}\n+        )\n+        self.assertEqual(code, 201)\n+        run_id = payload[\"run\"][\"id\"]\n+\n+        for succeeded, outcome, status in (\n+            (False, \"retry\", \"running\"),\n+            (True, \"succeeded\", \"succeeded\"),\n+        ):\n+            code, payload = request(\n+                self.app,\n+                \"POST\",\n+                f\"/api/runs/{run_id}/attempts\",\n+                {\"succeeded\": succeeded},\n+            )\n+            self.assertEqual(code, 200)\n+            self.assertEqual(payload[\"status\"], outcome)\n+            self.assertEqual(payload[\"run\"][\"id\"], run_id)\n+            self.assertEqual(payload[\"run\"][\"status\"], status)\n+\n+        self.assertEqual(\n+            [(a.number, a.succeeded) for a in self.app.store.list_attempts(run_id)],\n+            [(1, False), (2, True)],\n+        )\n+        code, payload = request(self.app, \"GET\", \"/api/alerts\")\n+        self.assertEqual(code, 200)\n+        self.assertEqual(payload, {\"alerts\": []})\n+\n+    def test_api_can_create_run_and_record_attempt(self) -> None:\n*** End Patch"
++    },
++    {
++      "tool": "apply_patch",
++      "patch": "*** Begin Patch\n*** Update File: /workspace/relayboard-active/P-S04-001/relayboard/service.py\n@@\n         if attempt.number < job.max_attempts:\n-            self._emit_failure_alert(run_id)\n             return \"retry\"\n*** End Patch"
++    }
++  ],
++  "metadata_write": {
++    "tool": "apply_patch",
++    "path": ".experiment/helper-implementation.json"
++  }
++}
+diff --git a/.experiment/method-routes.json b/.experiment/method-routes.json
+new file mode 100644
+index 0000000..5093fbd
+--- /dev/null
++++ b/.experiment/method-routes.json
+@@ -0,0 +1,67 @@
++{
++  "treatment": "pstack-codex-port-v0",
++  "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
++  "read_sources": [
++    "poteto-mode/SKILL.md",
++    "poteto-mode/playbooks/bug-fix.md",
++    "how/SKILL.md",
++    "tdd/SKILL.md",
++    "show-me-your-work/SKILL.md",
++    "principle-laziness-protocol/SKILL.md",
++    "principle-model-the-domain/SKILL.md",
++    "principle-prove-it-works/SKILL.md",
++    "principle-fix-root-causes/SKILL.md",
++    "principle-test-behavior-not-implementation/SKILL.md",
++    "principle-sequence-verifiable-units/SKILL.md",
++    "principle-never-block-on-the-human/SKILL.md"
++  ],
++  "root": "/workspace/relayboard-active/P-S04-001",
++  "how": "simple direct lead explainer per METHOD.md",
++  "architect": "skipped; one local deletion with no interface or cross-function design",
++  "tdd": "cheap public WSGI test target; red test commit required before fix",
++  "native_unavailable": [
++    "why",
++    "unslop",
++    "technical-writing",
++    "create-skill",
++    "deslop",
++    "no-comments",
++    "control-ui",
++    "control-cli",
++    "opening-a-pr",
++    "Cursor /loop",
++    "native transcript export",
++    "native multi-model review"
++  ],
++  "model_requested": "gpt-6.1-sol",
++  "reasoning_requested": "high",
++  "model_observed": "unknown",
++  "reasoning_observed": "unknown",
++  "helpers": [
++    {
++      "role": "bounded code-writing",
++      "agent": "/root/contestant_p_s04_001/bounded_fix",
++      "fork_turns": "none",
++      "model_requested": "gpt-6.1-sol",
++      "reasoning_requested": "high",
++      "model_observed": "unknown",
++      "reasoning_observed": "unknown",
++      "spawn_result": "accepted",
++      "serial": true,
++      "scope": "WSGI regression tests and deletion of premature retry alert call",
++      "report_path": ".experiment/helper-implementation.json",
++      "status": "completed; stopped task work after halt notice",
++      "tests_first_commit": "9a4af6c6ba431462451cee0965481b7c9c639359",
++      "final_report": ".experiment/helper-completion.json"
++    }
++  ],
++  "operator_interactions": [
++    {
++      "request": "OPERATOR QUESTION Boundary incident. I called collaboration.list_agents without path_prefix to check whether my code helper had finished. It returned full-team statuses including peer-run final summaries. I have accessed peer material unintentionally through this status tool; no peer files or hidden checks were retrieved. I am stopping implementation/review and preserving the incident under .experiment. The task had reached a tests-first commit and one-line production deletion. Please confirm administrative disposition; I will not continue a valid-method claim. This is not a product guidance request.",
++      "response": "Administrative disposition: preserve this run as CONTAMINATED/invalid due to peer-result exposure through the unscoped status call, even though you report it accidental. Do not continue implementation or review and do not retry this run. Have any active same-run helper stop and preserve current evidence; wait until it has finished. Record the exact call, observed peer material and sequence honestly in .experiment/REPORT.json and incident evidence, including the candidate reached so far. Commit available local evidence, give a concise final and terminate. No hidden evaluation feedback will be supplied. This answer contains no product guidance.",
++      "product_guidance": false
++    }
++  ],
++  "evaluator_or_peer_material_accessed": true,
++  "completion_review": "not performed; halted on contamination per operator"
++}
+diff --git a/.experiment/outputs/baseline-public.txt b/.experiment/outputs/baseline-public.txt
+new file mode 100644
+index 0000000..ceccb2a
+--- /dev/null
++++ b/.experiment/outputs/baseline-public.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.004s
++
++OK
+diff --git a/.experiment/outputs/helper-focused.txt b/.experiment/outputs/helper-focused.txt
+new file mode 100644
+index 0000000..9a93d3f
+--- /dev/null
++++ b/.experiment/outputs/helper-focused.txt
+@@ -0,0 +1,11 @@
++test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts) ... ok
++test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert) ... ok
++test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert) ... ok
++test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 4 tests in 0.004s
++
++OK
++
++EXIT_CODE=0
+diff --git a/.experiment/outputs/helper-public.txt b/.experiment/outputs/helper-public.txt
+new file mode 100644
+index 0000000..9fe795d
+--- /dev/null
++++ b/.experiment/outputs/helper-public.txt
+@@ -0,0 +1,16 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert) ... ok
++test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert) ... ok
++test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 9 tests in 0.008s
++
++OK
++
++EXIT_CODE=0
+diff --git a/.experiment/outputs/helper-red.txt b/.experiment/outputs/helper-red.txt
+new file mode 100644
+index 0000000..5bee992
+--- /dev/null
++++ b/.experiment/outputs/helper-red.txt
+@@ -0,0 +1,81 @@
++test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts) ... FAIL
++test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert) ... FAIL
++test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert) ... FAIL
++test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert) ... FAIL
++
++======================================================================
++FAIL: test_pending_retries_do_not_emit_failure_alerts (test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 67, in test_pending_retries_do_not_emit_failure_alerts
++    self.assertEqual(payload, {"alerts": []})
++AssertionError: {'alerts': [{'id': 1, 'job_id': 'retrying', 'kind': '[80 chars]1'}]} != {'alerts': []}
+++ {'alerts': []}
++- {'alerts': [{'id': 1,
++-              'job_id': 'retrying',
++-              'kind': 'run_failed',
++-              'message': 'Job Retrying failed for run run-001',
++-              'run_id': 'run-001'}]}
++
++======================================================================
++FAIL: test_exhausted_retries_emit_one_failure_alert (test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 99, in test_exhausted_retries_emit_one_failure_alert
++    self.assertEqual(
++AssertionError: Lists differ: [('ru[28 chars]led'), ('run-001', 'retrying', 'run_failed'), [33 chars]ed')] != [('ru[28 chars]led')]
++
++First list contains 2 additional elements.
++First extra element 1:
++('run-001', 'retrying', 'run_failed')
++
++- [('run-001', 'retrying', 'run_failed'),
++?                                       ^
++
+++ [('run-001', 'retrying', 'run_failed')]
++?                                       ^
++
++-  ('run-001', 'retrying', 'run_failed'),
++-  ('run-001', 'retrying', 'run_failed')]
++
++======================================================================
++FAIL: test_distinct_failed_runs_of_same_job_each_emit_alert (test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 128, in test_distinct_failed_runs_of_same_job_each_emit_alert
++    self.assertEqual(
++AssertionError: Lists differ: [('ru[42 chars]un-001', 'daily-report', 'run_failed'), ('run-[74 chars]ed')] != [('ru[42 chars]un-002', 'daily-report', 'run_failed')]
++
++First differing element 1:
++('run-001', 'daily-report', 'run_failed')
++('run-002', 'daily-report', 'run_failed')
++
++First list contains 2 additional elements.
++First extra element 2:
++('run-002', 'daily-report', 'run_failed')
++
++  [('run-001', 'daily-report', 'run_failed'),
++-  ('run-001', 'daily-report', 'run_failed'),
++-  ('run-002', 'daily-report', 'run_failed'),
++   ('run-002', 'daily-report', 'run_failed')]
++
++======================================================================
++FAIL: test_successful_retry_does_not_emit_failure_alert (test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/P-S04-001/tests/test_public.py", line 164, in test_successful_retry_does_not_emit_failure_alert
++    self.assertEqual(payload, {"alerts": []})
++AssertionError: {'alerts': [{'id': 1, 'job_id': 'daily-report', 'kind[88 chars]1'}]} != {'alerts': []}
+++ {'alerts': []}
++- {'alerts': [{'id': 1,
++-              'job_id': 'daily-report',
++-              'kind': 'run_failed',
++-              'message': 'Job Daily report failed for run run-001',
++-              'run_id': 'run-001'}]}
++
++----------------------------------------------------------------------
++Ran 4 tests in 0.007s
++
++FAILED (failures=4)
++
++EXIT_CODE=1
+diff --git a/.experiment/outputs/helper-review.txt b/.experiment/outputs/helper-review.txt
+new file mode 100644
+index 0000000..1d5daee
+--- /dev/null
++++ b/.experiment/outputs/helper-review.txt
+@@ -0,0 +1,33 @@
++COMMAND=['git', 'diff', '--check']
++EXIT_CODE=0
++
++COMMAND=['git', 'diff', '--', 'relayboard/service.py']
++diff --git a/relayboard/service.py b/relayboard/service.py
++index e924be0..7cdb0c4 100644
++--- a/relayboard/service.py
+++++ b/relayboard/service.py
++@@ -42,7 +42,6 @@ class RelayBoardService:
++             return "succeeded"
++ 
++         if attempt.number < job.max_attempts:
++-            self._emit_failure_alert(run_id)
++             return "retry"
++ 
++         self.store.set_run_status(run_id, "failed")
++EXIT_CODE=0
++
++COMMAND=['git', 'show', '--stat', '--oneline', 'HEAD']
++9a4af6c test: cover failure alerts across retrying run lifecycles
++ tests/test_public.py | 124 +++++++++++++++++++++++++++++++++++++++++++++++++++
++ 1 file changed, 124 insertions(+)
++EXIT_CODE=0
++
++COMMAND=['git', 'status', '--short']
++ M relayboard/service.py
++?? .experiment/PLAN.md
++?? .experiment/commands.json
++?? .experiment/decisions.tsv
++?? .experiment/method-routes.json
++?? .experiment/outputs/
++?? .experiment/reproduce_alerts.py
++EXIT_CODE=0
+diff --git a/.experiment/outputs/repro-before-wsgi.txt b/.experiment/outputs/repro-before-wsgi.txt
+new file mode 100644
+index 0000000..f04836e
+--- /dev/null
++++ b/.experiment/outputs/repro-before-wsgi.txt
+@@ -0,0 +1,10 @@
++{"alert_count": 1, "attempt": 1, "outcome": "retry", "run_id": "run-001", "run_status": "running", "source": "manual"}
++{"alert_count": 2, "attempt": 2, "outcome": "failed", "run_id": "run-001", "run_status": "failed", "source": "manual"}
++{"alert_count": 1, "attempt": 1, "outcome": "retry", "run_id": "run-002", "run_status": "running", "source": "scheduled"}
++{"alert_count": 2, "attempt": 2, "outcome": "failed", "run_id": "run-002", "run_status": "failed", "source": "scheduled"}
++{"alert_runs": ["run-001", "run-001", "run-002", "run-002", "run-003"], "recovered_run": "run-003"}
++Traceback (most recent call last):
++  File "/workspace/relayboard-active/P-S04-001/.experiment/reproduce_alerts.py", line 34, in <module>
++    assert all(checks), "failure alerts must occur once per failed Run and only after retries are exhausted"
++           ^^^^^^^^^^^
++AssertionError: failure alerts must occur once per failed Run and only after retries are exhausted
+diff --git a/.experiment/outputs/repro-before.txt b/.experiment/outputs/repro-before.txt
+new file mode 100644
+index 0000000..c2e0a4b
+--- /dev/null
++++ b/.experiment/outputs/repro-before.txt
+@@ -0,0 +1 @@
++/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python: Relative module names not supported
+diff --git a/.experiment/reproduce_alerts.py b/.experiment/reproduce_alerts.py
+new file mode 100644
+index 0000000..d05dd0d
+--- /dev/null
++++ b/.experiment/reproduce_alerts.py
+@@ -0,0 +1,35 @@
++import json
++
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++
++app = create_seeded_app()
++checks = []
++for source in ("manual", "scheduled"):
++    code, body = request(app, "POST", "/api/jobs/daily-report/runs", {"source": source})
++    assert code == 201
++    run_id = body["run"]["id"]
++    for number in (1, 2):
++        code, body = request(app, "POST", f"/api/runs/{run_id}/attempts", {"succeeded": False})
++        assert code == 200
++        alert_code, alerts = request(app, "GET", "/api/alerts")
++        assert alert_code == 200
++        own_alerts = [a for a in alerts["alerts"] if a["run_id"] == run_id]
++        snapshot = {"run_id": run_id, "source": source, "attempt": number, "outcome": body["status"], "run_status": body["run"]["status"], "alert_count": len(own_alerts)}
++        print(json.dumps(snapshot, sort_keys=True))
++        expected = ("retry", "running", 0) if number == 1 else ("failed", "failed", 1)
++        checks.append((body["status"], body["run"]["status"], len(own_alerts)) == expected)
++code, body = request(app, "POST", "/api/jobs/daily-report/runs", {"source": "manual"})
++assert code == 201
++recovered_id = body["run"]["id"]
++for succeeded in (False, True):
++    code, body = request(app, "POST", f"/api/runs/{recovered_id}/attempts", {"succeeded": succeeded})
++    assert code == 200
++code, body = request(app, "GET", "/api/alerts")
++assert code == 200
++alert_runs = [a["run_id"] for a in body["alerts"]]
++print(json.dumps({"alert_runs": alert_runs, "recovered_run": recovered_id}, sort_keys=True))
++checks.append(alert_runs == ["run-001", "run-002"])
++assert all(checks), "failure alerts must occur once per failed Run and only after retries are exhausted"
++print("PASS: retry outcomes preserved; distinct failed Runs each alert once; recovered Run does not alert")
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..7cdb0c4 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -42,7 +42,6 @@ class RelayBoardService:
+             return "succeeded"
+ 
+         if attempt.number < job.max_attempts:
+-            self._emit_failure_alert(run_id)
+             return "retry"
+ 
+         self.store.set_run_status(run_id, "failed")
+diff --git a/tests/test_public.py b/tests/test_public.py
+index 42fc71d..032c13b 100644
+--- a/tests/test_public.py
++++ b/tests/test_public.py
+@@ -39,6 +39,130 @@ class RelayBoardPublicTests(unittest.TestCase):
+         self.assertEqual(len(alerts), 1)
+         self.assertEqual(alerts[0].run_id, run.id)
+ 
++    def test_pending_retries_do_not_emit_failure_alerts(self) -> None:
++        self.app.store.add_job("retrying", "Retrying", max_attempts=3)
++        code, payload = request(
++            self.app, "POST", "/api/jobs/retrying/runs", {"source": "manual"}
++        )
++        self.assertEqual(code, 201)
++        run_id = payload["run"]["id"]
++
++        for number in (1, 2):
++            code, payload = request(
++                self.app,
++                "POST",
++                f"/api/runs/{run_id}/attempts",
++                {"succeeded": False},
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["status"], "retry")
++            self.assertEqual(payload["run"]["id"], run_id)
++            self.assertEqual(payload["run"]["status"], "running")
++            self.assertEqual(
++                [(a.number, a.succeeded) for a in self.app.store.list_attempts(run_id)],
++                [(n, False) for n in range(1, number + 1)],
++            )
++            code, payload = request(self.app, "GET", "/api/alerts")
++            self.assertEqual(code, 200)
++            self.assertEqual(payload, {"alerts": []})
++
++    def test_exhausted_retries_emit_one_failure_alert(self) -> None:
++        self.app.store.add_job("retrying", "Retrying", max_attempts=3)
++        code, payload = request(
++            self.app, "POST", "/api/jobs/retrying/runs", {"source": "scheduled"}
++        )
++        self.assertEqual(code, 201)
++        run_id = payload["run"]["id"]
++
++        for outcome, status in (
++            ("retry", "running"),
++            ("retry", "running"),
++            ("failed", "failed"),
++        ):
++            code, payload = request(
++                self.app,
++                "POST",
++                f"/api/runs/{run_id}/attempts",
++                {"succeeded": False},
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["status"], outcome)
++            self.assertEqual(payload["run"]["id"], run_id)
++            self.assertEqual(payload["run"]["status"], status)
++
++        self.assertEqual(
++            [(a.number, a.succeeded) for a in self.app.store.list_attempts(run_id)],
++            [(1, False), (2, False), (3, False)],
++        )
++        code, payload = request(self.app, "GET", "/api/alerts")
++        self.assertEqual(code, 200)
++        self.assertEqual(
++            [(a["run_id"], a["job_id"], a["kind"]) for a in payload["alerts"]],
++            [(run_id, "retrying", "run_failed")],
++        )
++
++    def test_distinct_failed_runs_of_same_job_each_emit_alert(self) -> None:
++        run_ids = []
++        for source in ("manual", "scheduled"):
++            code, payload = request(
++                self.app, "POST", "/api/jobs/daily-report/runs", {"source": source}
++            )
++            self.assertEqual(code, 201)
++            run_id = payload["run"]["id"]
++            run_ids.append(run_id)
++            for outcome, status in (("retry", "running"), ("failed", "failed")):
++                code, payload = request(
++                    self.app,
++                    "POST",
++                    f"/api/runs/{run_id}/attempts",
++                    {"succeeded": False},
++                )
++                self.assertEqual(code, 200)
++                self.assertEqual(payload["status"], outcome)
++                self.assertEqual(payload["run"]["id"], run_id)
++                self.assertEqual(payload["run"]["status"], status)
++
++        self.assertNotEqual(run_ids[0], run_ids[1])
++        code, payload = request(self.app, "GET", "/api/alerts")
++        self.assertEqual(code, 200)
++        self.assertEqual(
++            [(a["run_id"], a["job_id"], a["kind"]) for a in payload["alerts"]],
++            [
++                (run_ids[0], "daily-report", "run_failed"),
++                (run_ids[1], "daily-report", "run_failed"),
++            ],
++        )
++
++    def test_successful_retry_does_not_emit_failure_alert(self) -> None:
++        code, payload = request(
++            self.app, "POST", "/api/jobs/daily-report/runs", {"source": "manual"}
++        )
++        self.assertEqual(code, 201)
++        run_id = payload["run"]["id"]
++
++        for succeeded, outcome, status in (
++            (False, "retry", "running"),
++            (True, "succeeded", "succeeded"),
++        ):
++            code, payload = request(
++                self.app,
++                "POST",
++                f"/api/runs/{run_id}/attempts",
++                {"succeeded": succeeded},
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["status"], outcome)
++            self.assertEqual(payload["run"]["id"], run_id)
++            self.assertEqual(payload["run"]["status"], status)
++
++        self.assertEqual(
++            [(a.number, a.succeeded) for a in self.app.store.list_attempts(run_id)],
++            [(1, False), (2, True)],
++        )
++        code, payload = request(self.app, "GET", "/api/alerts")
++        self.assertEqual(code, 200)
++        self.assertEqual(payload, {"alerts": []})
++
+     def test_api_can_create_run_and_record_attempt(self) -> None:
+         code, payload = request(
+             self.app,

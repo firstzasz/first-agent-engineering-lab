@@ -67,8 +67,9 @@
       "branch": "treatment/pstack/P-S04-001",
       "prepared_sha": "7f2c851511e80d9d3b6b5cacdcbd6644b7e6303b",
       "prepared_tree_sha": "2ff4618de4464072192d75ff33d4ef3d9986dd25",
-      "status": "READY_PROCEDURAL",
-      "result_path": "results/P-S04-001/run.json"
+      "status": "CONTAMINATED",
+      "result_path": "results/P-S04-001/run.json",
+      "candidate_sha": "8e93f4fc218008604e4b6e5e28ce890f75455550"
     },
     {
       "run_id": "M-S01-001",
@@ -131,5 +132,5 @@
       "result_path": "results/F-S04-001/run.json"
     }
   ],
-  "completed_count": 4
+  "completed_count": 5
 }
