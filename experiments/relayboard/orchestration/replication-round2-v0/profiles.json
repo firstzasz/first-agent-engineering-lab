@@ -244,6 +244,65 @@
         "independently attested runtime model/reasoning"
       ],
       "disposition_notes": ""
+    },
+    {
+      "run_id": "M-S04-002",
+      "treatment": "matt-codex-port-v0",
+      "scenario": "S04-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "helper_context_count": 2,
+        "local_commit_count_including_start_and_evidence": 4,
+        "candidate_file_count": 66,
+        "new_process_artifact_file_count": 36,
+        "all_diff_stat": " .experiment/REPORT.json                       | 399 ++++++++++++++++++++++++++\n .experiment/actions.md                        |  16 ++\n .experiment/capture.py                        |  15 +\n .experiment/cleanup-check.txt                 |   1 +\n .experiment/commands.jsonl                    |  19 ++\n .experiment/diagnosis.md                      |  20 ++\n .experiment/diff-check.txt                    |   0\n .experiment/full-public-suite.txt             |  11 +\n .experiment/helpers.json                      |  26 ++\n .experiment/incidents.jsonl                   |   1 +\n .experiment/initial-evidence.json             |  28 ++\n .experiment/minimize.py                       |  13 +\n .experiment/minimized-no-retry.txt            |   1 +\n .experiment/minimized-one-attempt.txt         |   1 +\n .experiment/minimized-red.txt                 |   6 +\n .experiment/operator-exchanges.json           |  36 +++\n .experiment/original-repro-green.txt          |   3 +\n .experiment/path-evidence.json                |  73 +++++\n .experiment/probe-red.txt                     |   2 +\n .experiment/probe.py                          |   6 +\n .experiment/regression-green.txt              |   6 +\n .experiment/regression-red.txt                |  21 ++\n .experiment/repro-red-1.txt                   |   1 +\n .experiment/repro-red-2.txt                   |   6 +\n .experiment/repro-red-3.txt                   |   8 +\n .experiment/repro-red-repeat.txt              |   8 +\n .experiment/repro.py                          |  17 ++\n .experiment/retry-variants-green.txt          |   4 +\n .experiment/retry-variants.py                 |  27 ++\n .experiment/review-commits.txt                |   1 +\n .experiment/review-diff.txt                   |  70 +++++\n .experiment/review-fixed-point.txt            |   1 +\n .experiment/review-spec.md                    |  14 +\n .experiment/review-standards.md               |  11 +\n .experiment/review-summary.md                 |   9 +\n .experiment/unchanged-method-and-upstream.txt |   0\n relayboard/service.py                         |   1 -\n tests/test_public.py                          |  47 +++\n 38 files changed, 928 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_public.py",
+            "added": 47,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 2,
+        "operator_exchange_count": 1,
+        "start_at": "2026-10-07T13:25:51.284259+00:00",
+        "frozen_at": "2026-10-07T13:36:06.465219+00:00",
+        "wall_clock_seconds": 615.181,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
     }
   ]
 }
