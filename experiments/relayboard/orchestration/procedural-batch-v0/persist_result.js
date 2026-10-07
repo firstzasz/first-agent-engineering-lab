@@ -1,6 +1,6 @@
 (async()=>{
 const id=load("active_run_id"),repo=load("repo"),c=load("capture:"+id),ev=load("evaluation:"+id),run=load("procedural_runs").find(r=>r.run_id===id),remote=load("remote_candidate:"+id);
-let report=null;try{report=JSON.parse(c.files.find(f=>f.path===".experiment/REPORT.json")?.content||"null");}catch{}
+let report=null;try{report=JSON.parse(c.files.find(f=>f.path===".experiment/REPORT.json"||f.path==="REPORT.json")?.content||"null");}catch{}
 const logs=c.files.filter(f=>/^\.experiment\//.test(f.path)&&/log|report|checkpoint|question|decision/i.test(f.path)).map(f=>({path:f.path,content:f.content}));
 const declaredAccess=report?.evaluator_or_peer_material_accessed===true||report?.contaminated===true;
 const invalid=c.immutable_packet_drift.length>0;

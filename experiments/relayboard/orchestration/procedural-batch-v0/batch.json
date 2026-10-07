@@ -89,7 +89,7 @@
       "branch": "treatment/matt/M-S02-001",
       "prepared_sha": "106e2286a3e942233cb2060effa0d701f592932b",
       "prepared_tree_sha": "3d55015c8e68464d4be73e3bc922b61a3b2f9006",
-      "status": "READY_PROCEDURAL",
+      "status": "RUNNING",
       "result_path": "results/M-S02-001/run.json"
     },
     {
