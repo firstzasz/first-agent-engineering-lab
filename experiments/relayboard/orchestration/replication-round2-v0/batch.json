@@ -27,7 +27,7 @@
     "N-S01-002"
   ],
   "order_change_after_outcomes_allowed": false,
-  "completed_count": 5,
+  "completed_count": 6,
   "runs": [
     {
       "run_id": "F-S04-002",
@@ -106,11 +106,12 @@
       "treatment": "matt-codex-port-v0",
       "branch": "treatment/matt/M-S01-002",
       "operator_interactions": [],
-      "status": "READY_PROCEDURAL",
+      "status": "COMPLETED_EVALUATED_PASS",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
       "prepared_sha": "030f9a565c19b564111d4a6b0edc877123bc1c03",
       "prepared_tree_sha": "798aaf8c349e7c3ccd9d214aca9d76237dc3cdb7",
-      "result_path": "results/M-S01-002/run.json"
+      "result_path": "results/M-S01-002/run.json",
+      "candidate_sha": "f90aa23ac6318f7d91fba69f4ee804df5b453db7"
     },
     {
       "run_id": "P-S04-002",

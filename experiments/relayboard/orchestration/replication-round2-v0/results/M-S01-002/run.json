@@ -1,0 +1,482 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "independent_replication_not_retry": true,
+  "run_id": "M-S01-002",
+  "scenario": "S01-v0",
+  "treatment": "matt-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_m_s01_002"
+  },
+  "start": {
+    "run_id": "M-S01-002",
+    "workspace": "/workspace/relayboard-round2-active/M-S01-002",
+    "local_start_sha": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8",
+    "local_start_tree": "798aaf8c349e7c3ccd9d214aca9d76237dc3cdb7",
+    "remote_prepared_sha": "030f9a565c19b564111d4a6b0edc877123bc1c03",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "matt-codex-port-v0",
+    "prepared_at": "2026-10-07T13:50:17.887807+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "5d142e5a9c03b9e82ec6a567457deaf7adb29834",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "d735ea5af2d34c65764fcc2050ada3d428a253bc",
+      "upstream/matt/skills/engineering/grill-with-docs/SKILL.md": "62b9efb6f991d1b229adee7506962f13ced0c499",
+      "upstream/matt/skills/engineering/implement/SKILL.md": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69",
+      "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md": "1b929e29fb519c26b500d3eda744177986883ac8",
+      "upstream/matt/skills/engineering/tdd/SKILL.md": "250871ccdfefa7525309acfebda090edf4046882",
+      "upstream/matt/skills/engineering/code-review/SKILL.md": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4",
+      "upstream/matt/skills/engineering/to-spec/SKILL.md": "3f52599ae2a4347aee5a07432c2707518e691a7f",
+      "upstream/matt/skills/engineering/to-tickets/SKILL.md": "e868c831fcfb1e124e010bcdf84a429ec879160f",
+      "upstream/matt/skills/productivity/grilling/SKILL.md": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3",
+      "upstream/matt/skills/engineering/domain-modeling/SKILL.md": "a4438c6879c517d1a08e2b5fbca049b632688dfe",
+      "upstream/matt/skills/engineering/implement-spec/SKILL.md": "183923797ab58f1b3ef09e03bc1f1f203c309f37",
+      "upstream/matt/LICENSE": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+      "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6",
+      "upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7",
+      "upstream/matt/skills/engineering/tdd/tests.md": "7ab86479f925a1f9e8ba680af33cb3b12e015381",
+      "upstream/matt/skills/engineering/tdd/mocking.md": "71cbfee674d93244ce81d1830b930ca9a69200bd",
+      ".experiment/RUN_MANIFEST.json": "b46018fb336eb4079c67c1d068041f8f8c18feb7"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 13:57:00 UTC",
+  "candidate_frozen_at": "2026-10-07T13:57:01.254500+00:00",
+  "local_candidate_sha": "398486959d0b841ec856aaf0876bfea722b8b909",
+  "local_candidate_tree": "fb199685b8f31205a71617d7f6d1c94f29f641e8",
+  "remote_candidate": {
+    "sha": "f90aa23ac6318f7d91fba69f4ee804df5b453db7",
+    "tree_sha": "fb199685b8f31205a71617d7f6d1c94f29f641e8",
+    "branch": "candidate/M-S01-002"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/33",
+    "number": 33,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S01-v0 task in a fresh matt-codex-port-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-round2. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "M-S01-002: matt-codex-port-v0 frozen benchmark candidate",
+    "base": "treatment/matt/M-S01-002",
+    "base_sha": "030f9a565c19b564111d4a6b0edc877123bc1c03",
+    "head": "candidate/M-S01-002",
+    "head_sha": "f90aa23ac6318f7d91fba69f4ee804df5b453db7",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T13:57:12Z",
+    "updated_at": "2026-10-07T13:57:12Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 19,
+    "additions": 763,
+    "deletions": 1,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/33",
+    "display_title": "M-S01-002: matt-codex-port-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8",
+      "metadata": "commit 70dcd4fc28df91da74ab62b7b619e4406b3cd5b8\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:50:17 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:50:17 2026 +0000\n\n    benchmark: frozen standalone M-S01-002 starting packet\n"
+    },
+    {
+      "sha": "2ed94605b31620784656a3c6c551daa6a341e417",
+      "metadata": "commit 2ed94605b31620784656a3c6c551daa6a341e417\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:52:33 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:52:33 2026 +0000\n\n    Update Jobs dashboard heading to Latest result\n"
+    },
+    {
+      "sha": "398486959d0b841ec856aaf0876bfea722b8b909",
+      "metadata": "commit 398486959d0b841ec856aaf0876bfea722b8b909\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:56:20 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:56:20 2026 +0000\n\n    Record frozen method reviews and public verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/ACTION_PATHS.json      |  80 +++++++++++++\n .experiment/DECISIONS.json         |  46 +++++++\n .experiment/REPORT.json            | 205 ++++++++++++++++++++++++++++++++\n .experiment/application-diff.txt   |  13 ++\n .experiment/baseline.txt           |  10 ++\n .experiment/check_dashboard.py     |   8 ++\n .experiment/checks.json            |  81 +++++++++++++\n .experiment/diff-check.txt         |   0\n .experiment/heading-green.txt      |   1 +\n .experiment/heading-red.txt        |   5 +\n .experiment/public-full.txt        |  10 ++\n .experiment/review-candidate.txt   |   1 +\n .experiment/review-commands.json   |  39 ++++++\n .experiment/review-commits.txt     |   1 +\n .experiment/review-diff.txt        | 238 +++++++++++++++++++++++++++++++++++++\n .experiment/review-fixed-point.txt |   1 +\n .experiment/spec-review.txt        |  12 ++\n .experiment/standards-review.txt   |  11 ++\n relayboard/web.py                  |   2 +-\n 19 files changed, 763 insertions(+), 1 deletion(-)\n",
+  "operator_interactions": [],
+  "helper_contexts_observed": [
+    "/root/contestant_m_s01_002/standards_review",
+    "/root/contestant_m_s01_002/spec_review"
+  ],
+  "requested_helper_configuration": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "agent_completion_claim": "COMPLETE Jobs headingLatestresult onlyapplicationweb.py153. Headingrecordedredthenpass;5publictests pass. SerialStandards/Spec0findings, bothcomplete. Final398486959d0b841ec856aaf0876bfea722b8b909 clean .REPORT. No forbiddenaccess/operatorquestions.",
+  "visible_checkpoints": [
+    {
+      "observed_at": "2026-10-07 13:57:00 UTC",
+      "message": "Headingseamredbeforeliteralchange thenpass;5publicpass; twofreshserialGPT6.1SolHigh Standards/Spec both0findings complete scopedstatusverified; evidence398486...clean; noquestions/forbiddenaccess."
+    }
+  ],
+  "worker_report": {
+    "schema_version": 1,
+    "run_id": "M-S01-002",
+    "status": "COMPLETE",
+    "method": "matt-codex-port-v0",
+    "method_source": "METHOD.md unchanged",
+    "upstream_source_commit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+    "routes_invoked": [
+      "implement",
+      "tdd",
+      "code-review"
+    ],
+    "assigned_root": "/workspace/relayboard-round2-active/M-S01-002",
+    "model_request": {
+      "requested": "gpt-6.1-sol",
+      "reasoning_requested": "high",
+      "observed_lead": "unknown: no runtime identity introspection available"
+    },
+    "result": "Jobs table header changed from Last result to Latest result. Sole application modification is relayboard/web.py:153.",
+    "commits": [
+      {
+        "role": "fixed_start",
+        "sha": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
+      },
+      {
+        "role": "reviewed_candidate",
+        "sha": "2ed94605b31620784656a3c6c551daa6a341e417",
+        "message": "Update Jobs dashboard heading to Latest result"
+      },
+      {
+        "role": "final_evidence",
+        "ref": "HEAD after final evidence-only commit",
+        "parent": "2ed94605b31620784656a3c6c551daa6a341e417",
+        "sha": "Not yet knowable inside this commit; exact final SHA recorded in final tool output and response."
+      }
+    ],
+    "test_commands_results": [
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "environment_override": {
+          "PYTHONPATH": "."
+        },
+        "exit_code": 0,
+        "output_path": ".experiment/baseline.txt"
+      },
+      {
+        "command": [
+          "python",
+          ".experiment/check_dashboard.py"
+        ],
+        "environment_override": {
+          "PYTHONPATH": "."
+        },
+        "exit_code": 1,
+        "output_path": ".experiment/heading-red.txt"
+      },
+      {
+        "command": [
+          "python",
+          ".experiment/check_dashboard.py"
+        ],
+        "environment_override": {
+          "PYTHONPATH": "."
+        },
+        "exit_code": 0,
+        "output_path": ".experiment/heading-green.txt"
+      },
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "environment_override": {
+          "PYTHONPATH": "."
+        },
+        "exit_code": 0,
+        "output_path": ".experiment/public-full.txt"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "environment_override": {
+          "PYTHONPATH": "."
+        },
+        "exit_code": 0,
+        "output_path": ".experiment/diff-check.txt"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--",
+          "relayboard/web.py"
+        ],
+        "environment_override": {
+          "PYTHONPATH": "."
+        },
+        "exit_code": 0,
+        "output_path": ".experiment/application-diff.txt"
+      }
+    ],
+    "review_commands_results": [
+      {
+        "command": [
+          "git",
+          "rev-parse",
+          "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/review-fixed-point.txt"
+      },
+      {
+        "command": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/review-candidate.txt"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8...HEAD"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/review-diff.txt"
+      },
+      {
+        "command": [
+          "git",
+          "log",
+          "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8..HEAD",
+          "--oneline"
+        ],
+        "exit_code": 0,
+        "output_path": ".experiment/review-commits.txt"
+      }
+    ],
+    "review": {
+      "fixed_start": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8",
+      "reviewed_candidate": "2ed94605b31620784656a3c6c551daa6a341e417",
+      "standards": {
+        "findings": 0,
+        "report": ".experiment/standards-review.txt",
+        "helper": "/root/contestant_m_s01_002/standards_review",
+        "status": "completed",
+        "model_requested": "gpt-6.1-sol/high",
+        "model_observed": "unknown"
+      },
+      "spec": {
+        "findings": 0,
+        "report": ".experiment/spec-review.txt",
+        "helper": "/root/contestant_m_s01_002/spec_review",
+        "status": "completed",
+        "model_requested": "gpt-6.1-sol/high",
+        "model_observed": "unknown"
+      },
+      "execution": "Strictly serial, fork_turns=none, no descendants, read-only; both completed as observed with scoped list_agents.",
+      "fixes_needed": [],
+      "final_artifact_commit_scope": "Adds evidence and this report only; application candidate remains reviewed version."
+    },
+    "spec_ticket_status": {
+      "spec": "TASK.md",
+      "unit": "single mechanical implementation unit complete",
+      "additional_spec_or_tickets": "Not useful for explicit narrow heading change; rationale recorded in DECISIONS.json"
+    },
+    "decision_record": ".experiment/DECISIONS.json",
+    "operator_exchanges": [],
+    "adaptations": [
+      "Local files replace tracker; TASK.md is originating spec for this tiny unit.",
+      "Existing public seam and reversible ticket-shape authorization replace approval round trips.",
+      "Two fresh same-model reviews run serially on local integration branch.",
+      "No language-specific typechecker is introduced."
+    ],
+    "action_path_evidence": ".experiment/ACTION_PATHS.json",
+    "evaluator_or_peer_material_accessed": false,
+    "external_actions": [],
+    "gaps_and_limitations": [
+      "Lead/helper actual runtime model identity and usage are unknown; requested settings recorded, no native model-diversity or throughput claim.",
+      "Initial read outputs and exact helper tool transcripts remain in available orchestration transcript; summaries, commands, and final helper reports preserved here.",
+      "Reviews inspected recorded checks without rerunning; lead ran the focused seam check and public suite.",
+      "No hidden evaluation was accessed or run. Public tests cover five existing behaviors; preserved one-line application diff establishes change scope.",
+      "No permanent test added for reversible wording edit; red/green public-seam check preserved in .experiment.",
+      "No language-specific typechecker configured or invented for stdlib fixture.",
+      "Final evidence-only commit SHA becomes available only after report is committed."
+    ]
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.003s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S01-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "source_pins": [
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/grill-with-docs/SKILL.md",
+      "blob_sha": "62b9efb6f991d1b229adee7506962f13ced0c499"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement/SKILL.md",
+      "blob_sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/diagnosing-bugs/SKILL.md",
+      "blob_sha": "1b929e29fb519c26b500d3eda744177986883ac8"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/SKILL.md",
+      "blob_sha": "250871ccdfefa7525309acfebda090edf4046882"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/code-review/SKILL.md",
+      "blob_sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-spec/SKILL.md",
+      "blob_sha": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-tickets/SKILL.md",
+      "blob_sha": "e868c831fcfb1e124e010bcdf84a429ec879160f"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/productivity/grilling/SKILL.md",
+      "blob_sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/SKILL.md",
+      "blob_sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement-spec/SKILL.md",
+      "blob_sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "LICENSE",
+      "blob_sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+      "blob_sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/ADR-FORMAT.md",
+      "blob_sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/tests.md",
+      "blob_sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/mocking.md",
+      "blob_sha": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+    }
+  ],
+  "available_evidence_paths": [
+    ".experiment/DECISIONS.json",
+    ".experiment/REPORT.json"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 46338,
+    "sha256": "58188a5c1dd25323dca7418aeeaae78bd5fb71feee85dd57b5c195c2d1e50ced",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}

@@ -1,0 +1,880 @@
+diff --git a/.experiment/ACTION_PATHS.json b/.experiment/ACTION_PATHS.json
+new file mode 100644
+index 0000000..ab3d5d7
+--- /dev/null
++++ b/.experiment/ACTION_PATHS.json
+@@ -0,0 +1,80 @@
++{
++  "all_shell_workdirs": "/workspace/relayboard-round2-active/M-S01-002",
++  "read_paths": [
++    "METHOD.md",
++    "TASK.md",
++    "GLOSSARY.md",
++    "README.md",
++    "pyproject.toml",
++    ".gitignore",
++    "tests/test_public.py",
++    "relayboard/testing.py",
++    "relayboard/web.py",
++    "upstream/matt/skills/engineering/implement/SKILL.md",
++    "upstream/matt/skills/engineering/code-review/SKILL.md",
++    "upstream/matt/skills/engineering/tdd/SKILL.md",
++    "upstream/matt/skills/engineering/tdd/tests.md",
++    "upstream/matt/skills/engineering/tdd/mocking.md",
++    ".experiment/RUN_MANIFEST.json"
++  ],
++  "search_paths": [
++    "Assigned root only",
++    "relayboard",
++    "tests",
++    "upstream/matt/skills/engineering/code-review"
++  ],
++  "runtime_import_paths": "Public unittest fixture imports relayboard modules within assigned area and Python stdlib; package install/network not used.",
++  "application_mutation": {
++    "path": "relayboard/web.py",
++    "before": "<th>Last result</th>",
++    "after": "<th>Latest result</th>"
++  },
++  "evidence_mutations": ".experiment only; RUN_MANIFEST.json unchanged",
++  "git_actions": [
++    "git status --short",
++    "git rev-parse HEAD",
++    "git diff --check",
++    "git diff -- relayboard/web.py",
++    "git add explicitly named app/evidence files",
++    "git commit -m Update Jobs dashboard heading to Latest result",
++    "Fixed-point review commands in review-commands.json",
++    "Final evidence-only git add/commit and status verification"
++  ],
++  "tool_evidence": "Command/output transcript and files named in checks.json and review-commands.json.",
++  "collaboration": [
++    {
++      "action": "spawn_agent",
++      "task": "/root/contestant_m_s01_002/standards_review",
++      "model": "gpt-6.1-sol",
++      "reasoning_effort": "high",
++      "fork_turns": "none",
++      "axis": "Standards",
++      "boundary": "Read-only assigned area; no descendants; same contamination and status restrictions; operator questions via parent; public only",
++      "source": "METHOD.md frozen helper binding and code-review smell baseline",
++      "result": "completed before second spawn"
++    },
++    {
++      "action": "list_agents",
++      "path_prefix": "/root/contestant_m_s01_002",
++      "result": "Standards helper completed"
++    },
++    {
++      "action": "spawn_agent",
++      "task": "/root/contestant_m_s01_002/spec_review",
++      "model": "gpt-6.1-sol",
++      "reasoning_effort": "high",
++      "fork_turns": "none",
++      "axis": "Spec",
++      "boundary": "Read-only assigned area; no descendants; same contamination and status restrictions; operator questions via parent; public only; no other review report",
++      "source": "TASK.md, METHOD.md, DECISIONS.json",
++      "result": "completed"
++    },
++    {
++      "action": "list_agents",
++      "path_prefix": "/root/contestant_m_s01_002",
++      "result": "Both helpers completed; no active helper"
++    }
++  ],
++  "operator_exchanges": [],
++  "forbidden_access": false
++}
+diff --git a/.experiment/DECISIONS.json b/.experiment/DECISIONS.json
+new file mode 100644
+index 0000000..6ffe6b1
+--- /dev/null
++++ b/.experiment/DECISIONS.json
+@@ -0,0 +1,46 @@
++{
++  "status": "in_progress",
++  "assigned_root": "/workspace/relayboard-round2-active/M-S01-002",
++  "initial_commit_observed": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8",
++  "method": "matt-codex-port-v0",
++  "upstream_version_declared": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
++  "routes": [
++    "implement",
++    "tdd",
++    "code-review"
++  ],
++  "spec": "TASK.md",
++  "decision": "One mechanical heading replacement; TASK.md is sufficient. No interview, separate spec, ticket graph, or ADR is useful because wording and scope are explicit.",
++  "seam": "GET /dashboard through relayboard.testing.request; existing public WSGI seam, standing authorization under METHOD.md.",
++  "test_decision": "Keep the narrow red/green verification under .experiment rather than adding permanent tests for the reversible wording change. Run the full existing public suite.",
++  "adaptations": [
++    "Local files replace tracker; TASK.md is originating spec for this tiny unit.",
++    "Existing public seam and reversible ticket-shape authorization replace approval round trips.",
++    "Two fresh same-model reviews run serially on local integration branch.",
++    "No language-specific typechecker is introduced."
++  ],
++  "model": {
++    "requested": "gpt-6.1-sol",
++    "reasoning_requested": "high",
++    "observed_lead": "unknown: no runtime identity introspection available"
++  },
++  "operator_exchanges": [],
++  "evaluator_or_peer_material_accessed": false,
++  "initial_evidence": {
++    "commands": [
++      "pwd",
++      "rg --files -g TASK.md -g METHOD.md -g AGENTS.md -g *matt* -g *upstream* -g !node_modules -g !.git -g !.experiment .",
++      "cat METHOD.md TASK.md",
++      "rg --files -g !node_modules -g !.git .",
++      "cat GLOSSARY.md README.md pyproject.toml upstream/matt/skills/engineering/implement/SKILL.md upstream/matt/skills/engineering/code-review/SKILL.md",
++      "rg -n Last result|Latest result|dashboard|Jobs|standards|smell relayboard tests upstream/matt/skills/engineering/code-review",
++      "git status --short",
++      "git rev-parse HEAD",
++      "cat tests/test_public.py relayboard/testing.py relayboard/web.py upstream/matt/skills/engineering/tdd/SKILL.md upstream/matt/skills/engineering/tdd/tests.md upstream/matt/skills/engineering/tdd/mocking.md",
++      "rg --files --hidden -g !upstream/** -g !.git/** -g !node_modules/** -g !__pycache__/** .",
++      "cat .experiment/RUN_MANIFEST.json .gitignore"
++    ],
++    "output": "Available in tool transcript. Initial git status was clean; HEAD matched assigned initial commit. One target at relayboard/web.py:153. No AGENTS.md or standards file was found within assigned area.",
++    "output_capture_gap": "Initial read outputs were not separately saved verbatim; tool transcript preserves them."
++  }
++}
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..ba8e431
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,205 @@
++{
++  "schema_version": 1,
++  "run_id": "M-S01-002",
++  "status": "COMPLETE",
++  "method": "matt-codex-port-v0",
++  "method_source": "METHOD.md unchanged",
++  "upstream_source_commit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
++  "routes_invoked": [
++    "implement",
++    "tdd",
++    "code-review"
++  ],
++  "assigned_root": "/workspace/relayboard-round2-active/M-S01-002",
++  "model_request": {
++    "requested": "gpt-6.1-sol",
++    "reasoning_requested": "high",
++    "observed_lead": "unknown: no runtime identity introspection available"
++  },
++  "result": "Jobs table header changed from Last result to Latest result. Sole application modification is relayboard/web.py:153.",
++  "commits": [
++    {
++      "role": "fixed_start",
++      "sha": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
++    },
++    {
++      "role": "reviewed_candidate",
++      "sha": "2ed94605b31620784656a3c6c551daa6a341e417",
++      "message": "Update Jobs dashboard heading to Latest result"
++    },
++    {
++      "role": "final_evidence",
++      "ref": "HEAD after final evidence-only commit",
++      "parent": "2ed94605b31620784656a3c6c551daa6a341e417",
++      "sha": "Not yet knowable inside this commit; exact final SHA recorded in final tool output and response."
++    }
++  ],
++  "test_commands_results": [
++    {
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "environment_override": {
++        "PYTHONPATH": "."
++      },
++      "exit_code": 0,
++      "output_path": ".experiment/baseline.txt"
++    },
++    {
++      "command": [
++        "python",
++        ".experiment/check_dashboard.py"
++      ],
++      "environment_override": {
++        "PYTHONPATH": "."
++      },
++      "exit_code": 1,
++      "output_path": ".experiment/heading-red.txt"
++    },
++    {
++      "command": [
++        "python",
++        ".experiment/check_dashboard.py"
++      ],
++      "environment_override": {
++        "PYTHONPATH": "."
++      },
++      "exit_code": 0,
++      "output_path": ".experiment/heading-green.txt"
++    },
++    {
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "environment_override": {
++        "PYTHONPATH": "."
++      },
++      "exit_code": 0,
++      "output_path": ".experiment/public-full.txt"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "--check"
++      ],
++      "environment_override": {
++        "PYTHONPATH": "."
++      },
++      "exit_code": 0,
++      "output_path": ".experiment/diff-check.txt"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "--",
++        "relayboard/web.py"
++      ],
++      "environment_override": {
++        "PYTHONPATH": "."
++      },
++      "exit_code": 0,
++      "output_path": ".experiment/application-diff.txt"
++    }
++  ],
++  "review_commands_results": [
++    {
++      "command": [
++        "git",
++        "rev-parse",
++        "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/review-fixed-point.txt"
++    },
++    {
++      "command": [
++        "git",
++        "rev-parse",
++        "HEAD"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/review-candidate.txt"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8...HEAD"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/review-diff.txt"
++    },
++    {
++      "command": [
++        "git",
++        "log",
++        "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8..HEAD",
++        "--oneline"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/review-commits.txt"
++    }
++  ],
++  "review": {
++    "fixed_start": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8",
++    "reviewed_candidate": "2ed94605b31620784656a3c6c551daa6a341e417",
++    "standards": {
++      "findings": 0,
++      "report": ".experiment/standards-review.txt",
++      "helper": "/root/contestant_m_s01_002/standards_review",
++      "status": "completed",
++      "model_requested": "gpt-6.1-sol/high",
++      "model_observed": "unknown"
++    },
++    "spec": {
++      "findings": 0,
++      "report": ".experiment/spec-review.txt",
++      "helper": "/root/contestant_m_s01_002/spec_review",
++      "status": "completed",
++      "model_requested": "gpt-6.1-sol/high",
++      "model_observed": "unknown"
++    },
++    "execution": "Strictly serial, fork_turns=none, no descendants, read-only; both completed as observed with scoped list_agents.",
++    "fixes_needed": [],
++    "final_artifact_commit_scope": "Adds evidence and this report only; application candidate remains reviewed version."
++  },
++  "spec_ticket_status": {
++    "spec": "TASK.md",
++    "unit": "single mechanical implementation unit complete",
++    "additional_spec_or_tickets": "Not useful for explicit narrow heading change; rationale recorded in DECISIONS.json"
++  },
++  "decision_record": ".experiment/DECISIONS.json",
++  "operator_exchanges": [],
++  "adaptations": [
++    "Local files replace tracker; TASK.md is originating spec for this tiny unit.",
++    "Existing public seam and reversible ticket-shape authorization replace approval round trips.",
++    "Two fresh same-model reviews run serially on local integration branch.",
++    "No language-specific typechecker is introduced."
++  ],
++  "action_path_evidence": ".experiment/ACTION_PATHS.json",
++  "evaluator_or_peer_material_accessed": false,
++  "external_actions": [],
++  "gaps_and_limitations": [
++    "Lead/helper actual runtime model identity and usage are unknown; requested settings recorded, no native model-diversity or throughput claim.",
++    "Initial read outputs and exact helper tool transcripts remain in available orchestration transcript; summaries, commands, and final helper reports preserved here.",
++    "Reviews inspected recorded checks without rerunning; lead ran the focused seam check and public suite.",
++    "No hidden evaluation was accessed or run. Public tests cover five existing behaviors; preserved one-line application diff establishes change scope.",
++    "No permanent test added for reversible wording edit; red/green public-seam check preserved in .experiment.",
++    "No language-specific typechecker configured or invented for stdlib fixture.",
++    "Final evidence-only commit SHA becomes available only after report is committed."
++  ]
++}
+diff --git a/.experiment/application-diff.txt b/.experiment/application-diff.txt
+new file mode 100644
+index 0000000..cd82881
+--- /dev/null
++++ b/.experiment/application-diff.txt
+@@ -0,0 +1,13 @@
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..67de7f4 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -150,7 +150,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
+diff --git a/.experiment/baseline.txt b/.experiment/baseline.txt
+new file mode 100644
+index 0000000..30a3217
+--- /dev/null
++++ b/.experiment/baseline.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.005s
++
++OK
+diff --git a/.experiment/check_dashboard.py b/.experiment/check_dashboard.py
+new file mode 100644
+index 0000000..f825092
+--- /dev/null
++++ b/.experiment/check_dashboard.py
+@@ -0,0 +1,8 @@
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++status, body = request(create_seeded_app(), "GET", "/dashboard")
++assert status == 200, status
++assert "<th>Latest result</th>" in body, body
++assert "<th>Last result</th>" not in body, body
++print("PASS: GET /dashboard displays Latest result and omits Last result")
+diff --git a/.experiment/checks.json b/.experiment/checks.json
+new file mode 100644
+index 0000000..8b227f4
+--- /dev/null
++++ b/.experiment/checks.json
+@@ -0,0 +1,81 @@
++[
++  {
++    "command": [
++      "python",
++      "-m",
++      "unittest",
++      "discover",
++      "-s",
++      "tests",
++      "-v"
++    ],
++    "environment_override": {
++      "PYTHONPATH": "."
++    },
++    "exit_code": 0,
++    "output_path": ".experiment/baseline.txt"
++  },
++  {
++    "command": [
++      "python",
++      ".experiment/check_dashboard.py"
++    ],
++    "environment_override": {
++      "PYTHONPATH": "."
++    },
++    "exit_code": 1,
++    "output_path": ".experiment/heading-red.txt"
++  },
++  {
++    "command": [
++      "python",
++      ".experiment/check_dashboard.py"
++    ],
++    "environment_override": {
++      "PYTHONPATH": "."
++    },
++    "exit_code": 0,
++    "output_path": ".experiment/heading-green.txt"
++  },
++  {
++    "command": [
++      "python",
++      "-m",
++      "unittest",
++      "discover",
++      "-s",
++      "tests",
++      "-v"
++    ],
++    "environment_override": {
++      "PYTHONPATH": "."
++    },
++    "exit_code": 0,
++    "output_path": ".experiment/public-full.txt"
++  },
++  {
++    "command": [
++      "git",
++      "diff",
++      "--check"
++    ],
++    "environment_override": {
++      "PYTHONPATH": "."
++    },
++    "exit_code": 0,
++    "output_path": ".experiment/diff-check.txt"
++  },
++  {
++    "command": [
++      "git",
++      "diff",
++      "--",
++      "relayboard/web.py"
++    ],
++    "environment_override": {
++      "PYTHONPATH": "."
++    },
++    "exit_code": 0,
++    "output_path": ".experiment/application-diff.txt"
++  }
++]
+diff --git a/.experiment/diff-check.txt b/.experiment/diff-check.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/heading-green.txt b/.experiment/heading-green.txt
+new file mode 100644
+index 0000000..fa8dfd3
+--- /dev/null
++++ b/.experiment/heading-green.txt
+@@ -0,0 +1 @@
++PASS: GET /dashboard displays Latest result and omits Last result
+diff --git a/.experiment/heading-red.txt b/.experiment/heading-red.txt
+new file mode 100644
+index 0000000..056bb7d
+--- /dev/null
++++ b/.experiment/heading-red.txt
+@@ -0,0 +1,5 @@
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S01-002/.experiment/check_dashboard.py", line 6, in <module>
++    assert "<th>Latest result</th>" in body, body
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: <!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
+diff --git a/.experiment/public-full.txt b/.experiment/public-full.txt
+new file mode 100644
+index 0000000..5593369
+--- /dev/null
++++ b/.experiment/public-full.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.010s
++
++OK
+diff --git a/.experiment/review-candidate.txt b/.experiment/review-candidate.txt
+new file mode 100644
+index 0000000..434e461
+--- /dev/null
++++ b/.experiment/review-candidate.txt
+@@ -0,0 +1 @@
++2ed94605b31620784656a3c6c551daa6a341e417
+diff --git a/.experiment/review-commands.json b/.experiment/review-commands.json
+new file mode 100644
+index 0000000..92f54f0
+--- /dev/null
++++ b/.experiment/review-commands.json
+@@ -0,0 +1,39 @@
++[
++  {
++    "command": [
++      "git",
++      "rev-parse",
++      "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8"
++    ],
++    "exit_code": 0,
++    "output_path": ".experiment/review-fixed-point.txt"
++  },
++  {
++    "command": [
++      "git",
++      "rev-parse",
++      "HEAD"
++    ],
++    "exit_code": 0,
++    "output_path": ".experiment/review-candidate.txt"
++  },
++  {
++    "command": [
++      "git",
++      "diff",
++      "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8...HEAD"
++    ],
++    "exit_code": 0,
++    "output_path": ".experiment/review-diff.txt"
++  },
++  {
++    "command": [
++      "git",
++      "log",
++      "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8..HEAD",
++      "--oneline"
++    ],
++    "exit_code": 0,
++    "output_path": ".experiment/review-commits.txt"
++  }
++]
+diff --git a/.experiment/review-commits.txt b/.experiment/review-commits.txt
+new file mode 100644
+index 0000000..55f44ab
+--- /dev/null
++++ b/.experiment/review-commits.txt
+@@ -0,0 +1 @@
++2ed9460 Update Jobs dashboard heading to Latest result
+diff --git a/.experiment/review-diff.txt b/.experiment/review-diff.txt
+new file mode 100644
+index 0000000..dc9b6e2
+--- /dev/null
++++ b/.experiment/review-diff.txt
+@@ -0,0 +1,238 @@
++diff --git a/.experiment/DECISIONS.json b/.experiment/DECISIONS.json
++new file mode 100644
++index 0000000..6ffe6b1
++--- /dev/null
+++++ b/.experiment/DECISIONS.json
++@@ -0,0 +1,46 @@
+++{
+++  "status": "in_progress",
+++  "assigned_root": "/workspace/relayboard-round2-active/M-S01-002",
+++  "initial_commit_observed": "70dcd4fc28df91da74ab62b7b619e4406b3cd5b8",
+++  "method": "matt-codex-port-v0",
+++  "upstream_version_declared": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+++  "routes": [
+++    "implement",
+++    "tdd",
+++    "code-review"
+++  ],
+++  "spec": "TASK.md",
+++  "decision": "One mechanical heading replacement; TASK.md is sufficient. No interview, separate spec, ticket graph, or ADR is useful because wording and scope are explicit.",
+++  "seam": "GET /dashboard through relayboard.testing.request; existing public WSGI seam, standing authorization under METHOD.md.",
+++  "test_decision": "Keep the narrow red/green verification under .experiment rather than adding permanent tests for the reversible wording change. Run the full existing public suite.",
+++  "adaptations": [
+++    "Local files replace tracker; TASK.md is originating spec for this tiny unit.",
+++    "Existing public seam and reversible ticket-shape authorization replace approval round trips.",
+++    "Two fresh same-model reviews run serially on local integration branch.",
+++    "No language-specific typechecker is introduced."
+++  ],
+++  "model": {
+++    "requested": "gpt-6.1-sol",
+++    "reasoning_requested": "high",
+++    "observed_lead": "unknown: no runtime identity introspection available"
+++  },
+++  "operator_exchanges": [],
+++  "evaluator_or_peer_material_accessed": false,
+++  "initial_evidence": {
+++    "commands": [
+++      "pwd",
+++      "rg --files -g TASK.md -g METHOD.md -g AGENTS.md -g *matt* -g *upstream* -g !node_modules -g !.git -g !.experiment .",
+++      "cat METHOD.md TASK.md",
+++      "rg --files -g !node_modules -g !.git .",
+++      "cat GLOSSARY.md README.md pyproject.toml upstream/matt/skills/engineering/implement/SKILL.md upstream/matt/skills/engineering/code-review/SKILL.md",
+++      "rg -n Last result|Latest result|dashboard|Jobs|standards|smell relayboard tests upstream/matt/skills/engineering/code-review",
+++      "git status --short",
+++      "git rev-parse HEAD",
+++      "cat tests/test_public.py relayboard/testing.py relayboard/web.py upstream/matt/skills/engineering/tdd/SKILL.md upstream/matt/skills/engineering/tdd/tests.md upstream/matt/skills/engineering/tdd/mocking.md",
+++      "rg --files --hidden -g !upstream/** -g !.git/** -g !node_modules/** -g !__pycache__/** .",
+++      "cat .experiment/RUN_MANIFEST.json .gitignore"
+++    ],
+++    "output": "Available in tool transcript. Initial git status was clean; HEAD matched assigned initial commit. One target at relayboard/web.py:153. No AGENTS.md or standards file was found within assigned area.",
+++    "output_capture_gap": "Initial read outputs were not separately saved verbatim; tool transcript preserves them."
+++  }
+++}
++diff --git a/.experiment/application-diff.txt b/.experiment/application-diff.txt
++new file mode 100644
++index 0000000..cd82881
++--- /dev/null
+++++ b/.experiment/application-diff.txt
++@@ -0,0 +1,13 @@
+++diff --git a/relayboard/web.py b/relayboard/web.py
+++index 88aa15e..67de7f4 100644
+++--- a/relayboard/web.py
++++++ b/relayboard/web.py
+++@@ -150,7 +150,7 @@ class RelayBoardApp:
+++             "<html><head><title>RelayBoard</title></head><body>"
+++             "<h1>Jobs</h1>"
+++             "<table id='jobs'><thead><tr>"
+++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
+++             "</tr></thead><tbody>"
+++             + "".join(rows)
+++             + "</tbody></table></body></html>"
++diff --git a/.experiment/baseline.txt b/.experiment/baseline.txt
++new file mode 100644
++index 0000000..30a3217
++--- /dev/null
+++++ b/.experiment/baseline.txt
++@@ -0,0 +1,10 @@
+++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+++
+++----------------------------------------------------------------------
+++Ran 5 tests in 0.005s
+++
+++OK
++diff --git a/.experiment/check_dashboard.py b/.experiment/check_dashboard.py
++new file mode 100644
++index 0000000..f825092
++--- /dev/null
+++++ b/.experiment/check_dashboard.py
++@@ -0,0 +1,8 @@
+++from relayboard.testing import request
+++from relayboard.web import create_seeded_app
+++
+++status, body = request(create_seeded_app(), "GET", "/dashboard")
+++assert status == 200, status
+++assert "<th>Latest result</th>" in body, body
+++assert "<th>Last result</th>" not in body, body
+++print("PASS: GET /dashboard displays Latest result and omits Last result")
++diff --git a/.experiment/checks.json b/.experiment/checks.json
++new file mode 100644
++index 0000000..8b227f4
++--- /dev/null
+++++ b/.experiment/checks.json
++@@ -0,0 +1,81 @@
+++[
+++  {
+++    "command": [
+++      "python",
+++      "-m",
+++      "unittest",
+++      "discover",
+++      "-s",
+++      "tests",
+++      "-v"
+++    ],
+++    "environment_override": {
+++      "PYTHONPATH": "."
+++    },
+++    "exit_code": 0,
+++    "output_path": ".experiment/baseline.txt"
+++  },
+++  {
+++    "command": [
+++      "python",
+++      ".experiment/check_dashboard.py"
+++    ],
+++    "environment_override": {
+++      "PYTHONPATH": "."
+++    },
+++    "exit_code": 1,
+++    "output_path": ".experiment/heading-red.txt"
+++  },
+++  {
+++    "command": [
+++      "python",
+++      ".experiment/check_dashboard.py"
+++    ],
+++    "environment_override": {
+++      "PYTHONPATH": "."
+++    },
+++    "exit_code": 0,
+++    "output_path": ".experiment/heading-green.txt"
+++  },
+++  {
+++    "command": [
+++      "python",
+++      "-m",
+++      "unittest",
+++      "discover",
+++      "-s",
+++      "tests",
+++      "-v"
+++    ],
+++    "environment_override": {
+++      "PYTHONPATH": "."
+++    },
+++    "exit_code": 0,
+++    "output_path": ".experiment/public-full.txt"
+++  },
+++  {
+++    "command": [
+++      "git",
+++      "diff",
+++      "--check"
+++    ],
+++    "environment_override": {
+++      "PYTHONPATH": "."
+++    },
+++    "exit_code": 0,
+++    "output_path": ".experiment/diff-check.txt"
+++  },
+++  {
+++    "command": [
+++      "git",
+++      "diff",
+++      "--",
+++      "relayboard/web.py"
+++    ],
+++    "environment_override": {
+++      "PYTHONPATH": "."
+++    },
+++    "exit_code": 0,
+++    "output_path": ".experiment/application-diff.txt"
+++  }
+++]
++diff --git a/.experiment/diff-check.txt b/.experiment/diff-check.txt
++new file mode 100644
++index 0000000..e69de29
++diff --git a/.experiment/heading-green.txt b/.experiment/heading-green.txt
++new file mode 100644
++index 0000000..fa8dfd3
++--- /dev/null
+++++ b/.experiment/heading-green.txt
++@@ -0,0 +1 @@
+++PASS: GET /dashboard displays Latest result and omits Last result
++diff --git a/.experiment/heading-red.txt b/.experiment/heading-red.txt
++new file mode 100644
++index 0000000..056bb7d
++--- /dev/null
+++++ b/.experiment/heading-red.txt
++@@ -0,0 +1,5 @@
+++Traceback (most recent call last):
+++  File "/workspace/relayboard-round2-active/M-S01-002/.experiment/check_dashboard.py", line 6, in <module>
+++    assert "<th>Latest result</th>" in body, body
+++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++AssertionError: <!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
++diff --git a/.experiment/public-full.txt b/.experiment/public-full.txt
++new file mode 100644
++index 0000000..5593369
++--- /dev/null
+++++ b/.experiment/public-full.txt
++@@ -0,0 +1,10 @@
+++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+++
+++----------------------------------------------------------------------
+++Ran 5 tests in 0.010s
+++
+++OK
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..67de7f4 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -150,7 +150,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
+diff --git a/.experiment/review-fixed-point.txt b/.experiment/review-fixed-point.txt
+new file mode 100644
+index 0000000..a3b7667
+--- /dev/null
++++ b/.experiment/review-fixed-point.txt
+@@ -0,0 +1 @@
++70dcd4fc28df91da74ab62b7b619e4406b3cd5b8
+diff --git a/.experiment/spec-review.txt b/.experiment/spec-review.txt
+new file mode 100644
+index 0000000..6298225
+--- /dev/null
++++ b/.experiment/spec-review.txt
+@@ -0,0 +1,12 @@
++Spec review: 0 findings—no missing/partial requirements, scope creep, or incorrectly implemented requirements.
++
++- "On the RelayBoard dashboard, change the Jobs table column heading from Last result to Latest result." Implemented exactly at relayboard/web.py:153 in the Jobs table header.
++- "Do not change API behavior or unrelated dashboard behavior." The application diff changes only that heading literal. Added .experiment files contain mandated run evidence.
++- "Implement the change and verify it." .experiment/check_dashboard.py checks HTTP 200, the new heading's presence, and the old heading's absence through the existing public WSGI seam. Recorded .experiment/heading-red.txt shows the expected failure before implementation; .experiment/heading-green.txt records success afterward. .experiment/public-full.txt records all five existing public tests passing.
++
++Exact commands inspected, all with explicit workdir /workspace/relayboard-round2-active/M-S01-002:
++- git rev-parse 70dcd4fc28df91da74ab62b7b619e4406b3cd5b8 HEAD confirmed starting commit and candidate 2ed94605b31620784656a3c6c551daa6a341e417.
++- git diff 70dcd4fc28df91da74ab62b7b619e4406b3cd5b8...HEAD showed the single application literal replacement and evidence additions.
++- git log 70dcd4fc28df91da74ab62b7b619e4406b3cd5b8..HEAD --oneline showed 2ed9460 Update Jobs dashboard heading to Latest result.
++
++Limitations: verification outputs were inspected rather than rerun during this read-only review. No hidden checks, external access, other review reports, or file modifications occurred. Requested identity: gpt-6.1-sol, high reasoning; observed runtime identity: unknown.
+diff --git a/.experiment/standards-review.txt b/.experiment/standards-review.txt
+new file mode 100644
+index 0000000..747d2f6
+--- /dev/null
++++ b/.experiment/standards-review.txt
+@@ -0,0 +1,11 @@
++Standards: 0 documented violations; 0 baseline smell findings.
++
++- relayboard/web.py:153: sole application hunk changes "<th>Job</th><th>Enabled</th><th>Last result</th>" to "<th>Job</th><th>Enabled</th><th>Latest result</th>". No listed smell arises from this literal replacement.
++- .experiment/check_dashboard.py: direct public WSGI assertions introduce no baseline smell.
++- Remaining .experiment hunks record decisions, commands, diffs and verification output. Repeated text in evidence artifacts is not duplicated application logic.
++
++No coding-standards, contribution, agent-instruction or style-tool configuration file was found by the scoped filename search. README.md documents standard-library Python, public unittest tests and a small inspectable implementation; pyproject.toml specifies Python >=3.11. No breach identified.
++
++Evidence: executed git diff 70dcd4fc28df91da74ab62b7b619e4406b3cd5b8...HEAD and git log 70dcd4fc28df91da74ab62b7b619e4406b3cd5b8..HEAD --oneline. Commit list contains only 2ed9460 Update Jobs dashboard heading to Latest result. git rev-parse confirmed full candidate 2ed94605b31620784656a3c6c551daa6a341e417 and starting commit.
++
++Read METHOD.md, TASK.md, GLOSSARY.md, and upstream/matt/skills/engineering/code-review/SKILL.md. Read-only review; no tests rerun. No forbidden access occurred. Requested identity: GPT-6.1 Sol/high; observed runtime identity: unknown.
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..67de7f4 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -150,7 +150,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"
