@@ -1,0 +1,229 @@
+{
+  "status": "VERIFIED",
+  "contestant": "F-S02-002",
+  "treatment": "FIRST-mode v0",
+  "identity": {
+    "requested": "F-S02-002 FIRST-mode v0 contestant",
+    "runtime_attestation": "unknown",
+    "runtime_usage": "unknown"
+  },
+  "scope": "Only /workspace/relayboard-round2-active/F-S02-002; public checks only; no remote or external actions.",
+  "initial_commit": "bae620c829bdcd980a6d0ddb71a7d999faf6a440",
+  "commits": {
+    "implementation": "209f1c3913854add5962c9c81d7c2923637ad775",
+    "evidence_commit_locator": "git log -1 --format=%H -- .experiment/REPORT.json"
+  },
+  "method_hash_sha256": "b4f4caa030da9a979097d3c21b225c50bef70572723352fef2a693a6e9a6b2e5",
+  "task_hash_sha256": "a6a4c8aa45aff473f26aa337342bde313e249228c459a7385410c8f8e03c1838",
+  "method_route": [
+    "L1 grounded reversible engineering",
+    "L3 product question for manual and in-progress Run semantics",
+    "L2 subsystem and sole-verifier triggers addressed via red-capable matching WSGI executable acceptance tests and blast-radius tests"
+  ],
+  "success_predicate": [
+    "POST pause/resume follow existing API response and missing-id conventions",
+    "Pause state persists independently of enabled state and blocks scheduled starts until resume",
+    "Confirmed product semantics for manual runs, existing Runs/retries/alerts and dashboard are implemented",
+    "Public regressions and matching WSGI acceptance checks pass"
+  ],
+  "decisions": [
+    {
+      "class": "FACT",
+      "evidence": [
+        "TASK.md",
+        "GLOSSARY.md",
+        "relayboard/service.py",
+        "relayboard/web.py",
+        "tests/test_public.py"
+      ],
+      "finding": "Pause semantics explicitly undefined; disabled state currently suppresses only scheduling; service executes retries within existing Runs."
+    },
+    {
+      "class": "PRODUCT_PREFERENCE",
+      "state": "answered: manual/in-progress Runs only",
+      "question": "Independent pause; manual allowed; existing Runs/retries/alerts unchanged; resume preserves enabled; idempotent endpoints; dashboard Paused field."
+    },
+    {
+      "class": "REVERSIBLE_ENGINEERING",
+      "decision": "Separate persisted paused boolean with default false; preserve enabled flag across transitions; idempotent POST endpoints returning 200 job envelope; add Paused dashboard field, preserve Enabled and Last result.",
+      "rationale": "Pause must survive independently of existing enabled state to avoid changing existing scheduling settings. Existing API setter uses 200 job envelope. Explicit visibility prevents enabled paused jobs appearing schedulable, while retaining previous information."
+    },
+    {
+      "class": "REVERSIBLE_ENGINEERING",
+      "decision": "Verify via public unittest acceptance checks calling the actual WSGI app and storage/service seams.",
+      "rationale": "Independent executable evidence at matching API/dashboard surfaces satisfies L2 sole-verifier and subsystem-boundary triggers without helper ceremony."
+    }
+  ],
+  "operator_exchanges": [
+    {
+      "direction": "outgoing",
+      "recipient": "/root",
+      "prefix": "OPERATOR QUESTION",
+      "message": "Product semantics remain undefined. Proposed policy: independent pause suppresses scheduling only; manual runs allowed; existing Runs/retries/alerts continue; resume preserves enabled; idempotent endpoints; explicit Paused dashboard field. Confirm or change."
+    },
+    {
+      "direction": "incoming",
+      "sender": "/root",
+      "prefix": "OPERATOR ANSWER",
+      "message": "Manual Runs remain allowed while paused. An in-progress Run continues to its terminal outcome; preserve its existing retry and alert behavior. No additional product preference or guidance is supplied for pause-state representation, enabled/disabled representation, idempotence or dashboard presentation; resolve those from TASK.md, existing public interfaces and reversible engineering judgment. This answers only the requested product decisions and does not blanket-confirm other proposed policy."
+    }
+  ],
+  "helpers": [],
+  "tests": {
+    "level": "Public executable acceptance and regression tests; actual WSGI app surface, service and SQLite persistence seams",
+    "baseline": {
+      "tests": 5,
+      "passed": 5
+    },
+    "red": {
+      "tests": 15,
+      "passed": 5,
+      "failures": 8,
+      "errors": 2
+    },
+    "final": {
+      "tests": 15,
+      "passed": 15
+    },
+    "diff_check": "passed",
+    "no_helpers_used": true
+  },
+  "commands": [
+    {
+      "cmd": "pwd && rg --files -g TASK.md -g METHOD.md -g AGENTS.md -g !node_modules -g !.git && git status --short && git rev-parse HEAD",
+      "result": "assigned cwd; TASK.md/METHOD.md; clean tree; initial commit confirmed"
+    },
+    {
+      "cmd": "cat TASK.md && cat METHOD.md",
+      "result": "read task and frozen method"
+    },
+    {
+      "cmd": "rg --files -g !node_modules -g !.git -g !.experiment -g !package-lock.json -g !pnpm-lock.yaml -g !yarn.lock",
+      "result": "README.md, tests/test_public.py, METHOD.md, pyproject.toml, GLOSSARY.md, relayboard/*.py, TASK.md"
+    },
+    {
+      "cmd": "cat README.md GLOSSARY.md pyproject.toml relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py relayboard/testing.py tests/test_public.py",
+      "result": "inspected assigned docs, application and public tests only; no outside README links followed"
+    },
+    {
+      "cmd": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "result": "5 baseline tests pass",
+      "outputpath": ".experiment/baseline-tests.txt"
+    },
+    {
+      "cmd": "python heredoc: initialize .experiment/state.json and CHECKPOINTS.md",
+      "result": "durable goal, predicate, identity, scope, decisions and initial command/path evidence created"
+    },
+    {
+      "cmd": "python heredoc: persist operator answer and engineering decisions",
+      "result": "operator exchange and policy rationale persisted"
+    },
+    {
+      "cmd": "apply_patch: add tests/test_pause.py",
+      "result": "10 matching-surface acceptance checks added before implementation"
+    },
+    {
+      "cmd": "set -o pipefail; python -m unittest discover -s tests -v 2>&1 | tee .experiment/red-tests.txt",
+      "exit_code": 1,
+      "result": "5 baseline passed; 10 new checks red (8 failures, 2 missing-paused-field errors)",
+      "outputpath": ".experiment/red-tests.txt"
+    },
+    {
+      "cmd": "apply_patch: models/store/service/web/README changes",
+      "result": "implemented persisted independent pause; scheduler guard; API routes, visibility, upgrade and docs"
+    },
+    {
+      "cmd": "set -o pipefail; python -m unittest discover -s tests -v 2>&1 | tee .experiment/verified-tests.txt",
+      "exit_code": 0,
+      "result": "15 tests passed, including original 5 and 10 new acceptance tests",
+      "outputpath": ".experiment/verified-tests.txt"
+    },
+    {
+      "cmd": "git diff --check; git diff -- README.md relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py > .experiment/implementation.diff; git diff --stat; git status --short",
+      "exit_code": 0,
+      "result": "whitespace clean; reviewed changed-path scope",
+      "outputpaths": [
+        ".experiment/diff-check.txt",
+        ".experiment/implementation.diff"
+      ]
+    },
+    {
+      "cmd": "cat relayboard/__main__.py relayboard/__init__.py && sha256sum METHOD.md TASK.md",
+      "exit_code": 0,
+      "result": "WSGI runtime uses same RelayBoardApp as acceptance checks; treatment/task hashes recorded"
+    },
+    {
+      "cmd": "cat .experiment/implementation.diff && git diff --check",
+      "exit_code": 0,
+      "result": "implementation diff reviewed; no whitespace errors"
+    },
+    {
+      "cmd": "git add README.md relayboard/models.py relayboard/service.py relayboard/store.py relayboard/web.py tests/test_pause.py && git commit -m \"Add persisted Job pause and resume controls\" 2>&1 | tee .experiment/implementation-commit.txt",
+      "exit_code": 0,
+      "result": "209f1c3913854add5962c9c81d7c2923637ad775",
+      "outputpath": ".experiment/implementation-commit.txt"
+    }
+  ],
+  "available_commands": {
+    "executed": [
+      "pwd",
+      "rg",
+      "git",
+      "cat",
+      "mkdir",
+      "python",
+      "tee",
+      "sha256sum"
+    ],
+    "not_exhaustively_enumerated": true
+  },
+  "action_path_evidence": {
+    "cwd": "/workspace/relayboard-round2-active/F-S02-002",
+    "inspected": [
+      "TASK.md",
+      "METHOD.md",
+      "README.md",
+      "GLOSSARY.md",
+      "pyproject.toml",
+      "relayboard/models.py",
+      "relayboard/store.py",
+      "relayboard/service.py",
+      "relayboard/web.py",
+      "relayboard/testing.py",
+      "tests/test_public.py",
+      "relayboard/__main__.py",
+      "relayboard/__init__.py",
+      ".experiment/implementation.diff"
+    ],
+    "written": [
+      "README.md",
+      "relayboard/models.py",
+      "relayboard/store.py",
+      "relayboard/service.py",
+      "relayboard/web.py",
+      "tests/test_pause.py",
+      ".experiment/*"
+    ],
+    "source_diff": ".experiment/implementation.diff",
+    "test_source": "tests/test_pause.py",
+    "checkpoint_log": ".experiment/CHECKPOINTS.md",
+    "state": ".experiment/state.json"
+  },
+  "outputpaths": [
+    ".experiment/baseline-tests.txt",
+    ".experiment/red-tests.txt",
+    ".experiment/verified-tests.txt",
+    ".experiment/diff-check.txt",
+    ".experiment/implementation.diff",
+    ".experiment/implementation-commit.txt"
+  ],
+  "evaluator_or_peer_material_accessed": false,
+  "contaminated": false,
+  "gaps": [
+    "Runtime model attestation and token/cost usage are unavailable; requested contestant identity is recorded separately.",
+    "No evaluator/hidden checks, external services, or independent model review were run. Verification consists of independently inspectable public executable evidence.",
+    "Acceptance requests directly invoke the actual WSGI app; a network listener/browser session was not needed or exercised."
+  ],
+  "remaining_work": "None in authorized candidate task; evidence commit and final clean-tree confirmation follow. Public hidden evaluation remains outside this run."
+}

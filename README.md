@@ -41,6 +41,20 @@ RelayBoard is a small job-control application with:
 
 The implementation should remain small enough that a reviewer can inspect the whole system.
 
+## Job pause controls
+
+`POST /api/jobs/{id}/pause` pauses scheduled starts; `POST /api/jobs/{id}/resume`
+removes that pause. Both return `200` with a `job` object, or `404` for an
+unknown Job, and are idempotent. Job API responses include a `paused` boolean,
+and the dashboard shows it alongside Enabled and Last result.
+
+Pause is separate from enabled/disabled state. Resume does not enable a disabled
+Job, and enabling a paused Job does not resume it. Scheduled starts require the
+Job to be enabled and unpaused, otherwise the Run API returns `409`.
+Manual Runs remain allowed while paused. Existing Runs continue to completion,
+including their existing retry and alert behavior. Pause/resume creates no Runs,
+Attempts, or Alerts. Existing stored Jobs default to unpaused on schema upgrade.
+
 ## Treatment isolation
 
 Treatment agents receive the fixture workspace and scenario prompt.

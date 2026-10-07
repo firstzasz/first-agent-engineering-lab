@@ -1,0 +1,102 @@
+test_endpoints_idempotent_and_missing_jobs_return_404 (test_pause.PauseTests.test_endpoints_idempotent_and_missing_jobs_return_404) ... FAIL
+test_existing_run_can_succeed_while_paused (test_pause.PauseTests.test_existing_run_can_succeed_while_paused) ... FAIL
+test_existing_run_retries_and_alerts_unchanged (test_pause.PauseTests.test_existing_run_retries_and_alerts_unchanged) ... FAIL
+test_list_and_dashboard_expose_pause_preserving_existing_fields (test_pause.PauseTests.test_list_and_dashboard_expose_pause_preserving_existing_fields) ... FAIL
+test_manual_runs_allowed_while_paused (test_pause.PauseTests.test_manual_runs_allowed_while_paused) ... FAIL
+test_old_schema_upgrades_with_unpaused_default (test_pause.PauseTests.test_old_schema_upgrades_with_unpaused_default) ... ERROR
+test_only_post_and_exact_paths_change_pause (test_pause.PauseTests.test_only_post_and_exact_paths_change_pause) ... ERROR
+test_pause_and_enabled_are_independent (test_pause.PauseTests.test_pause_and_enabled_are_independent) ... FAIL
+test_pause_blocks_scheduled_runs_until_resume (test_pause.PauseTests.test_pause_blocks_scheduled_runs_until_resume) ... FAIL
+test_pause_survives_store_reopen (test_pause.PauseTests.test_pause_survives_store_reopen) ... FAIL
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+======================================================================
+ERROR: test_old_schema_upgrades_with_unpaused_default (test_pause.PauseTests.test_old_schema_upgrades_with_unpaused_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 142, in test_old_schema_upgrades_with_unpaused_default
+    self.assertFalse(job.paused)
+                     ^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'paused'
+
+======================================================================
+ERROR: test_only_post_and_exact_paths_change_pause (test_pause.PauseTests.test_only_post_and_exact_paths_change_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 125, in test_only_post_and_exact_paths_change_pause
+    self.assertFalse(self.app.store.get_job("daily-report").paused)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'paused'
+
+======================================================================
+FAIL: test_endpoints_idempotent_and_missing_jobs_return_404 (test_pause.PauseTests.test_endpoints_idempotent_and_missing_jobs_return_404)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 92, in test_endpoints_idempotent_and_missing_jobs_return_404
+    self.assertEqual(first[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_existing_run_can_succeed_while_paused (test_pause.PauseTests.test_existing_run_can_succeed_while_paused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 67, in test_existing_run_can_succeed_while_paused
+    self.assertEqual(self.change_pause("pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_existing_run_retries_and_alerts_unchanged (test_pause.PauseTests.test_existing_run_retries_and_alerts_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 47, in test_existing_run_retries_and_alerts_unchanged
+    self.assertEqual(self.change_pause("pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_list_and_dashboard_expose_pause_preserving_existing_fields (test_pause.PauseTests.test_list_and_dashboard_expose_pause_preserving_existing_fields)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 104, in test_list_and_dashboard_expose_pause_preserving_existing_fields
+    self.assertEqual(self.change_pause("pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_manual_runs_allowed_while_paused (test_pause.PauseTests.test_manual_runs_allowed_while_paused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 40, in test_manual_runs_allowed_while_paused
+    self.assertEqual(self.change_pause("pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_pause_and_enabled_are_independent (test_pause.PauseTests.test_pause_and_enabled_are_independent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 74, in test_pause_and_enabled_are_independent
+    self.assertEqual(code, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_pause_blocks_scheduled_runs_until_resume (test_pause.PauseTests.test_pause_blocks_scheduled_runs_until_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 19, in test_pause_blocks_scheduled_runs_until_resume
+    self.assertEqual(code, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_pause_survives_store_reopen (test_pause.PauseTests.test_pause_survives_store_reopen)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/F-S02-002/tests/test_pause.py", line 128, in test_pause_survives_store_reopen
+    self.assertEqual(self.change_pause("pause")[0], 200)
+AssertionError: 404 != 200
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.014s
+
+FAILED (failures=8, errors=2)
