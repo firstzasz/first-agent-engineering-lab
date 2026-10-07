@@ -1,0 +1,1 @@
+record_attempt emits run_failed on intermediate failed attempts and again on exhaustion. GLOSSARY.md specifies alerts after terminal Run outcomes. Fix: emit only after setting Run status to failed; preserve running/retry and attempt count behavior.

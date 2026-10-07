@@ -1,0 +1,4 @@
+a0aae4f Fix failure alerts emitted before retry exhaustion
+ relayboard/service.py      |   1 -
+ tests/test_retry_alerts.py | 109 +++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 109 insertions(+), 1 deletion(-)

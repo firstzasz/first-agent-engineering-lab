@@ -1,0 +1,13 @@
+?? .experiment/actions.jsonl
+?? .experiment/baseline-tests.txt
+?? .experiment/commit-output.txt
+?? .experiment/committed-change.txt
+?? .experiment/diagnosis.txt
+?? .experiment/diff-check.txt
+?? .experiment/fix-diff.txt
+?? .experiment/implementation-commit-hash.txt
+?? .experiment/implementation-commit.txt
+?? .experiment/regression-before-fix.txt
+?? .experiment/run_command.py
+?? .experiment/status-before-commit.txt
+?? .experiment/verified-tests.txt
