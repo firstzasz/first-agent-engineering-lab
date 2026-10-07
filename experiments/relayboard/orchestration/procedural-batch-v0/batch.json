@@ -100,8 +100,9 @@
       "branch": "treatment/matt/M-S04-001",
       "prepared_sha": "6b7c509c48cdf1e448c63b368609b5b2995f3fdd",
       "prepared_tree_sha": "d14ec20c4cb65e63748e783a87faf8e54db14ea6",
-      "status": "READY_PROCEDURAL",
-      "result_path": "results/M-S04-001/run.json"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result_path": "results/M-S04-001/run.json",
+      "candidate_sha": "f7c90c01ee8ede873a25a95f0bc989176160a8d1"
     },
     {
       "run_id": "F-S01-001",
@@ -134,5 +135,5 @@
       "result_path": "results/F-S04-001/run.json"
     }
   ],
-  "completed_count": 7
+  "completed_count": 8
 }
