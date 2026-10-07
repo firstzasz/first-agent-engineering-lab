@@ -1,0 +1,14 @@
+{
+  "run_id": "P-S02-001",
+  "question": "The public glossary deliberately leaves pause semantics undefined. What should pause do beyond blocking new scheduled Runs? Please specify whether manual Runs remain allowed, existing Runs/Attempts/retries and alerts continue, whether pause is independent of enabled/disabled (resume restores prior enabled state), and whether/how dashboard should show paused state. Current implementation has enabled scheduling, manual Runs allowed even disabled, synchronous Attempts, and a dashboard with Enabled and Last result. I will preserve existing behavior by default except where your product answer requires change.",
+  "answer": "For the requested product decisions: manual Runs remain allowed while a Job is paused. A Run already in progress continues to its terminal outcome, including its existing retry and alert behavior. No additional product guidance is supplied for the enabled/disabled representation or dashboard presentation; use the supplied task's preservation requirement and workspace evidence to make those reversible implementation choices.",
+  "classification": "MIXED",
+  "product_decisions_answered": [
+    "manual_run_while_paused",
+    "pause_in_progress_run"
+  ],
+  "other_items": "Enabled/disabled representation and dashboard presentation recorded as reversible implementation questions without additional product guidance.",
+  "answer_sheet_supplied": false,
+  "additional_requirements_volunteered": false,
+  "answered_at": "2026-10-07 07:02:27 UTC"
+}
