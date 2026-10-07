@@ -27,7 +27,7 @@
     "N-S01-002"
   ],
   "order_change_after_outcomes_allowed": false,
-  "completed_count": 1,
+  "completed_count": 2,
   "runs": [
     {
       "run_id": "F-S04-002",
@@ -50,11 +50,12 @@
       "treatment": "first-mode-v0",
       "branch": "treatment/first-mode/F-S02-002",
       "operator_interactions": [],
-      "status": "READY_PROCEDURAL",
+      "status": "COMPLETED_EVALUATED_PASS",
       "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
       "prepared_sha": "a9e3042ebb068b8a43ed66ced38858a23cc179aa",
       "prepared_tree_sha": "47f245c97913f71d5f37448ab9b858aeca1d84da",
-      "result_path": "results/F-S02-002/run.json"
+      "result_path": "results/F-S02-002/run.json",
+      "candidate_sha": "962b14547122feed020cc10aed7b83da4226766e"
     },
     {
       "run_id": "F-S01-002",

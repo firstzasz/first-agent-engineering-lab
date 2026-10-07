@@ -1,0 +1,439 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "independent_replication_not_retry": true,
+  "run_id": "F-S02-002",
+  "scenario": "S02-v0.1",
+  "treatment": "first-mode-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_f_s02_002"
+  },
+  "start": {
+    "run_id": "F-S02-002",
+    "workspace": "/workspace/relayboard-round2-active/F-S02-002",
+    "local_start_sha": "bae620c829bdcd980a6d0ddb71a7d999faf6a440",
+    "local_start_tree": "47f245c97913f71d5f37448ab9b858aeca1d84da",
+    "remote_prepared_sha": "a9e3042ebb068b8a43ed66ced38858a23cc179aa",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "first-mode-v0",
+    "prepared_at": "2026-10-07T13:16:09.514894+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "22ef0c77d90c3410785dd593f2b5c161edaed531",
+      ".experiment/RUN_MANIFEST.json": "0a6610c00336d829d8bad0082b40fa0616b0f4c5"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 13:21:42 UTC",
+  "candidate_frozen_at": "2026-10-07T13:21:43.683280+00:00",
+  "local_candidate_sha": "6c2147fcddd608edcbdba4618b648f2736d9fc5a",
+  "local_candidate_tree": "f28dfb389887569754e366b751058a68ad844156",
+  "remote_candidate": {
+    "sha": "962b14547122feed020cc10aed7b83da4226766e",
+    "tree_sha": "f28dfb389887569754e366b751058a68ad844156",
+    "branch": "candidate/F-S02-002"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/29",
+    "number": 29,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S02-v0.1 task in a fresh first-mode-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-round2. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "F-S02-002: first-mode-v0 frozen benchmark candidate",
+    "base": "treatment/first-mode/F-S02-002",
+    "base_sha": "a9e3042ebb068b8a43ed66ced38858a23cc179aa",
+    "head": "candidate/F-S02-002",
+    "head_sha": "962b14547122feed020cc10aed7b83da4226766e",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T13:21:58Z",
+    "updated_at": "2026-10-07T13:21:58Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 15,
+    "additions": 973,
+    "deletions": 4,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/29",
+    "display_title": "F-S02-002: first-mode-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "bae620c829bdcd980a6d0ddb71a7d999faf6a440",
+      "metadata": "commit bae620c829bdcd980a6d0ddb71a7d999faf6a440\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:16:09 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:16:09 2026 +0000\n\n    benchmark: frozen standalone F-S02-002 starting packet\n"
+    },
+    {
+      "sha": "209f1c3913854add5962c9c81d7c2923637ad775",
+      "metadata": "commit 209f1c3913854add5962c9c81d7c2923637ad775\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:20:07 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:20:07 2026 +0000\n\n    Add persisted Job pause and resume controls\n"
+    },
+    {
+      "sha": "6c2147fcddd608edcbdba4618b648f2736d9fc5a",
+      "metadata": "commit 6c2147fcddd608edcbdba4618b648f2736d9fc5a\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:20:57 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:20:57 2026 +0000\n\n    Record FIRST-mode decisions and public verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/CHECKPOINTS.md            |   5 +\n .experiment/REPORT.json               | 229 ++++++++++++++++++++++++++++++++++\n .experiment/baseline-tests.txt        |  10 ++\n .experiment/diff-check.txt            |   0\n .experiment/implementation-commit.txt |   3 +\n .experiment/implementation.diff       | 187 +++++++++++++++++++++++++++\n .experiment/red-tests.txt             | 102 +++++++++++++++\n .experiment/state.json                | 198 +++++++++++++++++++++++++++++\n .experiment/verified-tests.txt        |  20 +++\n README.md                             |  14 +++\n relayboard/models.py                  |   1 +\n relayboard/service.py                 |  10 +-\n relayboard/store.py                   |  26 +++-\n relayboard/web.py                     |  21 +++-\n tests/test_pause.py                   | 151 ++++++++++++++++++++++\n 15 files changed, 973 insertions(+), 4 deletions(-)\n",
+  "operator_interactions": [
+    {
+      "run_id": "F-S02-002",
+      "round": 1,
+      "observed_at": "2026-10-07 13:17:41 UTC",
+      "question": "Product semantics remain undefined in GLOSSARY.md. Proposed policy: pause independently tracks scheduling suppression; manual runs remain allowed; existing Runs and retries continue and existing alerts still emit; resume removes pause without changing enabled/disabled state; pause/resume are idempotent; dashboard shows an explicit Paused field alongside Enabled and Last result. Please confirm or give desired changes, especially manual runs, in-flight retry/alerts, and dashboard representation. FACT evidence: current disabled jobs block only scheduled starts, allow manual runs; Runs already begun are independent; task requests preservation of existing behavior. No implementation dependent on these choices will proceed until your answer.",
+      "answer": "Manual Runs allowed while paused. In-progress Run continues terminal including existing retries/alerts. No additional guidance for representation/enabled/idempotence/dashboard; task/public interfaces/reversible judgment. No blanket confirmation of other proposed policy.",
+      "classification": "MIXED",
+      "product_decisions_answered": [
+        "manual_run_while_paused",
+        "pause_in_progress_run"
+      ],
+      "question_classifications": [
+        {
+          "item": "manual runs",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "in-flight Run/retries/alerts",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "pause-state representation",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        },
+        {
+          "item": "enabled/disabled representation",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        },
+        {
+          "item": "idempotence",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        },
+        {
+          "item": "dashboard presentation",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        }
+      ],
+      "FACT_questions": 0,
+      "FACT_evidence_supplied_by_contestant": true,
+      "volunteered_requirements": false
+    }
+  ],
+  "helper_contexts_observed": [],
+  "requested_helper_configuration": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "agent_completion_claim": "VERIFIED. Pause/resume implemented; manual Runs/retries/alerts preserved.15publictests pass clean. Implementation209f1c3 finalevidence6c2147fcddd608edcbdba4618b648f2736d9fc5a. .experiment/REPORT.json. No contamination/helpers; candidate frozen.",
+  "visible_checkpoints": [
+    {
+      "observed_at": "2026-10-07 13:21:42 UTC",
+      "message": "FIRST L1grounded execution/L3operator/L2boundary sole-verifier triggers addressed by red-capable WSGI/service/storage checks. Manual/current semantics answered; representation/idempotence/dashboard engineered.15publicpassed redbeforegreen, diffclean, commits209f1c3/6c2147f, nohelpers/forbidden/network/hidden, complete."
+    }
+  ],
+  "worker_report": {
+    "status": "VERIFIED",
+    "contestant": "F-S02-002",
+    "treatment": "FIRST-mode v0",
+    "identity": {
+      "requested": "F-S02-002 FIRST-mode v0 contestant",
+      "runtime_attestation": "unknown",
+      "runtime_usage": "unknown"
+    },
+    "scope": "Only /workspace/relayboard-round2-active/F-S02-002; public checks only; no remote or external actions.",
+    "initial_commit": "bae620c829bdcd980a6d0ddb71a7d999faf6a440",
+    "commits": {
+      "implementation": "209f1c3913854add5962c9c81d7c2923637ad775",
+      "evidence_commit_locator": "git log -1 --format=%H -- .experiment/REPORT.json"
+    },
+    "method_hash_sha256": "b4f4caa030da9a979097d3c21b225c50bef70572723352fef2a693a6e9a6b2e5",
+    "task_hash_sha256": "a6a4c8aa45aff473f26aa337342bde313e249228c459a7385410c8f8e03c1838",
+    "method_route": [
+      "L1 grounded reversible engineering",
+      "L3 product question for manual and in-progress Run semantics",
+      "L2 subsystem and sole-verifier triggers addressed via red-capable matching WSGI executable acceptance tests and blast-radius tests"
+    ],
+    "success_predicate": [
+      "POST pause/resume follow existing API response and missing-id conventions",
+      "Pause state persists independently of enabled state and blocks scheduled starts until resume",
+      "Confirmed product semantics for manual runs, existing Runs/retries/alerts and dashboard are implemented",
+      "Public regressions and matching WSGI acceptance checks pass"
+    ],
+    "decisions": [
+      {
+        "class": "FACT",
+        "evidence": [
+          "TASK.md",
+          "GLOSSARY.md",
+          "relayboard/service.py",
+          "relayboard/web.py",
+          "tests/test_public.py"
+        ],
+        "finding": "Pause semantics explicitly undefined; disabled state currently suppresses only scheduling; service executes retries within existing Runs."
+      },
+      {
+        "class": "PRODUCT_PREFERENCE",
+        "state": "answered: manual/in-progress Runs only",
+        "question": "Independent pause; manual allowed; existing Runs/retries/alerts unchanged; resume preserves enabled; idempotent endpoints; dashboard Paused field."
+      },
+      {
+        "class": "REVERSIBLE_ENGINEERING",
+        "decision": "Separate persisted paused boolean with default false; preserve enabled flag across transitions; idempotent POST endpoints returning 200 job envelope; add Paused dashboard field, preserve Enabled and Last result.",
+        "rationale": "Pause must survive independently of existing enabled state to avoid changing existing scheduling settings. Existing API setter uses 200 job envelope. Explicit visibility prevents enabled paused jobs appearing schedulable, while retaining previous information."
+      },
+      {
+        "class": "REVERSIBLE_ENGINEERING",
+        "decision": "Verify via public unittest acceptance checks calling the actual WSGI app and storage/service seams.",
+        "rationale": "Independent executable evidence at matching API/dashboard surfaces satisfies L2 sole-verifier and subsystem-boundary triggers without helper ceremony."
+      }
+    ],
+    "operator_exchanges": [
+      {
+        "direction": "outgoing",
+        "recipient": "/root",
+        "prefix": "OPERATOR QUESTION",
+        "message": "Product semantics remain undefined. Proposed policy: independent pause suppresses scheduling only; manual runs allowed; existing Runs/retries/alerts continue; resume preserves enabled; idempotent endpoints; explicit Paused dashboard field. Confirm or change."
+      },
+      {
+        "direction": "incoming",
+        "sender": "/root",
+        "prefix": "OPERATOR ANSWER",
+        "message": "Manual Runs remain allowed while paused. An in-progress Run continues to its terminal outcome; preserve its existing retry and alert behavior. No additional product preference or guidance is supplied for pause-state representation, enabled/disabled representation, idempotence or dashboard presentation; resolve those from TASK.md, existing public interfaces and reversible engineering judgment. This answers only the requested product decisions and does not blanket-confirm other proposed policy."
+      }
+    ],
+    "helpers": [],
+    "tests": {
+      "level": "Public executable acceptance and regression tests; actual WSGI app surface, service and SQLite persistence seams",
+      "baseline": {
+        "tests": 5,
+        "passed": 5
+      },
+      "red": {
+        "tests": 15,
+        "passed": 5,
+        "failures": 8,
+        "errors": 2
+      },
+      "final": {
+        "tests": 15,
+        "passed": 15
+      },
+      "diff_check": "passed",
+      "no_helpers_used": true
+    },
+    "commands": [
+      {
+        "cmd": "pwd && rg --files -g TASK.md -g METHOD.md -g AGENTS.md -g !node_modules -g !.git && git status --short && git rev-parse HEAD",
+        "result": "assigned cwd; TASK.md/METHOD.md; clean tree; initial commit confirmed"
+      },
+      {
+        "cmd": "cat TASK.md && cat METHOD.md",
+        "result": "read task and frozen method"
+      },
+      {
+        "cmd": "rg --files -g !node_modules -g !.git -g !.experiment -g !package-lock.json -g !pnpm-lock.yaml -g !yarn.lock",
+        "result": "README.md, tests/test_public.py, METHOD.md, pyproject.toml, GLOSSARY.md, relayboard/*.py, TASK.md"
+      },
+      {
+        "cmd": "cat README.md GLOSSARY.md pyproject.toml relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py relayboard/testing.py tests/test_public.py",
+        "result": "inspected assigned docs, application and public tests only; no outside README links followed"
+      },
+      {
+        "cmd": "python -m unittest discover -s tests -v",
+        "exit_code": 0,
+        "result": "5 baseline tests pass",
+        "outputpath": ".experiment/baseline-tests.txt"
+      },
+      {
+        "cmd": "python heredoc: initialize .experiment/state.json and CHECKPOINTS.md",
+        "result": "durable goal, predicate, identity, scope, decisions and initial command/path evidence created"
+      },
+      {
+        "cmd": "python heredoc: persist operator answer and engineering decisions",
+        "result": "operator exchange and policy rationale persisted"
+      },
+      {
+        "cmd": "apply_patch: add tests/test_pause.py",
+        "result": "10 matching-surface acceptance checks added before implementation"
+      },
+      {
+        "cmd": "set -o pipefail; python -m unittest discover -s tests -v 2>&1 | tee .experiment/red-tests.txt",
+        "exit_code": 1,
+        "result": "5 baseline passed; 10 new checks red (8 failures, 2 missing-paused-field errors)",
+        "outputpath": ".experiment/red-tests.txt"
+      },
+      {
+        "cmd": "apply_patch: models/store/service/web/README changes",
+        "result": "implemented persisted independent pause; scheduler guard; API routes, visibility, upgrade and docs"
+      },
+      {
+        "cmd": "set -o pipefail; python -m unittest discover -s tests -v 2>&1 | tee .experiment/verified-tests.txt",
+        "exit_code": 0,
+        "result": "15 tests passed, including original 5 and 10 new acceptance tests",
+        "outputpath": ".experiment/verified-tests.txt"
+      },
+      {
+        "cmd": "git diff --check; git diff -- README.md relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py > .experiment/implementation.diff; git diff --stat; git status --short",
+        "exit_code": 0,
+        "result": "whitespace clean; reviewed changed-path scope",
+        "outputpaths": [
+          ".experiment/diff-check.txt",
+          ".experiment/implementation.diff"
+        ]
+      },
+      {
+        "cmd": "cat relayboard/__main__.py relayboard/__init__.py && sha256sum METHOD.md TASK.md",
+        "exit_code": 0,
+        "result": "WSGI runtime uses same RelayBoardApp as acceptance checks; treatment/task hashes recorded"
+      },
+      {
+        "cmd": "cat .experiment/implementation.diff && git diff --check",
+        "exit_code": 0,
+        "result": "implementation diff reviewed; no whitespace errors"
+      },
+      {
+        "cmd": "git add README.md relayboard/models.py relayboard/service.py relayboard/store.py relayboard/web.py tests/test_pause.py && git commit -m \"Add persisted Job pause and resume controls\" 2>&1 | tee .experiment/implementation-commit.txt",
+        "exit_code": 0,
+        "result": "209f1c3913854add5962c9c81d7c2923637ad775",
+        "outputpath": ".experiment/implementation-commit.txt"
+      }
+    ],
+    "available_commands": {
+      "executed": [
+        "pwd",
+        "rg",
+        "git",
+        "cat",
+        "mkdir",
+        "python",
+        "tee",
+        "sha256sum"
+      ],
+      "not_exhaustively_enumerated": true
+    },
+    "action_path_evidence": {
+      "cwd": "/workspace/relayboard-round2-active/F-S02-002",
+      "inspected": [
+        "TASK.md",
+        "METHOD.md",
+        "README.md",
+        "GLOSSARY.md",
+        "pyproject.toml",
+        "relayboard/models.py",
+        "relayboard/store.py",
+        "relayboard/service.py",
+        "relayboard/web.py",
+        "relayboard/testing.py",
+        "tests/test_public.py",
+        "relayboard/__main__.py",
+        "relayboard/__init__.py",
+        ".experiment/implementation.diff"
+      ],
+      "written": [
+        "README.md",
+        "relayboard/models.py",
+        "relayboard/store.py",
+        "relayboard/service.py",
+        "relayboard/web.py",
+        "tests/test_pause.py",
+        ".experiment/*"
+      ],
+      "source_diff": ".experiment/implementation.diff",
+      "test_source": "tests/test_pause.py",
+      "checkpoint_log": ".experiment/CHECKPOINTS.md",
+      "state": ".experiment/state.json"
+    },
+    "outputpaths": [
+      ".experiment/baseline-tests.txt",
+      ".experiment/red-tests.txt",
+      ".experiment/verified-tests.txt",
+      ".experiment/diff-check.txt",
+      ".experiment/implementation.diff",
+      ".experiment/implementation-commit.txt"
+    ],
+    "evaluator_or_peer_material_accessed": false,
+    "contaminated": false,
+    "gaps": [
+      "Runtime model attestation and token/cost usage are unavailable; requested contestant identity is recorded separately.",
+      "No evaluator/hidden checks, external services, or independent model review were run. Verification consists of independently inspectable public executable evidence.",
+      "Acceptance requests directly invoke the actual WSGI app; a network listener/browser session was not needed or exercised."
+    ],
+    "remaining_work": "None in authorized candidate task; evidence commit and final clean-tree confirmation follow. Public hidden evaluation remains outside this run."
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_endpoints_idempotent_and_missing_jobs_return_404 (test_pause.PauseTests.test_endpoints_idempotent_and_missing_jobs_return_404) ... ok\ntest_existing_run_can_succeed_while_paused (test_pause.PauseTests.test_existing_run_can_succeed_while_paused) ... ok\ntest_existing_run_retries_and_alerts_unchanged (test_pause.PauseTests.test_existing_run_retries_and_alerts_unchanged) ... ok\ntest_list_and_dashboard_expose_pause_preserving_existing_fields (test_pause.PauseTests.test_list_and_dashboard_expose_pause_preserving_existing_fields) ... ok\ntest_manual_runs_allowed_while_paused (test_pause.PauseTests.test_manual_runs_allowed_while_paused) ... ok\ntest_old_schema_upgrades_with_unpaused_default (test_pause.PauseTests.test_old_schema_upgrades_with_unpaused_default) ... ok\ntest_only_post_and_exact_paths_change_pause (test_pause.PauseTests.test_only_post_and_exact_paths_change_pause) ... ok\ntest_pause_and_enabled_are_independent (test_pause.PauseTests.test_pause_and_enabled_are_independent) ... ok\ntest_pause_blocks_scheduled_runs_until_resume (test_pause.PauseTests.test_pause_blocks_scheduled_runs_until_resume) ... ok\ntest_pause_survives_store_reopen (test_pause.PauseTests.test_pause_survives_store_reopen) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.016s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": null,
+  "source_pins": [],
+  "available_evidence_paths": [
+    ".experiment/CHECKPOINTS.md",
+    ".experiment/REPORT.json"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 26952,
+    "sha256": "160a7dd51bb41a3e2138dac05364537fb8a4340b2ccc3b87f0e0cfe996402097",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}
