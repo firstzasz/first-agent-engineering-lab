@@ -1,0 +1,71 @@
+name: RelayBoard S01 independent grade
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/relayboard-s01-independent-grade.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  s01-independent-grade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Evaluate fixed neutral candidate commit
+        shell: bash
+        env:
+          CANDIDATE_SHA: d1685e9697054e7c78b9c9a0317809021adabc90
+          BASE_SHA: 563952fab378eda87da696cda4df12fe5c9d4e5e
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin refs/heads/fix/N-S01-001-latest-result:refs/remotes/origin/s01-candidate
+          actual_sha=$(git rev-parse refs/remotes/origin/s01-candidate)
+          test "$actual_sha" = "$CANDIDATE_SHA"
+          git cat-file -e "$BASE_SHA^{commit}"
+          changed=$(git diff --name-only "$BASE_SHA" "$CANDIDATE_SHA")
+          test "$changed" = "relayboard/web.py"
+          mkdir -p /tmp/relayboard-neutral-s01
+          git archive "$CANDIDATE_SHA" | tar -xf - -C /tmp/relayboard-neutral-s01
+          cd /tmp/relayboard-neutral-s01
+          git init -q -b main
+          git config user.name "Lab evaluator"
+          git config user.email "lab-evaluator@example.invalid"
+          git add .
+          git commit -qm "evaluator: import exact candidate snapshot"
+          cd "$GITHUB_WORKSPACE"
+          python experiments/relayboard/runner/evaluate_workspace.py \
+            --scenario S01-v0 \
+            --workspace /tmp/relayboard-neutral-s01 \
+            --output /tmp/neutral-s01-evaluation.json
+          python - <<'PY'
+          import json
+          p="/tmp/neutral-s01-evaluation.json"
+          result=json.load(open(p, encoding="utf-8"))
+          manifest=result["manifest"]
+          assert manifest["run_id"] == "N-S01-001", manifest
+          assert manifest["scenario"] == "S01-v0", manifest
+          assert manifest["treatment"] == "neutral-v0", manifest
+          print("run_id:",manifest["run_id"])
+          print("public_tests_passed:",result["public_tests"]["passed"])
+          print("oracle_passed:",result["oracle"]["passed"])
+          print("oracle_failures:",result["oracle"]["failures"])
+          assert result["public_tests"]["passed"],"public tests failed"
+          assert result["oracle"]["passed"],"hidden evaluator failed"
+          print("RESULT: VERIFIED PASS for exact PR #15 candidate")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: neutral-s01-independent-grade
+          path: /tmp/neutral-s01-evaluation.json
+          if-no-files-found: warn
