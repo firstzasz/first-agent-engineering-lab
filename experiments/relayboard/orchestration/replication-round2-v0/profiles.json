@@ -243,7 +243,7 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": ""
+      "disposition_notes": "Generic host runtime skill read under inherited developer instructions; no benchmark method substitution or forbidden-information receipt established. Host provenance preserved."
     },
     {
       "run_id": "M-S04-002",
@@ -302,7 +302,7 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": ""
+      "disposition_notes": "Own-report write outside assigned area self-reported; no forbidden-information receipt established. Original claim/ruling/artifact archived, copy removed before next contestant. Same run preserved, no retry."
     },
     {
       "run_id": "M-S02-002",
@@ -491,6 +491,65 @@
         "start_at": "2026-10-07T13:50:17.887807+00:00",
         "frozen_at": "2026-10-07T13:57:01.254500+00:00",
         "wall_clock_seconds": 403.367,
+        "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": ""
+    },
+    {
+      "run_id": "P-S04-002",
+      "treatment": "pstack-codex-port-v0",
+      "scenario": "S04-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "helper_context_count": 2,
+        "local_commit_count_including_start_and_evidence": 4,
+        "candidate_file_count": 87,
+        "new_process_artifact_file_count": 52,
+        "all_diff_stat": " .experiment/DESIGN.md                              |   47 +\n .experiment/GROUNDING.md                           |   35 +\n .experiment/HELPER_STATUS.json                     |   11 +\n .experiment/IMPLEMENTATION_REPORT.json             |  266 +++++\n .experiment/LEAD_REVIEW.md                         |   13 +\n .experiment/REPORT.json                            |  259 +++++\n .experiment/REVIEW_REPORT.json                     |  246 +++++\n .experiment/TODO.md                                |   36 +\n .experiment/capture.py                             |   24 +\n .experiment/commands.jsonl                         |   34 +\n .experiment/decisions.tsv                          |   19 +\n .experiment/early-actions.json                     |   47 +\n .experiment/early-command-evidence.json            |   14 +\n .experiment/helper-invocations.json                |   45 +\n .experiment/operator-exchanges.json                |   19 +\n .experiment/outputs/assigned-manifest.txt          |   15 +\n .experiment/outputs/baseline-api.txt               |   16 +\n .experiment/outputs/baseline-public.txt            |   10 +\n .experiment/outputs/commit-production-fix.txt      |    2 +\n .experiment/outputs/final-diff-check.txt           |    0\n .../outputs/freeze-authored-whitespace-check.txt   |    0\n .../outputs/freeze-production-whitespace-check.txt |    0\n .../outputs/freeze-raw-output-whitespace-check.txt |  314 ++++++\n .experiment/outputs/implementation-diff-check.txt  |    0\n .../outputs/implementation-failing-test-commit.txt |    3 +\n .experiment/outputs/implementation-final-diff.txt  |   12 +\n .../outputs/implementation-final-status.txt        |   13 +\n .../outputs/implementation-focused-after.txt       |    8 +\n .../outputs/implementation-focused-before.txt      |  245 +++++\n .experiment/outputs/implementation-full-public.txt |   13 +\n .../outputs/implementation-original-api-after.txt  |    7 +\n .experiment/outputs/implementation-stage-tests.txt |    0\n .../outputs/implementation-staged-tests.txt        |    2 +\n .../outputs/implementation-test-commit-sha.txt     |    1 +\n .experiment/outputs/lead-frozen-source-check.txt   |    0\n .experiment/outputs/lead-original-api-after.txt    |    7 +\n .experiment/outputs/lead-review.txt                |  133 +++\n .experiment/outputs/lead-test-commit-check.txt     |   10 +\n .experiment/outputs/production-fix-sha.txt         |    1 +\n .experiment/outputs/review-bootstrap-sources.txt   |  303 +++++\n .experiment/outputs/review-code-and-diff.txt       | 1158 ++++++++++++++++++++\n .experiment/outputs/review-design-sources.txt      |  233 ++++\n .experiment/outputs/review-evidence-audit.txt      |   86 ++\n .../outputs/review-frozen-and-alert-paths.txt      |   13 +\n .experiment/outputs/review-method-sources.txt      |  208 ++++\n .experiment/outputs/review-report-validation.txt   |    2 +\n .../outputs/review-test-and-runtime-evidence.txt   |  570 ++++++++++\n .experiment/outputs/review-trail.txt               |  505 +++++++++\n .experiment/outputs/review-write-report.txt        |    1 +\n .experiment/reproduce.py                           |   20 +\n .experiment/review-decisions.tsv                   |    5 +\n .experiment/source-hashes.json                     |   26 +\n relayboard/service.py                              |    1 -\n tests/test_failure_alerts.py                       |  115 ++\n 54 files changed, 5172 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_failure_alerts.py",
+            "added": 115,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 2,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-07T13:57:17.839092+00:00",
+        "frozen_at": "2026-10-07T14:14:40.725696+00:00",
+        "wall_clock_seconds": 1042.886,
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
