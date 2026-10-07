@@ -39,6 +39,53 @@ class RelayBoardPublicTests(unittest.TestCase):
         self.assertEqual(len(alerts), 1)
         self.assertEqual(alerts[0].run_id, run.id)
 
+    def test_retry_failure_emits_one_alert_for_each_distinct_run(self) -> None:
+        run_ids = []
+        for source in ("manual", "scheduled"):
+            code, payload = request(
+                self.app,
+                "POST",
+                "/api/jobs/daily-report/runs",
+                {"source": source},
+            )
+            self.assertEqual(code, 201)
+            run_id = payload["run"]["id"]
+
+            code, payload = request(
+                self.app,
+                "POST",
+                f"/api/runs/{run_id}/attempts",
+                {"succeeded": False},
+            )
+            self.assertEqual(code, 200)
+            self.assertEqual(payload["status"], "retry")
+            self.assertEqual(payload["run"]["status"], "running")
+            self.assertEqual(payload["run"]["id"], run_id)
+            code, payload = request(self.app, "GET", "/api/alerts")
+            self.assertEqual(code, 200)
+            self.assertEqual(
+                [alert["run_id"] for alert in payload["alerts"]],
+                run_ids,
+            )
+
+            code, payload = request(
+                self.app,
+                "POST",
+                f"/api/runs/{run_id}/attempts",
+                {"succeeded": False},
+            )
+            self.assertEqual(code, 200)
+            self.assertEqual(payload["status"], "failed")
+            self.assertEqual(payload["run"]["status"], "failed")
+            self.assertEqual(payload["run"]["id"], run_id)
+            run_ids.append(run_id)
+            code, payload = request(self.app, "GET", "/api/alerts")
+            self.assertEqual(code, 200)
+            self.assertEqual(
+                [(alert["run_id"], alert["kind"]) for alert in payload["alerts"]],
+                [(run_id, "run_failed") for run_id in run_ids],
+            )
+
     def test_api_can_create_run_and_record_attempt(self) -> None:
         code, payload = request(
             self.app,

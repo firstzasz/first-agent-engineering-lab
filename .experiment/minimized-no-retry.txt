@@ -1,0 +1,1 @@
+failed_attempts 1 job cleanup alerts [{'id': 1, 'job_id': 'cleanup', 'kind': 'run_failed', 'message': 'Job Cleanup failed for run run-001', 'run_id': 'run-001'}]

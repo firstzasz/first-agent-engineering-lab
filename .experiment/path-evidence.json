@@ -1,0 +1,73 @@
+{
+  "root": "/workspace/relayboard-round2-active/M-S04-002",
+  "consulted_or_relevant_paths": [
+    {
+      "path": "METHOD.md",
+      "sha256": "04dcc4e353810509da79478df4283a27750762462e5de2f5c40af6632ef0f8a0"
+    },
+    {
+      "path": "TASK.md",
+      "sha256": "cfb2fbc0aa0e2c55b9b21e74e90075d670ebd90e0f426e5cabe9b0954a6af9eb"
+    },
+    {
+      "path": "GLOSSARY.md",
+      "sha256": "acc14aef48c5979f288dac6323884ea11f7c444e3b3498113a42ce4a50f1dfad"
+    },
+    {
+      "path": "relayboard/service.py",
+      "sha256": "cb8833d0d3dcd6d6195edcdb2f48803740e4178b13bc0adca8667db4629f340b"
+    },
+    {
+      "path": "relayboard/store.py",
+      "sha256": "fe38c9e14bd05f841837a52f3ee021e846b3f944be3bd6ac6f83bdcd8d79df5a"
+    },
+    {
+      "path": "relayboard/web.py",
+      "sha256": "c7fa8c527ed3f71c88d94eba956b5cbb878a9fee8ea48223374c31fb762886df"
+    },
+    {
+      "path": "relayboard/testing.py",
+      "sha256": "8b6ded93bcaaa25c9edc810c93c9a5348913700a03b7285964277cbf797e980d"
+    },
+    {
+      "path": "relayboard/models.py",
+      "sha256": "d9071515a7f11361d1ea80629ac53829fefb3cd529302767dbe6a4aab087cf6f"
+    },
+    {
+      "path": "tests/test_public.py",
+      "sha256": "71a35de131895f4b53725cbc7f56fe4fdac654b7e88111cca1fea7d52c0c26f2"
+    },
+    {
+      "path": "upstream/matt/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "path": "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md",
+      "sha256": "9168404abda0967a5d32977e3498cd95fda6807018852f3de736a78357c82b40"
+    },
+    {
+      "path": "upstream/matt/skills/engineering/implement/SKILL.md",
+      "sha256": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3"
+    },
+    {
+      "path": "upstream/matt/skills/engineering/tdd/SKILL.md",
+      "sha256": "93ea419b76e9caaf26153b828e984f7c3fb136f4caa67b14af95f32ea965a1cc"
+    },
+    {
+      "path": "upstream/matt/skills/engineering/tdd/tests.md",
+      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
+    },
+    {
+      "path": "upstream/matt/skills/engineering/tdd/mocking.md",
+      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
+    },
+    {
+      "path": "upstream/matt/skills/engineering/code-review/SKILL.md",
+      "sha256": "47f4e52c21694def9c7c11cbfbf891ca35eac7a93e395797515be3c8a409ae50"
+    }
+  ],
+  "inventory_command": "rg --files -g !.git -g !__pycache__ .",
+  "source_version": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d as specified by frozen METHOD.md; no upstream network lookup",
+  "standards_inventory": "No AGENTS.md, CODING_STANDARDS.md, CONTRIBUTING.md or ADR appeared in assigned-area rg inventory.",
+  "README_links": "README mentions evaluator/scoring protocol links outside assignment; these were not followed."
+}

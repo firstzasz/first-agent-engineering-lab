@@ -1,0 +1,6 @@
+failed_attempts 2 job daily-report alerts [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}, {'id': 2, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/M-S04-002/.experiment/minimize.py", line 13, in <module>
+    assert len(payload["alerts"]) <= 1, "duplicate alerts"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: duplicate alerts
