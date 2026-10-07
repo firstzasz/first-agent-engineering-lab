@@ -1,0 +1,12 @@
+?? .experiment/REPORT.json
+?? .experiment/STATE.md
+?? .experiment/action-path-log.json
+?? .experiment/artifact-review.txt
+?? .experiment/baseline-tests.txt
+?? .experiment/commands.jsonl
+?? .experiment/green-tests.txt
+?? .experiment/implementation-commit.txt
+?? .experiment/initial-command-record.json
+?? .experiment/operator-interactions.json
+?? .experiment/red-tests.txt
+?? .experiment/run_logged.py

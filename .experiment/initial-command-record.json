@@ -1,0 +1,34 @@
+{
+  "source": "Available tool outputs; initial records reconstructed before logging wrapper creation",
+  "workdir": "/workspace/relayboard-active/F-S02-001",
+  "commands": [
+    {
+      "command": "pwd && rg --files -g 'TASK.md' -g 'METHOD.md' -g 'FIRST_MODE_V0.md' -g 'AGENTS.md' -g '!node_modules' -g '!vendor' .",
+      "exit_code": 0,
+      "finding": "cwd matches run area; TASK.md and METHOD.md found; no separate FIRST_MODE_V0.md or AGENTS.md found"
+    },
+    {
+      "command": "cat TASK.md METHOD.md",
+      "exit_code": 0,
+      "finding": "Task and canonical full frozen FIRST-mode v0 text read from METHOD.md"
+    },
+    {
+      "command": "rg --files -g '!node_modules' -g '!vendor' -g '!.git' . && git status --short && git rev-parse HEAD",
+      "exit_code": 0,
+      "finding": "supplied application and public test paths only; clean worktree; HEAD 87b90adc0538b9a29784d065076106475360ff8f"
+    },
+    {
+      "command": "cat README.md GLOSSARY.md pyproject.toml relayboard/models.py relayboard/store.py relayboard/service.py",
+      "exit_code": 0
+    },
+    {
+      "command": "cat relayboard/web.py relayboard/testing.py relayboard/__main__.py tests/test_public.py && rg --files --hidden -g '!.git' -g '!__pycache__' -g '!node_modules' .",
+      "exit_code": 0
+    },
+    {
+      "command": "cat .experiment/RUN_MANIFEST.json .gitignore && python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "finding": "manifest read; baseline all 5 public tests passed"
+    }
+  ]
+}

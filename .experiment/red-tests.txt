@@ -1,0 +1,97 @@
+test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) ... 
+  test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, True)) ... FAIL
+  test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, False)) ... FAIL
+test_enabled_changes_do_not_clear_pause (test_pause.JobPauseTests.test_enabled_changes_do_not_clear_pause) ... FAIL
+test_existing_schema_defaults_to_unpaused_and_preserves_configuration (test_pause.JobPauseTests.test_existing_schema_defaults_to_unpaused_and_preserves_configuration) ... ERROR
+test_pause_allows_manual_run_and_preserves_disabled_state (test_pause.JobPauseTests.test_pause_allows_manual_run_and_preserves_disabled_state) ... FAIL
+test_pause_skips_scheduled_start_and_resume_does_not_queue_work (test_pause.JobPauseTests.test_pause_skips_scheduled_start_and_resume_does_not_queue_work) ... FAIL
+test_pause_state_visible_and_last_result_preserved (test_pause.JobPauseTests.test_pause_state_visible_and_last_result_preserved) ... FAIL
+test_state_survives_store_reconstruction (test_pause.JobPauseTests.test_state_survives_store_reconstruction) ... FAIL
+test_unknown_job_actions_follow_not_found_convention (test_pause.JobPauseTests.test_unknown_job_actions_follow_not_found_convention) ... FAIL
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+======================================================================
+ERROR: test_existing_schema_defaults_to_unpaused_and_preserves_configuration (test_pause.JobPauseTests.test_existing_schema_defaults_to_unpaused_and_preserves_configuration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 129, in test_existing_schema_defaults_to_unpaused_and_preserves_configuration
+    self.assertFalse(job.paused)
+                     ^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'paused'
+
+======================================================================
+FAIL: test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, True))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 76, in test_active_runs_retries_and_alerts_match_unpaused_behavior
+    self.assertEqual(code, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) (outcomes=(False, False))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 76, in test_active_runs_retries_and_alerts_match_unpaused_behavior
+    self.assertEqual(code, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_enabled_changes_do_not_clear_pause (test_pause.JobPauseTests.test_enabled_changes_do_not_clear_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 57, in test_enabled_changes_do_not_clear_pause
+    self.assertEqual(self.action("daily-report", "pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_pause_allows_manual_run_and_preserves_disabled_state (test_pause.JobPauseTests.test_pause_allows_manual_run_and_preserves_disabled_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 47, in test_pause_allows_manual_run_and_preserves_disabled_state
+    self.assertEqual(self.action(job_id, "pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_pause_skips_scheduled_start_and_resume_does_not_queue_work (test_pause.JobPauseTests.test_pause_skips_scheduled_start_and_resume_does_not_queue_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 21, in test_pause_skips_scheduled_start_and_resume_does_not_queue_work
+    self.assertEqual(code, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_pause_state_visible_and_last_result_preserved (test_pause.JobPauseTests.test_pause_state_visible_and_last_result_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 89, in test_pause_state_visible_and_last_result_preserved
+    self.assertEqual(self.action("daily-report", "pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_state_survives_store_reconstruction (test_pause.JobPauseTests.test_state_survives_store_reconstruction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 114, in test_state_survives_store_reconstruction
+    self.assertEqual(request(app, "POST", "/api/jobs/saved/pause")[0], 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_unknown_job_actions_follow_not_found_convention (test_pause.JobPauseTests.test_unknown_job_actions_follow_not_found_convention)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/F-S02-001/tests/test_pause.py", line 107, in test_unknown_job_actions_follow_not_found_convention
+    self.assertEqual(payload, {"error": "not found: missing"})
+AssertionError: {'error': 'not found'} != {'error': 'not found: missing'}
+- {'error': 'not found'}
++ {'error': 'not found: missing'}
+?                     +++++++++
+
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.025s
+
+FAILED (failures=8, errors=1)

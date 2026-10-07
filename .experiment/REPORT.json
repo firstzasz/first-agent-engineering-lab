@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "run_id": "F-S02-001",
+  "status": "VERIFIED",
+  "implementation_status": "IMPLEMENTED",
+  "verification_status": "VERIFIED",
+  "method": {
+    "name": "FIRST-mode v0",
+    "source_path": "METHOD.md",
+    "source_sha256": "b4f4caa030da9a979097d3c21b225c50bef70572723352fef2a693a6e9a6b2e5",
+    "route": [
+      "L1 grounded reversible implementation",
+      "L3 product question; operator answered before dependent work",
+      "L1 executable red/green verification and persisted local evidence"
+    ],
+    "helpers": [],
+    "independent_evidence": "Executable WSGI API and storage assertions, existing public regressions, and preserved machine-generated outputs; no independent human or agent review claimed."
+  },
+  "success_predicate": "Pause/resume are persistent, idempotent API controls; paused scheduled starts create no Run/queue and return 409, manual Runs remain allowed, active retry/alert behavior is preserved, resume does not start work or override enabled, and dashboard/API expose paused without changing existing fields.",
+  "local_commits": [
+    {
+      "sha": "87b90adc0538b9a29784d065076106475360ff8f",
+      "role": "supplied initial independent commit"
+    },
+    {
+      "sha": "236fc3e6033c261b44a8a970e08a8629ed7e7e5c",
+      "role": "verified implementation, documentation and tests"
+    }
+  ],
+  "evidence_commit": "The local commit containing this REPORT and evidence follows the implementation commit; resolve its SHA with git rev-parse HEAD after finalization. Self-referential SHA not embedded.",
+  "testcommands": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "phase": "baseline",
+      "exit_code": 0,
+      "result": "5 passed",
+      "outputpath": ".experiment/baseline-tests.txt",
+      "provenance": "transcribed available tool output"
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "phase": "pre-implementation new checks",
+      "exit_code": 1,
+      "result": "13 tests; 8 failures including subtests and 1 error; existing public tests green",
+      "outputpath": ".experiment/red-tests.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "phase": "post-implementation",
+      "exit_code": 0,
+      "result": "13 passed",
+      "outputpath": ".experiment/green-tests.txt"
+    },
+    {
+      "command": "git diff --check && git diff --stat && git diff -- relayboard README.md",
+      "phase": "artifact review",
+      "exit_code": 0,
+      "result": "Whitespace check passed and application/documentation diff inspected",
+      "outputpath": ".experiment/artifact-review.txt"
+    },
+    {
+      "command": "git diff --check && git status --short",
+      "phase": "pre-evidence-commit final check",
+      "exit_code": 0,
+      "result": "No whitespace errors or outstanding application changes; only new experiment evidence remained to commit.",
+      "outputpath": ".experiment/final-check.txt"
+    }
+  ],
+  "operator_interactions": {
+    "count": 1,
+    "path": ".experiment/operator-interactions.json",
+    "outcome": "Manual Runs allowed; scheduled work skipped without queue; active Run retries and alerts preserved; enabled/dashboard implementation left to reversible engineering judgment."
+  },
+  "action_path_log": ".experiment/action-path-log.json",
+  "command_logs": [
+    ".experiment/initial-command-record.json",
+    ".experiment/commands.jsonl"
+  ],
+  "evaluator_or_peer_material_accessed": false,
+  "contamination": null,
+  "observed_model_identity": "unknown",
+  "observed_reasoning_setting": "unknown",
+  "observed_usage": "unknown",
+  "requested_configuration": {
+    "model": "gpt-6.1-sol",
+    "reasoning": "high",
+    "source": ".experiment/RUN_MANIFEST.json"
+  },
+  "evidence_gaps": [
+    "Hidden evaluation was not available or accessed; claims cover public checks only.",
+    "No independent agent or human reviewer; verification is reproducible executable evidence.",
+    "Real WSGI application was exercised through the supplied request harness; no network-hosted browser/deployment check was performed.",
+    "Initial command outputs were available in tool responses; initial records and baseline output were reconstructed explicitly rather than contemporaneously logged.",
+    "Actual model identity, reasoning setting, token usage, and cost were not independently observable."
+  ],
+  "known_limitations": [
+    "Concurrency semantics remain those of the existing synchronous SQLite fixture; no new distributed scheduler or queue added."
+  ],
+  "remaining_application_work": []
+}
