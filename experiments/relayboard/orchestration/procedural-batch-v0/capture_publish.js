@@ -10,7 +10,9 @@ const accessKeys=["evaluator_or_peer_material_accessed","evaluator_material_acce
 if(accessReport?.contaminated===true||accessReport?.contamination===true||[accessReport,accessReport?.access_declaration,accessReport?.boundary].filter(Boolean).some(obj=>accessKeys.some(k=>obj[k]===true)))store("observed_contamination:"+id,true);
 capture.local_commits=capture.local_commits.map(({patch,...meta})=>meta);store("capture:"+id,capture);
 if(capture.immutable_packet_drift.length)notify({invalid_packet_drift:capture.immutable_packet_drift});
-const tree=await tools.mcp__codex_apps__github_create_tree({repository_full_name:repo,tree_elements:capture.files});if(tree.isError)throw Error(JSON.stringify(tree));
+const treeEntries=[];
+for(const f of capture.files){if(f.content_base64!==undefined){const blob=await tools.mcp__codex_apps__github_create_blob({repository_full_name:repo,content:f.content_base64,encoding:"base64"});if(blob.isError)throw Error(JSON.stringify(blob));treeEntries.push({path:f.path,mode:f.mode,type:f.type,sha:blob.structuredContent.sha});}else treeEntries.push(f);}
+const tree=await tools.mcp__codex_apps__github_create_tree({repository_full_name:repo,tree_elements:treeEntries});if(tree.isError)throw Error(JSON.stringify(tree));
 if(tree.structuredContent.sha!==capture.local_candidate_tree)throw Error("Remote candidate tree differs");
 const commit=await tools.mcp__codex_apps__github_create_commit({repository_full_name:repo,parent_sha:run.prepared_sha,tree_sha:tree.structuredContent.sha,message:"benchmark: freeze "+id+" "+run.treatment+" candidate (local "+capture.local_candidate_sha+")"});if(commit.isError)throw Error(JSON.stringify(commit));
 const br=await tools.mcp__codex_apps__github_create_branch({repository_full_name:repo,branch_name:"candidate/"+id,sha:commit.structuredContent.sha});if(br.isError)throw Error(JSON.stringify(br));

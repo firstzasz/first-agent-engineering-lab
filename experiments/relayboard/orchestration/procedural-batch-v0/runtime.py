@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse,datetime,hashlib,json,os,shutil,subprocess
+import argparse,base64,datetime,hashlib,json,os,shutil,subprocess
 from pathlib import Path
 CONTROL=Path('/workspace/relayboard-batch-control')
 ACTIVE=Path('/workspace/relayboard-active')
@@ -46,7 +46,11 @@ def capture(run_id):
   if not path:continue
   p=root/path
   assert not p.is_symlink(),'Candidate symlink not supported'
-  files.append({'path':path,'mode':'100755' if os.stat(p).st_mode & 0o111 else '100644','type':'blob','content':p.read_bytes().decode('utf-8')})
+  entry={'path':path,'mode':'100755' if os.stat(p).st_mode & 0o111 else '100644','type':'blob'}
+  raw=p.read_bytes()
+  try:entry['content']=raw.decode('utf-8')
+  except UnicodeDecodeError:entry['content_base64']=base64.b64encode(raw).decode('ascii')
+  files.append(entry)
  immutable=[name for name in r['files'] if name=='TASK.md' or name=='METHOD.md' or name.startswith('upstream/') or name=='.experiment/RUN_MANIFEST.json']
  drift=[name for name in immutable if not (root/name).is_file() or (root/name).read_text()!=r['files'][name]]
  history=[]
@@ -56,7 +60,7 @@ def capture(run_id):
  (CONTROL/(run_id+'-capture.json')).write_text(json.dumps(capture)+'\n')
  snapshot=CONTROL/'snapshots'/run_id;snapshot.mkdir(parents=True)
  for f in files:
-  p=snapshot/f['path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(f['content'].encode('utf-8'))
+  p=snapshot/f['path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(f['content'].encode('utf-8') if 'content' in f else base64.b64decode(f['content_base64']))
  (CONTROL/(run_id+'-candidate.bundle')).parent.mkdir(exist_ok=True)
  git(root,'bundle','create',str(CONTROL/(run_id+'-candidate.bundle')),'--all')
  print(json.dumps({'run_id':run_id,'local_candidate_sha':final,'local_candidate_tree':capture['local_candidate_tree'],'immutable_packet_drift':drift,'files':len(files),'commits':len(history),'diff_stat':capture['diff_stat'],'snapshot':str(snapshot),'frozen_at':capture['frozen_at']}))
