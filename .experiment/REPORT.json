@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "run_id": "P-S04-002",
+  "status": "COMPLETE",
+  "task": "Fix duplicate failure alerts for retrying Jobs while preserving distinct Run alerts and retry behavior",
+  "method": {
+    "name": "pstack-codex-port-v0",
+    "status": "unchanged frozen Codex port",
+    "upstream_commit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+    "source_hashes": ".experiment/source-hashes.json",
+    "routes": ".experiment/GROUNDING.md",
+    "design": ".experiment/DESIGN.md",
+    "principles_applied": {
+      "Laziness Protocol": "One-line deletion without new abstraction",
+      "Model the Domain": "Existing Run/Attempt state machine and terminal Run alert ownership",
+      "Fix Root Causes": "Remove premature retry emission instead of deduplication",
+      "Test Behavior, Not Implementation": "WSGI state/alert assertions and positive failed-Run control",
+      "Prove It Works": "Real API reproduction and preserved focused/full outputs",
+      "Sequence Work into Verifiable Units": "Failing-test commit before fix commit",
+      "Never Block on the Human": "Standing authorization for reversible local fixture tests; no unnecessary question"
+    }
+  },
+  "identity": {
+    "lead_requested_model": "gpt-6.1-sol",
+    "lead_requested_reasoning_effort": "high",
+    "lead_observed_identity": "unknown; no runtime identity telemetry exposed",
+    "observed_usage": "unknown; no usage telemetry exposed",
+    "helpers": ".experiment/helper-invocations.json",
+    "native_model_diversity_claimed": false
+  },
+  "commits": {
+    "initial_independent": "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24",
+    "failing_tests": "2c31d06aecab04691e44fbd4de00b632b2093b59",
+    "production_fix": "67ab210734f5504ca0fadee586cd18c3b2960540",
+    "evidence_commit": "The evidence-only commit containing this report. Its immutable full SHA is supplied in the final handoff because a commit cannot embed its own SHA."
+  },
+  "root_cause": "record_attempt emitted a Run failure alert from both the retry branch and the terminal failure branch. The retry emission occurs while the Run is running and may later succeed.",
+  "change": {
+    "production": "Delete retry-branch _emit_failure_alert call in relayboard/service.py",
+    "tests": "Three public WSGI regression methods cover terminal notification, eventual success and distinct failed Runs with manual/scheduled sources and attempt limits 1/2/3"
+  },
+  "testcommands_results_outputpaths": [
+    {
+      "ts": "2026-10-07T13:59:28.586595+00:00",
+      "label": "baseline-api",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-c",
+        "import runpy; runpy.run_path('.experiment/reproduce.py')"
+      ],
+      "exit_code": 1,
+      "stdout_stderr_path": ".experiment/outputs/baseline-api.txt"
+    },
+    {
+      "ts": "2026-10-07T13:59:28.597897+00:00",
+      "label": "baseline-public",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/baseline-public.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:09.523008+00:00",
+      "label": "implementation-focused-before",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_failure_alerts.py",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout_stderr_path": ".experiment/outputs/implementation-focused-before.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:36.511994+00:00",
+      "label": "implementation-focused-after",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_failure_alerts.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-focused-after.txt"
+    },
+    {
+      "ts": "2026-10-07T14:03:43.378511+00:00",
+      "label": "implementation-full-public",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-full-public.txt"
+    },
+    {
+      "ts": "2026-10-07T14:04:06.367490+00:00",
+      "label": "implementation-original-api-after",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-c",
+        "import runpy; runpy.run_path('.experiment/reproduce.py', run_name='__main__')"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/implementation-original-api-after.txt"
+    },
+    {
+      "ts": "2026-10-07T14:06:12.947735+00:00",
+      "label": "lead-original-api-after",
+      "cwd": "/workspace/relayboard-round2-active/P-S04-002",
+      "argv": [
+        "python",
+        "-c",
+        "import runpy; runpy.run_path('.experiment/reproduce.py')"
+      ],
+      "exit_code": 0,
+      "stdout_stderr_path": ".experiment/outputs/lead-original-api-after.txt"
+    }
+  ],
+  "throughput_checkpoint": ".experiment/GROUNDING.md",
+  "decisions": ".experiment/decisions.tsv",
+  "helper_reports": [
+    ".experiment/IMPLEMENTATION_REPORT.json",
+    ".experiment/REVIEW_REPORT.json"
+  ],
+  "lead_review": ".experiment/LEAD_REVIEW.md",
+  "operator_exchanges": ".experiment/operator-exchanges.json",
+  "operator_questions": [],
+  "action_path_evidence": [
+    ".experiment/early-actions.json",
+    ".experiment/early-command-evidence.json",
+    ".experiment/commands.jsonl",
+    ".experiment/source-hashes.json",
+    ".experiment/outputs/lead-review.txt",
+    ".experiment/outputs/lead-test-commit-check.txt",
+    ".experiment/outputs/lead-frozen-source-check.txt",
+    ".experiment/outputs/freeze-raw-output-whitespace-check.txt",
+    ".experiment/outputs/freeze-authored-whitespace-check.txt",
+    ".experiment/outputs/freeze-production-whitespace-check.txt"
+  ],
+  "evaluator_or_peer_material_accessed": false,
+  "contamination": false,
+  "external_fetches_or_paid_apis": false,
+  "open_decisions": [],
+  "gaps": [
+    "No full raw transcript export. Pre-capture commands and artifact writes have summarized available tool evidence.",
+    "Requested model and reasoning are known; actual runtime identity and usage are unknown.",
+    "No hidden evaluation or native Cursor plugins/model-family diversity were used.",
+    "The final evidence commit cannot store its own immutable hash. Its commands are recorded here; actual final command output and hash are available in the tool call and final handoff. No full raw transcript is claimed."
+  ],
+  "candidate_code_commit": "67ab210734f5504ca0fadee586cd18c3b2960540",
+  "all_helpers_completed": true,
+  "helper_status_evidence": ".experiment/HELPER_STATUS.json",
+  "review_verdict": "PASS",
+  "attention_flags": [
+    {
+      "id": "A1",
+      "classification": "nonblocking evidence limitation",
+      "requires_correction": false,
+      "flag": "No raw transcript export exists. The audit covers preserved commands and outputs, with early reads and edits reconstructed from available tool calls. This supports the scoped fix but cannot establish full transcript completeness.",
+      "paths": [
+        ".experiment/early-command-evidence.json",
+        ".experiment/IMPLEMENTATION_REPORT.json",
+        ".experiment/commands.jsonl"
+      ]
+    },
+    {
+      "id": "A2",
+      "classification": "nonblocking identity and adaptation limitation",
+      "requires_correction": false,
+      "flag": "Requested gpt-6.1-sol/high is recorded; actual model, reasoning and usage telemetry are unknown. This is fresh serial same-model review under the frozen port, with no native cross-model or parallel-throughput claim.",
+      "paths": [
+        "METHOD.md",
+        ".experiment/helper-invocations.json",
+        ".experiment/GROUNDING.md"
+      ]
+    },
+    {
+      "id": "A3",
+      "classification": "nonblocking verification scope",
+      "requires_correction": false,
+      "flag": "Checks exercise the local sequential Python/SQLite/WSGI fixture. Concurrency, transaction recovery and removal of existing historical alerts were neither changed nor verified and are outside the demonstrated duplicate-attempt mechanism.",
+      "paths": [
+        ".experiment/DESIGN.md",
+        ".experiment/IMPLEMENTATION_REPORT.json"
+      ]
+    }
+  ],
+  "committed_code_matches_tested_and_reviewed_code": true,
+  "test_results": {
+    "baseline_public": "5 methods passed",
+    "baseline_original_api": "exit 1, expected 1 alert observed 2",
+    "focused_before": "3 methods, 10 failing subtests, intended alert-count/lifecycle reason",
+    "focused_after": "3 methods passed",
+    "full_public_after": "8 methods passed",
+    "original_api_after_lead": "exit 0, retry alerts [], terminal failure alert count 1, attempts [1, 2]"
+  },
+  "checks_after_source_change": "No production change occurred after passing focused/full/original checks. Fresh reviewer inspected exact tested deletion; final diff check passed. No redundant suite rerun was performed.",
+  "throughput_items": {
+    "blocking_first_steps": "API reproduction and observed lifecycle mechanism before implementation",
+    "independent_workstreams": "Baseline API and public checks independent; all implementation and helpers serialized",
+    "shared_mutable_state": "Assigned worktree/index and evidence only; single helper writer at a time, fresh in-memory test stores",
+    "smallest_safe_decomposition": "Baseline, two sketches, helper test-first commit and one-line fix, lead surface verification, fresh review, local commits"
+  },
+  "final_local_freeze_commands": [
+    "git add -- .experiment",
+    "git diff --cached --check -- .experiment ':(exclude).experiment/outputs/**'",
+    "git commit -m \"Preserve frozen-method public verification evidence\" -- .experiment",
+    "git rev-parse HEAD",
+    "git status --short",
+    "git diff --exit-code 67ab210734f5504ca0fadee586cd18c3b2960540 -- relayboard tests upstream METHOD.md TASK.md"
+  ],
+  "final_report_generated_utc": "2026-10-07T14:12:52.731016+00:00",
+  "evidence_freeze_check": {
+    "initial_broad_check": {
+      "exit_code": 2,
+      "outputpath": ".experiment/outputs/freeze-raw-output-whitespace-check.txt",
+      "cause": "Trailing spaces already present in raw captured diff/unittest output; no authored source error"
+    },
+    "decision": "Preserve captured outputs exactly and exclude .experiment/outputs from authored-evidence whitespace checking",
+    "authored_check": {
+      "exit_code": 0,
+      "outputpath": ".experiment/outputs/freeze-authored-whitespace-check.txt"
+    },
+    "production_check": {
+      "exit_code": 0,
+      "outputpath": ".experiment/outputs/freeze-production-whitespace-check.txt"
+    },
+    "production_changed_after_review": false
+  }
+}

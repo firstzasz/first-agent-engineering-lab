@@ -1,0 +1,8 @@
+test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... ok
+test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... ok
+test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.012s
+
+OK

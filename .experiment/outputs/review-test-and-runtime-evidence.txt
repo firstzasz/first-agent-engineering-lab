@@ -1,0 +1,570 @@
+from __future__ import annotations
+
+import json
+from io import BytesIO
+from wsgiref.util import setup_testing_defaults
+
+
+def request(
+    app,
+    method: str,
+    path: str,
+    payload: dict | None = None,
+) -> tuple[int, dict | str]:
+    environ: dict = {}
+    setup_testing_defaults(environ)
+    environ["REQUEST_METHOD"] = method.upper()
+    environ["PATH_INFO"] = path
+
+    raw = b""
+    if payload is not None:
+        raw = json.dumps(payload).encode("utf-8")
+        environ["CONTENT_TYPE"] = "application/json"
+
+    environ["CONTENT_LENGTH"] = str(len(raw))
+    environ["wsgi.input"] = BytesIO(raw)
+
+    captured: dict = {}
+
+    def start_response(
+        status: str,
+        headers: list[tuple[str, str]],
+    ) -> None:
+        captured["status"] = status
+        captured["headers"] = dict(headers)
+
+    body = b"".join(app(environ, start_response))
+    code = int(captured["status"].split()[0])
+    content_type = captured["headers"].get("Content-Type", "")
+
+    if content_type.startswith("application/json"):
+        return code, json.loads(body.decode("utf-8"))
+
+    return code, body.decode("utf-8")
+import unittest
+
+from relayboard.service import JobNotSchedulable
+from relayboard.testing import request
+from relayboard.web import create_seeded_app
+
+
+class RelayBoardPublicTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.app = create_seeded_app()
+
+    def test_dashboard_has_jobs_table(self) -> None:
+        code, body = request(
+            self.app,
+            "GET",
+            "/dashboard",
+        )
+        self.assertEqual(code, 200)
+        self.assertIn("Daily report", body)
+
+    def test_disabled_job_blocks_scheduled_run(self) -> None:
+        with self.assertRaises(JobNotSchedulable):
+            self.app.service.begin_scheduled_run("cleanup")
+
+    def test_disabled_job_still_allows_manual_run(self) -> None:
+        run = self.app.service.begin_manual_run("cleanup")
+        self.assertEqual(run.source, "manual")
+        self.assertEqual(run.status, "running")
+
+    def test_single_attempt_failure_emits_one_alert(self) -> None:
+        run = self.app.service.begin_manual_run("cleanup")
+        state = self.app.service.record_attempt(
+            run.id,
+            succeeded=False,
+        )
+        self.assertEqual(state, "failed")
+
+        alerts = self.app.store.list_alerts()
+        self.assertEqual(len(alerts), 1)
+        self.assertEqual(alerts[0].run_id, run.id)
+
+    def test_api_can_create_run_and_record_attempt(self) -> None:
+        code, payload = request(
+            self.app,
+            "POST",
+            "/api/jobs/daily-report/runs",
+            {"source": "manual"},
+        )
+        self.assertEqual(code, 201)
+        run_id = payload["run"]["id"]
+
+        code, payload = request(
+            self.app,
+            "POST",
+            f"/api/runs/{run_id}/attempts",
+            {"succeeded": True},
+        )
+        self.assertEqual(code, 200)
+        self.assertEqual(
+            payload["run"]["status"],
+            "succeeded",
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
+import unittest
+
+from relayboard.testing import request
+from relayboard.web import RelayBoardApp
+
+
+class FailureAlertTests(unittest.TestCase):
+    def make_app(self, max_attempts):
+        app = RelayBoardApp()
+        app.store.add_job("report", "Report", max_attempts=max_attempts)
+        self.addCleanup(app.store.connection.close)
+        return app
+
+    def start_run(self, app, source):
+        code, payload = request(
+            app, "POST", "/api/jobs/report/runs", {"source": source}
+        )
+        self.assertEqual(code, 201)
+        run_id = payload["run"]["id"]
+        self.assertEqual(payload["run"], {
+            "id": run_id, "job_id": "report",
+            "source": source, "status": "running",
+        })
+        return run_id
+
+    def attempt(self, app, run_id, source, succeeded, expected_status):
+        code, payload = request(
+            app, "POST", f"/api/runs/{run_id}/attempts",
+            {"succeeded": succeeded},
+        )
+        self.assertEqual(code, 200)
+        self.assertEqual(payload, {
+            "status": expected_status,
+            "run": {
+                "id": run_id, "job_id": "report", "source": source,
+                "status": "running" if expected_status == "retry" else expected_status,
+            },
+        })
+
+    def alerts(self, app):
+        code, payload = request(app, "GET", "/api/alerts")
+        self.assertEqual(code, 200)
+        return payload["alerts"]
+
+    def assert_attempts(self, app, run_id, outcomes):
+        self.assertEqual(
+            [(a.run_id, a.number, a.succeeded) for a in app.store.list_attempts(run_id)],
+            [(run_id, number, outcome) for number, outcome in enumerate(outcomes, 1)],
+        )
+
+    def assert_failure_alerts(self, app, run_ids):
+        self.assertEqual(self.alerts(app), [
+            {
+                "id": number, "job_id": "report", "run_id": run_id,
+                "kind": "run_failed",
+                "message": f"Job Report failed for run {run_id}",
+            }
+            for number, run_id in enumerate(run_ids, 1)
+        ])
+
+    def test_exhausted_retries_alert_only_at_terminal_failure(self):
+        for source in ("manual", "scheduled"):
+            for max_attempts in (1, 2, 3):
+                with self.subTest(source=source, max_attempts=max_attempts):
+                    app = self.make_app(max_attempts)
+                    run_id = self.start_run(app, source)
+                    alert_counts = []
+                    for number in range(1, max_attempts + 1):
+                        status = "retry" if number < max_attempts else "failed"
+                        self.attempt(app, run_id, source, False, status)
+                        self.assert_attempts(app, run_id, [False] * number)
+                        alert_counts.append(len(self.alerts(app)))
+                    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+                    self.assert_failure_alerts(app, [run_id])
+
+    def test_successful_retry_has_no_failure_alert_with_failure_control(self):
+        for source in ("manual", "scheduled"):
+            for max_attempts in (2, 3):
+                with self.subTest(source=source, max_attempts=max_attempts):
+                    app = self.make_app(max_attempts)
+                    run_id = self.start_run(app, source)
+                    alert_counts = []
+                    for _ in range(max_attempts - 1):
+                        self.attempt(app, run_id, source, False, "retry")
+                        alert_counts.append(len(self.alerts(app)))
+                    self.attempt(app, run_id, source, True, "succeeded")
+                    self.assert_attempts(app, run_id, [False] * (max_attempts - 1) + [True])
+                    alert_counts.append(len(self.alerts(app)))
+
+                    failed_run_id = self.start_run(app, source)
+                    for number in range(1, max_attempts + 1):
+                        status = "retry" if number < max_attempts else "failed"
+                        self.attempt(app, failed_run_id, source, False, status)
+                    self.assert_attempts(app, failed_run_id, [False] * max_attempts)
+                    self.assert_failure_alerts(app, [failed_run_id])
+                    self.assertEqual(alert_counts, [0] * max_attempts)
+
+    def test_distinct_failed_runs_of_same_job_each_keep_their_alert(self):
+        for max_attempts in (1, 2, 3):
+            with self.subTest(max_attempts=max_attempts):
+                app = self.make_app(max_attempts)
+                run_ids = []
+                for source in ("manual", "scheduled"):
+                    run_id = self.start_run(app, source)
+                    run_ids.append(run_id)
+                    for number in range(1, max_attempts + 1):
+                        status = "retry" if number < max_attempts else "failed"
+                        self.attempt(app, run_id, source, False, status)
+                    self.assert_attempts(app, run_id, [False] * max_attempts)
+                self.assertNotEqual(run_ids[0], run_ids[1])
+                self.assert_failure_alerts(app, run_ids)
+
+
+if __name__ == "__main__":
+    unittest.main()
+created {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}}
+attempt 1 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}, "status": "retry"}
+alerts {"alerts": [{"id": 1, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}]}
+attempt 2 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "failed"}, "status": "failed"}
+alerts {"alerts": [{"id": 1, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}, {"id": 2, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}]}
+attempt_numbers [1, 2]
+failure_alert_count 2
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File ".experiment/reproduce.py", line 20, in <module>
+    assert len(alerts["alerts"]) == 1, f"expected 1 failure alert; observed {len(alerts['alerts'])}"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: expected 1 failure alert; observed 2
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.005s
+
+OK
+test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... 
+  test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=2) ... FAIL
+  test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=3) ... FAIL
+test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... 
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=2) ... FAIL
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=3) ... FAIL
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=2) ... FAIL
+  test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=3) ... FAIL
+test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... 
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=2) ... FAIL
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=3) ... FAIL
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=2) ... FAIL
+  test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=3) ... FAIL
+
+======================================================================
+FAIL: test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 111, in test_distinct_failed_runs_of_same_job_each_keep_their_alert
+    self.assert_failure_alerts(app, run_ids)
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[410 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-001', 'kind': 'run_failed',[166 chars]02'}]
+
+First differing element 1:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 2 additional elements.
+First extra element 2:
+{'id': 3, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-002', 'run_id': 'run-002'}
+
+  [{'id': 1,
+    'job_id': 'report',
+    'kind': 'run_failed',
+    'message': 'Job Report failed for run run-001',
+    'run_id': 'run-001'},
+   {'id': 2,
+    'job_id': 'report',
+    'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 3,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-002',
+-   'run_id': 'run-002'},
+-  {'id': 4,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+    'message': 'Job Report failed for run run-002',
+    'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) (max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 111, in test_distinct_failed_runs_of_same_job_each_keep_their_alert
+    self.assert_failure_alerts(app, run_ids)
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[654 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-001', 'kind': 'run_failed',[166 chars]02'}]
+
+First differing element 1:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 4 additional elements.
+First extra element 2:
+{'id': 3, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-001', 'run_id': 'run-001'}
+
+Diff is 846 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2] != [0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2]
++ [0, 1]
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='manual', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2, 3] != [0, 0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2, 3]
++ [0, 0, 1]
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2] != [0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2]
++ [0, 1]
+
+======================================================================
+FAIL: test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) (source='scheduled', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 73, in test_exhausted_retries_alert_only_at_terminal_failure
+    self.assertEqual(alert_counts, [0] * (max_attempts - 1) + [1])
+AssertionError: Lists differ: [1, 2, 3] != [0, 0, 1]
+
+First differing element 0:
+1
+0
+
+- [1, 2, 3]
++ [0, 0, 1]
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[288 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 2 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-002', 'run_id': 'run-002'}
+
+  [{'id': 1,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 2,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-002',
+-   'run_id': 'run-002'},
+-  {'id': 3,
+    'job_id': 'report',
+    'kind': 'run_failed',
+    'message': 'Job Report failed for run run-002',
+    'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='manual', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[532 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 4 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-001', 'run_id': 'run-001'}
+
+Diff is 705 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[288 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 2 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-002', 'run_id': 'run-002'}
+
+  [{'id': 1,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-001',
+-   'run_id': 'run-001'},
+-  {'id': 2,
+-   'job_id': 'report',
+-   'kind': 'run_failed',
+-   'message': 'Job Report failed for run run-002',
+-   'run_id': 'run-002'},
+-  {'id': 3,
+    'job_id': 'report',
+    'kind': 'run_failed',
+    'message': 'Job Report failed for run run-002',
+    'run_id': 'run-002'}]
+
+======================================================================
+FAIL: test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) (source='scheduled', max_attempts=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 95, in test_successful_retry_has_no_failure_alert_with_failure_control
+    self.assert_failure_alerts(app, [failed_run_id])
+  File "/workspace/relayboard-round2-active/P-S04-002/tests/test_failure_alerts.py", line 52, in assert_failure_alerts
+    self.assertEqual(self.alerts(app), [
+AssertionError: Lists differ: [{'id[22 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[532 chars]02'}] != [{'id[22 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[44 chars]02'}]
+
+First differing element 0:
+{'id'[21 chars]t', 'kind': 'run_failed', 'message': 'Job Repo[43 chars]001'}
+{'id'[21 chars]t', 'run_id': 'run-002', 'kind': 'run_failed',[43 chars]002'}
+
+First list contains 4 additional elements.
+First extra element 1:
+{'id': 2, 'job_id': 'report', 'kind': 'run_failed', 'message': 'Job Report failed for run run-001', 'run_id': 'run-001'}
+
+Diff is 705 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+FAILED (failures=10)
+test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... ok
+test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... ok
+test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.012s
+
+OK
+test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... ok
+test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... ok
+test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... ok
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.013s
+
+OK
+created {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}}
+attempt 1 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "running"}, "status": "retry"}
+alerts {"alerts": []}
+attempt 2 {"run": {"id": "run-001", "job_id": "daily-report", "source": "manual", "status": "failed"}, "status": "failed"}
+alerts {"alerts": [{"id": 1, "job_id": "daily-report", "kind": "run_failed", "message": "Job Daily report failed for run run-001", "run_id": "run-001"}]}
+attempt_numbers [1, 2]
+failure_alert_count 1
+{"ts": "2026-10-07T13:59:28.404710+00:00", "label": "assigned-manifest", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["cat", ".experiment/RUN_MANIFEST.json"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/assigned-manifest.txt"}
+{"ts": "2026-10-07T13:59:28.586595+00:00", "label": "baseline-api", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-c", "import runpy; runpy.run_path('.experiment/reproduce.py')"], "exit_code": 1, "stdout_stderr_path": ".experiment/outputs/baseline-api.txt"}
+{"ts": "2026-10-07T13:59:28.597897+00:00", "label": "baseline-public", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/baseline-public.txt"}
+{"ts": "2026-10-07T14:03:09.523008+00:00", "label": "implementation-focused-before", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_failure_alerts.py", "-v"], "exit_code": 1, "stdout_stderr_path": ".experiment/outputs/implementation-focused-before.txt"}
+{"ts": "2026-10-07T14:03:17.172898+00:00", "label": "implementation-stage-tests", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "add", "--", "tests/test_failure_alerts.py"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-stage-tests.txt"}
+{"ts": "2026-10-07T14:03:23.118990+00:00", "label": "implementation-staged-tests", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "diff", "--cached", "--stat"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-staged-tests.txt"}
+{"ts": "2026-10-07T14:03:29.196325+00:00", "label": "implementation-failing-test-commit", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "commit", "-m", "Add API regressions for failure alerts across retries", "--", "tests/test_failure_alerts.py"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-failing-test-commit.txt"}
+{"ts": "2026-10-07T14:03:36.511994+00:00", "label": "implementation-focused-after", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_failure_alerts.py", "-v"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-focused-after.txt"}
+{"ts": "2026-10-07T14:03:43.239066+00:00", "label": "implementation-test-commit-sha", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "rev-parse", "HEAD"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-test-commit-sha.txt"}
+{"ts": "2026-10-07T14:03:43.243906+00:00", "label": "implementation-final-diff", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "diff", "--", "relayboard/service.py"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-final-diff.txt"}
+{"ts": "2026-10-07T14:03:43.378511+00:00", "label": "implementation-full-public", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-full-public.txt"}
+{"ts": "2026-10-07T14:04:06.315747+00:00", "label": "implementation-diff-check", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "diff", "--check"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-diff-check.txt"}
+{"ts": "2026-10-07T14:04:06.328991+00:00", "label": "implementation-final-status", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "status", "--short"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-final-status.txt"}
+{"ts": "2026-10-07T14:04:06.367490+00:00", "label": "implementation-original-api-after", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-c", "import runpy; runpy.run_path('.experiment/reproduce.py', run_name='__main__')"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/implementation-original-api-after.txt"}
+{"ts": "2026-10-07T14:05:49.669742+00:00", "label": "lead-review", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "diff", "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24", "--", "relayboard/service.py", "tests/test_failure_alerts.py"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/lead-review.txt"}
+{"ts": "2026-10-07T14:06:12.871165+00:00", "label": "lead-frozen-source-check", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "diff", "--exit-code", "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24", "--", "METHOD.md", "TASK.md", "upstream"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/lead-frozen-source-check.txt"}
+{"ts": "2026-10-07T14:06:12.947735+00:00", "label": "lead-original-api-after", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-c", "import runpy; runpy.run_path('.experiment/reproduce.py')"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/lead-original-api-after.txt"}
+{"ts": "2026-10-07T14:06:12.951689+00:00", "label": "lead-test-commit-check", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["git", "show", "--format=fuller", "--stat", "2c31d06aecab04691e44fbd4de00b632b2093b59"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/lead-test-commit-check.txt"}
+{"ts": "2026-10-07T14:07:58.913692+00:00", "label": "review-method-sources", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["cat", "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md", "upstream/pstack/skills/principle-laziness-protocol/SKILL.md", "upstream/pstack/skills/principle-model-the-domain/SKILL.md", "upstream/pstack/skills/principle-prove-it-works/SKILL.md", "upstream/pstack/skills/principle-fix-root-causes/SKILL.md", "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md", "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md", "upstream/pstack/skills/tdd/SKILL.md"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/review-method-sources.txt"}
+{"ts": "2026-10-07T14:08:04.171647+00:00", "label": "review-trail", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["cat", ".experiment/GROUNDING.md", ".experiment/DESIGN.md", ".experiment/LEAD_REVIEW.md", ".experiment/decisions.tsv", ".experiment/early-actions.json", ".experiment/early-command-evidence.json", ".experiment/helper-invocations.json", ".experiment/IMPLEMENTATION_REPORT.json", ".experiment/TODO.md", ".experiment/operator-exchanges.json"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/review-trail.txt"}
+{"ts": "2026-10-07T14:08:14.783485+00:00", "label": "review-code-and-diff", "cwd": "/workspace/relayboard-round2-active/P-S04-002", "argv": ["python", "-c", "import subprocess; from pathlib import Path; paths=[\"GLOSSARY.md\",\"relayboard/models.py\",\"relayboard/service.py\",\"relayboard/store.py\",\"relayboard/web.py\",\"relayboard/testing.py\",\"tests/test_public.py\",\"tests/test_failure_alerts.py\",\".experiment/reproduce.py\"]; [(print(\"FILE \"+p),print(\"\".join(f\"{i}: {line}\" for i,line in enumerate(Path(p).read_text().splitlines(keepends=True),1)))) for p in paths]; commands=[[\"git\",\"diff\",\"610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24\",\"--\",\"relayboard\",\"tests\"],[\"git\",\"show\",\"--format=fuller\",\"--stat\",\"2c31d06aecab04691e44fbd4de00b632b2093b59\"],[\"git\",\"diff\",\"610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24\",\"2c31d06aecab04691e44fbd4de00b632b2093b59\",\"--\",\"relayboard\",\"tests\"],[\"git\",\"status\",\"--short\"]]; [(print(\"COMMAND \"+repr(c)),subprocess.run(c,check=True)) for c in commands]"], "exit_code": 0, "stdout_stderr_path": ".experiment/outputs/review-code-and-diff.txt"}
+{
+  "upstream_commit_declared_in_method": "df581122cde17e6e27686b5a448bde23e4ad4318",
+  "hashes": {
+    "METHOD.md": "cba38b000db5c9dd90b836e7875a06dbaadf8abfb3310cc68be87c70ed6a2058",
+    "TASK.md": "cfb2fbc0aa0e2c55b9b21e74e90075d670ebd90e0f426e5cabe9b0954a6af9eb",
+    "upstream/pstack/LICENSE": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+    "upstream/pstack/skills/architect/SKILL.md": "922238947195f2fb825e90688bb6cfa520b81a35a7bee12223c73a6cf96ae64b",
+    "upstream/pstack/skills/architect/references/design-red-flags.md": "d0e639e4cc588ec865f930d3a4111faad60987ae36925917e319d7ceca7c69ce",
+    "upstream/pstack/skills/architect/references/rationale-template.md": "0cedfccdc7b47fc881febd5a8293eecbc542c20f8df825639904a8102d2eb5d3",
+    "upstream/pstack/skills/arena/SKILL.md": "6e17736b5228b661569c3af054f8302c55cf9bf1649447652d53705cce38bed6",
+    "upstream/pstack/skills/how/SKILL.md": "7e0d902484a90eba73dcf518bff478dc5b962b456d23c3d0a188c2ce36b236d8",
+    "upstream/pstack/skills/poteto-mode/SKILL.md": "31cd02290360ce63564ef22b74d69fc6d90e62181d05a644cbed8f6c47cc9412",
+    "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md": "15e54ad3ac92565613980772d8708de6e19cc4690bfd4bb3fb8836522407377b",
+    "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md": "018bbc146ae19145caa6c7e70591fee081b64447dda1c1c4b681c9974d928b13",
+    "upstream/pstack/skills/poteto-mode/playbooks/feature.md": "3a62cc4a8cbcf144bb9dd05f05420a15be0d38b784d3b141bb730a5852f50a62",
+    "upstream/pstack/skills/principle-fix-root-causes/SKILL.md": "ba4cd38da1dcc8fe5432feb64457cba95594736a9b21b2ebf8f8c52aee068707",
+    "upstream/pstack/skills/principle-laziness-protocol/SKILL.md": "9006579e9e3f33955d17569733db688ae65f22577dc3b21803d219a5a8445aff",
+    "upstream/pstack/skills/principle-model-the-domain/SKILL.md": "bbadbb9a723fac3f76e782ae45665eb94058ec10993e4bae36d4dc6b0e4eac07",
+    "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md": "f2764bb9338cbfc788c903cf4b9cd0a5f4042d3a04dd6d59cbd525d9beaadd0a",
+    "upstream/pstack/skills/principle-prove-it-works/SKILL.md": "ec79a15025bac8d33d62011c54f3b612733fd2a024e623b531b3637aa75070e2",
+    "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md": "2ccbbacc56ace5afdfb8670cef19d7bd009fb2a0033b9a741cbdf2b6baf72187",
+    "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md": "87e40efe4e486f7ea639d2ed1fc0abe6c93b8fd0e89a81218086909d2470a52e",
+    "upstream/pstack/skills/show-me-your-work/SKILL.md": "bcff5f7f9fd23f92c12b251f9cd6b947e9485e1055cfacb6fdd9cae0789d7550",
+    "upstream/pstack/skills/tdd/SKILL.md": "eeb868e2dfebee528d730a67d7b17498fac4bb85dec2e38bc5c5176aca4d5d2f"
+  }
+}

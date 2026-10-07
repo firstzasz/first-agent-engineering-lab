@@ -1,0 +1,246 @@
+{
+  "role": "fresh serial same-model poteto-agent scoped code and evidence reviewer",
+  "task": "P-S04-002",
+  "method": "pstack-codex-port-v0",
+  "verdict": "PASS",
+  "corrections_required": [],
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "high",
+    "observed_model": "unknown; system describes Codex based on GPT-6, no precise runtime identity telemetry exposed",
+    "observed_reasoning_effort": "unknown; no runtime reasoning telemetry exposed",
+    "observed_usage": "unknown; no token-usage telemetry exposed",
+    "native_multi_model_claim": false
+  },
+  "scope": {
+    "root": "/workspace/relayboard-round2-active/P-S04-002",
+    "initial_local_commit": "610a9c32f864a0ef6ce66d0ea0e40cb904f1ab24",
+    "test_only_commit": "2c31d06aecab04691e44fbd4de00b632b2093b59",
+    "production_status": "Reviewed uncommitted one-line service deletion. Reviewer made no code edits or commits.",
+    "descendants_spawned": 0
+  },
+  "code_findings": [
+    {
+      "id": "C1",
+      "severity": "pass",
+      "finding": "The root cause is alert emission for a failed Attempt while its Run still has running status and retry eligibility. The baseline shows two persisted alert ids for the same Run across two Attempts, rather than transport duplication or separate Runs.",
+      "paths": [
+        "relayboard/service.py:32",
+        ".experiment/GROUNDING.md",
+        ".experiment/outputs/baseline-api.txt",
+        "GLOSSARY.md:52"
+      ]
+    },
+    {
+      "id": "C2",
+      "severity": "pass",
+      "finding": "The current service is byte-for-byte identical to the initial service after deleting only self._emit_failure_alert(run_id) from the retry branch. This removes the lifecycle error without storage deduplication, schema changes, or Job-wide suppression.",
+      "paths": [
+        "relayboard/service.py:44",
+        ".experiment/outputs/review-code-and-diff.txt",
+        ".experiment/outputs/review-evidence-audit.txt"
+      ]
+    },
+    {
+      "id": "C3",
+      "severity": "pass",
+      "finding": "The only remaining service emission follows set_run_status(run_id, failed). The success branch returns before emission. The existing non-running guard remains before add_attempt. Attempt insertion, max_attempts comparison, retry response and stable Run identity are unchanged.",
+      "paths": [
+        "relayboard/service.py:33",
+        "relayboard/service.py:38",
+        "relayboard/service.py:40",
+        "relayboard/service.py:47",
+        ".experiment/outputs/review-frozen-and-alert-paths.txt"
+      ]
+    },
+    {
+      "id": "C4",
+      "severity": "pass",
+      "finding": "Distinct failed Runs of the same Job retain one alert each. New public tests exercise distinct manual and scheduled Runs across retry limits 1, 2 and 3 and compare actual alert payloads and Run ids. No deduplication key was introduced.",
+      "paths": [
+        "tests/test_failure_alerts.py:98",
+        ".experiment/outputs/implementation-focused-after.txt"
+      ]
+    },
+    {
+      "id": "C5",
+      "severity": "pass",
+      "finding": "Eventual success produces no failure alerts and is paired with a positive failed-Run control. Retry state and attempt numbers/outcomes are asserted through API responses and the existing Store fixture interface. The API tests execute actual WSGI logic and contain substantive positive assertions.",
+      "paths": [
+        "tests/test_failure_alerts.py:26",
+        "tests/test_failure_alerts.py:45",
+        "tests/test_failure_alerts.py:61",
+        "tests/test_failure_alerts.py:76",
+        "relayboard/testing.py"
+      ]
+    },
+    {
+      "id": "C6",
+      "severity": "pass",
+      "finding": "The 115-line test addition is proportional to the lifecycle cases. Assertions cover public state, alert kind/message/identity and deterministic attempt progression, rather than private call counts or source structure. Original tests are unchanged.",
+      "paths": [
+        "tests/test_failure_alerts.py",
+        ".experiment/outputs/review-code-and-diff.txt"
+      ]
+    }
+  ],
+  "evidence_findings": [
+    {
+      "id": "E1",
+      "severity": "pass",
+      "finding": "Captured baseline API failed for the intended duplicate-alert reason. The focused regression failed before the production edit with 3 test methods and 10 failing subtests, including [1, 2] versus [0, 1] and [1, 2, 3] versus [0, 0, 1]. The exact test-only commit contains only the new regression file.",
+      "paths": [
+        ".experiment/outputs/baseline-api.txt",
+        ".experiment/outputs/implementation-focused-before.txt",
+        ".experiment/outputs/implementation-failing-test-commit.txt",
+        ".experiment/outputs/lead-test-commit-check.txt",
+        ".experiment/outputs/review-code-and-diff.txt"
+      ]
+    },
+    {
+      "id": "E2",
+      "severity": "pass",
+      "finding": "Preserved focused output reports 3 test methods OK. Full public output reports all 8 methods OK. The lead independently reran the original API script and observed zero alerts during retry and one terminal alert with attempts [1, 2]. Exit codes in commands.jsonl agree with these outputs.",
+      "paths": [
+        ".experiment/outputs/implementation-focused-after.txt",
+        ".experiment/outputs/implementation-full-public.txt",
+        ".experiment/outputs/lead-original-api-after.txt",
+        ".experiment/commands.jsonl"
+      ]
+    },
+    {
+      "id": "E3",
+      "severity": "pass",
+      "finding": "All 13 existing decision-row evidence pointers resolve. Runtime, source, commit, design and verification evidence substantiate the selected deletion. Two design sketches distinguish lifecycle-policy deletion from storage deduplication, which would retain the premature alert. Four throughput items were recorded before implementation delegation.",
+      "paths": [
+        ".experiment/decisions.tsv",
+        ".experiment/DESIGN.md",
+        ".experiment/GROUNDING.md",
+        ".experiment/outputs/review-evidence-audit.txt"
+      ]
+    },
+    {
+      "id": "E4",
+      "severity": "pass",
+      "finding": "Direct comparison proves METHOD.md, TASK.md and upstream unchanged against the initial commit. All 21 recorded source hashes match current scoped files.",
+      "paths": [
+        ".experiment/source-hashes.json",
+        ".experiment/outputs/review-frozen-and-alert-paths.txt"
+      ]
+    },
+    {
+      "id": "E5",
+      "severity": "observation",
+      "finding": "A complete transcript audit is impossible. Early source reads and creation/edit commands have summarized tool-call evidence rather than exported raw outputs. The captured runtime failures, passes, test-only commit and exact current production diff remain independently reviewable. Decision timestamps denote logging checkpoints and should not be read as exact action times.",
+      "paths": [
+        ".experiment/early-actions.json",
+        ".experiment/early-command-evidence.json",
+        ".experiment/IMPLEMENTATION_REPORT.json",
+        ".experiment/decisions.tsv"
+      ]
+    },
+    {
+      "id": "E6",
+      "severity": "pass",
+      "finding": "No additional runtime check or suite rerun was warranted because reviewed production code exactly matches the tested one-line change and no new correctness concern arose. Reviewer performed source/diff/hash/evidence checks only.",
+      "paths": [
+        ".experiment/outputs/review-evidence-audit.txt"
+      ]
+    }
+  ],
+  "attention_flags": [
+    {
+      "id": "A1",
+      "classification": "nonblocking evidence limitation",
+      "requires_correction": false,
+      "flag": "No raw transcript export exists. The audit covers preserved commands and outputs, with early reads and edits reconstructed from available tool calls. This supports the scoped fix but cannot establish full transcript completeness.",
+      "paths": [
+        ".experiment/early-command-evidence.json",
+        ".experiment/IMPLEMENTATION_REPORT.json",
+        ".experiment/commands.jsonl"
+      ]
+    },
+    {
+      "id": "A2",
+      "classification": "nonblocking identity and adaptation limitation",
+      "requires_correction": false,
+      "flag": "Requested gpt-6.1-sol/high is recorded; actual model, reasoning and usage telemetry are unknown. This is fresh serial same-model review under the frozen port, with no native cross-model or parallel-throughput claim.",
+      "paths": [
+        "METHOD.md",
+        ".experiment/helper-invocations.json",
+        ".experiment/GROUNDING.md"
+      ]
+    },
+    {
+      "id": "A3",
+      "classification": "nonblocking verification scope",
+      "requires_correction": false,
+      "flag": "Checks exercise the local sequential Python/SQLite/WSGI fixture. Concurrency, transaction recovery and removal of existing historical alerts were neither changed nor verified and are outside the demonstrated duplicate-attempt mechanism.",
+      "paths": [
+        ".experiment/DESIGN.md",
+        ".experiment/IMPLEMENTATION_REPORT.json"
+      ]
+    }
+  ],
+  "available_commands_outputs": {
+    "canonical_commands": ".experiment/commands.jsonl",
+    "review_labels": [
+      "review-method-sources",
+      "review-trail",
+      "review-code-and-diff",
+      "review-test-and-runtime-evidence",
+      "review-design-sources",
+      "review-frozen-and-alert-paths",
+      "review-evidence-audit",
+      "review-bootstrap-sources",
+      "review-write-report",
+      "review-report-validation"
+    ],
+    "preserved_public_labels": [
+      "baseline-api",
+      "baseline-public",
+      "implementation-focused-before",
+      "implementation-focused-after",
+      "implementation-full-public",
+      "implementation-original-api-after",
+      "lead-original-api-after"
+    ],
+    "bootstrap_commands_uncaptured": [
+      {
+        "command": "pwd && rg --files -g TASK.md -g METHOD.md -g capture.py -g AGENTS.md -g .experiment/** -g !upstream/**",
+        "exit_code": 0
+      },
+      {
+        "command": "cat TASK.md METHOD.md && rg --files --hidden .experiment upstream/pstack | head -100",
+        "exit_code": 0
+      },
+      {
+        "command": "cat .experiment/capture.py upstream/pstack/skills/poteto-mode/SKILL.md upstream/pstack/skills/show-me-your-work/SKILL.md",
+        "exit_code": 0
+      }
+    ],
+    "review_output_truncation": "Some batched tool displays truncated at the interface. Full outputs were preserved by capture.py. Core and method sources had already been read completely in bootstrap calls; missing test/helper surface pieces and failure excerpt were reread in smaller checks. No unseen output is treated as raw transcript proof."
+  },
+  "principles_read_and_applied": {
+    "Laziness Protocol": "Confirmed deletion is the smallest root-cause fix.",
+    "Model the Domain": "Confirmed existing Run/Attempt state shape and terminal alert ownership suffice.",
+    "Prove It Works": "Inspected original API, focused and full public outputs plus actual source and diff.",
+    "Fix Root Causes": "Confirmed premature emission mechanism rather than deduplicating symptoms.",
+    "Test Behavior, Not Implementation": "Assessed WSGI payload assertions and paired eventual-success absence with a failed-Run control.",
+    "Sequence Work into Verifiable Units": "Verified test-only commit and intended failing-before/passing-after chronology.",
+    "Never Block on the Human": "Completed authorized read-only review without a permission pause."
+  },
+  "unsupported_native_adaptation_limits": [
+    "No native Cursor router lifetime, watchers or editor/browser controller.",
+    "Native no-comments and deslop sources/tools are unavailable; scoped cleanup and review use METHOD.md bindings.",
+    "Bundled Show me your work cross-model/transcript route is explicitly adapted to fresh serial same-model command-evidence review.",
+    "No native shipping/PR automation or external fetch. Lead must freeze a local candidate for orchestrator handoff."
+  ],
+  "forbidden_material_accessed": false,
+  "open_gaps": [
+    "No exported raw transcript or runtime identity/usage telemetry.",
+    "Lead still owns final candidate commit and handoff. Reviewer deliberately made no commit."
+  ],
+  "reviewer_test_runs": [],
+  "additional_runtime_check_reason": "No new concern justified repeating existing passes."
+}

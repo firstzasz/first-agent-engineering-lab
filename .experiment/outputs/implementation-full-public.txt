@@ -1,0 +1,13 @@
+test_distinct_failed_runs_of_same_job_each_keep_their_alert (test_failure_alerts.FailureAlertTests.test_distinct_failed_runs_of_same_job_each_keep_their_alert) ... ok
+test_exhausted_retries_alert_only_at_terminal_failure (test_failure_alerts.FailureAlertTests.test_exhausted_retries_alert_only_at_terminal_failure) ... ok
+test_successful_retry_has_no_failure_alert_with_failure_control (test_failure_alerts.FailureAlertTests.test_successful_retry_has_no_failure_alert_with_failure_control) ... ok
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.013s
+
+OK
