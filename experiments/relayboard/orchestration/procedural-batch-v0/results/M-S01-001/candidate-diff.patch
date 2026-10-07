@@ -1,0 +1,544 @@
+diff --git a/.experiment/baseline-dashboard.html b/.experiment/baseline-dashboard.html
+new file mode 100644
+index 0000000..9d29e6f
+--- /dev/null
++++ b/.experiment/baseline-dashboard.html
+@@ -0,0 +1 @@
++<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>
+\ No newline at end of file
+diff --git a/.experiment/baseline-jobs.json b/.experiment/baseline-jobs.json
+new file mode 100644
+index 0000000..2dfe3b5
+--- /dev/null
++++ b/.experiment/baseline-jobs.json
+@@ -0,0 +1 @@
++{"jobs": [{"enabled": false, "id": "cleanup", "max_attempts": 1, "name": "Cleanup"}, {"enabled": true, "id": "daily-report", "max_attempts": 2, "name": "Daily report"}]}
+\ No newline at end of file
+diff --git a/.experiment/baseline-observations.json b/.experiment/baseline-observations.json
+new file mode 100644
+index 0000000..6844dc1
+--- /dev/null
++++ b/.experiment/baseline-observations.json
+@@ -0,0 +1,11 @@
++{
++  "label": "baseline-observations",
++  "cmd": "python - <<'PY'\nimport json\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\napp = create_seeded_app()\ncode, dashboard = request(app, 'GET', '/dashboard')\nassert code == 200\nPath('.experiment/baseline-dashboard.html').write_text(dashboard)\ncode, jobs = request(app, 'GET', '/api/jobs')\nassert code == 200\nPath('.experiment/baseline-jobs.json').write_text(json.dumps(jobs, sort_keys=True))\nprint('Captured baseline GET /dashboard and GET /api/jobs, both HTTP 200.')\nPY",
++  "result": {
++    "chunk_id": "54b40a",
++    "wall_time_seconds": 0.000030162,
++    "exit_code": 0,
++    "original_token_count": 17,
++    "output": "Captured baseline GET /dashboard and GET /api/jobs, both HTTP 200.\n"
++  }
++}
+diff --git a/.experiment/baseline-public.json b/.experiment/baseline-public.json
+new file mode 100644
+index 0000000..ea23b83
+--- /dev/null
++++ b/.experiment/baseline-public.json
+@@ -0,0 +1,11 @@
++{
++  "label": "baseline-public",
++  "cmd": "python -m unittest discover -s tests -v",
++  "result": {
++    "chunk_id": "3411dd",
++    "wall_time_seconds": 0.308677279,
++    "exit_code": 0,
++    "original_token_count": 178,
++    "output": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.005s\n\nOK\n"
++  }
++}
+diff --git a/.experiment/completion-public.json b/.experiment/completion-public.json
+new file mode 100644
+index 0000000..f97b0b1
+--- /dev/null
++++ b/.experiment/completion-public.json
+@@ -0,0 +1,11 @@
++{
++  "label": "completion-public",
++  "cmd": "python -m unittest discover -s tests -v",
++  "result": {
++    "chunk_id": "7568c3",
++    "wall_time_seconds": 0.075823829,
++    "exit_code": 0,
++    "original_token_count": 178,
++    "output": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.004s\n\nOK\n"
++  }
++}
+diff --git a/.experiment/decisions.md b/.experiment/decisions.md
+new file mode 100644
+index 0000000..efacd35
+--- /dev/null
++++ b/.experiment/decisions.md
+@@ -0,0 +1,27 @@
++# Run decisions and method record
++
++- Run: M-S01-001; treatment matt-codex-port-v0.
++- Assigned initial commit: 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb; verified by git rev-parse HEAD. Initial git status was clean.
++- Frozen source: mattpocock/skills 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d, supplied unchanged under upstream/matt. No external source was fetched.
++- Requested model/reasoning: GPT-6.1 Sol / High. Observed runtime identity and usage are unavailable and remain unknown.
++- TASK.md is the originating spec and sole implementation unit. The exact label and dashboard scope are unambiguous. No product interview, additional spec, ticket graph, ADR, or diagnosis ceremony is useful for this narrow mechanical change.
++- Read and invoked: to-spec (synthesis via TASK.md tiny-task exception), implement, tdd (including tests.md and mocking.md), code-review.
++- Existing public seam: GET /dashboard through relayboard.testing.request using the real seeded WSGI app. Standing authorization in METHOD.md covers this fixture seam; no seam approval question is needed.
++- Verification: a single literal heading expectation at the public dashboard seam, red before green, retained as an experiment command rather than an added production test for this low-impact label change. Capture baseline dashboard/API output to verify exact scope preservation, then run full public unittest suite.
++- No standalone language typechecker is configured or invented for this standard-library Python fixture.
++- Review fixed point is the assigned initial commit. Standards and Spec review helpers will be fresh, read-only, sequential, same requested normalized model/reasoning, fork_turns=none, no descendants.
++- Local tracker semantics and standing reversible-work authorization replace upstream external tracker/setup, seam confirmation, and ticket approval. Sequential helpers replace native parallel agents and worktrees. No throughput or native model diversity claims.
++- No operator questions are needed; no external messages, deployment, remote operations, merges, or hidden evaluation are authorized or performed.
++- No documented coding-standard file or local AGENTS.md was found in this supplied run area; review uses existing style and the assigned upstream smell baseline.
++
++## Initial action/path log
++
++All shell commands used explicit workdir /workspace/relayboard-active/M-S01-001.
++
++1. pwd; rg --files -g TASK.md -g METHOD.md -g AGENTS.md excluding node_modules/vendor: found ./TASK.md and ./METHOD.md only. Exit 0.
++2. cat TASK.md METHOD.md: read task and exact frozen binding. Exit 0.
++3. rg --files excluding node_modules/vendor; git status --short; git rev-parse HEAD; cat GLOSSARY.md: enumerated only supplied files, status clean, initial commit confirmed, glossary read. Exit 0.
++4. cat README.md pyproject.toml relayboard/web.py tests/test_public.py and assigned implement/code-review/tdd sources: read relevant public code/tests and skills. Exit 0. README links outside run area were not followed.
++5. cat assigned to-spec source and relayboard/testing.py; rg supplied area for AGENTS.md/CODING_STANDARDS.md/CONTRIBUTING.md/ADR/.gitignore: read public WSGI test seam; found .gitignore and assigned ADR-FORMAT.md only. Exit 0. ADR template was not opened.
++
++No sibling/control directories, parent laboratory history/results, evaluator/oracle/reference solutions, private transcripts/credentials, peer status, or unassigned methods were inspected.
+diff --git a/.experiment/finalize.json b/.experiment/finalize.json
+new file mode 100644
+index 0000000..7609a9b
+--- /dev/null
++++ b/.experiment/finalize.json
+@@ -0,0 +1,12 @@
++{
++  "cmd": "python - <<'PY'\nimport json\nfrom pathlib import Path\nreport = json.loads(Path('REPORT.json').read_text())\nassert report['status'] == 'completed'\nassert report['evaluator_or_peer_material_accessed'] is False\nprint('PASS: REPORT.json parses and records completed status without forbidden access.')\nPY\n git diff --check",
++  "result": {
++    "chunk_id": "945849",
++    "wall_time_seconds": 0.00002688,
++    "exit_code": 0,
++    "original_token_count": 20,
++    "output": "PASS: REPORT.json parses and records completed status without forbidden access.\n"
++  },
++  "final_commit_command": "git add .experiment REPORT.json; git commit -m 'Preserve M-S01-001 method and public verification evidence'; git status --short; git rev-parse HEAD",
++  "commit_output_location": "Final parent response and immutable local Git commit metadata; not self-embedded in its own commit."
++}
+diff --git a/.experiment/heading-green.json b/.experiment/heading-green.json
+new file mode 100644
+index 0000000..3d9bc8b
+--- /dev/null
++++ b/.experiment/heading-green.json
+@@ -0,0 +1,11 @@
++{
++  "label": "heading-green",
++  "cmd": "PYTHONPATH=. python .experiment/verify_heading.py",
++  "result": {
++    "chunk_id": "d1274d",
++    "wall_time_seconds": 0.019892349,
++    "exit_code": 0,
++    "original_token_count": 25,
++    "output": "Observed Jobs headings: ['Job', 'Enabled', 'Latest result']\nPASS: Jobs table shows Latest result\n"
++  }
++}
+diff --git a/.experiment/heading-red.json b/.experiment/heading-red.json
+new file mode 100644
+index 0000000..06587c7
+--- /dev/null
++++ b/.experiment/heading-red.json
+@@ -0,0 +1,11 @@
++{
++  "label": "heading-red",
++  "cmd": "PYTHONPATH=. python .experiment/verify_heading.py",
++  "result": {
++    "chunk_id": "393062",
++    "wall_time_seconds": 0.041949337,
++    "exit_code": 1,
++    "original_token_count": 98,
++    "output": "Observed Jobs headings: ['Job', 'Enabled', 'Last result']\nTraceback (most recent call last):\n  File \"/workspace/relayboard-active/M-S01-001/.experiment/verify_heading.py\", line 38, in <module>\n    assert parser.headings == [\"Job\", \"Enabled\", \"Latest result\"], parser.headings\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ['Job', 'Enabled', 'Last result']\n"
++  }
++}
+diff --git a/.experiment/implementation-commit.json b/.experiment/implementation-commit.json
+new file mode 100644
+index 0000000..3e5fb31
+--- /dev/null
++++ b/.experiment/implementation-commit.json
+@@ -0,0 +1,10 @@
++{
++  "cmd": "git diff --check; git diff -- relayboard/web.py; git add relayboard/web.py; git commit -m 'Change Jobs dashboard heading to Latest result'; git rev-parse HEAD; git diff 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD; git log 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb..HEAD --oneline",
++  "result": {
++    "chunk_id": "99a4aa",
++    "wall_time_seconds": 0.000048026,
++    "exit_code": 0,
++    "original_token_count": 331,
++    "output": "diff --git a/relayboard/web.py b/relayboard/web.py\nindex 88aa15e..67de7f4 100644\n--- a/relayboard/web.py\n+++ b/relayboard/web.py\n@@ -150,7 +150,7 @@ class RelayBoardApp:\n             \"<html><head><title>RelayBoard</title></head><body>\"\n             \"<h1>Jobs</h1>\"\n             \"<table id='jobs'><thead><tr>\"\n-            \"<th>Job</th><th>Enabled</th><th>Last result</th>\"\n+            \"<th>Job</th><th>Enabled</th><th>Latest result</th>\"\n             \"</tr></thead><tbody>\"\n             + \"\".join(rows)\n             + \"</tbody></table></body></html>\"\n[candidate/M-S01-001 7e60748] Change Jobs dashboard heading to Latest result\n 1 file changed, 1 insertion(+), 1 deletion(-)\n7e60748606eace908629ebfd6504de7f2246de77\ndiff --git a/relayboard/web.py b/relayboard/web.py\nindex 88aa15e..67de7f4 100644\n--- a/relayboard/web.py\n+++ b/relayboard/web.py\n@@ -150,7 +150,7 @@ class RelayBoardApp:\n             \"<html><head><title>RelayBoard</title></head><body>\"\n             \"<h1>Jobs</h1>\"\n             \"<table id='jobs'><thead><tr>\"\n-            \"<th>Job</th><th>Enabled</th><th>Last result</th>\"\n+            \"<th>Job</th><th>Enabled</th><th>Latest result</th>\"\n             \"</tr></thead><tbody>\"\n             + \"\".join(rows)\n             + \"</tbody></table></body></html>\"\n7e60748 Change Jobs dashboard heading to Latest result\n"
++  }
++}
+diff --git a/.experiment/pre-freeze-status.json b/.experiment/pre-freeze-status.json
+new file mode 100644
+index 0000000..7688447
+--- /dev/null
++++ b/.experiment/pre-freeze-status.json
+@@ -0,0 +1,10 @@
++{
++  "cmd": "git status --short; git diff --check; git diff --stat 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD; git rev-parse 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb",
++  "result": {
++    "chunk_id": "a9efbf",
++    "wall_time_seconds": 0.00002011,
++    "exit_code": 0,
++    "original_token_count": 144,
++    "output": "?? .experiment/baseline-dashboard.html\n?? .experiment/baseline-jobs.json\n?? .experiment/baseline-observations.json\n?? .experiment/baseline-public.json\n?? .experiment/completion-public.json\n?? .experiment/decisions.md\n?? .experiment/heading-green.json\n?? .experiment/heading-red.json\n?? .experiment/implementation-commit.json\n?? .experiment/review-assignments.md\n?? .experiment/scope-check.json\n?? .experiment/standards-review.md\n?? .experiment/verify_heading.py\n relayboard/web.py | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)\n5e8146a112483d7ef33d493c0f1f1dae0ffba8cb\n"
++  }
++}
+diff --git a/.experiment/review-assignments.md b/.experiment/review-assignments.md
+new file mode 100644
+index 0000000..7b91213
+--- /dev/null
++++ b/.experiment/review-assignments.md
+@@ -0,0 +1,23 @@
++# Review assignments
++
++## Standards
++
++- Helper task: /root/contestant_m_s01_001/standards_review.
++- Requested model: gpt-6.1-sol; reasoning: high; fork_turns: none.
++- Read-only root: /workspace/relayboard-active/M-S01-001; explicit workdir required; no descendants.
++- Diff: git diff 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD; candidate 7e60748606eace908629ebfd6504de7f2246de77; commit 7e60748 Change Jobs dashboard heading to Latest result.
++- Allowed sources: TASK.md, METHOD.md, public relevant code, README.md, pyproject.toml, assigned upstream/matt/skills/engineering/code-review/SKILL.md. No other review reports.
++- Restrictions delivered: no siblings/control directories, lab history/branches/results, evaluator/oracle/reference solutions, private transcripts/credentials, unassigned methods, peer statuses, team-wide enumeration, hidden checks, fetches, paid API, external messages, production, deployment or merges. Stop/report/preserve on forbidden exposure.
++- Brief: Standards only; cite documented standard violations and separately label heuristic smells per file/hunk, quoting relevant hunk, under 400 words. No documented standards source found by lead; actual existing style and baseline still apply. Skip tooling-enforced checks. Return command/output and path evidence, requested vs observed identity, limitations, then terminate.
++- Initial spawn included the complete set of baseline smells in compact wording. A follow-up supplied the verbatim baseline descriptions and fixes from the assigned source, with repo-override and judgment-call rules, replacing the compact wording. This administrative correction did not supply any review findings.
++- No product questions or operator exchange involved.
++
++## Spec
++
++- Helper task: /root/contestant_m_s01_001/spec_review. Spawned only after receiving Standards helper's final answer/termination.
++- Requested model: gpt-6.1-sol; reasoning: high; fork_turns: none.
++- Same read-only root, explicit workdir, no descendants, and complete experiment-boundary restrictions as Standards. Forbidden exposure requires stop/report/preserve.
++- Diff and candidate commit identical to Standards; TASK.md is the supplied spec.
++- Allowed inputs: TASK.md, METHOD.md, .experiment/decisions.md, relevant public code, assigned code-review source, and lead's heading-red/heading-green/completion-public/scope-check evidence. No Standards review-output access.
++- Brief: Spec only; report missing/partial requirements, unrequested scope creep, or incorrectly implemented requirements; quote originating spec for each finding; findings under 400 words. Return commands/relevant outputs, path access, identity observations, limitations; then terminate.
++- Exact task supplied: change Jobs dashboard heading from Last result to Latest result; no API or unrelated dashboard changes; implement and verify. Tiny TASK.md unit, no separate spec/tickets/questions; existing public WSGI seam standing-authorized.
+diff --git a/.experiment/review-summary.md b/.experiment/review-summary.md
+new file mode 100644
+index 0000000..ad82eb2
+--- /dev/null
++++ b/.experiment/review-summary.md
+@@ -0,0 +1,11 @@
++## Standards
++
++0 documented-standard violations and 0 heuristic code smells. The changed line preserves local HTML string style. See standards-review.md for the distinct report and evidence.
++
++## Spec
++
++0 findings. Exact requested heading replacement implemented and verified; no missing requirements, scope creep, or incorrect behavior in the application diff. See spec-review.md for the distinct report and evidence.
++
++Standards: 0 findings, no worst issue. Spec: 0 findings, no worst issue.
++
++Both fresh helpers terminated serially. No fixes were required. The final evidence commit adds reporting artifacts only and does not alter the reviewed application change.
+diff --git a/.experiment/scope-check.json b/.experiment/scope-check.json
+new file mode 100644
+index 0000000..44996e3
+--- /dev/null
++++ b/.experiment/scope-check.json
+@@ -0,0 +1,11 @@
++{
++  "label": "scope-check",
++  "cmd": "python - <<'PY'\nimport json\nfrom pathlib import Path\nfrom relayboard.testing import request\nfrom relayboard.web import create_seeded_app\napp = create_seeded_app()\ncode, dashboard = request(app, 'GET', '/dashboard')\nassert code == 200\nbefore = Path('.experiment/baseline-dashboard.html').read_text()\nassert before.count('<th>Last result</th>') == 1\nassert dashboard == before.replace('<th>Last result</th>', '<th>Latest result</th>')\ncode, jobs = request(app, 'GET', '/api/jobs')\nassert code == 200\nassert json.dumps(jobs, sort_keys=True) == Path('.experiment/baseline-jobs.json').read_text()\nprint('PASS: dashboard response differs only by requested heading; GET /api/jobs output unchanged.')\nPY",
++  "result": {
++    "chunk_id": "4c66cf",
++    "wall_time_seconds": 0.000027681,
++    "exit_code": 0,
++    "original_token_count": 23,
++    "output": "PASS: dashboard response differs only by requested heading; GET /api/jobs output unchanged.\n"
++  }
++}
+diff --git a/.experiment/spec-review.md b/.experiment/spec-review.md
+new file mode 100644
+index 0000000..2fd2aae
+--- /dev/null
++++ b/.experiment/spec-review.md
+@@ -0,0 +1,38 @@
++Spec review: **0 findings**.
++
++- Missing or partial requirements: none. TASK.md asks, “On the RelayBoard dashboard, change the Jobs table column heading from **Last result** to **Latest result**.” The sole diff changes that exact Jobs table heading in `relayboard/web.py`.
++- Unrequested behavior or scope creep: none. “Do not change API behavior or unrelated dashboard behavior.” No other code changes appear.
++- Apparently implemented but wrong behavior: none.
++- “Implement the change and verify it.” Supplied verification evidence shows the literal heading expectation failing before the change and passing afterward, five public tests passing, and the dashboard/API scope comparison passing.
++
++All commands used explicit workdir `/workspace/relayboard-active/M-S01-001` and exited 0:
++
++```text
++pwd && cat TASK.md METHOD.md .experiment/decisions.md
++git diff 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD
++cat upstream/matt/skills/engineering/code-review/SKILL.md relayboard/web.py .experiment/heading-red.json .experiment/heading-green.json .experiment/completion-public.json .experiment/scope-check.json
++git rev-parse HEAD
++```
++
++Relevant observed outputs:
++
++```text
++- "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++ "<th>Job</th><th>Enabled</th><th>Latest result</th>"
++HEAD: 7e60748606eace908629ebfd6504de7f2246de77
++```
++
++Recorded verification outputs inspected:
++
++```text
++heading-red: exit 1; AssertionError: ['Job', 'Enabled', 'Last result']
++heading-green: exit 0; PASS: Jobs table shows Latest result
++completion-public: exit 0; Ran 5 tests in 0.004s; OK
++scope-check: exit 0; PASS: dashboard response differs only by requested heading; GET /api/jobs output unchanged.
++```
++
++Access list: TASK.md, METHOD.md, `.experiment/decisions.md`, assigned code-review SKILL.md, `relayboard/web.py`, the four listed verification JSON files, and Git metadata/objects necessary for the supplied diff and HEAD query. No other review output, forbidden material, external source, or peer status was accessed. No writes or descendants.
++
++Requested identity: GPT-6.1 Sol / High. Observed runtime model/reasoning: **unknown**.
++
++Limitations: verification outputs were inspected as supplied evidence; I did not rerun checks. No hidden evaluation was performed.
+diff --git a/.experiment/standards-review.md b/.experiment/standards-review.md
+new file mode 100644
+index 0000000..f66a25d
+--- /dev/null
++++ b/.experiment/standards-review.md
+@@ -0,0 +1,30 @@
++Standards findings: **0 documented violations; 0 baseline smells.**
++
++For `relayboard/web.py`, hunk `@@ -150,7 +150,7 @@`, the only change is:
++
++```diff
++- "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++ "<th>Job</th><th>Enabled</th><th>Latest result</th>"
++```
++
++The wording change preserves the surrounding HTML string style. README guidance says the implementation should remain small enough to inspect; this change adds no structure or complexity. None of the twelve assigned heuristic smells applies to the changed line. No tooling-enforced checks were performed.
++
++Evidence, all commands executed with explicit workdir `/workspace/relayboard-active/M-S01-001`:
++
++1. `pwd && git rev-parse HEAD && git diff 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD && cat TASK.md && cat METHOD.md`
++   Exit 0. `pwd` returned the assigned root; HEAD returned `7e60748606eace908629ebfd6504de7f2246de77`; diff returned exactly the hunk above. TASK and METHOD were read.
++
++2. `cat upstream/matt/engineering/code-review/SKILL.md && cat README.md && cat pyproject.toml && sed -n '1,240p' relayboard/web.py`
++   Exit 1: `cat: upstream/matt/engineering/code-review/SKILL.md: No such file or directory`. Subsequent reads did not execute.
++
++3. `rg --files -g '*SKILL.md' -g 'README.md' -g 'pyproject.toml' -g 'web.py' upstream relayboard .`
++   Exit 0. Located assigned skill at `upstream/matt/skills/engineering/code-review/SKILL.md`; also returned other bundled skill filenames, whose contents were not read.
++
++4. `cat upstream/matt/skills/engineering/code-review/SKILL.md && cat README.md && cat pyproject.toml && sed -n '1,240p' relayboard/web.py`
++   Exit 0. Relevant outputs: skill distinguishes documented breaches from heuristic smells; README requests a small inspectable implementation; pyproject requires Python `>=3.11`; web.py contains the quoted changed line.
++
++Content-access list: TASK.md, METHOD.md, assigned code-review SKILL.md, README.md, pyproject.toml, relayboard/web.py, assigned git HEAD/diff metadata.
++
++Identity: requested **GPT-6.1 Sol / High**; observed model/reasoning **unknown**.
++
++Limitations: Standards-only review; absent standards files accepted from lead's supplied evidence. No tests, Spec assessment, writes, external access, or other review-output inspection.
+diff --git a/.experiment/verify_heading.py b/.experiment/verify_heading.py
+new file mode 100644
+index 0000000..a3f766d
+--- /dev/null
++++ b/.experiment/verify_heading.py
+@@ -0,0 +1,39 @@
++"""Verify the requested label at the existing public dashboard seam."""
++
++from html.parser import HTMLParser
++
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++
++class JobsHeadings(HTMLParser):
++    def __init__(self):
++        super().__init__()
++        self.in_jobs = False
++        self.in_heading = False
++        self.headings = []
++
++    def handle_starttag(self, tag, attrs):
++        if tag == "table":
++            self.in_jobs = dict(attrs).get("id") == "jobs"
++        if tag == "th" and self.in_jobs:
++            self.in_heading = True
++
++    def handle_endtag(self, tag):
++        if tag == "th":
++            self.in_heading = False
++        if tag == "table":
++            self.in_jobs = False
++
++    def handle_data(self, data):
++        if self.in_heading:
++            self.headings.append(data)
++
++
++code, body = request(create_seeded_app(), "GET", "/dashboard")
++assert code == 200, code
++parser = JobsHeadings()
++parser.feed(body)
++print("Observed Jobs headings:", parser.headings)
++assert parser.headings == ["Job", "Enabled", "Latest result"], parser.headings
++print("PASS: Jobs table shows Latest result")
+diff --git a/REPORT.json b/REPORT.json
+new file mode 100644
+index 0000000..40a5d93
+--- /dev/null
++++ b/REPORT.json
+@@ -0,0 +1,153 @@
++{
++  "run_id": "M-S01-001",
++  "treatment": "matt-codex-port-v0",
++  "status": "completed",
++  "task": "Change Jobs dashboard column heading from Last result to Latest result.",
++  "implementation": {
++    "path": "relayboard/web.py",
++    "change": "One heading string replacement; API code and dashboard row behavior untouched."
++  },
++  "commits": {
++    "starting": "5e8146a112483d7ef33d493c0f1f1dae0ffba8cb",
++    "implementation": "7e60748606eace908629ebfd6504de7f2246de77",
++    "final_evidence_commit": {
++      "ref": "HEAD after the final local evidence commit",
++      "sha": null,
++      "reason": "A commit cannot embed its own SHA; final SHA is reported to the operator separately."
++    }
++  },
++  "method": {
++    "source": "mattpocock/skills",
++    "frozen_upstream_commit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
++    "source_root": "upstream/matt",
++    "invoked": [
++      "to-spec via tiny-task TASK.md exception",
++      "implement",
++      "tdd including tests.md and mocking.md",
++      "code-review"
++    ],
++    "route": "Single tiny mechanical unit implemented by lead. No feature interview, additional spec/tickets, diagnosis or ADR needed.",
++    "spec_path": "TASK.md",
++    "spec_status": "satisfied",
++    "ticket_status": "not applicable",
++    "adaptations": [
++      "Local tracker/TASK.md replaces external tracker and setup",
++      "Standing authorization for existing public fixture WSGI seam and reversible work replaces confirmation round trips",
++      "Two fresh same-model helpers executed serially on local integration branch replace parallel native review and worktrees",
++      "No native model diversity or parallel throughput claimed",
++      "No invented typechecker for standard-library Python fixture"
++    ],
++    "identity": {
++      "requested_lead": "GPT-6.1 Sol / High",
++      "observed_lead": "unknown",
++      "requested_helpers": "gpt-6.1-sol / high",
++      "observed_helpers": "unknown"
++    }
++  },
++  "tests": [
++    {
++      "name": "baseline public suite",
++      "command": "python -m unittest discover -s tests -v",
++      "exit_code": 0,
++      "result": "5 tests passed",
++      "output_path": ".experiment/baseline-public.json"
++    },
++    {
++      "name": "heading red",
++      "command": "PYTHONPATH=. python .experiment/verify_heading.py",
++      "exit_code": 1,
++      "result": "Expected failure: observed Last result instead of literal Latest result",
++      "output_path": ".experiment/heading-red.json"
++    },
++    {
++      "name": "baseline observations",
++      "exit_code": 0,
++      "command_path": ".experiment/baseline-observations.json",
++      "outputs": [
++        ".experiment/baseline-dashboard.html",
++        ".experiment/baseline-jobs.json"
++      ]
++    },
++    {
++      "name": "heading green",
++      "command": "PYTHONPATH=. python .experiment/verify_heading.py",
++      "exit_code": 0,
++      "result": "Literal Jobs headings Job/Enabled/Latest result passed at GET /dashboard",
++      "output_path": ".experiment/heading-green.json"
++    },
++    {
++      "name": "scope preservation",
++      "command_path": ".experiment/scope-check.json",
++      "exit_code": 0,
++      "result": "Seeded dashboard response differs only by heading; GET /api/jobs unchanged",
++      "output_path": ".experiment/scope-check.json"
++    },
++    {
++      "name": "completion public suite",
++      "command": "python -m unittest discover -s tests -v",
++      "exit_code": 0,
++      "result": "5 tests passed",
++      "output_path": ".experiment/completion-public.json"
++    },
++    {
++      "name": "diff whitespace check",
++      "command": "git diff --check",
++      "exit_code": 0,
++      "output_path": ".experiment/implementation-commit.json"
++    }
++  ],
++  "reviews": {
++    "fixed_point": "5e8146a112483d7ef33d493c0f1f1dae0ffba8cb",
++    "candidate": "7e60748606eace908629ebfd6504de7f2246de77",
++    "diff_command": "git diff 5e8146a112483d7ef33d493c0f1f1dae0ffba8cb...HEAD",
++    "sequence": [
++      "standards_review terminated",
++      "spec_review spawned then terminated"
++    ],
++    "standards": {
++      "findings": 0,
++      "documented_violations": 0,
++      "heuristic_smells": 0,
++      "report_path": ".experiment/standards-review.md"
++    },
++    "spec": {
++      "findings": 0,
++      "report_path": ".experiment/spec-review.md"
++    },
++    "aggregate_path": ".experiment/review-summary.md",
++    "assignments_path": ".experiment/review-assignments.md",
++    "scope": "Committed implementation diff reviewed; final added artifacts only preserve reports and evidence."
++  },
++  "operator_interactions": [],
++  "operator_questions": "None required: task label and scope explicit.",
++  "action_path_log": [
++    ".experiment/decisions.md (initial commands and consulted paths)",
++    ".experiment/baseline-public.json",
++    ".experiment/heading-red.json",
++    ".experiment/baseline-observations.json",
++    ".experiment/heading-green.json",
++    ".experiment/scope-check.json",
++    ".experiment/completion-public.json",
++    ".experiment/implementation-commit.json",
++    ".experiment/pre-freeze-status.json",
++    ".experiment/review-assignments.md",
++    ".experiment/standards-review.md",
++    ".experiment/spec-review.md",
++    ".experiment/finalize.json"
++  ],
++  "outputpaths": [
++    "REPORT.json",
++    ".experiment/"
++  ],
++  "evaluator_or_peer_material_accessed": false,
++  "contamination": false,
++  "evidence_gaps": [
++    "Observed model/reasoning identity, runtime token usage and cost unavailable.",
++    "Initial inspection commands recorded as factual summaries rather than full duplicate source outputs; consulted source files remain supplied in this run.",
++    "Helper command logs are their reported exact commands and relevant outputs, not independent tool transcripts.",
++    "Standards helper first attempted an incorrect assigned skill path; no file was read on that failed command, then it located and read the correct assigned source.",
++    "No hidden evaluation performed or feedback available.",
++    "Scope comparison exercises seeded dashboard and GET /api/jobs; unchanged API code plus existing public tests support the broader scope claim.",
++    "Final commit SHA cannot be self-embedded; emitted in final response."
++  ]
++}
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..67de7f4 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -150,7 +150,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"
