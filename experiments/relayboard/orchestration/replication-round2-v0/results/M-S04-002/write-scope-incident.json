@@ -1,0 +1,12 @@
+{
+  "run_id": "M-S04-002",
+  "observed_at": "2026-10-07 13:35:07 UTC",
+  "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+  "type": "WRITE_SCOPE_DEVIATION",
+  "reported_action": "python -m json.tool .experiment/REPORT.json > /tmp/M-S04-002-report-validated.json",
+  "external_artifact": "/tmp/M-S04-002-report-validated.json",
+  "content_scope": "Own run's existing report only; no outside/peer/evaluator material read or received.",
+  "worker_evidence_commit_before_ruling": "eb19dddaa944c4308148ea5842ea06c6bea229a2",
+  "disposition": "Preserve original deviation and ruling append-only; evidence-only commit then terminate. Orchestrator archives external own report afterward. No contamination established; no retry, implementation/test/hidden guidance.",
+  "frozen_protocol_unchanged": true
+}
