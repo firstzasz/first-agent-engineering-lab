@@ -1,0 +1,6 @@
+test_pause_skips_scheduled_starts_without_creating_runs (test_pause.PauseJobTests.test_pause_skips_scheduled_starts_without_creating_runs) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

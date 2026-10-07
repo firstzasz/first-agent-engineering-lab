@@ -1,0 +1,16 @@
+test_dashboard_and_job_listing_show_pause_without_losing_last_result (test_pause.PauseJobTests.test_dashboard_and_job_listing_show_pause_without_losing_last_result) ... FAIL
+test_pause_skips_scheduled_starts_without_creating_runs (test_pause.PauseJobTests.test_pause_skips_scheduled_starts_without_creating_runs) ... ok
+test_resume_allows_only_future_scheduled_starts_and_preserves_enabled (test_pause.PauseJobTests.test_resume_allows_only_future_scheduled_starts_and_preserves_enabled) ... ok
+
+======================================================================
+FAIL: test_dashboard_and_job_listing_show_pause_without_losing_last_result (test_pause.PauseJobTests.test_dashboard_and_job_listing_show_pause_without_losing_last_result)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/relayboard-active/M-S02-001/tests/test_pause.py", line 68, in test_dashboard_and_job_listing_show_pause_without_losing_last_result
+    self.assertIn("<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>", dashboard)
+AssertionError: '<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>' not found in "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>succeeded</td></tr></tbody></table></body></html>"
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.003s
+
+FAILED (failures=1)

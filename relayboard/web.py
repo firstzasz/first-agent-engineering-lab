@@ -54,6 +54,24 @@ class RelayBoardApp:
             if (
                 method == "POST"
                 and path.startswith("/api/jobs/")
+                and path.endswith(("/pause", "/resume"))
+            ):
+                job_id = path.split("/")[3]
+                action = path.rsplit("/", 1)[1]
+                actions = {
+                    "pause": self.service.pause_job,
+                    "resume": self.service.resume_job,
+                }
+                actions[action](job_id)
+                return self._json(
+                    start_response,
+                    200,
+                    {"job": self._job_json(self.store.get_job(job_id))},
+                )
+
+            if (
+                method == "POST"
+                and path.startswith("/api/jobs/")
                 and path.endswith("/enabled")
             ):
                 job_id = path.split("/")[3]
@@ -141,6 +159,7 @@ class RelayBoardApp:
                 "<tr>"
                 f"<td>{html.escape(job.name)}</td>"
                 f"<td>{'yes' if job.enabled else 'no'}</td>"
+                f"<td>{'yes' if job.paused else 'no'}</td>"
                 f"<td>{html.escape(last)}</td>"
                 "</tr>"
             )
@@ -150,7 +169,7 @@ class RelayBoardApp:
             "<html><head><title>RelayBoard</title></head><body>"
             "<h1>Jobs</h1>"
             "<table id='jobs'><thead><tr>"
-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+            "<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>"
             "</tr></thead><tbody>"
             + "".join(rows)
             + "</tbody></table></body></html>"
@@ -163,6 +182,7 @@ class RelayBoardApp:
             "name": job.name,
             "enabled": job.enabled,
             "max_attempts": job.max_attempts,
+            "paused": job.paused,
         }
 
     @staticmethod

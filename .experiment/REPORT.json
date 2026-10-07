@@ -1,0 +1,273 @@
+{
+  "contestant": "M-S02-001",
+  "treatment": "matt-codex-port-v0",
+  "status": "completed",
+  "task": "Add ability to pause and resume a RelayBoard Job via POST pause/resume; paused Jobs do not start normal scheduled work.",
+  "workspace": "/workspace/relayboard-active/M-S02-001",
+  "method": {
+    "path": "METHOD.md",
+    "frozen_upstream": "mattpocock/skills",
+    "source_revision": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+    "binding": "Explicit non-native Codex port, applied unchanged",
+    "route": [
+      "read TASK/GLOSSARY/public code/tests",
+      "grill-with-docs: grilling + domain-modeling",
+      "operator frontier questions and shared-understanding confirmation",
+      "to-spec",
+      "implement, one lead unit",
+      "tdd public WSGI/real SQLite vertical cycles",
+      "code-review fixed initial commit: fresh Standards then fresh Spec helper",
+      "review-stage fixes and full public verification",
+      "local commits and report"
+    ],
+    "tracker": ".scratch/work/spec.md",
+    "ticket_graph": null,
+    "ticket_graph_reason": "One small end-to-end lead implementation unit; no independent delivery units or blocking edges. No to-tickets/implement-spec ceremony useful.",
+    "record": ".experiment/method-record.md",
+    "adaptations": [
+      "Explicit skill file reads replace native Claude skill invocation",
+      "Local files replace external issue tracker",
+      "Existing public WSGI/SQLite seams have standing reversible authorization",
+      "Fresh helper reviews sequential in same local integration branch, no native parallel throughput or model diversity",
+      "Local commits/orchestrator publication replace PR shipping and external issue closure"
+    ]
+  },
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "observed_model": null,
+    "observed_reasoning": null,
+    "usage": null
+  },
+  "commits": {
+    "starting_commit": "1c8287bdf072be0b0a4248cded22951b95568928",
+    "implementation_commit": "ea2567c20ba882bc5569e96aff020d4ab0b05f3c",
+    "review_fix_candidate_commit": "6394689f9a1823c305dee3411d0edbe60cce8a50",
+    "candidate_commit": "6394689f9a1823c305dee3411d0edbe60cce8a50",
+    "report_commit": "The enclosing final evidence-only local commit; SHA supplied in final response and recoverable with git rev-parse HEAD.",
+    "remote_operations": false,
+    "commit_list_path": ".experiment/local-commits.txt",
+    "candidate_diff_path": ".experiment/candidate.diff",
+    "reviewed_diff_path": ".experiment/review-start.diff"
+  },
+  "spec": {
+    "path": ".scratch/work/spec.md",
+    "status": "complete",
+    "glossary": "GLOSSARY.md",
+    "adrs": [],
+    "adr_reason": "No hard-to-reverse surprising tradeoff; separate state representation is reversible."
+  },
+  "decisions": {
+    "operator_product_semantics": [
+      "Scheduled starts while paused are skipped, never queued",
+      "Manual Runs remain allowed",
+      "In-progress Runs continue to terminal outcomes with retries and alerts preserved",
+      "Resume affects future schedule activity only, no catch-up"
+    ],
+    "engineering_choices": [
+      "Independent persistent paused boolean default false; enabled preserved",
+      "Idempotent pause/resume including disabled Jobs",
+      "200 with existing Job wrapper, 404 unknown Job, scheduled rejection uses existing 409 scheduling conflict",
+      "Paused in Job JSON and separate dashboard column preserving last result",
+      "Backward-compatible default model field and legacy schema migration"
+    ],
+    "not_operator_guidance": [
+      "representation",
+      "idempotence",
+      "response shape",
+      "dashboard presentation"
+    ],
+    "existing_alert_behavior": "Preserved as implemented, including one alert on retry failure and another on terminal failure; no reported-bug route or unrelated fix."
+  },
+  "operator_interactions": {
+    "record": ".experiment/operator-interactions.md",
+    "round_1": "Q1\u2013Q4 asked before product answers; Q1/Q4 settled, Q2/Q3 delegated to engineering judgment",
+    "confirmation": "Explicit shared-understanding confirmation received before implementation",
+    "administrative_scope_event": "Spec helper initially stopped/self-flagged same-arm filename discovery. Lead paused, reported, preserved. Operator ruled filenames allowlisted and no forbidden exposure established, authorized same-helper continuation of incomplete Spec review. Original report retained.",
+    "product_guidance_beyond_requested_semantics": false
+  },
+  "verification": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "result": "pass",
+      "tests_run": 5,
+      "exit_code": 0,
+      "output_path": ".experiment/baseline-tests.txt",
+      "notes": "Test output shows OK; initial shell command ended with cat."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "expected failure",
+      "tests_run": 1,
+      "exit_code": null,
+      "output_path": ".experiment/tdd-01-red.txt",
+      "notes": "404 != 200. unittest exit not directly retained because original shell command ended with cat (shell exit 0); actual failing output preserved."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "pass",
+      "tests_run": 1,
+      "exit_code": 0,
+      "output_path": ".experiment/tdd-01-green.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "expected failure",
+      "tests_run": 2,
+      "exit_code": 1,
+      "output_path": ".experiment/tdd-02-red.txt",
+      "notes": "Missing resume route returns 404; paused scheduled start remains rejected."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "pass",
+      "tests_run": 2,
+      "exit_code": 0,
+      "output_path": ".experiment/tdd-02-green.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "expected failure",
+      "tests_run": 3,
+      "exit_code": 1,
+      "output_path": ".experiment/tdd-03-red.txt",
+      "notes": "Paused dashboard header/column absent."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "pass",
+      "tests_run": 3,
+      "exit_code": 0,
+      "output_path": ".experiment/tdd-03-green.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "pass",
+      "tests_run": 4,
+      "exit_code": 0,
+      "output_path": ".experiment/preservation-04.txt",
+      "notes": "Active Runs/manual/retries/alerts preservation already green, no manufactured red."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "pass",
+      "tests_run": 5,
+      "exit_code": 0,
+      "output_path": ".experiment/preservation-05.txt",
+      "notes": "Existing not-found behavior already green, no manufactured red."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "expected error",
+      "tests_run": 6,
+      "exit_code": 1,
+      "output_path": ".experiment/tdd-06-red.txt",
+      "notes": "Legacy Job schema lacks paused; public GET /api/jobs raises IndexError."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_pause.py -v",
+      "result": "pass",
+      "tests_run": 6,
+      "exit_code": 0,
+      "output_path": ".experiment/tdd-06-green.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "result": "pass",
+      "tests_run": 11,
+      "exit_code": 0,
+      "output_path": ".experiment/full-public-tests-before-review.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "result": "pass",
+      "tests_run": 11,
+      "exit_code": 0,
+      "output_path": ".experiment/full-public-tests-final.txt",
+      "notes": "After legitimate review-stage refactors; no further source changes."
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass",
+      "tests_run": null,
+      "exit_code": 0,
+      "output_path": ".experiment/diff-check-final.txt",
+      "notes": "Empty output means no whitespace errors; after final code refactors."
+    }
+  ],
+  "reviews": {
+    "fixed_point": "1c8287bdf072be0b0a4248cded22951b95568928",
+    "reviewed_candidate": "ea2567c20ba882bc5569e96aff020d4ab0b05f3c",
+    "execution": "strictly sequential, same requested model/reasoning, fresh fork_turns none, read-only, no descendants",
+    "assignments_path": ".experiment/review-assignments.json",
+    "standards": {
+      "task": "/root/contestant_m_s02_001/standards_review",
+      "hard_breaches": 0,
+      "heuristic_findings": 2,
+      "severity": "low",
+      "findings": [
+        "Duplicate pause/resume route shape",
+        "Duplicate Job row mapping"
+      ],
+      "resolution": "Both addressed by lead review-stage refactors",
+      "report": ".experiment/standards-review.md"
+    },
+    "spec": {
+      "task": "/root/contestant_m_s02_001/spec_review",
+      "findings": 0,
+      "report": ".experiment/spec-review.md",
+      "interruption_and_ruling": ".experiment/spec-review-interruption.md"
+    },
+    "aggregation": ".experiment/reviews.md",
+    "helpers_completed_before_final": true,
+    "independent_review_of_post_review_refactors": false,
+    "post_review_verification": "Lead inspected the refactor diff and all 11 public tests passed."
+  },
+  "action_path_log": ".experiment/activity.jsonl",
+  "available_commands_and_path_access": {
+    "tools_used": [
+      "functions.exec tools.exec_command",
+      "functions.exec tools.apply_patch",
+      "functions.exec tools.skills__read",
+      "ALL_TOOLS name discovery only",
+      "collaboration.send_message",
+      "collaboration.spawn_agent",
+      "collaboration.followup_task",
+      "collaboration.wait_agent"
+    ],
+    "local_commands_used": [
+      "pwd",
+      "rg --files",
+      "cat",
+      "sed (review helpers)",
+      "mkdir",
+      "python (standard-library scripts and unittest)",
+      "git status/rev-parse/diff/log/add/commit"
+    ],
+    "scope": "All shell commands explicit assigned workdir. No siblings/control/lab history beyond supplied initial local commit and contestant commits.",
+    "extra_skill_read": {
+      "source": "c3/cloud-environment-runtime",
+      "reason": "Mandatory developer instruction to read at start of managed environment work",
+      "operations": "SKILL.md read and environment_status tool name discovered; no status call, network policy, credentials, secrets or environment values inspected. Benchmark methodology remained assigned frozen Matt binding."
+    }
+  },
+  "evaluator_or_peer_material_accessed": false,
+  "contamination": {
+    "established": false,
+    "helper_initial_self_flag": true,
+    "nature": "Allowlisted same-arm bundled skill filenames only, no contents in initial stopped command",
+    "ruling": "Operator administrative scope ruling says no evaluator/oracle/reference solution/unassigned methodology/peer exposure established",
+    "preserved_original": ".experiment/spec-review-interruption.md",
+    "silent_retry": false
+  },
+  "limitations_and_evidence_gaps": [
+    "Requested model/reasoning recorded; observed identity and usage not available, unknown",
+    "Spec helper original discovery stdout was not returned; its exact command and filename-only exposure report are preserved, bounded by supplied inventory",
+    "Review helpers static only; no independent runtime test claims",
+    "No independent helper review of final small refactors; lead diff inspection and full public tests verify them",
+    "First red cycle preserved failing output but shell cat masked unittest exit status",
+    "Local activity and helper assignment records summarize some long script/read commands rather than reproducing every tool-call byte; public test stdout and review reports are retained",
+    "No hidden checks or feedback used; production/concurrency behavior outside local standard-library fixture not claimed"
+  ],
+  "prohibited_actions_performed": []
+}
