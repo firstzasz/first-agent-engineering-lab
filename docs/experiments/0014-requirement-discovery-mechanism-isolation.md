@@ -1,7 +1,7 @@
 # EXP-0014: Next Cohort Design — Requirement-Discovery Mechanism Isolation
 
 Date: 2026-10-08
-Status: PLANNED; no treatment run started
+Status: **FROZEN PRE-RUN; no treatment run started**
 
 ## Why not a full Round 3 yet
 
@@ -47,7 +47,9 @@ No explicit decision frontier or grilling rounds.
 
 ### M2 — Decision frontier only
 
-Provide only a compact requirement-discovery procedure:
+Provide only a compact requirement-discovery procedure. M2 necessarily uses a minimal binary distinction between evidence/reversible judgment and operator-owned product behavior so a frontier can exist; unlike M1 it does **not** provide the explicit five-way authority taxonomy. This lets M3 test the incremental combination rather than pretending the mechanisms are perfectly orthogonal.
+
+Procedure:
 
 1. list unresolved behavior decisions that affect externally visible semantics;
 2. classify each as agent-answerable fact/engineering choice versus operator-owned product decision;
@@ -151,3 +153,17 @@ Freeze M0–M3 treatment packets and run this 12-run mechanism cohort before spe
 If the decision-frontier mechanism replicates, then design multiple new ambiguous-requirement scenarios to test transfer.
 
 No production adoption follows from this experiment without a separate proposal/ADR and FIRST architecture review.
+
+
+## Pre-run freeze
+
+The cohort is frozen on `research/exp0014-requirement-mechanisms` before any contestant run.
+
+Durable control plane:
+
+- [cohort definition](../../experiments/relayboard/orchestration/requirement-mechanisms-v0/COHORT.json)
+- [execution order](../../experiments/relayboard/orchestration/requirement-mechanisms-v0/EXECUTION_ORDER.json)
+- [pre-run audit](../../experiments/relayboard/orchestration/requirement-mechanisms-v0/PRE_RUN_AUDIT.json)
+- [orchestrator handoff](../../experiments/relayboard/orchestration/requirement-mechanisms-v0/ORCHESTRATOR_HANDOFF.md)
+
+M0–M3 are research mechanisms only. No result can automatically create or modify FIRST-mode. Passing the predeclared gate grants only eligibility for a separate transfer experiment. FIRST adoption requires a later FIRST-specific proposal and explicit user approval.
