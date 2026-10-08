@@ -319,3 +319,21 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 Status: **IMPLEMENTED and VERIFIED within the frozen fixture scope**. Twelve dispositions: eleven evaluated PASS and one excluded host failure (P-S02-002), preserved without retry. Ten valid matched Round 1/Round 2 pairs pass acceptance; overhead and elicitation show both repeated and variable behavior. Matt S02 discovery is 4/4 in both rounds; FIRST 3→2 and Neutral 0→3. No universal winner, causal speed/cost claim or main merge.
 
 See [EXP-0013](./docs/experiments/0013-relayboard-replication-round2.md), [cross-round report](./experiments/relayboard/orchestration/replication-round2-v0/cross-round-report.md), [profiles](./experiments/relayboard/orchestration/replication-round2-v0/profiles.json) and [final audit](./experiments/relayboard/orchestration/replication-round2-v0/final-audit.json). No contestant remains pending. Future cohorts must preserve existing exclusions and freeze new controls before outcomes.
+
+
+## EXP-0014 — Requirement-discovery mechanism isolation
+
+Status: **FROZEN PRE-RUN; no contestant outcome observed**
+
+Rather than running a third full system-level 4×3 comparison, the next cohort isolates requirement-discovery mechanisms on S02-v0.1:
+
+- M0: neutral host control;
+- M1: explicit authority classification only;
+- M2: recomputed product-decision frontier only;
+- M3: authority classification + frontier.
+
+Three fresh repetitions per arm are predeclared (12 total) with a deterministic frozen execution order and unchanged pilot start state, evaluator, oracle and scoring. The mechanism packets are vendor-neutral and are **not FIRST-mode revisions**.
+
+A passing mechanism becomes eligible only for a later transfer test on new ambiguous-requirement tasks. Nothing is promoted into FIRST automatically.
+
+See [EXP-0014](./docs/experiments/0014-requirement-discovery-mechanism-isolation.md) and the [frozen cohort control plane](./experiments/relayboard/orchestration/requirement-mechanisms-v0/README.md).
