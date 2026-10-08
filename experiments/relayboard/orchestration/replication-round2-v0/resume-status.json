@@ -1,0 +1,32 @@
+{
+  "repository": "firstzasz/first-agent-engineering-lab",
+  "branch": "research/batch-orchestration-round2",
+  "round2_head_before_recovery": "a234ae655c7cd82112548cb5e66f2cfb12c15d1d",
+  "dispositions": {
+    "evaluated_passes": [
+      "F-S04-002",
+      "F-S02-002",
+      "F-S01-002",
+      "M-S04-002",
+      "M-S02-002",
+      "M-S01-002",
+      "P-S04-002"
+    ],
+    "excluded_invalid_host_failure": [
+      "P-S02-002"
+    ],
+    "remaining_unstarted": [
+      "P-S01-002",
+      "N-S04-002",
+      "N-S02-002",
+      "N-S01-002"
+    ]
+  },
+  "P_S02_002": {
+    "status": "INVALID_HOST_FAILURE",
+    "no_retry": true,
+    "reason": "resumed host lacked prior contexts/work area/local history; no recoverable frozen candidate",
+    "public_and_hidden_results": "none; checkpoints are not independently verified outcome evidence"
+  },
+  "resume_instruction": "Continue fixed order from P-S01-002. Do not restart P-S02-002. Preserve frozen inputs and Round 1/Round 2 existing evidence. No merges to main."
+}
