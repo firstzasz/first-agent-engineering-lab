@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "scope": "Available collaboration payloads from the four resumed runs, preserved from received messages; not an exhaustive raw host/tool transcript.",
+  "preserved_at": "2026-10-08 02:41:07 UTC",
+  "original_host_message_timestamps": "not exported; do not infer from preservation time",
+  "checkpoints": [
+    {
+      "source": "/root/p_s01_002",
+      "run_id": "P-S01-002",
+      "message": "P-S01-002 checkpoint. Assigned Poteto Mode Feature route read. Mechanical one-file exception selected with required fresh serial review pending. Baseline GET /dashboard has Last result; focused requested-heading check fails as expected; full public suite passes 5/5. No product questions or external access."
+    },
+    {
+      "source": "/root/p_s01_002",
+      "run_id": "P-S01-002",
+      "message": "P-S01-002 checkpoint. Candidate is a one-line relayboard/web.py heading replacement. Focused public WSGI check passes and proves entire dashboard output is unchanged except heading; GET /api/jobs matches baseline; all 5 public tests pass; git diff --check passes. Required fresh serial gpt-6.1-sol/high helper /root/p_s01_002/scoped_review is reviewing code and trail read-only. No other helpers spawned."
+    },
+    {
+      "source": "/root/n_s04_002",
+      "run_id": "N-S04-002",
+      "message": "N-S04-002 checkpoint: The retry branch in RelayBoardService.record_attempt emits run_failed while the Run is still running, then terminal failure emits it again. GLOSSARY.md defines alerts after terminal outcomes. I will remove the premature emission and verify retry exhaustion, retry recovery, and independent Runs using local public tests."
+    },
+    {
+      "source": "/root/n_s04_002",
+      "run_id": "N-S04-002",
+      "message": "N-S04-002 checkpoint: Baseline public suite passed (5 tests). Added public regressions reproduced the issue before the fix (9 tests, 8 failing assertions/subtests). Removing the retry-branch emission makes all 9 tests pass, including eventual success with no alert, retry exhaustion, same-job distinct Runs, terminal rejection, and WSGI alert visibility. Preparing local commits and factual .experiment evidence."
+    },
+    {
+      "source": "/root/n_s02_002",
+      "run_id": "N-S02-002",
+      "message": "N-S02-002 checkpoint: Read only assigned TASK.md, fixture docs/sources/public tests and local Git state. Initial commit verified. Baseline public suite passes 5/5. No contamination or scope incident. Waiting for the product semantics answer before dependent implementation; evidence started in .experiment/REPORT.json."
+    },
+    {
+      "source": "/root/n_s02_002",
+      "run_id": "N-S02-002",
+      "message": "N-S02-002 checkpoint: Implemented persisted independent pause state, pause/resume service + POST endpoints, scheduler guard, JSON/dashboard visibility, and legacy SQLite migration. Used your confirmed semantics; manual/active Runs and retries/alerts preserved. Public verification passes 16/16 (5 baseline + 11 added); git diff --check passes. Reviewing and committing local candidate/evidence next. No forbidden access or contamination."
+    },
+    {
+      "source": "/root/n_s01_002",
+      "run_id": "N-S01-002",
+      "message": "N-S01-002 checkpoint: changed only the Jobs heading literal in relayboard/web.py from Last result to Latest result. All 5 public unittest tests pass; a local WSGI request confirms HTTP 200 and the new heading, and source comparison against the initial commit confirms only that replacement. Recording evidence and committing locally."
+    }
+  ],
+  "operator_exchange": [
+    {
+      "run_id": "N-S02-002",
+      "asked_at_observed": "2026-10-08 02:27:57 UTC",
+      "question": "The task leaves pause semantics open. My proposed behavior is an independent persisted paused flag that blocks new scheduled Runs, permits manual Runs, allows existing Runs/retries/alerts to continue unchanged, preserves enabled state across pause/resume, and shows pause state on the dashboard without changing existing columns. Confirm these semantics or specify differences before I implement dependent behavior.",
+      "question_classifications": [
+        {
+          "item": "new scheduled Runs while paused",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "manual Runs while paused",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "existing in-progress Runs",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "persisted flag and preserving existing enabled state",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        },
+        {
+          "item": "dashboard presentation and retaining columns",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        }
+      ],
+      "frozen_decisions_answered": [
+        "scheduled_start_while_paused",
+        "manual_run_while_paused",
+        "pause_in_progress_run"
+      ],
+      "answer": "For the requested product decisions: an in-progress Run continues to its terminal outcome; scheduled starts while paused are skipped and are not queued; manual Runs while paused are allowed. The persisted representation, enabled-state handling, and dashboard presentation are reversible engineering choices; decide from the assigned task and fixture.",
+      "unasked_frozen_decisions_not_supplied": [
+        "resume_behavior"
+      ],
+      "oracle_ref": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "oracle_blob_sha": "054a302c6233321fa3988ce2f2be4a723039fa80"
+    }
+  ],
+  "completion_observations": [
+    {
+      "agent": "/root/p_s01_002",
+      "helper": "/root/p_s01_002/scoped_review",
+      "all_completed_before_freeze": true,
+      "evidence": "results/P-S01-002/run.json; frozen worker report/helper review in candidate"
+    },
+    {
+      "agent": "/root/n_s04_002",
+      "helpers": [],
+      "completed_before_freeze": true,
+      "evidence": "results/N-S04-002/run.json"
+    },
+    {
+      "agent": "/root/n_s02_002",
+      "helpers": [],
+      "completed_before_freeze": true,
+      "evidence": "results/N-S02-002/run.json"
+    },
+    {
+      "agent": "/root/n_s01_002",
+      "helpers": [],
+      "completed_before_freeze": true,
+      "evidence": "results/N-S01-002/run.json"
+    }
+  ]
+}
