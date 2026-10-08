@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .models import Run
+from .models import Job, Run
 from .store import Store
 
 
@@ -24,10 +24,18 @@ class RelayBoardService:
         job = self.store.get_job(job_id)
         if not job.enabled:
             raise JobNotSchedulable(f"job {job_id} is disabled")
+        if job.paused:
+            raise JobNotSchedulable(f"job {job_id} is paused")
         return self.store.create_run(job_id, "scheduled")
 
     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
         self.store.set_job_enabled(job_id, enabled)
+
+    def pause_job(self, job_id: str) -> Job:
+        return self.store.set_job_paused(job_id, True)
+
+    def resume_job(self, job_id: str) -> Job:
+        return self.store.set_job_paused(job_id, False)
 
     def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
         run = self.store.get_run(run_id)

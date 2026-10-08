@@ -18,7 +18,8 @@ class Store:
                 id TEXT PRIMARY KEY,
                 name TEXT NOT NULL,
                 enabled INTEGER NOT NULL,
-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
+                paused INTEGER NOT NULL DEFAULT 0 CHECK(paused IN (0, 1))
             );
             CREATE TABLE IF NOT EXISTS runs (
                 id TEXT PRIMARY KEY,
@@ -41,6 +42,15 @@ class Store:
             );
             """
         )
+        columns = {
+            row["name"]
+            for row in self.connection.execute("PRAGMA table_info(jobs)")
+        }
+        if "paused" not in columns:
+            self.connection.execute(
+                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL "
+                "DEFAULT 0 CHECK(paused IN (0, 1))"
+            )
         self.connection.commit()
 
     def add_job(
@@ -50,10 +60,12 @@ class Store:
         *,
         enabled: bool = True,
         max_attempts: int = 1,
+        paused: bool = False,
     ) -> Job:
         self.connection.execute(
-            "INSERT INTO jobs(id, name, enabled, max_attempts) VALUES (?, ?, ?, ?)",
-            (job_id, name, int(enabled), max_attempts),
+            "INSERT INTO jobs(id, name, enabled, max_attempts, paused) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (job_id, name, int(enabled), max_attempts, int(paused)),
         )
         self.connection.commit()
         return self.get_job(job_id)
@@ -70,6 +82,7 @@ class Store:
             row["name"],
             bool(row["enabled"]),
             row["max_attempts"],
+            bool(row["paused"]),
         )
 
     def list_jobs(self) -> list[Job]:
@@ -77,7 +90,10 @@ class Store:
             "SELECT * FROM jobs ORDER BY id"
         ).fetchall()
         return [
-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
+            Job(
+                r["id"], r["name"], bool(r["enabled"]),
+                r["max_attempts"], bool(r["paused"]),
+            )
             for r in rows
         ]
 
@@ -86,6 +102,15 @@ class Store:
         self.connection.execute(
             "UPDATE jobs SET enabled = ? WHERE id = ?",
             (int(enabled), job_id),
+        )
+        self.connection.commit()
+        return self.get_job(job_id)
+
+    def set_job_paused(self, job_id: str, paused: bool) -> Job:
+        self.get_job(job_id)
+        self.connection.execute(
+            "UPDATE jobs SET paused = ? WHERE id = ?",
+            (int(paused), job_id),
         )
         self.connection.commit()
         return self.get_job(job_id)

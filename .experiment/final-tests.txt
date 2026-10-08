@@ -1,0 +1,21 @@
+test_dashboard_shows_pause_and_preserves_last_result (test_pause.PauseTests.test_dashboard_shows_pause_and_preserves_last_result) ... ok
+test_enabled_changes_do_not_clear_pause (test_pause.PauseTests.test_enabled_changes_do_not_clear_pause) ... ok
+test_existing_runs_retries_alerts_and_results_are_preserved (test_pause.PauseTests.test_existing_runs_retries_alerts_and_results_are_preserved) ... ok
+test_legacy_schema_migrates_existing_jobs_without_data_loss (test_pause.PauseTests.test_legacy_schema_migrates_existing_jobs_without_data_loss) ... ok
+test_missing_jobs_and_invalid_routes_follow_api_conventions (test_pause.PauseTests.test_missing_jobs_and_invalid_routes_follow_api_conventions) ... ok
+test_pause_is_per_job (test_pause.PauseTests.test_pause_is_per_job) ... ok
+test_pause_resume_api_is_idempotent_and_reports_state (test_pause.PauseTests.test_pause_resume_api_is_idempotent_and_reports_state) ... ok
+test_pause_resume_preserves_enabled_and_retry_policy (test_pause.PauseTests.test_pause_resume_preserves_enabled_and_retry_policy) ... ok
+test_pause_state_is_stored_across_store_reconstruction (test_pause.PauseTests.test_pause_state_is_stored_across_store_reconstruction) ... ok
+test_paused_jobs_allow_manual_runs_even_when_disabled (test_pause.PauseTests.test_paused_jobs_allow_manual_runs_even_when_disabled) ... ok
+test_scheduled_starts_are_skipped_until_resume_without_queuing (test_pause.PauseTests.test_scheduled_starts_are_skipped_until_resume_without_queuing) ... ok
+test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
+test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
+test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
+test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
+test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.009s
+
+OK

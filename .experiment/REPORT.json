@@ -1,0 +1,125 @@
+{
+  "contestant": "N-S02-002",
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "high",
+    "runtime_identity": "independently unverified"
+  },
+  "method": {
+    "assignment": "normal host behavior",
+    "methodology_bundle": null,
+    "source_routes": [
+      "TASK.md",
+      "README.md",
+      "GLOSSARY.md",
+      "pyproject.toml",
+      "relayboard/*.py",
+      "tests/test_public.py"
+    ]
+  },
+  "scope": {
+    "work_area": "/workspace/relayboard-round2-active/N-S02-002",
+    "initial_commit": "6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd",
+    "access_declaration": "Only assigned fixture files and local Git state accessed; no sibling, evaluator, peer, research repository, credential, or unassigned methodology access.",
+    "incidents": [],
+    "contaminated": false
+  },
+  "commands": [
+    {
+      "command": "pwd && rg --files -g 'TASK.md' -g 'AGENTS.md' -g '!\\.git'",
+      "result": "Assigned cwd confirmed; TASK.md found; no AGENTS.md found within area."
+    },
+    {
+      "command": "cat TASK.md && git status --short && rg --files",
+      "result": "Task and fixture inventory read; initial working tree clean."
+    },
+    {
+      "command": "cat README.md GLOSSARY.md pyproject.toml relayboard/models.py relayboard/store.py",
+      "result": "Read allowlisted fixture documentation and storage model."
+    },
+    {
+      "command": "cat relayboard/service.py relayboard/web.py relayboard/testing.py tests/test_public.py relayboard/__init__.py relayboard/__main__.py",
+      "result": "Read allowlisted service, WSGI, testing and entrypoint sources."
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "result": "5 tests passed",
+      "output_file": ".experiment/baseline-tests.txt"
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "result": "16 tests passed (5 existing public tests, 11 added tests)",
+      "output_file": ".experiment/final-tests.txt"
+    },
+    {
+      "command": "git diff --check",
+      "result": "Passed with no output"
+    },
+    {
+      "command": "git diff -- relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py && git status --short",
+      "result": "Reviewed implementation changes and assigned-area working tree"
+    },
+    {
+      "command": "Local Python/SQLite file-backed persistence smoke check",
+      "result": "Paused/resumed state survives connection close/reopen; paused scheduled start rejected; first actual Run remains run-001",
+      "output_file": ".experiment/persistence-smoke.txt"
+    },
+    {
+      "command": "git add assigned implementation, documentation, tests and evidence; git commit",
+      "result": "Implementation and available evidence committed locally",
+      "commit": "11493099ceeed5a99370771ef1aa5b74019c3a50"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Proposed independent persisted paused flag blocking new scheduled Runs; manual Runs and existing Runs/retries/alerts unchanged; enabled state preserved; dashboard gains pause state while retaining existing columns. Confirm or specify differences.",
+      "route": "collaboration.send_message(target=/root), OPERATOR QUESTION N-S02-002",
+      "answer": "OPERATOR ANSWER N-S02-002: an in-progress Run continues to its terminal outcome; scheduled starts while paused are skipped and are not queued; manual Runs while paused are allowed. Persisted representation, enabled-state handling, and dashboard presentation are reversible engineering choices to decide from task and fixture."
+    }
+  ],
+  "checkpoints": [
+    "Baseline public suite: 5 passed. Product semantics question sent before dependent implementation.",
+    "Implementation verified: 16 public/local tests passed, diff check passed, real SQLite close/reopen persistence smoke passed.",
+    "Implementation and available evidence committed locally at 11493099ceeed5a99370771ef1aa5b74019c3a50"
+  ],
+  "helpers": [],
+  "local_commits": [
+    "6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd",
+    "11493099ceeed5a99370771ef1aa5b74019c3a50"
+  ],
+  "unavailable_metrics": [
+    "attested runtime model identity",
+    "raw token counts",
+    "tool counts",
+    "cost",
+    "hidden evaluation results"
+  ],
+  "decisions": [
+    "Use a separate persisted paused boolean, default false; preserve enabled state during pause/resume.",
+    "Pause/resume are idempotent and return current Job using existing API envelope/status conventions.",
+    "Expose paused in job JSON and add a dashboard Paused column without changing existing column semantics.",
+    "Skip scheduled starts through existing JobNotSchedulable/409 path without creating Runs or queued work; manual and active Run/Attempt/alert behavior unchanged.",
+    "Migrate existing SQLite jobs tables with a default-false paused column."
+  ],
+  "changes": [
+    "Job paused state and SQLite schema/migration",
+    "Store and service pause/resume methods",
+    "Scheduled start guard",
+    "POST pause/resume routes and Job JSON",
+    "Dashboard pause column",
+    "PAUSE.md and 11 regression tests"
+  ],
+  "path_action_evidence": {
+    "reads": "Assigned fixture files, assigned local Git state, and own generated evidence only",
+    "writes": "relayboard/{models,store,service,web}.py; tests/test_pause.py; PAUSE.md; .experiment evidence and temporary persistence-smoke database (removed); local Git commit state; Python bytecode generated within assigned area",
+    "network": "None",
+    "helpers": "None",
+    "external_messages": "None; operator exchanges only via collaboration.send_message to /root"
+  },
+  "limitations": [
+    "Only public fixture tests and independently added local tests were run; hidden evaluation is unavailable.",
+    "Default seeded app uses in-memory SQLite as before; persistence across connection close/reopen verified with a file-backed SQLite Store.",
+    "Existing retry/alert behavior intentionally preserved; no unrelated changes."
+  ],
+  "result": "Completed. Candidate and available evidence committed locally; this report-finalization commit is discoverable as final git HEAD."
+}
