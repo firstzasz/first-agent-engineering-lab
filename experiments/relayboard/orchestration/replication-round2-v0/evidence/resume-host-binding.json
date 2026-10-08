@@ -1,0 +1,24 @@
+{
+  "frozen_protocol_unchanged": true,
+  "runner_binding": "Original runtime.py, evaluate_frozen.py, prepare_next.js, launch_prompt.js, capture_publish.js used; frozen evaluator hash asserted.",
+  "evidence_only_adapter_changes": [
+    "persist_result.js queue counts distinguish completed_count=evaluated dispositions, excluded_count, disposition_count; preserve next-run pointers",
+    "exact launch prompt added to new run records",
+    "archive completion messages/checkpoints and requested helper configurations",
+    "final profile/audit builders support excluded host-failure with no candidate instead of assuming 12 candidates"
+  ],
+  "scope": "No task, method, evaluator, scoring, or frozen order changes; no contestant re-entry or retries.",
+  "initial_verified_head": "fbd65b3e6d393d82f19e2ed3e3fdd65a7b9ba60f",
+  "remaining_order": [
+    "P-S01-002",
+    "N-S04-002",
+    "N-S02-002",
+    "N-S01-002"
+  ],
+  "connector_repository_operations": true,
+  "no_repository_clone": true,
+  "procedural_isolation": true,
+  "archived_local_material_removed_before_each_next_delivery": true,
+  "last_run_local_material_removed": true,
+  "runtime_skill": "skill://plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d/cloud-environment-runtime/SKILL.md"
+}

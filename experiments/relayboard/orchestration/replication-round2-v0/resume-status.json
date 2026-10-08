@@ -1,32 +1,37 @@
 {
   "repository": "firstzasz/first-agent-engineering-lab",
   "branch": "research/batch-orchestration-round2",
-  "round2_head_before_recovery": "a234ae655c7cd82112548cb5e66f2cfb12c15d1d",
-  "dispositions": {
-    "evaluated_passes": [
-      "F-S04-002",
-      "F-S02-002",
-      "F-S01-002",
-      "M-S04-002",
-      "M-S02-002",
-      "M-S01-002",
-      "P-S04-002"
-    ],
-    "excluded_invalid_host_failure": [
-      "P-S02-002"
-    ],
-    "remaining_unstarted": [
-      "P-S01-002",
-      "N-S04-002",
-      "N-S02-002",
-      "N-S01-002"
-    ]
-  },
-  "P_S02_002": {
-    "status": "INVALID_HOST_FAILURE",
-    "no_retry": true,
-    "reason": "resumed host lacked prior contexts/work area/local history; no recoverable frozen candidate",
-    "public_and_hidden_results": "none; checkpoints are not independently verified outcome evidence"
-  },
-  "resume_instruction": "Continue fixed order from P-S01-002. Do not restart P-S02-002. Preserve frozen inputs and Round 1/Round 2 existing evidence. No merges to main."
+  "status": "COMPLETED",
+  "disposition_count": 12,
+  "evaluated_passes": [
+    "F-S04-002",
+    "F-S02-002",
+    "F-S01-002",
+    "M-S04-002",
+    "M-S02-002",
+    "M-S01-002",
+    "P-S04-002",
+    "P-S01-002",
+    "N-S04-002",
+    "N-S02-002",
+    "N-S01-002"
+  ],
+  "excluded": [
+    {
+      "run_id": "P-S02-002",
+      "status": "INVALID_HOST_FAILURE",
+      "no_retry": true,
+      "reason": "The resumed host no longer had the prior contestant/helper contexts or the working area/local history. No frozen candidate branch or independently verifiable final candidate could be recovered. Live checkpoint claims are preserved as partial process evidence only."
+    }
+  ],
+  "remaining_unstarted": [],
+  "resume_from": null,
+  "resume_instruction": "Round 2 complete. Do not restart or silently replace any run. All candidate PRs remain draft and unmerged. Reports/audit on this research branch; no main merge.",
+  "prior_resume_record_commit": "fbd65b3e6d393d82f19e2ed3e3fdd65a7b9ba60f",
+  "finalization": {
+    "profiles": "profiles.json",
+    "comparison": "cross-round-report.md",
+    "audit": "final-audit.json",
+    "status": "IN_PROGRESS"
+  }
 }
