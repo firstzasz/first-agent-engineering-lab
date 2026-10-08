@@ -1,7 +1,15 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "replication_round": 2,
-  "scoring_source": "docs/benchmarks/SCORING_V0.md (unchanged frozen rubric)",
+  "status": "COMPLETED",
+  "counts": {
+    "dispositions": 12,
+    "evaluated_pass": 11,
+    "evaluated_fail": 0,
+    "excluded_host_failure": 1,
+    "contaminated": 0
+  },
+  "scoring_source": "docs/benchmarks/SCORING_V0.md (unchanged)",
   "single_shot_per_round": true,
   "native_host_comparison": false,
   "round1_unchanged": true,
@@ -19,9 +27,10 @@
         "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
       },
       "verification": {
-        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope.",
         "subjective_blind_learning_score": null,
-        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT"
       },
       "requirement_discovery": null,
       "observable_overhead": {
@@ -50,7 +59,94 @@
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
-        "cost": null
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 16,
+          "git_blob_bytes": 25880,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 8579,
+              "blob_sha": "b9ebfff13fd5203929a11c4ab3fbc0707c4043ed"
+            },
+            {
+              "path": ".experiment/STATE.md",
+              "bytes": 3944,
+              "blob_sha": "707118b65333250dda14a0b01e90b427020db6bc"
+            },
+            {
+              "path": ".experiment/baseline.txt",
+              "bytes": 709,
+              "blob_sha": "ceccb2a29fa29244f8662e7e07781b52a0507815"
+            },
+            {
+              "path": ".experiment/commands.jsonl",
+              "bytes": 2640,
+              "blob_sha": "89cd20b82794a2fef348126f42a30182921fc336"
+            },
+            {
+              "path": ".experiment/commit-fix.txt",
+              "bytes": 176,
+              "blob_sha": "90b461bb419f3832e56b38b8b9fd66e0538c2790"
+            },
+            {
+              "path": ".experiment/committed-source-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/diff-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/implementation-commit.txt",
+              "bytes": 41,
+              "blob_sha": "013b50c56600cdd80a5b4006c8fdd536df95b370"
+            },
+            {
+              "path": ".experiment/pre-report-status.txt",
+              "bytes": 338,
+              "blob_sha": "84a5771bed454d6176cc4c7bd70026ef39475857"
+            },
+            {
+              "path": ".experiment/record.py",
+              "bytes": 591,
+              "blob_sha": "5b4952803123cddfe80a780ff11434e3baf390dd"
+            },
+            {
+              "path": ".experiment/regression-green.txt",
+              "bytes": 1148,
+              "blob_sha": "e331234643ba01c75743b572fdc5820842a002d0"
+            },
+            {
+              "path": ".experiment/regression-red.txt",
+              "bytes": 7004,
+              "blob_sha": "bf0221d97aa0dd01a421007740b995ee81b14229"
+            },
+            {
+              "path": ".experiment/source-diff.txt",
+              "bytes": 398,
+              "blob_sha": "035d0486ac9d09af1205b26684aadd2eb89a8802"
+            },
+            {
+              "path": ".experiment/stage-evidence.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/stage-fix.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/staged-check.txt",
+              "bytes": 312,
+              "blob_sha": "07ced8afa1ad71fe90de1e13e5e11abe83b672cc"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        }
       },
       "identity": {
         "requested": {
@@ -64,7 +160,36 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": ""
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "debugging": {
+        "valid_red_capable_feedback_loop_before_fix": true,
+        "root_cause_correctly_identified": true,
+        "regression_test_at_correct_seam": true,
+        "original_scenario_reverified_after_fix": true,
+        "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+        "wrong_production_files_modified_before_root_cause": "none observed",
+        "steps_to_first_valid_red_signal": null,
+        "hidden_regression_case_count": null,
+        "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+        "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+        "evidence": "results/F-S04-002/run.json"
+      },
+      "evidence_paths": [
+        "results/F-S04-002/run.json",
+        "results/F-S04-002/evaluation.json",
+        "results/F-S04-002/candidate-diff.patch",
+        "results/F-S04-002/local-history.bundle.b64",
+        "results/F-S04-002/worker-evidence.json"
+      ]
     },
     {
       "run_id": "F-S02-002",
@@ -78,9 +203,10 @@
         "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
       },
       "verification": {
-        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope.",
         "subjective_blind_learning_score": null,
-        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT"
       },
       "requirement_discovery": {
         "frozen_product_decisions_surfaced": 2,
@@ -175,7 +301,59 @@
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
-        "cost": null
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 9,
+          "git_blob_bytes": 36755,
+          "paths": [
+            {
+              "path": ".experiment/CHECKPOINTS.md",
+              "bytes": 1285,
+              "blob_sha": "bc9be14b4ae2b5eb80cf3949d1f8073949456531"
+            },
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 10155,
+              "blob_sha": "8e5f2192d25f7a52da4b3217307d8fbb9e61a781"
+            },
+            {
+              "path": ".experiment/baseline-tests.txt",
+              "bytes": 709,
+              "blob_sha": "ceccb2a29fa29244f8662e7e07781b52a0507815"
+            },
+            {
+              "path": ".experiment/diff-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/implementation-commit.txt",
+              "bytes": 166,
+              "blob_sha": "b7b67f34d88990542ac7d2d2dea3dbef4b6dbc34"
+            },
+            {
+              "path": ".experiment/implementation.diff",
+              "bytes": 6621,
+              "blob_sha": "ca3305ecb2754ff5dfc8ebba67d2532c6ba9aab1"
+            },
+            {
+              "path": ".experiment/red-tests.txt",
+              "bytes": 7221,
+              "blob_sha": "b2d5f093d508b3aa2d6487543092f30610b4b3f4"
+            },
+            {
+              "path": ".experiment/state.json",
+              "bytes": 8668,
+              "blob_sha": "8401ac4840fd607eab3ff9e799c0ed58209f8321"
+            },
+            {
+              "path": ".experiment/verified-tests.txt",
+              "bytes": 1930,
+              "blob_sha": "bf54afe0126aab15439d84b8d9c3e5be588e3d41"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        }
       },
       "identity": {
         "requested": {
@@ -189,7 +367,23 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": ""
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "evidence_paths": [
+        "results/F-S02-002/run.json",
+        "results/F-S02-002/evaluation.json",
+        "results/F-S02-002/candidate-diff.patch",
+        "results/F-S02-002/local-history.bundle.b64",
+        "results/F-S02-002/worker-evidence.json"
+      ]
     },
     {
       "run_id": "F-S01-002",
@@ -203,9 +397,10 @@
         "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
       },
       "verification": {
-        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope.",
         "subjective_blind_learning_score": null,
-        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT"
       },
       "requirement_discovery": null,
       "observable_overhead": {
@@ -229,7 +424,69 @@
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
-        "cost": null
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 11,
+          "git_blob_bytes": 16367,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 5743,
+              "blob_sha": "4bab8aa66389b3e4902df28f21732e0bdf6b29b2"
+            },
+            {
+              "path": ".experiment/WORK_LOG.md",
+              "bytes": 2168,
+              "blob_sha": "c1efd75e15a3ba3208ce04cb7037945afc796e0f"
+            },
+            {
+              "path": ".experiment/baseline-responses.json",
+              "bytes": 757,
+              "blob_sha": "8caf013f3252cc14093210fce5c00b8254a27aad"
+            },
+            {
+              "path": ".experiment/baseline.log",
+              "bytes": 65,
+              "blob_sha": "25e39d09b827d1e764237726a9915db22aef3ed1"
+            },
+            {
+              "path": ".experiment/commands.json",
+              "bytes": 3449,
+              "blob_sha": "823c25b8d59efc04e8523ed07e8f9c70b89069da"
+            },
+            {
+              "path": ".experiment/dashboard.html",
+              "bytes": 313,
+              "blob_sha": "6bb23474bf95b9dd0bf43b998a14897c5a0d358b"
+            },
+            {
+              "path": ".experiment/final-diff.patch",
+              "bytes": 552,
+              "blob_sha": "cd828816106924ab14bb03bbaec30e4207945c33"
+            },
+            {
+              "path": ".experiment/public-tests.log",
+              "bytes": 709,
+              "blob_sha": "741d816bcaed0bb7472bc4f94fb3743e420a2260"
+            },
+            {
+              "path": ".experiment/verification.log",
+              "bytes": 146,
+              "blob_sha": "3bedccc4fe92d67fe48223edfecb3a848bc5e5a6"
+            },
+            {
+              "path": ".experiment/verified-responses.json",
+              "bytes": 759,
+              "blob_sha": "9d6974f2914be93336d11c1016c6cf8e0e9f53c2"
+            },
+            {
+              "path": ".experiment/verify.py",
+              "bytes": 1706,
+              "blob_sha": "839c3673c14bb02cfad2bdf4994780eaa7f325ac"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        }
       },
       "identity": {
         "requested": {
@@ -243,7 +500,23 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": "Generic host runtime skill read under inherited developer instructions; no benchmark method substitution or forbidden-information receipt established. Host provenance preserved."
+      "disposition_notes": "Generic host runtime skill read under inherited developer instructions; no benchmark method substitution or forbidden-information receipt established. Host provenance preserved.",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "evidence_paths": [
+        "results/F-S01-002/run.json",
+        "results/F-S01-002/evaluation.json",
+        "results/F-S01-002/candidate-diff.patch",
+        "results/F-S01-002/local-history.bundle.b64",
+        "results/F-S01-002/worker-evidence.json"
+      ]
     },
     {
       "run_id": "M-S04-002",
@@ -257,9 +530,10 @@
         "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
       },
       "verification": {
-        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope.",
         "subjective_blind_learning_score": null,
-        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT"
       },
       "requirement_discovery": null,
       "observable_overhead": {
@@ -288,7 +562,194 @@
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
-        "cost": null
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 36,
+          "git_blob_bytes": 51981,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 16872,
+              "blob_sha": "5794f470ccab82cfdedd5e2e1cf0ed6b1cd16ab8"
+            },
+            {
+              "path": ".experiment/actions.md",
+              "bytes": 2587,
+              "blob_sha": "2c21595600388c42b1d37b0faa670bd7cfe5f00f"
+            },
+            {
+              "path": ".experiment/capture.py",
+              "bytes": 570,
+              "blob_sha": "e2cbbfcfae444ecefcc30239e5ea762828b5aff2"
+            },
+            {
+              "path": ".experiment/cleanup-check.txt",
+              "bytes": 103,
+              "blob_sha": "73a04dc69db68477cddfb3b327b4c8f8c99000ab"
+            },
+            {
+              "path": ".experiment/commands.jsonl",
+              "bytes": 4156,
+              "blob_sha": "3f8da92377e13a368ad15e9cc1238427c22e568e"
+            },
+            {
+              "path": ".experiment/diagnosis.md",
+              "bytes": 2757,
+              "blob_sha": "b6431373059768f7122fc629815b288561a70a7d"
+            },
+            {
+              "path": ".experiment/diff-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/full-public-suite.txt",
+              "bytes": 866,
+              "blob_sha": "4d4c37a0c350d6b12b32c59b72d51ce5cafeb472"
+            },
+            {
+              "path": ".experiment/helpers.json",
+              "bytes": 936,
+              "blob_sha": "209932c11d6715f571d94505d91d677f040c964b"
+            },
+            {
+              "path": ".experiment/incidents.jsonl",
+              "bytes": 1551,
+              "blob_sha": "54dd803b26017c44e00937bfcc5dd1b8f96b3f7e"
+            },
+            {
+              "path": ".experiment/initial-evidence.json",
+              "bytes": 1138,
+              "blob_sha": "a3b1cb86b725d5c21c729c80e835d82865030185"
+            },
+            {
+              "path": ".experiment/minimize.py",
+              "bytes": 531,
+              "blob_sha": "73b61602bd2c1f163beb39b4e50cac8c60cc512f"
+            },
+            {
+              "path": ".experiment/minimized-no-retry.txt",
+              "bytes": 162,
+              "blob_sha": "dbec41fd83435ce5d04b2f2ccb8131d8bbf0588c"
+            },
+            {
+              "path": ".experiment/minimized-one-attempt.txt",
+              "bytes": 177,
+              "blob_sha": "d6ec2984d3c2bbf50eb3293ed3357010e7d5479c"
+            },
+            {
+              "path": ".experiment/minimized-red.txt",
+              "bytes": 578,
+              "blob_sha": "0fcccc111d55375c1d19a08edf5b1c7b35e35605"
+            },
+            {
+              "path": ".experiment/operator-exchanges.json",
+              "bytes": 2603,
+              "blob_sha": "1f4dafc6a3f38468a7a67166dd05bc58170e8cd3"
+            },
+            {
+              "path": ".experiment/original-repro-green.txt",
+              "bytes": 193,
+              "blob_sha": "30ba3a7bdee125b49d956c090f0e0d2f9c729756"
+            },
+            {
+              "path": ".experiment/path-evidence.json",
+              "bytes": 2819,
+              "blob_sha": "b43f22fe433d6e29eeb487b3f8e31095fa6a05bc"
+            },
+            {
+              "path": ".experiment/probe-red.txt",
+              "bytes": 251,
+              "blob_sha": "84a91b373dbcc6eb1d77763b2038c8697ff8a373"
+            },
+            {
+              "path": ".experiment/probe.py",
+              "bytes": 438,
+              "blob_sha": "1a81edb862a200f6d647a7ab32d3525f39690187"
+            },
+            {
+              "path": ".experiment/regression-green.txt",
+              "bytes": 254,
+              "blob_sha": "2baa2abb4c1608e1fd1b9cbc9d835d57240d43a3"
+            },
+            {
+              "path": ".experiment/regression-red.txt",
+              "bytes": 920,
+              "blob_sha": "d2230f264f39cc19737a2edc357c0c05d20b8c9a"
+            },
+            {
+              "path": ".experiment/repro-red-1.txt",
+              "bytes": 110,
+              "blob_sha": "c2e0a4bc26c518b1810a1251c8a1f1c9fd122ea9"
+            },
+            {
+              "path": ".experiment/repro-red-2.txt",
+              "bytes": 264,
+              "blob_sha": "a8e81da7d9fe77d86eec87a2158ec9a6779ebbe5"
+            },
+            {
+              "path": ".experiment/repro-red-3.txt",
+              "bytes": 842,
+              "blob_sha": "191d733764da5a910f98233e8a129163a82f34d1"
+            },
+            {
+              "path": ".experiment/repro-red-repeat.txt",
+              "bytes": 842,
+              "blob_sha": "191d733764da5a910f98233e8a129163a82f34d1"
+            },
+            {
+              "path": ".experiment/repro.py",
+              "bytes": 705,
+              "blob_sha": "30bce1a222155e42730621e59a9155885534d9e3"
+            },
+            {
+              "path": ".experiment/retry-variants-green.txt",
+              "bytes": 383,
+              "blob_sha": "bace8b324fe0e7101cc905de6c1e5a7e67fb1087"
+            },
+            {
+              "path": ".experiment/retry-variants.py",
+              "bytes": 1415,
+              "blob_sha": "1159496782a9b6606aabd3e5fdf03fa5f064e420"
+            },
+            {
+              "path": ".experiment/review-commits.txt",
+              "bytes": 66,
+              "blob_sha": "0014a1e60abe76cddb91769161cc7d2c65dc78c2"
+            },
+            {
+              "path": ".experiment/review-diff.txt",
+              "bytes": 2685,
+              "blob_sha": "f0eadcb1cbf1e0a32ba300e2c8ac0f30cd1f5238"
+            },
+            {
+              "path": ".experiment/review-fixed-point.txt",
+              "bytes": 41,
+              "blob_sha": "6025a442453a7f39b664bc8d503d7e6467c77984"
+            },
+            {
+              "path": ".experiment/review-spec.md",
+              "bytes": 1767,
+              "blob_sha": "0c7588597c5c5f632ec38f7174a4c422d3395223"
+            },
+            {
+              "path": ".experiment/review-standards.md",
+              "bytes": 1917,
+              "blob_sha": "1190f013ff5e197600e0d967b91be619aaa68607"
+            },
+            {
+              "path": ".experiment/review-summary.md",
+              "bytes": 482,
+              "blob_sha": "6c8727a5c3269a6a0627c1b2aa901473cf8d0f6c"
+            },
+            {
+              "path": ".experiment/unchanged-method-and-upstream.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        }
       },
       "identity": {
         "requested": {
@@ -302,7 +763,36 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": "Own-report write outside assigned area self-reported; no forbidden-information receipt established. Original claim/ruling/artifact archived, copy removed before next contestant. Same run preserved, no retry."
+      "disposition_notes": "Own-report write outside assigned area self-reported; no forbidden-information receipt established. Original claim/ruling/artifact archived, copy removed before next contestant. Same run preserved, no retry.",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "debugging": {
+        "valid_red_capable_feedback_loop_before_fix": true,
+        "root_cause_correctly_identified": true,
+        "regression_test_at_correct_seam": true,
+        "original_scenario_reverified_after_fix": true,
+        "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+        "wrong_production_files_modified_before_root_cause": "none observed",
+        "steps_to_first_valid_red_signal": null,
+        "hidden_regression_case_count": null,
+        "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+        "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+        "evidence": "results/M-S04-002/run.json"
+      },
+      "evidence_paths": [
+        "results/M-S04-002/run.json",
+        "results/M-S04-002/evaluation.json",
+        "results/M-S04-002/candidate-diff.patch",
+        "results/M-S04-002/local-history.bundle.b64",
+        "results/M-S04-002/worker-evidence.json"
+      ]
     },
     {
       "run_id": "M-S02-002",
@@ -316,9 +806,10 @@
         "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
       },
       "verification": {
-        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope.",
         "subjective_blind_learning_score": null,
-        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT"
       },
       "requirement_discovery": {
         "frozen_product_decisions_surfaced": 4,
@@ -440,7 +931,264 @@
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
-        "cost": null
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 50,
+          "git_blob_bytes": 110531,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 18644,
+              "blob_sha": "9e877b46898f65d4b83693bb82ca1a6978e45edf"
+            },
+            {
+              "path": ".experiment/baseline.txt",
+              "bytes": 709,
+              "blob_sha": "8508d5175bcde32213d0071a2bff580f5f2e6949"
+            },
+            {
+              "path": ".experiment/bundled-source-unchanged.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/candidate-commits.txt",
+              "bytes": 179,
+              "blob_sha": "11e8c24392882fc645ccf78bd6c4dcdf25265957"
+            },
+            {
+              "path": ".experiment/candidate-head.txt",
+              "bytes": 41,
+              "blob_sha": "556f2d1aca1af5a4df5db5fe522bc0254f12518b"
+            },
+            {
+              "path": ".experiment/candidate-product-diff.txt",
+              "bytes": 18162,
+              "blob_sha": "abbb1b5e04f2c3b9975484216a55c33f93640bab"
+            },
+            {
+              "path": ".experiment/commands.jsonl",
+              "bytes": 9572,
+              "blob_sha": "ccfb69eac6dee5bd8beb130c528d8756a4051d6f"
+            },
+            {
+              "path": ".experiment/commit-implementation.txt",
+              "bytes": 209,
+              "blob_sha": "dce9b4a35c30a74efaf586430e5d15f614fc0a11"
+            },
+            {
+              "path": ".experiment/commit-review-fixes.txt",
+              "bytes": 134,
+              "blob_sha": "c4e980edcb3d1784019e7e44655f088725eaf8d2"
+            },
+            {
+              "path": ".experiment/dashboard-green.txt",
+              "bytes": 488,
+              "blob_sha": "857687b5c714286dcd2eddc6ea3b2c599dbf43ee"
+            },
+            {
+              "path": ".experiment/dashboard-red.txt",
+              "bytes": 1440,
+              "blob_sha": "312d994fe91370aae1a94c9d393520c1378ac229"
+            },
+            {
+              "path": ".experiment/diff-check-after-review.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/diff-check-before-review.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/disabled-preservation.txt",
+              "bytes": 1028,
+              "blob_sha": "8fea5e724bac29eb51ee5601fbe1be1907a6eb4c"
+            },
+            {
+              "path": ".experiment/enable-preservation.txt",
+              "bytes": 1140,
+              "blob_sha": "390666efe6233978ab0fa6d29ac24d5b7e50966b"
+            },
+            {
+              "path": ".experiment/existing-run-preservation.txt",
+              "bytes": 908,
+              "blob_sha": "5bafbcf9284698907ad393aa97db1fb2f3b07851"
+            },
+            {
+              "path": ".experiment/fixed-point.txt",
+              "bytes": 41,
+              "blob_sha": "564ec57bc05c8402ffe14593635bab0444fd9a69"
+            },
+            {
+              "path": ".experiment/full-after-review.txt",
+              "bytes": 2046,
+              "blob_sha": "89fdde088561d08b9adfc899d1a022ebe03d5245"
+            },
+            {
+              "path": ".experiment/full-before-review.txt",
+              "bytes": 2046,
+              "blob_sha": "9151080643bc3ec9aa87029d6edff88d06f5d891"
+            },
+            {
+              "path": ".experiment/helpers.json",
+              "bytes": 2206,
+              "blob_sha": "ccddcfa59d27298347968f7c3348730a8601418d"
+            },
+            {
+              "path": ".experiment/idempotence-verification.txt",
+              "bytes": 1266,
+              "blob_sha": "b37fdd749dd03c0a9ff4adae8feb324f1bdbc546"
+            },
+            {
+              "path": ".experiment/ignore-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/initial-00.txt",
+              "bytes": 46,
+              "blob_sha": "67352f75c70c0867ada6be8ad3a3337b46da6c7f"
+            },
+            {
+              "path": ".experiment/initial-01.txt",
+              "bytes": 30,
+              "blob_sha": "b5ce7be24108b44048a6e941cac1924e21ba5057"
+            },
+            {
+              "path": ".experiment/initial-02.txt",
+              "bytes": 96,
+              "blob_sha": "9118a8e70f16748585820946b48f093977727111"
+            },
+            {
+              "path": ".experiment/initial-03.txt",
+              "bytes": 1066,
+              "blob_sha": "8a5a8d81744207b5cbd1ebed1b2f6527178c2787"
+            },
+            {
+              "path": ".experiment/initial-04.txt",
+              "bytes": 15,
+              "blob_sha": "21653a17c2deee727bbc899024c7c49ca70d699e"
+            },
+            {
+              "path": ".experiment/initial-actions.json",
+              "bytes": 1084,
+              "blob_sha": "13ae75852db2df2d614bb886f5c87bf82cd2e7f9"
+            },
+            {
+              "path": ".experiment/manual-preservation.txt",
+              "bytes": 754,
+              "blob_sha": "78682eab9dca76befbdc98cd9a172802b899ca33"
+            },
+            {
+              "path": ".experiment/missing-method-verification.txt",
+              "bytes": 1435,
+              "blob_sha": "f162cf963223d8237dcec9dd279ea42f31e19cd4"
+            },
+            {
+              "path": ".experiment/operator-exchanges.json",
+              "bytes": 3538,
+              "blob_sha": "4264b76502c628134674d37aeb0fd95b1da3e601"
+            },
+            {
+              "path": ".experiment/pause-green.txt",
+              "bytes": 205,
+              "blob_sha": "a233bd2172d0286c886aab21ee8d941f9e6e182a"
+            },
+            {
+              "path": ".experiment/pause-red.txt",
+              "bytes": 693,
+              "blob_sha": "7c87693a43cce843a0e6f740d04ecffd70134b87"
+            },
+            {
+              "path": ".experiment/persistence-green.txt",
+              "bytes": 642,
+              "blob_sha": "fa3cd9a69dd07e2d98f6f8241f21a33fbdb39bd9"
+            },
+            {
+              "path": ".experiment/persistence-red.txt",
+              "bytes": 1790,
+              "blob_sha": "586490c8fd9b1a75988cc1dfc88058e9a8d4249b"
+            },
+            {
+              "path": ".experiment/read-path-evidence.json",
+              "bytes": 3772,
+              "blob_sha": "b129cb6be7ab40d04bccd8aeabc0783c786cd794"
+            },
+            {
+              "path": ".experiment/resume-green.txt",
+              "bytes": 348,
+              "blob_sha": "7a1d33173b806a1c89474659d270568391e4f6cc"
+            },
+            {
+              "path": ".experiment/resume-red.txt",
+              "bytes": 887,
+              "blob_sha": "441f532622d65b9f6dbeb5fd8e17b51355d8be26"
+            },
+            {
+              "path": ".experiment/review-commits.txt",
+              "bytes": 53,
+              "blob_sha": "d7dffc32d2c13b3543e98bee30f541926fbf16e4"
+            },
+            {
+              "path": ".experiment/review-diff.txt",
+              "bytes": 18190,
+              "blob_sha": "f3a87ace78735c3e65cb77c826bf47a1992563d4"
+            },
+            {
+              "path": ".experiment/review-fix-diff.txt",
+              "bytes": 2109,
+              "blob_sha": "aa94c2050222250c93351cf1e0a9e5f47c5275da"
+            },
+            {
+              "path": ".experiment/review-summary.md",
+              "bytes": 450,
+              "blob_sha": "fd92a47ba534a1a98721978299a0bcee9ce14b58"
+            },
+            {
+              "path": ".experiment/run.py",
+              "bytes": 829,
+              "blob_sha": "06adfaefbdfd2936c2370601595f2b14c24df43d"
+            },
+            {
+              "path": ".experiment/session.md",
+              "bytes": 3897,
+              "blob_sha": "05b1dab7c20fd11f2bc070bfd932f41468320d72"
+            },
+            {
+              "path": ".experiment/spec-review.md",
+              "bytes": 1884,
+              "blob_sha": "43acfdae11c19d8454a6c707ef29f2571244c8f2"
+            },
+            {
+              "path": ".experiment/stage-implementation.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/stage-review-fixes.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/standards-review.md",
+              "bytes": 2345,
+              "blob_sha": "8065b9f5308c9b802c948ac335e893ff186bdf08"
+            },
+            {
+              "path": ".experiment/status-before-review.txt",
+              "bytes": 1074,
+              "blob_sha": "dccd8c605791655db4100b0f311da660ff46c4f3"
+            },
+            {
+              "path": ".scratch/work/spec.md",
+              "bytes": 3040,
+              "blob_sha": "5c7b36e605e15e456ee21395f4c85eac87e02e0e"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        }
       },
       "identity": {
         "requested": {
@@ -454,7 +1202,23 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": ""
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "evidence_paths": [
+        "results/M-S02-002/run.json",
+        "results/M-S02-002/evaluation.json",
+        "results/M-S02-002/candidate-diff.patch",
+        "results/M-S02-002/local-history.bundle.b64",
+        "results/M-S02-002/worker-evidence.json"
+      ]
     },
     {
       "run_id": "M-S01-002",
@@ -468,9 +1232,10 @@
         "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
       },
       "verification": {
-        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope.",
         "subjective_blind_learning_score": null,
-        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT"
       },
       "requirement_discovery": null,
       "observable_overhead": {
@@ -494,7 +1259,104 @@
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
-        "cost": null
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 18,
+          "git_blob_bytes": 29648,
+          "paths": [
+            {
+              "path": ".experiment/ACTION_PATHS.json",
+              "bytes": 2941,
+              "blob_sha": "ab3d5d7ad778e1d9336115fbf7e68268a0ef02bc"
+            },
+            {
+              "path": ".experiment/DECISIONS.json",
+              "bytes": 2749,
+              "blob_sha": "6ffe6b17c5238a0cc8805748b42736e790dbf468"
+            },
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 6303,
+              "blob_sha": "ba8e431288c87645dad78aa47788974ba88b67f7"
+            },
+            {
+              "path": ".experiment/application-diff.txt",
+              "bytes": 552,
+              "blob_sha": "cd828816106924ab14bb03bbaec30e4207945c33"
+            },
+            {
+              "path": ".experiment/baseline.txt",
+              "bytes": 709,
+              "blob_sha": "30a321777c0e069804020bc4bdfb70c59a3a79d0"
+            },
+            {
+              "path": ".experiment/check_dashboard.py",
+              "bytes": 348,
+              "blob_sha": "f82509229a5d410490d63ce78055400d6a7ecf47"
+            },
+            {
+              "path": ".experiment/checks.json",
+              "bytes": 1406,
+              "blob_sha": "8b227f44c04f9c66707ac306882f0f262215f16c"
+            },
+            {
+              "path": ".experiment/diff-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/heading-green.txt",
+              "bytes": 66,
+              "blob_sha": "fa8dfd37a85b8710cd9a07b530a47e3a4313a87a"
+            },
+            {
+              "path": ".experiment/heading-red.txt",
+              "bytes": 563,
+              "blob_sha": "056bb7d70257b7b6b73668dbab3ac3ad924851cc"
+            },
+            {
+              "path": ".experiment/public-full.txt",
+              "bytes": 709,
+              "blob_sha": "5593369be3a5709e37a6dfd94177c98581ff50d5"
+            },
+            {
+              "path": ".experiment/review-candidate.txt",
+              "bytes": 41,
+              "blob_sha": "434e4619ca034b271f1dc6c7b5c6855fd7eec8b1"
+            },
+            {
+              "path": ".experiment/review-commands.json",
+              "bytes": 735,
+              "blob_sha": "92f54f03730ec1238a3f7fff4b27c2fdf50b17be"
+            },
+            {
+              "path": ".experiment/review-commits.txt",
+              "bytes": 55,
+              "blob_sha": "55f44ab51815f3a0dec5ac98b34a7e2c8e09b9c9"
+            },
+            {
+              "path": ".experiment/review-diff.txt",
+              "bytes": 9382,
+              "blob_sha": "dc9b6e2631b0c76ecb6191b606d95f0f0821c5d7"
+            },
+            {
+              "path": ".experiment/review-fixed-point.txt",
+              "bytes": 41,
+              "blob_sha": "a3b7667621906e8622b2eb8d27073002c67f7ca7"
+            },
+            {
+              "path": ".experiment/spec-review.txt",
+              "bytes": 1649,
+              "blob_sha": "6298225ff67519fadadc80fdd772c36280702c51"
+            },
+            {
+              "path": ".experiment/standards-review.txt",
+              "bytes": 1399,
+              "blob_sha": "747d2f6cf488717ffcc44c642bc4185269b70ba1"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        }
       },
       "identity": {
         "requested": {
@@ -508,7 +1370,23 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": ""
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "evidence_paths": [
+        "results/M-S01-002/run.json",
+        "results/M-S01-002/evaluation.json",
+        "results/M-S01-002/candidate-diff.patch",
+        "results/M-S01-002/local-history.bundle.b64",
+        "results/M-S01-002/worker-evidence.json"
+      ]
     },
     {
       "run_id": "P-S04-002",
@@ -522,9 +1400,10 @@
         "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
       },
       "verification": {
-        "basis": "Inspectable public test outputs and separate frozen evaluator where eligible; assigned-method fresh reviews preserved where performed.",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope.",
         "subjective_blind_learning_score": null,
-        "subjective_review_note": "Not assigned by treatment-aware orchestrator."
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT"
       },
       "requirement_discovery": null,
       "observable_overhead": {
@@ -553,7 +1432,274 @@
         "wall_clock_note": "Preparation-to-freeze wall time includes host, operator and archival delays; not model compute time.",
         "raw_tool_calls": null,
         "tokens": null,
-        "cost": null
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 52,
+          "git_blob_bytes": 326406,
+          "paths": [
+            {
+              "path": ".experiment/DESIGN.md",
+              "bytes": 4015,
+              "blob_sha": "5be610f1f38e0cd18a30c96fbc2a0765792a7009"
+            },
+            {
+              "path": ".experiment/GROUNDING.md",
+              "bytes": 4561,
+              "blob_sha": "1e901c52438708cf0abb2bed2c11d4f678b9ba47"
+            },
+            {
+              "path": ".experiment/HELPER_STATUS.json",
+              "bytes": 428,
+              "blob_sha": "efab89d4e7d54d6d5caef4902d846881c524d731"
+            },
+            {
+              "path": ".experiment/IMPLEMENTATION_REPORT.json",
+              "bytes": 10886,
+              "blob_sha": "8fd1079aeb1102cdb8b2407370dde342e26235ca"
+            },
+            {
+              "path": ".experiment/LEAD_REVIEW.md",
+              "bytes": 2309,
+              "blob_sha": "9557248ad4301d7571f2dd6f20242373f033df8a"
+            },
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 11136,
+              "blob_sha": "7093251f31f7bb8731a0e867185ebd071017528c"
+            },
+            {
+              "path": ".experiment/REVIEW_REPORT.json",
+              "bytes": 12247,
+              "blob_sha": "41fa3502d24d532154b4292708df0a8c38f2d306"
+            },
+            {
+              "path": ".experiment/TODO.md",
+              "bytes": 3441,
+              "blob_sha": "eef58c77b27085000bcb1284909636da1ac366f5"
+            },
+            {
+              "path": ".experiment/capture.py",
+              "bytes": 851,
+              "blob_sha": "e4c4c4113a63fa481f8dd4b75e3dfb6ed50e6b84"
+            },
+            {
+              "path": ".experiment/commands.jsonl",
+              "bytes": 30211,
+              "blob_sha": "f83722d7dab583cba7f174e0421be9ce54e8ad57"
+            },
+            {
+              "path": ".experiment/decisions.tsv",
+              "bytes": 4829,
+              "blob_sha": "c9b4a14e1283a04ce5b41b4e478ea372e43fecb1"
+            },
+            {
+              "path": ".experiment/early-actions.json",
+              "bytes": 1796,
+              "blob_sha": "8c15ea3b744ad7713ad2c9583c89e9e139edebe1"
+            },
+            {
+              "path": ".experiment/early-command-evidence.json",
+              "bytes": 1827,
+              "blob_sha": "3ed7fa14a79710225414369fe2ba1cba46a53293"
+            },
+            {
+              "path": ".experiment/helper-invocations.json",
+              "bytes": 1919,
+              "blob_sha": "5dc98ea19deda413577c9a239632c143973c3236"
+            },
+            {
+              "path": ".experiment/operator-exchanges.json",
+              "bytes": 1635,
+              "blob_sha": "66403f6a9c44181e5ad02d056ea45e573788ffae"
+            },
+            {
+              "path": ".experiment/outputs/assigned-manifest.txt",
+              "bytes": 657,
+              "blob_sha": "4f9684169363d2c651d9d0f84c13dac7e7b19782"
+            },
+            {
+              "path": ".experiment/outputs/baseline-api.txt",
+              "bytes": 1305,
+              "blob_sha": "9d5b572c0907140c4e3a7512a247e17ee23e87d4"
+            },
+            {
+              "path": ".experiment/outputs/baseline-public.txt",
+              "bytes": 709,
+              "blob_sha": "30a321777c0e069804020bc4bdfb70c59a3a79d0"
+            },
+            {
+              "path": ".experiment/outputs/commit-production-fix.txt",
+              "bytes": 103,
+              "blob_sha": "f991d4a659212b6f15d52fe0e42bfd61d6501acf"
+            },
+            {
+              "path": ".experiment/outputs/final-diff-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/outputs/freeze-authored-whitespace-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/outputs/freeze-production-whitespace-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/outputs/freeze-raw-output-whitespace-check.txt",
+              "bytes": 13009,
+              "blob_sha": "ff13140433c2243a27093be9f7a9a21b7bd31996"
+            },
+            {
+              "path": ".experiment/outputs/implementation-diff-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/outputs/implementation-failing-test-commit.txt",
+              "bytes": 168,
+              "blob_sha": "0c24a7eb5dc27b6b5594604f3aba3f3f04677a38"
+            },
+            {
+              "path": ".experiment/outputs/implementation-final-diff.txt",
+              "bytes": 398,
+              "blob_sha": "035d0486ac9d09af1205b26684aadd2eb89a8802"
+            },
+            {
+              "path": ".experiment/outputs/implementation-final-status.txt",
+              "bytes": 384,
+              "blob_sha": "7449df69d1b191fe00c12b0fca4514924a4cc080"
+            },
+            {
+              "path": ".experiment/outputs/implementation-focused-after.txt",
+              "bytes": 595,
+              "blob_sha": "4ea175057fc9540c05d13c08ee0db2a588c8f256"
+            },
+            {
+              "path": ".experiment/outputs/implementation-focused-before.txt",
+              "bytes": 14832,
+              "blob_sha": "66b5516db94ad4fed2558a8c4dc362205ce64b9b"
+            },
+            {
+              "path": ".experiment/outputs/implementation-full-public.txt",
+              "bytes": 1206,
+              "blob_sha": "bfa1efed3e6076abea12028f1973d4206d3e4e0d"
+            },
+            {
+              "path": ".experiment/outputs/implementation-original-api-after.txt",
+              "bytes": 569,
+              "blob_sha": "d8b79ebb8a65be86f07b23563664fcc98610afae"
+            },
+            {
+              "path": ".experiment/outputs/implementation-stage-tests.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/outputs/implementation-staged-tests.txt",
+              "bytes": 115,
+              "blob_sha": "63b3e26a5334fdb202f526fc889b8234797c372e"
+            },
+            {
+              "path": ".experiment/outputs/implementation-test-commit-sha.txt",
+              "bytes": 41,
+              "blob_sha": "7eb2a3bc2465e7941ee9fc106cea6340d3522fb5"
+            },
+            {
+              "path": ".experiment/outputs/lead-frozen-source-check.txt",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/outputs/lead-original-api-after.txt",
+              "bytes": 569,
+              "blob_sha": "d8b79ebb8a65be86f07b23563664fcc98610afae"
+            },
+            {
+              "path": ".experiment/outputs/lead-review.txt",
+              "bytes": 5847,
+              "blob_sha": "a45dc8631dec9f5954b86268fd1a428931f754aa"
+            },
+            {
+              "path": ".experiment/outputs/lead-test-commit-check.txt",
+              "bytes": 421,
+              "blob_sha": "dfaddc63009d94f435413fd09a84b1ded26d051e"
+            },
+            {
+              "path": ".experiment/outputs/production-fix-sha.txt",
+              "bytes": 41,
+              "blob_sha": "91407409b61c9af6c0cee9c0af0b1b67a684f133"
+            },
+            {
+              "path": ".experiment/outputs/review-bootstrap-sources.txt",
+              "bytes": 35707,
+              "blob_sha": "35b526432794c1d13b3450a904b38dcbfaaf3d1c"
+            },
+            {
+              "path": ".experiment/outputs/review-code-and-diff.txt",
+              "bytes": 42857,
+              "blob_sha": "b73a0594c1940f304083614a8027c1980c3ef39f"
+            },
+            {
+              "path": ".experiment/outputs/review-design-sources.txt",
+              "bytes": 14801,
+              "blob_sha": "192d66bb0e0c3d3d07e29c48eab2c76bcb87d604"
+            },
+            {
+              "path": ".experiment/outputs/review-evidence-audit.txt",
+              "bytes": 5586,
+              "blob_sha": "5800f99e43fc2d6bba84bdf0f1b363a69c35b841"
+            },
+            {
+              "path": ".experiment/outputs/review-frozen-and-alert-paths.txt",
+              "bytes": 823,
+              "blob_sha": "df881994a486315c99777a7e3f89e24e1edf646c"
+            },
+            {
+              "path": ".experiment/outputs/review-method-sources.txt",
+              "bytes": 16920,
+              "blob_sha": "82c11316692a5081561152256ba88b0632831cd3"
+            },
+            {
+              "path": ".experiment/outputs/review-report-validation.txt",
+              "bytes": 129,
+              "blob_sha": "0bef6875697d2800c3635fc09e50458029db69e5"
+            },
+            {
+              "path": ".experiment/outputs/review-test-and-runtime-evidence.txt",
+              "bytes": 38164,
+              "blob_sha": "d8a7d850c4374385f9f8dc4c0c645b4ff2a53319"
+            },
+            {
+              "path": ".experiment/outputs/review-trail.txt",
+              "bytes": 33562,
+              "blob_sha": "88225bfe0ba58b275cd4e6a2482fc424e8dfa743"
+            },
+            {
+              "path": ".experiment/outputs/review-write-report.txt",
+              "bytes": 74,
+              "blob_sha": "018992ec58598e5293bf8374d11ff9e159459ad0"
+            },
+            {
+              "path": ".experiment/reproduce.py",
+              "bytes": 943,
+              "blob_sha": "e2e63fb7024e62c2825247dfbe130a6cb1b041cb"
+            },
+            {
+              "path": ".experiment/review-decisions.tsv",
+              "bytes": 1063,
+              "blob_sha": "1d15a25c75dfb2cf93b64e33bdba188e31c39e0a"
+            },
+            {
+              "path": ".experiment/source-hashes.json",
+              "bytes": 2717,
+              "blob_sha": "1aa810af9be85111f985901ae99be67b476d6223"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        }
       },
       "identity": {
         "requested": {
@@ -567,7 +1713,650 @@
         "token usage",
         "independently attested runtime model/reasoning"
       ],
-      "disposition_notes": ""
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "debugging": {
+        "valid_red_capable_feedback_loop_before_fix": true,
+        "root_cause_correctly_identified": true,
+        "regression_test_at_correct_seam": true,
+        "original_scenario_reverified_after_fix": true,
+        "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+        "wrong_production_files_modified_before_root_cause": "none observed",
+        "steps_to_first_valid_red_signal": null,
+        "hidden_regression_case_count": null,
+        "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+        "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+        "evidence": "results/P-S04-002/run.json"
+      },
+      "evidence_paths": [
+        "results/P-S04-002/run.json",
+        "results/P-S04-002/evaluation.json",
+        "results/P-S04-002/candidate-diff.patch",
+        "results/P-S04-002/local-history.bundle.b64",
+        "results/P-S04-002/worker-evidence.json"
+      ]
+    },
+    {
+      "run_id": "P-S02-002",
+      "treatment": "pstack-codex-port-v0",
+      "scenario": "S02-v0.1",
+      "status": "INVALID_HOST_FAILURE",
+      "included": false,
+      "correctness": {
+        "public": null,
+        "evaluator": null,
+        "hidden_case_count": null
+      },
+      "verification": {
+        "level": "V0 SELF_REPORT for partial progress only",
+        "basis": "No frozen candidate or independent outcome evidence; visible checkpoints cannot establish acceptance."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 2,
+        "total": 4,
+        "silent_assumptions": null,
+        "partial_only": true,
+        "exchanges": [
+          {
+            "run_id": "P-S02-002",
+            "round": 1,
+            "observed_at": "2026-10-07 14:16:42 UTC",
+            "question": "The task defines pause as preventing normal scheduled work, while preserving existing Run/retry/alert/dashboard behavior unless needed. Please resolve pause semantics: (1) may operators still start manual Runs while paused; (2) do existing Runs continue Attempts/retries unchanged; (3) do failed Runs still emit existing alerts while paused; (4) should dashboard show pause state separately while retaining Enabled and Last result; (5) should resume preserve the preexisting enabled/disabled setting? My tentative minimal design uses a persisted paused flag separate from enabled, gates only new scheduled Runs, leaves in-flight Runs/retries/alerts intact, and adds a separate pause indicator. I will wait for your product answer before dependent implementation and record the exchange.",
+            "answer": "(1) Manual Runs remain allowed while paused. (2–3) An in-progress Run continues to terminal outcome with existing retries and alerts preserved. (4–5) No additional product preference for dashboard or pause/enabled-state representation: use TASK.md, existing public interfaces and reversible engineering judgment. This answers only the asked product decisions; no blanket confirmation of the tentative design or other semantics.",
+            "classification": "MIXED",
+            "product_decisions_answered": [
+              "manual_run_while_paused",
+              "pause_in_progress_run"
+            ],
+            "question_classifications": [
+              {
+                "item": "manual Runs while paused",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "in-progress Attempts/retries",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "existing alerts while paused",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+                "same_frozen_semantic": "pause_in_progress_run"
+              },
+              {
+                "item": "dashboard indicator",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "item": "enabled/disabled representation",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              }
+            ],
+            "FACT_questions": 0,
+            "volunteered_requirements": false,
+            "answer_sheet_supplied": false
+          }
+        ],
+        "basis": "Two preserved asked/answered semantics; execution incomplete. Do not compare as a completed discovery profile."
+      },
+      "observable_overhead": {
+        "helper_context_count": null,
+        "local_commit_count_including_start_and_evidence": null,
+        "new_process_artifact_file_count": null,
+        "production_and_test_line_changes": null,
+        "visible_checkpoints": 2,
+        "operator_exchange_count": 1,
+        "start_at": "2026-10-07T14:15:17.618075+00:00",
+        "frozen_at": null,
+        "wall_clock_seconds": null,
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null,
+        "partial_only": true
+      },
+      "persistent_state": {
+        "status": "PARTIAL",
+        "basis": "Start, one operator exchange, two checkpoints and explicit host-failure disposition durable; candidate/history unavailable."
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "No recoverable frozen candidate",
+        "Partial checkpoint claims not independently verified",
+        "No prior contexts or local history"
+      ],
+      "disposition_notes": "The resumed host no longer had the prior contestant/helper contexts or the working area/local history. No frozen candidate branch or independently verifiable final candidate could be recovered. Live checkpoint claims are preserved as partial process evidence only.",
+      "no_retry": true,
+      "evidence_paths": [
+        "results/P-S02-002/start.json",
+        "results/P-S02-002/operator-interactions-live.json",
+        "results/P-S02-002/visible-checkpoints-live.json",
+        "results/P-S02-002/run.json"
+      ]
+    },
+    {
+      "run_id": "P-S01-002",
+      "treatment": "pstack-codex-port-v0",
+      "scenario": "S01-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "helper_context_count": 1,
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 48,
+        "all_diff_stat": " .experiment/REPORT.json          | 216 +++++++++++++++++++++++++++++++++++++++\n .experiment/TODO.md              |  39 +++++++\n .experiment/after_change.log     |   2 +\n .experiment/baseline.json        |  19 ++++\n .experiment/baseline.log         |   2 +\n .experiment/baseline_suite.log   |  10 ++\n .experiment/before_change.log    |   5 +\n .experiment/candidate.diff       |  13 +++\n .experiment/candidate_commit.log |  10 ++\n .experiment/decisions.tsv        |   5 +\n .experiment/diff_check.log       |   0\n .experiment/final_suite.log      |  10 ++\n .experiment/helper-review.txt    |  25 +++++\n .experiment/verify_dashboard.py  |  27 +++++\n relayboard/web.py                |   2 +-\n 15 files changed, 384 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/web.py",
+            "added": 1,
+            "removed": 1
+          }
+        ],
+        "visible_checkpoints": 2,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-08T01:49:15.429836+00:00",
+        "frozen_at": "2026-10-08T02:00:03.949812+00:00",
+        "wall_clock_seconds": 648.52,
+        "wall_clock_note": "Preparation-to-freeze includes host/operator/archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 14,
+          "git_blob_bytes": 21414,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 7423,
+              "blob_sha": "6b595f78cbaf44485021d7adba1289196c07d08a"
+            },
+            {
+              "path": ".experiment/TODO.md",
+              "bytes": 5552,
+              "blob_sha": "106bdf64453deadae2860f330afb8d3fd8c52d9f"
+            },
+            {
+              "path": ".experiment/after_change.log",
+              "bytes": 110,
+              "blob_sha": "a987c8f5f78b7e4175d6e1256764d13e38e4c934"
+            },
+            {
+              "path": ".experiment/baseline.json",
+              "bytes": 623,
+              "blob_sha": "fb28a2728216378e1049f640970ea657f47cb82a"
+            },
+            {
+              "path": ".experiment/baseline.log",
+              "bytes": 100,
+              "blob_sha": "49cb7d576fe8f50180cb96d5e77c0db8ea9c9098"
+            },
+            {
+              "path": ".experiment/baseline_suite.log",
+              "bytes": 709,
+              "blob_sha": "c3b470d0ba26ce680e334f601afa41829ddac5b4"
+            },
+            {
+              "path": ".experiment/before_change.log",
+              "bytes": 321,
+              "blob_sha": "efacbff3eaf853f913bcf1bcef91c8e86a0192d9"
+            },
+            {
+              "path": ".experiment/candidate.diff",
+              "bytes": 552,
+              "blob_sha": "cd828816106924ab14bb03bbaec30e4207945c33"
+            },
+            {
+              "path": ".experiment/candidate_commit.log",
+              "bytes": 362,
+              "blob_sha": "41d2f928c2d394ed5634e554e18eaae44af93ff2"
+            },
+            {
+              "path": ".experiment/decisions.tsv",
+              "bytes": 1150,
+              "blob_sha": "6601586faddde74c4834753ba4060b121114dbb0"
+            },
+            {
+              "path": ".experiment/diff_check.log",
+              "bytes": 0,
+              "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "path": ".experiment/final_suite.log",
+              "bytes": 709,
+              "blob_sha": "c3b470d0ba26ce680e334f601afa41829ddac5b4"
+            },
+            {
+              "path": ".experiment/helper-review.txt",
+              "bytes": 2496,
+              "blob_sha": "01453cb9549d3bc45127076da6fd9fa7b8c47fbe"
+            },
+            {
+              "path": ".experiment/verify_dashboard.py",
+              "bytes": 1307,
+              "blob_sha": "b145de4a6ca3e95606ddc7d65aa1c96bf7d2a693"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        },
+        "new_process_artifact_file_count": 14
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "evidence_paths": [
+        "results/P-S01-002/run.json",
+        "results/P-S01-002/evaluation.json",
+        "results/P-S01-002/candidate-diff.patch",
+        "results/P-S01-002/local-history.bundle.b64",
+        "results/P-S01-002/worker-evidence.json"
+      ]
+    },
+    {
+      "run_id": "N-S04-002",
+      "treatment": "neutral-v0",
+      "scenario": "S04-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "helper_context_count": 0,
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 19,
+        "all_diff_stat": " .experiment/REPORT.json               | 146 ++++++++++++++++++++++++++++++++++\n .experiment/baseline-tests.txt        |  10 +++\n .experiment/regression-before-fix.txt | 132 ++++++++++++++++++++++++++++++\n .experiment/tests-after-fix.txt       |  14 ++++\n relayboard/service.py                 |   1 -\n tests/test_retry_alerts.py            | 108 +++++++++++++++++++++++++\n 6 files changed, 410 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 108,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 2,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-08T02:23:25.760934+00:00",
+        "frozen_at": "2026-10-08T02:26:27.628103+00:00",
+        "wall_clock_seconds": 181.868,
+        "wall_clock_note": "Preparation-to-freeze includes host/operator/archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 4,
+          "git_blob_bytes": 17926,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 7438,
+              "blob_sha": "317589457d5ea16ea56a105b708378e087a6ccad"
+            },
+            {
+              "path": ".experiment/baseline-tests.txt",
+              "bytes": 709,
+              "blob_sha": "c3b470d0ba26ce680e334f601afa41829ddac5b4"
+            },
+            {
+              "path": ".experiment/regression-before-fix.txt",
+              "bytes": 8498,
+              "blob_sha": "640e4463a3e26ed3e226cc96f683328b73b8bf31"
+            },
+            {
+              "path": ".experiment/tests-after-fix.txt",
+              "bytes": 1281,
+              "blob_sha": "c57184b8f088e35739f1e3e3fa7eb8de450cd5af"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        },
+        "new_process_artifact_file_count": 4
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "debugging": {
+        "valid_red_capable_feedback_loop_before_fix": true,
+        "root_cause_correctly_identified": true,
+        "regression_test_at_correct_seam": true,
+        "original_scenario_reverified_after_fix": true,
+        "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+        "wrong_production_files_modified_before_root_cause": "none observed",
+        "steps_to_first_valid_red_signal": null,
+        "hidden_regression_case_count": null,
+        "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+        "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+        "evidence": "results/N-S04-002/run.json"
+      },
+      "evidence_paths": [
+        "results/N-S04-002/run.json",
+        "results/N-S04-002/evaluation.json",
+        "results/N-S04-002/candidate-diff.patch",
+        "results/N-S04-002/local-history.bundle.b64",
+        "results/N-S04-002/worker-evidence.json"
+      ]
+    },
+    {
+      "run_id": "N-S02-002",
+      "treatment": "neutral-v0",
+      "scenario": "S02-v0.1",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope."
+      },
+      "requirement_discovery": {
+        "frozen_product_decisions_surfaced": 3,
+        "total": 4,
+        "silent_assumptions": 1,
+        "basis": "Unique requested/answered frozen semantics; unasked correct guesses count as silent assumptions under unchanged scoring.",
+        "exchanges": [
+          {
+            "run_id": "N-S02-002",
+            "asked_at_observed": "2026-10-08 02:27:57 UTC",
+            "question": "The task leaves pause semantics open. My proposed behavior is an independent persisted paused flag that blocks new scheduled Runs, permits manual Runs, allows existing Runs/retries/alerts to continue unchanged, preserves enabled state across pause/resume, and shows pause state on the dashboard without changing existing columns. Confirm these semantics or specify differences before I implement dependent behavior.",
+            "question_classifications": [
+              {
+                "item": "new scheduled Runs while paused",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "manual Runs while paused",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "existing in-progress Runs",
+                "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+              },
+              {
+                "item": "persisted flag and preserving existing enabled state",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              },
+              {
+                "item": "dashboard presentation and retaining columns",
+                "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+              }
+            ],
+            "frozen_decisions_answered": [
+              "scheduled_start_while_paused",
+              "manual_run_while_paused",
+              "pause_in_progress_run"
+            ],
+            "answer": "For the requested product decisions: an in-progress Run continues to its terminal outcome; scheduled starts while paused are skipped and are not queued; manual Runs while paused are allowed. The persisted representation, enabled-state handling, and dashboard presentation are reversible engineering choices; decide from the assigned task and fixture.",
+            "unasked_frozen_decisions_not_supplied": [
+              "resume_behavior"
+            ],
+            "oracle_ref": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+            "oracle_blob_sha": "054a302c6233321fa3988ce2f2be4a723039fa80"
+          }
+        ],
+        "FACT_questions": 0,
+        "reversible_engineering_questions": 2
+      },
+      "observable_overhead": {
+        "helper_context_count": 0,
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 20,
+        "all_diff_stat": " .experiment/REPORT.json           | 125 +++++++++++++++++++++++++\n .experiment/baseline-tests.txt    |  10 ++\n .experiment/final-tests.txt       |  21 +++++\n .experiment/persistence-smoke.txt |   2 +\n PAUSE.md                          |  22 +++++\n relayboard/models.py              |   1 +\n relayboard/service.py             |  10 +-\n relayboard/store.py               |  33 ++++++-\n relayboard/web.py                 |  22 ++++-\n tests/test_pause.py               | 189 ++++++++++++++++++++++++++++++++++++++\n 10 files changed, 429 insertions(+), 6 deletions(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/models.py",
+            "added": 1,
+            "removed": 0
+          },
+          {
+            "path": "relayboard/service.py",
+            "added": 9,
+            "removed": 1
+          },
+          {
+            "path": "relayboard/store.py",
+            "added": 29,
+            "removed": 4
+          },
+          {
+            "path": "relayboard/web.py",
+            "added": 21,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_pause.py",
+            "added": 189,
+            "removed": 0
+          }
+        ],
+        "visible_checkpoints": 2,
+        "operator_exchange_count": 1,
+        "start_at": "2026-10-08T02:26:49.517017+00:00",
+        "frozen_at": "2026-10-08T02:31:04.104562+00:00",
+        "wall_clock_seconds": 254.587,
+        "wall_clock_note": "Preparation-to-freeze includes host/operator/archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 4,
+          "git_blob_bytes": 9148,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 6100,
+              "blob_sha": "616ee48614f6d84153a2b16b55582cb7c2508876"
+            },
+            {
+              "path": ".experiment/baseline-tests.txt",
+              "bytes": 709,
+              "blob_sha": "c3b470d0ba26ce680e334f601afa41829ddac5b4"
+            },
+            {
+              "path": ".experiment/final-tests.txt",
+              "bytes": 2199,
+              "blob_sha": "5b954612e1492db94b1a7eaf4c032ea2b6c9463b"
+            },
+            {
+              "path": ".experiment/persistence-smoke.txt",
+              "bytes": 140,
+              "blob_sha": "4c23388008d6adf94dde04ec0b58e4edfdfe6690"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        },
+        "new_process_artifact_file_count": 4
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "evidence_paths": [
+        "results/N-S02-002/run.json",
+        "results/N-S02-002/evaluation.json",
+        "results/N-S02-002/candidate-diff.patch",
+        "results/N-S02-002/local-history.bundle.b64",
+        "results/N-S02-002/worker-evidence.json"
+      ]
+    },
+    {
+      "run_id": "N-S01-002",
+      "treatment": "neutral-v0",
+      "scenario": "S01-v0",
+      "status": "COMPLETED_EVALUATED_PASS",
+      "included": true,
+      "correctness": {
+        "public": true,
+        "evaluator": true,
+        "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+      },
+      "verification": {
+        "subjective_blind_learning_score": null,
+        "subjective_review_note": "Not assigned by treatment-aware orchestrator.",
+        "level": "V4 INDEPENDENT",
+        "basis": "Actual/equivalent WSGI or API behavior verified in preserved public checks, plus separate unchanged frozen evaluator after termination. Deterministic fixture scope."
+      },
+      "requirement_discovery": null,
+      "observable_overhead": {
+        "helper_context_count": 0,
+        "local_commit_count_including_start_and_evidence": 3,
+        "candidate_file_count": 15,
+        "all_diff_stat": " .experiment/REPORT.json | 99 +++++++++++++++++++++++++++++++++++++++++++++++++\n relayboard/web.py       |  2 +-\n 2 files changed, 100 insertions(+), 1 deletion(-)\n",
+        "production_and_test_line_changes": [
+          {
+            "path": "relayboard/web.py",
+            "added": 1,
+            "removed": 1
+          }
+        ],
+        "visible_checkpoints": 1,
+        "operator_exchange_count": 0,
+        "start_at": "2026-10-08T02:31:24.228579+00:00",
+        "frozen_at": "2026-10-08T02:33:29.811215+00:00",
+        "wall_clock_seconds": 125.583,
+        "wall_clock_note": "Preparation-to-freeze includes host/operator/archival delays; not model compute time.",
+        "raw_tool_calls": null,
+        "tokens": null,
+        "cost": null,
+        "process_footprint": {
+          "new_process_artifact_file_count": 1,
+          "git_blob_bytes": 5317,
+          "paths": [
+            {
+              "path": ".experiment/REPORT.json",
+              "bytes": 5317,
+              "blob_sha": "880310544fb25d1550d0a4c975cf433f5a7d40f8"
+            }
+          ],
+          "basis": "New .experiment/, .scratch/ or REPORT.json files, excluding prepared packet. Git blob bytes include binary/compressed artifacts; these are an evidence footprint, not token/compute costs."
+        },
+        "new_process_artifact_file_count": 1
+      },
+      "identity": {
+        "requested": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "high"
+        },
+        "observed": "unknown"
+      },
+      "evidence_limitations": [
+        "exhaustive raw tool transcript",
+        "token usage",
+        "independently attested runtime model/reasoning"
+      ],
+      "disposition_notes": "",
+      "persistent_state": {
+        "status": "PASS",
+        "basis": "Durable run record, frozen remote candidate, diff, local history bundle, operator/checkpoint evidence and public/hidden outputs permit reconstruction."
+      },
+      "rework": {
+        "substantial_production_rewrites": "none observed in retained final diffs/reports",
+        "raw_trace_count": null,
+        "basis": "No exhaustive host trace; do not infer complete action history."
+      },
+      "evidence_paths": [
+        "results/N-S01-002/run.json",
+        "results/N-S01-002/evaluation.json",
+        "results/N-S01-002/candidate-diff.patch",
+        "results/N-S01-002/local-history.bundle.b64",
+        "results/N-S01-002/worker-evidence.json"
+      ]
     }
   ]
 }

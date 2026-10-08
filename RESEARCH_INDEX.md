@@ -313,3 +313,9 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 2. If extending the experiment, declare a new repeated-run cohort and host/port controls before outcomes; do not silently replace contaminated P-S04-001.
 3. Arrange blind subjective rationale/maintainability review where practical; current reports do not assign those scores.
 4. Improve export of raw execution traces and model/usage attestation for future runs. Keep frozen pilot definitions unchanged.
+
+## Benchmark Replication Round 2 — finalized 2026-10-08
+
+Status: **IMPLEMENTED and VERIFIED within the frozen fixture scope**. Twelve dispositions: eleven evaluated PASS and one excluded host failure (P-S02-002), preserved without retry. Ten valid matched Round 1/Round 2 pairs pass acceptance; overhead and elicitation show both repeated and variable behavior. Matt S02 discovery is 4/4 in both rounds; FIRST 3→2 and Neutral 0→3. No universal winner, causal speed/cost claim or main merge.
+
+See [EXP-0013](./docs/experiments/0013-relayboard-replication-round2.md), [cross-round report](./experiments/relayboard/orchestration/replication-round2-v0/cross-round-report.md), [profiles](./experiments/relayboard/orchestration/replication-round2-v0/profiles.json) and [final audit](./experiments/relayboard/orchestration/replication-round2-v0/final-audit.json). No contestant remains pending. Future cohorts must preserve existing exclusions and freeze new controls before outcomes.

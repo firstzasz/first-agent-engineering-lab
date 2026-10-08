@@ -32,6 +32,6 @@
     "profiles": "profiles.json",
     "comparison": "cross-round-report.md",
     "audit": "final-audit.json",
-    "status": "IN_PROGRESS"
+    "status": "COMPLETED"
   }
 }

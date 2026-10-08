@@ -1,0 +1,488 @@
+{
+  "schema_version": 1,
+  "comparison_basis": "One independent run per treatment/scenario per round; Round 2 reverse order frozen before first contestant; no outcome-dependent retries.",
+  "round1": {
+    "dispositions": 12,
+    "evaluated_pass": 11,
+    "evaluated_fail": 0,
+    "excluded_contaminated": 1
+  },
+  "round2": {
+    "dispositions": 12,
+    "evaluated_pass": 11,
+    "evaluated_fail": 0,
+    "excluded_host_failure": 1,
+    "contaminated": 0
+  },
+  "valid_matched_pairs": 10,
+  "valid_matched_acceptance_pairs_all_pass": true,
+  "s01": [
+    {
+      "treatment": "first-mode-v0",
+      "production_diff_same": true,
+      "helper_count": [
+        0,
+        0
+      ],
+      "new_process_files": [
+        7,
+        11
+      ],
+      "process_blob_bytes": [
+        12612,
+        16367
+      ],
+      "local_commits_including_start": [
+        3,
+        3
+      ],
+      "wall_seconds_including_host_delays": [
+        167.56,
+        209.788
+      ],
+      "public_and_evaluator_pass": [
+        true,
+        true
+      ]
+    },
+    {
+      "treatment": "matt-codex-port-v0",
+      "production_diff_same": true,
+      "helper_count": [
+        2,
+        2
+      ],
+      "new_process_files": [
+        18,
+        18
+      ],
+      "process_blob_bytes": [
+        27651,
+        29648
+      ],
+      "local_commits_including_start": [
+        3,
+        3
+      ],
+      "wall_seconds_including_host_delays": [
+        7522.34,
+        403.367
+      ],
+      "public_and_evaluator_pass": [
+        true,
+        true
+      ]
+    },
+    {
+      "treatment": "pstack-codex-port-v0",
+      "production_diff_same": true,
+      "helper_count": [
+        1,
+        1
+      ],
+      "new_process_files": [
+        30,
+        14
+      ],
+      "process_blob_bytes": [
+        49783,
+        21414
+      ],
+      "local_commits_including_start": [
+        3,
+        3
+      ],
+      "wall_seconds_including_host_delays": [
+        406.021,
+        648.52
+      ],
+      "public_and_evaluator_pass": [
+        true,
+        true
+      ]
+    },
+    {
+      "treatment": "neutral-v0",
+      "production_diff_same": true,
+      "helper_count": [
+        null,
+        0
+      ],
+      "new_process_files": [
+        null,
+        1
+      ],
+      "process_blob_bytes": [
+        null,
+        5317
+      ],
+      "local_commits_including_start": [
+        null,
+        3
+      ],
+      "wall_seconds_including_host_delays": [
+        null,
+        125.583
+      ],
+      "public_and_evaluator_pass": [
+        true,
+        true
+      ]
+    }
+  ],
+  "s02": [
+    {
+      "treatment": "first-mode-v0",
+      "paired_valid": true,
+      "round1": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "surfaced": 3,
+        "silent": 1,
+        "operator_exchanges": 1
+      },
+      "round2": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "surfaced": 2,
+        "silent": 2,
+        "partial_only": false,
+        "FACT_questions": 0,
+        "reversible_engineering_questions": 4,
+        "operator_exchanges": 1
+      }
+    },
+    {
+      "treatment": "matt-codex-port-v0",
+      "paired_valid": true,
+      "round1": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "surfaced": 4,
+        "silent": 0,
+        "operator_exchanges": 3
+      },
+      "round2": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "surfaced": 4,
+        "silent": 0,
+        "partial_only": false,
+        "FACT_questions": 0,
+        "reversible_engineering_questions": 3,
+        "operator_exchanges": 2
+      }
+    },
+    {
+      "treatment": "pstack-codex-port-v0",
+      "paired_valid": false,
+      "round1": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "surfaced": 2,
+        "silent": 2,
+        "operator_exchanges": 1
+      },
+      "round2": {
+        "status": "INVALID_HOST_FAILURE",
+        "surfaced": 2,
+        "silent": null,
+        "partial_only": true,
+        "FACT_questions": null,
+        "reversible_engineering_questions": null,
+        "operator_exchanges": 1
+      }
+    },
+    {
+      "treatment": "neutral-v0",
+      "paired_valid": true,
+      "round1": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "surfaced": 0,
+        "silent": 4,
+        "operator_exchanges": 0
+      },
+      "round2": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "surfaced": 3,
+        "silent": 1,
+        "partial_only": false,
+        "FACT_questions": 0,
+        "reversible_engineering_questions": 2,
+        "operator_exchanges": 1
+      }
+    }
+  ],
+  "s04": [
+    {
+      "treatment": "first-mode-v0",
+      "paired_valid": true,
+      "round1": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "acceptance": {
+          "public": true,
+          "evaluator": true,
+          "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+        },
+        "valid_red_before_fix": true,
+        "root_cause_confirmed": true,
+        "original_surface_or_regression_reverified": true
+      },
+      "round2": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "acceptance": {
+          "public": true,
+          "evaluator": true,
+          "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+        },
+        "debugging": {
+          "valid_red_capable_feedback_loop_before_fix": true,
+          "root_cause_correctly_identified": true,
+          "regression_test_at_correct_seam": true,
+          "original_scenario_reverified_after_fix": true,
+          "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+          "wrong_production_files_modified_before_root_cause": "none observed",
+          "steps_to_first_valid_red_signal": null,
+          "hidden_regression_case_count": null,
+          "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+          "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+          "evidence": "results/F-S04-002/run.json"
+        }
+      },
+      "production_and_test_diffs": [
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 103,
+            "removed": 0
+          }
+        ],
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 91,
+            "removed": 0
+          }
+        ]
+      ],
+      "measurement_limits": [
+        "Exact red-signal tool/action counts unavailable; command-level retained evidence varies",
+        "Speculative-fix counts cannot be exhaustively established",
+        "Hidden evaluator does not export pass/total case count"
+      ]
+    },
+    {
+      "treatment": "matt-codex-port-v0",
+      "paired_valid": true,
+      "round1": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "acceptance": {
+          "public": true,
+          "evaluator": true,
+          "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+        },
+        "valid_red_before_fix": true,
+        "root_cause_confirmed": true,
+        "original_surface_or_regression_reverified": true
+      },
+      "round2": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "acceptance": {
+          "public": true,
+          "evaluator": true,
+          "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+        },
+        "debugging": {
+          "valid_red_capable_feedback_loop_before_fix": true,
+          "root_cause_correctly_identified": true,
+          "regression_test_at_correct_seam": true,
+          "original_scenario_reverified_after_fix": true,
+          "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+          "wrong_production_files_modified_before_root_cause": "none observed",
+          "steps_to_first_valid_red_signal": null,
+          "hidden_regression_case_count": null,
+          "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+          "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+          "evidence": "results/M-S04-002/run.json"
+        }
+      },
+      "production_and_test_diffs": [
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_public.py",
+            "added": 74,
+            "removed": 0
+          }
+        ],
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_public.py",
+            "added": 47,
+            "removed": 0
+          }
+        ]
+      ],
+      "measurement_limits": [
+        "Exact red-signal tool/action counts unavailable; command-level retained evidence varies",
+        "Speculative-fix counts cannot be exhaustively established",
+        "Hidden evaluator does not export pass/total case count"
+      ]
+    },
+    {
+      "treatment": "pstack-codex-port-v0",
+      "paired_valid": false,
+      "round1": {
+        "status": "CONTAMINATED",
+        "acceptance": null,
+        "valid_red_before_fix": null,
+        "root_cause_confirmed": null,
+        "original_surface_or_regression_reverified": null
+      },
+      "round2": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "acceptance": {
+          "public": true,
+          "evaluator": true,
+          "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+        },
+        "debugging": {
+          "valid_red_capable_feedback_loop_before_fix": true,
+          "root_cause_correctly_identified": true,
+          "regression_test_at_correct_seam": true,
+          "original_scenario_reverified_after_fix": true,
+          "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+          "wrong_production_files_modified_before_root_cause": "none observed",
+          "steps_to_first_valid_red_signal": null,
+          "hidden_regression_case_count": null,
+          "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+          "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+          "evidence": "results/P-S04-002/run.json"
+        }
+      },
+      "production_and_test_diffs": [
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_public.py",
+            "added": 124,
+            "removed": 0
+          }
+        ],
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_failure_alerts.py",
+            "added": 115,
+            "removed": 0
+          }
+        ]
+      ],
+      "measurement_limits": [
+        "Exact red-signal tool/action counts unavailable; command-level retained evidence varies",
+        "Speculative-fix counts cannot be exhaustively established",
+        "Hidden evaluator does not export pass/total case count"
+      ]
+    },
+    {
+      "treatment": "neutral-v0",
+      "paired_valid": true,
+      "round1": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "acceptance": {
+          "public": true,
+          "evaluator": true,
+          "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+        },
+        "valid_red_before_fix": true,
+        "root_cause_confirmed": true,
+        "original_surface_or_regression_reverified": true
+      },
+      "round2": {
+        "status": "COMPLETED_EVALUATED_PASS",
+        "acceptance": {
+          "public": true,
+          "evaluator": true,
+          "hidden_case_count": "unknown; frozen evaluator returns aggregate acceptance/failures"
+        },
+        "debugging": {
+          "valid_red_capable_feedback_loop_before_fix": true,
+          "root_cause_correctly_identified": true,
+          "regression_test_at_correct_seam": true,
+          "original_scenario_reverified_after_fix": true,
+          "speculative_production_fixes_before_root_cause": "none observed in retained evidence",
+          "wrong_production_files_modified_before_root_cause": "none observed",
+          "steps_to_first_valid_red_signal": null,
+          "hidden_regression_case_count": null,
+          "temporary_instrumentation": "No diagnostic instrumentation left in production candidate",
+          "scope": "Sequential Python/SQLite/WSGI fixture; no concurrency, crash-recovery or historical-alert cleanup claim.",
+          "evidence": "results/N-S04-002/run.json"
+        }
+      },
+      "production_and_test_diffs": [
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 109,
+            "removed": 0
+          }
+        ],
+        [
+          {
+            "path": "relayboard/service.py",
+            "added": 0,
+            "removed": 1
+          },
+          {
+            "path": "tests/test_retry_alerts.py",
+            "added": 108,
+            "removed": 0
+          }
+        ]
+      ],
+      "measurement_limits": [
+        "Exact red-signal tool/action counts unavailable; command-level retained evidence varies",
+        "Speculative-fix counts cannot be exhaustively established",
+        "Hidden evaluator does not export pass/total case count"
+      ]
+    }
+  ],
+  "process_footprint_definition": "New .experiment/, .scratch/ or REPORT.json Git blobs only; excludes prepared packet, source/test changes and feature documentation. Binary/compressed artifacts counted by stored bytes; files are packaging units, not standardized work/quality.",
+  "no_aggregate_score": true,
+  "no_universal_winner": true,
+  "notes": [
+    "P-S04-001 excluded; P-S04-002 independent replication, not retry",
+    "P-S02-002 excluded host failure; no final candidate or hidden/public acceptance; preserved partial elicitation cannot establish final discovery",
+    "Original N-S01-001 overhead/interaction trace unknown",
+    "Wall time contains host, operator and archival delays; no causal speed ranking",
+    "Model/reasoning requested gpt-6.1-sol/high; runtime attestation unknown; raw tokens/cost/action counts unavailable",
+    "Subjective scores not assigned by treatment-aware orchestrator"
+  ]
+}
