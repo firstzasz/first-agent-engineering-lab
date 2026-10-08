@@ -398,7 +398,122 @@
   "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
   "hidden_feedback_to_same_run": false,
   "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
-  "source_pins": [],
+  "source_pins": [
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/SKILL.md",
+      "blob_sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "blob_sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+      "blob_sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+      "blob_sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/tdd/SKILL.md",
+      "blob_sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/how/SKILL.md",
+      "blob_sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/SKILL.md",
+      "blob_sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "blob_sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+      "blob_sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "blob_sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "blob_sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "blob_sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "blob_sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/LICENSE",
+      "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/show-me-your-work/SKILL.md",
+      "blob_sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "blob_sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/arena/SKILL.md",
+      "blob_sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/rationale-template.md",
+      "blob_sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/design-red-flags.md",
+      "blob_sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+    }
+  ],
   "available_evidence_paths": [
     ".experiment/REPORT.json",
     ".experiment/after_change.log",
@@ -415,11 +530,5 @@
     "token usage",
     "independently attested runtime model/reasoning"
   ],
-  "notes": "",
-  "local_history_bundle": {
-    "path": "local-history.bundle.b64",
-    "bytes": 56423,
-    "sha256": "33c86b6d580eb1cf3a8155f5547f1219768ab462c4922c6753198dbd2582d954",
-    "encoding": "base64; decode then git bundle verify"
-  }
+  "notes": ""
 }
