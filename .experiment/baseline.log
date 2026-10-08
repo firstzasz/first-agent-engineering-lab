@@ -1,0 +1,2 @@
+PASS baseline GET /dashboard has Jobs table with Last result.
+PASS baseline GET /api/jobs captured.

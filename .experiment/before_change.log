@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/relayboard-round2-active/P-S01-002/.experiment/verify_dashboard.py", line 22, in <module>
+    assert '<th>Latest result</th>' in dashboard, 'Latest result heading missing'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Latest result heading missing

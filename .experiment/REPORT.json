@@ -1,0 +1,216 @@
+{
+  "contestant": "P-S01-002",
+  "task": "Change Jobs table heading from Last result to Latest result without changing API or unrelated dashboard behavior.",
+  "classification": "Feature, truly mechanical one-file edit",
+  "done_predicate": "Public GET /dashboard changes only the requested heading, public GET /api/jobs stays identical, public tests pass, lead and fresh helper review complete, candidate and evidence committed locally.",
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning": "high",
+    "observed_runtime_identity": "independently unverified",
+    "attested_identity": null
+  },
+  "method": {
+    "label": "pstack-codex-port-v0",
+    "upstream": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
+    "core_route": "upstream/pstack/skills/poteto-mode/SKILL.md",
+    "playbook": "upstream/pstack/skills/poteto-mode/playbooks/feature.md",
+    "principles_read": [
+      "laziness-protocol",
+      "model-the-domain",
+      "prove-it-works",
+      "fix-root-causes",
+      "test-behavior-not-implementation",
+      "sequence-verifiable-units",
+      "never-block-on-the-human"
+    ],
+    "trail_route": "upstream/pstack/skills/show-me-your-work/SKILL.md",
+    "adaptations_and_skips": ".experiment/TODO.md"
+  },
+  "initial_commit": "c0190576cf54853337b328935f6bdfb730cccee7",
+  "local_commits": [
+    {
+      "sha": "35e27f6173df2f8e5c8362cd2be199fcf325a7aa",
+      "purpose": "Verified candidate heading change",
+      "evidence": ".experiment/candidate_commit.log"
+    }
+  ],
+  "public_commands": [
+    {
+      "command": [
+        "python",
+        ".experiment/verify_dashboard.py",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/baseline.log"
+    },
+    {
+      "command": [
+        "python",
+        ".experiment/verify_dashboard.py"
+      ],
+      "exit_code": 1,
+      "output_path": ".experiment/before_change.log"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/baseline_suite.log"
+    },
+    {
+      "command": [
+        "python",
+        ".experiment/verify_dashboard.py"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/after_change.log"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/final_suite.log"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/diff_check.log"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--",
+        "relayboard/web.py"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/candidate.diff"
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "--stat",
+        "--format=fuller",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output_path": ".experiment/candidate_commit.log"
+    }
+  ],
+  "questions_and_answers": [],
+  "checkpoints": [
+    {
+      "phase": "scope",
+      "result": "One literal heading in relayboard/web.py; direct lead trace; no product questions."
+    },
+    {
+      "phase": "verify",
+      "result": "Requested heading passes, exact full dashboard replacement matches, API baseline unchanged, public tests 5/5, diff clean."
+    },
+    {
+      "phase": "review",
+      "result": "Fresh serial reviewer finished; no production changes requested; public checks rerun successfully."
+    },
+    {
+      "phase": "commit",
+      "result": "Candidate committed locally at 35e27f6173df2f8e5c8362cd2be199fcf325a7aa; evidence commit follows."
+    }
+  ],
+  "helpers": [
+    {
+      "task_name": "/root/p_s01_002/scoped_review",
+      "role": "fresh scoped code and evidence reviewer",
+      "fork_turns": "none",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning": "high",
+      "runtime_identity": "independently unverified",
+      "serial": true,
+      "descendants": false,
+      "status": "completed",
+      "evidence": ".experiment/helper-review.txt",
+      "result": "Code review passes; focused check, 5 public tests and diff check independently reported passing; pending completion records addressed by lead.",
+      "access_declaration": "Assigned material and local git only; no edits, network, credentials, siblings or hidden material."
+    }
+  ],
+  "access": {
+    "root": "/workspace/relayboard-round2-active/P-S01-002",
+    "read_categories": [
+      "assigned TASK.md and METHOD.md",
+      "bundled method sources",
+      "local fixture files and public tests",
+      "local git status and initial commit",
+      "this run fresh helper review response"
+    ],
+    "writes": [
+      ".experiment artifacts",
+      "planned relayboard/web.py heading edit",
+      "local git commits"
+    ],
+    "external_access": false,
+    "peer_or_evaluator_access": false,
+    "final_declaration": "Only assigned run fixture, task, method sources, public tests, local evidence, local git and the fresh scoped helper response were accessed. No siblings, peers, evaluator/oracle/reference solution, credentials, external network or hidden evaluation were accessed. No contamination or scope incidents."
+  },
+  "contamination": false,
+  "scope_incidents": [],
+  "unavailable_metrics": [
+    "attested runtime identity",
+    "raw transcript export",
+    "tokens",
+    "cost",
+    "tool count",
+    "hidden evaluation"
+  ],
+  "results": {
+    "before_change_focused_check": "Expected failure: Latest result heading missing",
+    "after_change_focused_check": "PASS public GET /dashboard differs only by heading and GET /api/jobs equals baseline",
+    "full_public_suite": "PASS 5 tests",
+    "diff_check": "PASS",
+    "fresh_review": "PASS code and evidence review; finalization checklist addressed; port limitations retained."
+  },
+  "limitations": [
+    "WSGI response checks rather than native browser/controller verification.",
+    "Fresh same-requested-model review rather than native model-family diversity."
+  ],
+  "public_execution_environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": ".",
+    "cwd": "/workspace/relayboard-round2-active/P-S01-002"
+  },
+  "attention": [
+    "Historical before/after ordering is evidenced by captured logs and decisions, not an exported raw transcript.",
+    "Direct public WSGI and seeded API comparisons substitute for unavailable native UI tooling.",
+    "Same requested model reviewer substitutes for unavailable model-family diversity; runtime identity remains unverified."
+  ],
+  "inspection_evidence": [
+    "TASK.md and METHOD.md read before routing",
+    "Assigned Poteto Mode core, Feature playbook, seven core principles and Show me your work read in full",
+    "Local README.md, pyproject.toml, relayboard/web.py, relayboard/testing.py and tests/test_public.py read",
+    "Local git status, initial history, candidate diff and status inspected",
+    "Lead audited both TSV rows against produced artifacts; no native transcript route available"
+  ],
+  "final_evidence_commit": {
+    "resolution": "The final HEAD after committing .experiment evidence. Exact SHA is included in the final handoff.",
+    "note": "A commit cannot embed its own hash in REPORT.json."
+  },
+  "open_decisions": []
+}
