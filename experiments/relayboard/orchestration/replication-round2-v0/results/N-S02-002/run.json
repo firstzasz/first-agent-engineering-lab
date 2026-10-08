@@ -1,0 +1,337 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "independent_replication_not_retry": true,
+  "run_id": "N-S02-002",
+  "scenario": "S02-v0.1",
+  "treatment": "neutral-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/n_s02_002",
+    "exact_launch_prompt": "You are contestant N-S02-002 in a fresh independent benchmark context, requested GPT-6.1 Sol / High. Your sole work area is /workspace/relayboard-round2-active/N-S02-002. Initial local commit 6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd. Work only on the task in TASK.md. Use normal host behavior; no treatment methodology bundle is assigned.\n\nOnly this run's fixture, task, assigned method sources and minimal manifest are allowlisted. Do not inspect sibling directories, orchestration control, lab history/results, peer runs, evaluator/oracle/reference solutions, credentials or an unassigned methodology. Public tools may technically exist, but do not fetch the research repository. Any accidental OR deliberate forbidden peer/evaluator information receipt requires immediate stop, CONTAMINATED disclosure with exact evidence, and preservation; no silent restart. Do not enumerate global agents. If needed, status queries must use path_prefix equal to your own canonical agent name. All files written must stay in this area; use .experiment for temporary/process evidence.\n\nExecute locally using public Python/SQLite/WSGI interfaces, public tests and independent local git history. No paid APIs, credentials, production, deployment, external messages or merges. Reversible local work is already authorized. Genuine product/preference questions go only to collaboration.send_message(target=\"/root\",message=\"OPERATOR QUESTION N-S02-002 ...\"); wait for the operator response before dependent work and record exchanges. Do not request evaluator information.\n\nIf your assigned method requires helpers: each must be fresh fork_turns=none with model=gpt-6.1-sol, reasoning_effort=high, receive only this same allowlisted packet/work area and these boundaries, operate serially, spawn no descendants, and terminate before another helper begins. Wait for all helpers before finishing. No hidden evaluation is allowed in the contestant context.\n\nPreserve a factual .experiment/REPORT.json with requested versus independently unverified runtime identity, method/source routes where applicable, local commits, public commands and outputs, questions/answers, checkpoints, helper evidence, path/action evidence, any contamination or scope incidents, and unavailable metrics. Keep evidence proportional to the assigned task/method; do not invent raw transcripts, tokens, tool counts, cost or attested identity. Commit the candidate and available evidence locally. Send concise visible checkpoints to /root when useful. End with final commit, actual public results, limitations and explicit access declaration, then terminate. The orchestrator freezes and evaluates only afterward; no hidden failures will be returned to this run."
+  },
+  "start": {
+    "run_id": "N-S02-002",
+    "workspace": "/workspace/relayboard-round2-active/N-S02-002",
+    "local_start_sha": "6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd",
+    "local_start_tree": "ed7459f87358f0bd74e52dc7979946ed514a360d",
+    "remote_prepared_sha": "2b2339f5e295cc2931a723363caa9ccc9f1772ef",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "neutral-v0",
+    "prepared_at": "2026-10-08T02:26:49.517017+00:00",
+    "files": {
+      ".experiment/RUN_MANIFEST.json": "cd3d6f93e08bcea19fe8489b182a8d457b21d039",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "TASK.md": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-08 02:31:03 UTC",
+  "candidate_frozen_at": "2026-10-08T02:31:04.104562+00:00",
+  "local_candidate_sha": "359d4e66325aa682d488754308d6a5b68c7a3f2a",
+  "local_candidate_tree": "fbdd3205fd77478732c7d4beef38997833731249",
+  "remote_candidate": {
+    "sha": "16fa00d78b9089afb81c1c554d474699f5c0c5dd",
+    "tree_sha": "fbdd3205fd77478732c7d4beef38997833731249",
+    "branch": "candidate/N-S02-002"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/37",
+    "number": 37,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S02-v0.1 task in a fresh neutral-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-round2. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "N-S02-002: neutral-v0 frozen benchmark candidate",
+    "base": "treatment/neutral/N-S02-002",
+    "base_sha": "2b2339f5e295cc2931a723363caa9ccc9f1772ef",
+    "head": "candidate/N-S02-002",
+    "head_sha": "16fa00d78b9089afb81c1c554d474699f5c0c5dd",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-08T02:31:12Z",
+    "updated_at": "2026-10-08T02:31:12Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 10,
+    "additions": 429,
+    "deletions": 6,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/37",
+    "display_title": "N-S02-002: neutral-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd",
+      "metadata": "commit 6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Thu Oct 8 02:26:49 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Thu Oct 8 02:26:49 2026 +0000\n\n    benchmark: frozen standalone N-S02-002 starting packet\n"
+    },
+    {
+      "sha": "11493099ceeed5a99370771ef1aa5b74019c3a50",
+      "metadata": "commit 11493099ceeed5a99370771ef1aa5b74019c3a50\nAuthor:     RelayBoard Contestant N-S02-002 <n-s02-002@local.invalid>\nAuthorDate: Thu Oct 8 02:30:35 2026 +0000\nCommit:     RelayBoard Contestant N-S02-002 <n-s02-002@local.invalid>\nCommitDate: Thu Oct 8 02:30:35 2026 +0000\n\n    Add persisted Job pause and resume controls\n"
+    },
+    {
+      "sha": "359d4e66325aa682d488754308d6a5b68c7a3f2a",
+      "metadata": "commit 359d4e66325aa682d488754308d6a5b68c7a3f2a\nAuthor:     RelayBoard Contestant N-S02-002 <n-s02-002@local.invalid>\nAuthorDate: Thu Oct 8 02:30:44 2026 +0000\nCommit:     RelayBoard Contestant N-S02-002 <n-s02-002@local.invalid>\nCommitDate: Thu Oct 8 02:30:44 2026 +0000\n\n    Finalize local verification and access evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/REPORT.json           | 125 +++++++++++++++++++++++++\n .experiment/baseline-tests.txt    |  10 ++\n .experiment/final-tests.txt       |  21 +++++\n .experiment/persistence-smoke.txt |   2 +\n PAUSE.md                          |  22 +++++\n relayboard/models.py              |   1 +\n relayboard/service.py             |  10 +-\n relayboard/store.py               |  33 ++++++-\n relayboard/web.py                 |  22 ++++-\n tests/test_pause.py               | 189 ++++++++++++++++++++++++++++++++++++++\n 10 files changed, 429 insertions(+), 6 deletions(-)\n",
+  "operator_interactions": [
+    {
+      "run_id": "N-S02-002",
+      "asked_at_observed": "2026-10-08 02:27:57 UTC",
+      "question": "The task leaves pause semantics open. My proposed behavior is an independent persisted paused flag that blocks new scheduled Runs, permits manual Runs, allows existing Runs/retries/alerts to continue unchanged, preserves enabled state across pause/resume, and shows pause state on the dashboard without changing existing columns. Confirm these semantics or specify differences before I implement dependent behavior.",
+      "question_classifications": [
+        {
+          "item": "new scheduled Runs while paused",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "manual Runs while paused",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "existing in-progress Runs",
+          "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+        },
+        {
+          "item": "persisted flag and preserving existing enabled state",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        },
+        {
+          "item": "dashboard presentation and retaining columns",
+          "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+        }
+      ],
+      "frozen_decisions_answered": [
+        "scheduled_start_while_paused",
+        "manual_run_while_paused",
+        "pause_in_progress_run"
+      ],
+      "answer": "For the requested product decisions: an in-progress Run continues to its terminal outcome; scheduled starts while paused are skipped and are not queued; manual Runs while paused are allowed. The persisted representation, enabled-state handling, and dashboard presentation are reversible engineering choices; decide from the assigned task and fixture.",
+      "unasked_frozen_decisions_not_supplied": [
+        "resume_behavior"
+      ],
+      "oracle_ref": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+      "oracle_blob_sha": "054a302c6233321fa3988ce2f2be4a723039fa80"
+    }
+  ],
+  "helper_contexts_observed": [],
+  "requested_helper_configuration": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "agent_completion_claim": "Completed at commit 359d4e66325aa682d488754308d6a5b68c7a3f2a, clean tree. Pause/resume persist independently of enabled; paused Jobs reject scheduled starts without queuing; manual/active Runs continue; API/dashboard expose state. 16 public tests, SQLite reopen smoke and diff check passed. Access declaration: assigned fixture/local Git/generated evidence only, no forbidden access or contamination; runtime independently unverified; no hidden evaluation.",
+  "visible_checkpoints": [
+    {
+      "run_id": "N-S02-002",
+      "observed_at": "2026-10-08 02:28:16 UTC",
+      "message": "Read only assigned TASK.md, fixture docs/sources/public tests and local Git state. Initial commit verified. Baseline public suite passes 5/5. No contamination or scope incident. Waiting for the product semantics answer before dependent implementation; evidence started in .experiment/REPORT.json."
+    },
+    {
+      "run_id": "N-S02-002",
+      "observed_at": "2026-10-08 02:30:10 UTC",
+      "message": "Implemented persisted independent pause state, pause/resume service + POST endpoints, scheduler guard, JSON/dashboard visibility, and legacy SQLite migration. Used confirmed semantics; manual/active Runs and retries/alerts preserved. Public verification passes 16/16 (5 baseline + 11 added); git diff --check passes. Reviewing and committing local candidate/evidence next. No forbidden access or contamination."
+    }
+  ],
+  "worker_report": {
+    "contestant": "N-S02-002",
+    "identity": {
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "high",
+      "runtime_identity": "independently unverified"
+    },
+    "method": {
+      "assignment": "normal host behavior",
+      "methodology_bundle": null,
+      "source_routes": [
+        "TASK.md",
+        "README.md",
+        "GLOSSARY.md",
+        "pyproject.toml",
+        "relayboard/*.py",
+        "tests/test_public.py"
+      ]
+    },
+    "scope": {
+      "work_area": "/workspace/relayboard-round2-active/N-S02-002",
+      "initial_commit": "6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd",
+      "access_declaration": "Only assigned fixture files and local Git state accessed; no sibling, evaluator, peer, research repository, credential, or unassigned methodology access.",
+      "incidents": [],
+      "contaminated": false
+    },
+    "commands": [
+      {
+        "command": "pwd && rg --files -g 'TASK.md' -g 'AGENTS.md' -g '!\\.git'",
+        "result": "Assigned cwd confirmed; TASK.md found; no AGENTS.md found within area."
+      },
+      {
+        "command": "cat TASK.md && git status --short && rg --files",
+        "result": "Task and fixture inventory read; initial working tree clean."
+      },
+      {
+        "command": "cat README.md GLOSSARY.md pyproject.toml relayboard/models.py relayboard/store.py",
+        "result": "Read allowlisted fixture documentation and storage model."
+      },
+      {
+        "command": "cat relayboard/service.py relayboard/web.py relayboard/testing.py tests/test_public.py relayboard/__init__.py relayboard/__main__.py",
+        "result": "Read allowlisted service, WSGI, testing and entrypoint sources."
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "result": "5 tests passed",
+        "output_file": ".experiment/baseline-tests.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "result": "16 tests passed (5 existing public tests, 11 added tests)",
+        "output_file": ".experiment/final-tests.txt"
+      },
+      {
+        "command": "git diff --check",
+        "result": "Passed with no output"
+      },
+      {
+        "command": "git diff -- relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py && git status --short",
+        "result": "Reviewed implementation changes and assigned-area working tree"
+      },
+      {
+        "command": "Local Python/SQLite file-backed persistence smoke check",
+        "result": "Paused/resumed state survives connection close/reopen; paused scheduled start rejected; first actual Run remains run-001",
+        "output_file": ".experiment/persistence-smoke.txt"
+      },
+      {
+        "command": "git add assigned implementation, documentation, tests and evidence; git commit",
+        "result": "Implementation and available evidence committed locally",
+        "commit": "11493099ceeed5a99370771ef1aa5b74019c3a50"
+      }
+    ],
+    "questions": [
+      {
+        "question": "Proposed independent persisted paused flag blocking new scheduled Runs; manual Runs and existing Runs/retries/alerts unchanged; enabled state preserved; dashboard gains pause state while retaining existing columns. Confirm or specify differences.",
+        "route": "collaboration.send_message(target=/root), OPERATOR QUESTION N-S02-002",
+        "answer": "OPERATOR ANSWER N-S02-002: an in-progress Run continues to its terminal outcome; scheduled starts while paused are skipped and are not queued; manual Runs while paused are allowed. Persisted representation, enabled-state handling, and dashboard presentation are reversible engineering choices to decide from task and fixture."
+      }
+    ],
+    "checkpoints": [
+      "Baseline public suite: 5 passed. Product semantics question sent before dependent implementation.",
+      "Implementation verified: 16 public/local tests passed, diff check passed, real SQLite close/reopen persistence smoke passed.",
+      "Implementation and available evidence committed locally at 11493099ceeed5a99370771ef1aa5b74019c3a50"
+    ],
+    "helpers": [],
+    "local_commits": [
+      "6bbe645f9d7d68d05272b4df963c1fcca0d2ddbd",
+      "11493099ceeed5a99370771ef1aa5b74019c3a50"
+    ],
+    "unavailable_metrics": [
+      "attested runtime model identity",
+      "raw token counts",
+      "tool counts",
+      "cost",
+      "hidden evaluation results"
+    ],
+    "decisions": [
+      "Use a separate persisted paused boolean, default false; preserve enabled state during pause/resume.",
+      "Pause/resume are idempotent and return current Job using existing API envelope/status conventions.",
+      "Expose paused in job JSON and add a dashboard Paused column without changing existing column semantics.",
+      "Skip scheduled starts through existing JobNotSchedulable/409 path without creating Runs or queued work; manual and active Run/Attempt/alert behavior unchanged.",
+      "Migrate existing SQLite jobs tables with a default-false paused column."
+    ],
+    "changes": [
+      "Job paused state and SQLite schema/migration",
+      "Store and service pause/resume methods",
+      "Scheduled start guard",
+      "POST pause/resume routes and Job JSON",
+      "Dashboard pause column",
+      "PAUSE.md and 11 regression tests"
+    ],
+    "path_action_evidence": {
+      "reads": "Assigned fixture files, assigned local Git state, and own generated evidence only",
+      "writes": "relayboard/{models,store,service,web}.py; tests/test_pause.py; PAUSE.md; .experiment evidence and temporary persistence-smoke database (removed); local Git commit state; Python bytecode generated within assigned area",
+      "network": "None",
+      "helpers": "None",
+      "external_messages": "None; operator exchanges only via collaboration.send_message to /root"
+    },
+    "limitations": [
+      "Only public fixture tests and independently added local tests were run; hidden evaluation is unavailable.",
+      "Default seeded app uses in-memory SQLite as before; persistence across connection close/reopen verified with a file-backed SQLite Store.",
+      "Existing retry/alert behavior intentionally preserved; no unrelated changes."
+    ],
+    "result": "Completed. Candidate and available evidence committed locally; this report-finalization commit is discoverable as final git HEAD."
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": null,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_dashboard_shows_pause_and_preserves_last_result (test_pause.PauseTests.test_dashboard_shows_pause_and_preserves_last_result) ... ok\ntest_enabled_changes_do_not_clear_pause (test_pause.PauseTests.test_enabled_changes_do_not_clear_pause) ... ok\ntest_existing_runs_retries_alerts_and_results_are_preserved (test_pause.PauseTests.test_existing_runs_retries_alerts_and_results_are_preserved) ... ok\ntest_legacy_schema_migrates_existing_jobs_without_data_loss (test_pause.PauseTests.test_legacy_schema_migrates_existing_jobs_without_data_loss) ... ok\ntest_missing_jobs_and_invalid_routes_follow_api_conventions (test_pause.PauseTests.test_missing_jobs_and_invalid_routes_follow_api_conventions) ... ok\ntest_pause_is_per_job (test_pause.PauseTests.test_pause_is_per_job) ... ok\ntest_pause_resume_api_is_idempotent_and_reports_state (test_pause.PauseTests.test_pause_resume_api_is_idempotent_and_reports_state) ... ok\ntest_pause_resume_preserves_enabled_and_retry_policy (test_pause.PauseTests.test_pause_resume_preserves_enabled_and_retry_policy) ... ok\ntest_pause_state_is_stored_across_store_reconstruction (test_pause.PauseTests.test_pause_state_is_stored_across_store_reconstruction) ... ok\ntest_paused_jobs_allow_manual_runs_even_when_disabled (test_pause.PauseTests.test_paused_jobs_allow_manual_runs_even_when_disabled) ... ok\ntest_scheduled_starts_are_skipped_until_resume_without_queuing (test_pause.PauseTests.test_scheduled_starts_are_skipped_until_resume_without_queuing) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 16 tests in 0.008s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": null,
+  "source_pins": [],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 16380,
+    "sha256": "9d7b799ac33f97254e2df98990d9a5682a3089462f91cacda889e06cfcb380da",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}
