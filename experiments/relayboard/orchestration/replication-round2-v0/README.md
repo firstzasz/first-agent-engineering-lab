@@ -1,6 +1,6 @@
 # Benchmark Replication Round 2
 
-Status: RUNNING; 7/12 dispositions. 7 public/evaluator PASS, 0 FAIL, 0 excluded. New independent replication, never a retry of Round 1.
+Status: RUNNING; 8/12 dispositions. 7 public/evaluator PASS, 0 FAIL, 1 excluded (host failure). New independent replication, never a retry of Round 1.
 
 | Fixed order | Run | Treatment | Status | Evidence |
 | --- | --- | --- | --- | --- |
@@ -11,7 +11,7 @@ Status: RUNNING; 7/12 dispositions. 7 public/evaluator PASS, 0 FAIL, 0 excluded.
 | 5 | M-S02-002 | matt-codex-port-v0 | COMPLETED_EVALUATED_PASS | [record](./results/M-S02-002/run.json) |
 | 6 | M-S01-002 | matt-codex-port-v0 | COMPLETED_EVALUATED_PASS | [record](./results/M-S01-002/run.json) |
 | 7 | P-S04-002 | pstack-codex-port-v0 | COMPLETED_EVALUATED_PASS | [record](./results/P-S04-002/run.json) |
-| 8 | P-S02-002 | pstack-codex-port-v0 | RUNNING | pending |
+| 8 | P-S02-002 | pstack-codex-port-v0 | INVALID_HOST_FAILURE | [record](./results/P-S02-002/run.json) |
 | 9 | P-S01-002 | pstack-codex-port-v0 | READY_PROCEDURAL | pending |
 | 10 | N-S04-002 | neutral-v0 | READY_PROCEDURAL | pending |
 | 11 | N-S02-002 | neutral-v0 | READY_PROCEDURAL | pending |
@@ -28,3 +28,10 @@ The operator answers only genuinely asked frozen S02 product decisions. Facts/re
 Per-run records preserve available checkpoints, operator exchanges, candidate diff, local Git bundle, requested versus unverified identity, public/hidden outputs and action/path evidence. profiles.json distinguishes surfaced/4 versus silent assumptions/4 and production/test changes versus process/evidence footprint. Wall-clock timestamps include host/operator/archival delays, not model compute time. Exhaustive raw tool traces, independently attested runtime identity/reasoning, tokens/cost and some original N-S01 metrics remain unknown.
 
 All Round 2 research is on research/batch-orchestration-round2; new -002 candidate draft PRs target only their own treatment branches. Nothing merges to main. Original Round 1 branch and result/evidence files remain unchanged. Cross-round comparison follows all twelve dispositions, without an aggregate methodology winner. Resume exact pending order from batch.json; never silently replace a completed/contaminated run.
+
+
+## P-S02-002 host failure disposition
+
+P-S02-002 had a valid prepared start, one preserved operator exchange, and two preserved visible checkpoints. On resume, the prior contestant/helper contexts and working area/local history were unavailable. No final candidate branch, frozen candidate tree, or independently verifiable public/hidden result existed.
+
+The run is therefore **INVALID_HOST_FAILURE**, excluded without retry. The partial process evidence remains archived. Execution resumes at P-S01-002, followed by N-S04-002, N-S02-002, and N-S01-002.
