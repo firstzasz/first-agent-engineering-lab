@@ -1,0 +1,99 @@
+{
+  "contestant": "N-S01-002",
+  "task": "Change the Jobs dashboard heading from Last result to Latest result without changing API or unrelated dashboard behavior.",
+  "identity": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "high",
+    "runtime_identity": "Not independently verified; no attestation available."
+  },
+  "method": {
+    "assignment": "Normal host behavior; no treatment methodology bundle.",
+    "sources": [
+      "TASK.md",
+      "relayboard/web.py",
+      "tests/test_public.py",
+      "relayboard/testing.py",
+      "pyproject.toml",
+      "README.md"
+    ],
+    "helpers": []
+  },
+  "commits": {
+    "initial": "0ede032c54b1998b21d22c256fae69a3cb1e4e1e",
+    "candidate": "ce369f8cdbba25743f64a485622a747a151be672",
+    "evidence": "The subsequent local commit containing this report; its hash is supplied in the final response."
+  },
+  "changes": [
+    {
+      "path": "relayboard/web.py",
+      "action": "Replace only the Jobs table heading literal Last result with Latest result."
+    }
+  ],
+  "public_commands": [
+    {
+      "command": "pwd && rg --files -g 'TASK.md' -g 'AGENTS.md' -g '!node_modules' -g '!vendor' -g '!.git'",
+      "exit_code": 0,
+      "output_summary": "Confirmed assigned working directory; TASK.md found; no local AGENTS.md found."
+    },
+    {
+      "command": "cat TASK.md && git status --short && rg --files -g '!.git'",
+      "exit_code": 0,
+      "output_summary": "Read heading-only task, observed clean initial status, enumerated local fixture files."
+    },
+    {
+      "command": "rg -n 'Last result|Latest result|Jobs|dashboard' relayboard/web.py tests/test_public.py README.md && cat pyproject.toml && git log -1 --format='%H %s'",
+      "exit_code": 0,
+      "output_summary": "Heading located at relayboard/web.py:153; project requires Python >=3.11; initial commit matched assigned hash."
+    },
+    {
+      "command": "sed -n '120,190p' relayboard/web.py && cat tests/test_public.py && cat relayboard/testing.py && cat README.md",
+      "exit_code": 0,
+      "output_summary": "Read dashboard rendering, five public tests, WSGI request helper, and local fixture README. Did not follow external README links."
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "output": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.002s\n\nOK\n"
+    },
+    {
+      "command": "Inline Python verification using initial git source and public WSGI helper, followed by git diff --check, git diff --stat, git status --short",
+      "exit_code": 0,
+      "checks": [
+        "Assert current web.py equals initial source with exactly one heading substitution.",
+        "GET /dashboard returns 200.",
+        "Adjacent headers equal Job, Enabled, Latest result.",
+        "Old heading absent and Daily report present."
+      ],
+      "output": "PASS: GET /dashboard returns 200 with Latest result heading and seeded jobs.\nPASS: web.py differs from initial commit only by the requested heading replacement.\n relayboard/web.py | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)\n M relayboard/web.py\n"
+    },
+    {
+      "command": "git add relayboard/web.py && git commit -m \"Change Jobs dashboard heading to Latest result\" && git rev-parse HEAD",
+      "exit_code": 0,
+      "output": "[candidate/N-S01-002 ce369f8] Change Jobs dashboard heading to Latest result\n 1 file changed, 1 insertion(+), 1 deletion(-)\nce369f8cdbba25743f64a485622a747a151be672\n"
+    }
+  ],
+  "checkpoints": [
+    "Sent parent implementation and public verification checkpoint before recording evidence."
+  ],
+  "operator_questions_and_answers": [],
+  "access_declaration": {
+    "work_area": "/workspace/relayboard-round2-active/N-S01-002",
+    "reads": "Only assigned task, local fixture files, public tests, and independent local git history.",
+    "writes": "Only within assigned work area: heading change, normal Python caches, local git commit, and this .experiment report.",
+    "external_access": "None; no network requests, paid APIs, credentials, production, deployment, external messages, or merges.",
+    "forbidden_material": "No sibling runs, orchestration control, lab history/results, evaluator/oracle/reference solutions, or unassigned methodology inspected.",
+    "contamination_or_scope_incidents": []
+  },
+  "limitations": [
+    "Public verification only; no hidden evaluation accessed.",
+    "Runtime model identity not independently attested."
+  ],
+  "unavailable_metrics": [
+    "Raw model transcripts",
+    "Token counts",
+    "Tool counts",
+    "Cost",
+    "Attested runtime identity",
+    "Hidden evaluation results"
+  ]
+}
