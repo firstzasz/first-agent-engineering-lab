@@ -1,0 +1,2 @@
+PASS: paused state survives SQLite close/reopen and blocks scheduling
+PASS: resume survives SQLite close/reopen; no blocked work was queued
