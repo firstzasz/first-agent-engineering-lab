@@ -1,0 +1,2 @@
+PASS GET /dashboard shows Latest result and differs only in that heading.
+PASS GET /api/jobs equals baseline.

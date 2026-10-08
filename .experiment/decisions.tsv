@@ -1,0 +1,5 @@
+ts	phase	decision	why	evidence	result
+2026-10-08T01:55:35.637132+00:00	scope	Use the direct mechanical-edit exception and retain the existing HTML heading shape	One explicit literal change needs no new state or design	.experiment/TODO.md	Ready for baseline
+2026-10-08T01:56:14.037078+00:00	verify	Replace the Jobs heading literal and verify public behavior	The direct WSGI check fails before and passes after the exact requested edit	.experiment/before_change.log;.experiment/after_change.log;.experiment/final_suite.log;.experiment/candidate.diff	Focused check and 5 public tests green
+2026-10-08T01:58:36.291848+00:00	review	Accept the fresh scoped review and complete the finalization records	Code and public checks pass; preserve declared review and tooling limits	.experiment/helper-review.txt;.experiment/REPORT.json	No production correction needed; helper completed
+2026-10-08T01:59:01.565536+00:00	commit	Commit the reviewed candidate and preserve the available evidence locally	One verified unit is complete; no open product decisions or publication action	.experiment/candidate_commit.log	Candidate committed; final evidence commit follows
