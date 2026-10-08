@@ -1,79 +1,91 @@
 {
   "schema_version": 1,
   "frozen_before_outcomes": true,
-  "derivation": "All 12 run labels sorted ascending by SHA-256('EXP-0014|2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f|<run-label>'). The digest prefixes are preserved below.",
+  "derivation": "Sort ascending by SHA-256('EXP-0014|2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f|<run-label>'), where run-label is M{arm}-R{replicate}. Full digests are preserved below.",
   "order": [
     {
       "position": 1,
       "run_id": "RD-M1-002",
+      "run_label": "M1-R2",
       "treatment": "M1",
-      "digest_prefix": "0f5083ab"
+      "sha256": "0f5083aba690083fb2a4c67779638ad0e5041f88c79e0758953ab8a02a58f065"
     },
     {
       "position": 2,
       "run_id": "RD-M2-003",
+      "run_label": "M2-R3",
       "treatment": "M2",
-      "digest_prefix": "19ac76cb"
+      "sha256": "19ac76cb5802f356d6cb831b5033a0741b22f2ed5dedd460cdbf63120ffd8fa5"
     },
     {
       "position": 3,
       "run_id": "RD-M3-003",
+      "run_label": "M3-R3",
       "treatment": "M3",
-      "digest_prefix": "2aa55ae3"
+      "sha256": "2aa55ae342d91d75d98a84a791a7ffc39c4932268206e6b9dc0b3c158efa2538"
     },
     {
       "position": 4,
       "run_id": "RD-M2-002",
+      "run_label": "M2-R2",
       "treatment": "M2",
-      "digest_prefix": "2aac2c08"
+      "sha256": "2aac2c085fab1a0db8e8328159a17654e904d693d4774c9942bf80aa9e5d980d"
     },
     {
       "position": 5,
       "run_id": "RD-M3-001",
+      "run_label": "M3-R1",
       "treatment": "M3",
-      "digest_prefix": "3a7c0c3c"
+      "sha256": "3a7c0c3cfbae3cdb701f39082dfa008b393e95bff16fbcb0fcafd6adb84932c5"
     },
     {
       "position": 6,
       "run_id": "RD-M1-003",
+      "run_label": "M1-R3",
       "treatment": "M1",
-      "digest_prefix": "3b9499f2"
+      "sha256": "3b9499f2ee3a9546e351ab8fd4334025ee09c938f72fe9a2cbcbc1242a8b24fa"
     },
     {
       "position": 7,
       "run_id": "RD-M0-002",
+      "run_label": "M0-R2",
       "treatment": "M0",
-      "digest_prefix": "448bacf2"
+      "sha256": "448bacf254b0cbe4b63a9592c34e3064a70402ec5a13e09177e6ab061d8a861c"
     },
     {
       "position": 8,
       "run_id": "RD-M3-002",
+      "run_label": "M3-R2",
       "treatment": "M3",
-      "digest_prefix": "754aeb0c"
+      "sha256": "754aeb0ccdbc151f6f19c7baf0f6962192f31c7ece7ab3f06da03ed2e516df39"
     },
     {
       "position": 9,
       "run_id": "RD-M1-001",
+      "run_label": "M1-R1",
       "treatment": "M1",
-      "digest_prefix": "8f228dab"
+      "sha256": "8f228dabda0f006a3e8874c791c585297affbff83d4f95d36c55e0c1fd63010e"
     },
     {
       "position": 10,
       "run_id": "RD-M0-001",
+      "run_label": "M0-R1",
       "treatment": "M0",
-      "digest_prefix": "99787c75"
+      "sha256": "99787c75560115dd5c18e9a10d767deb1b61ef947ba2c9085a380980da862fba"
     },
     {
       "position": 11,
       "run_id": "RD-M0-003",
+      "run_label": "M0-R3",
       "treatment": "M0",
-      "digest_prefix": "a6fa4a1d"
+      "sha256": "a6fa4a1d3fb6c030b642b2c8dc3081956012054d20fcc7d5c84f7b7fe8799b13"
     },
     {
       "position": 12,
       "run_id": "RD-M2-001",
+      "run_label": "M2-R1",
       "treatment": "M2",
-      "digest_prefix": "f578414b"
+      "sha256": "f578414b7f05f5ce04313f6c4bb1aa7521017a72ad92df00a74c50408ccd2ca7"
     }
   ],
   "order_change_after_outcomes_allowed": false
