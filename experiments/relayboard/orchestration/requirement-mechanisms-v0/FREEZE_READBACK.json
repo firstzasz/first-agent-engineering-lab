@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "status": "VERIFIED_PRE_RUN_FREEZE",
+  "freeze_state_commit": "686a760da709991a2ecebc314753773535ceaa42",
+  "note": "This file is an audit-only child of the frozen pre-run state. Treatment/task/cohort content must not change after this point without declaring a new cohort version.",
+  "frozen_content_blobs": {
+    "task": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a",
+    "M1": "c160a2182e1c708770c6e0f32703937e0c146724",
+    "M2": "ca9f28cf54b6bc98d3be5ccab12ae3e6e20c0260",
+    "M3": "3204b9b1336a23df2209550d8519dd8fa25ea9bb",
+    "cohort": "5f6aea08eb113f84ef6811ddb3e938dda70d97e6",
+    "batch": "94ca3c75ed71b30792b40c91d1f293b95a7eedda",
+    "execution_order": "0e24b2d719b698018287f5f919ae322b2a16b8f0",
+    "pre_run_audit": "22c0ea22a15d263bba88ee9af5599f6407b5d4da",
+    "orchestrator_handoff": "424bf7e71abb0ecc01261a988ab3eea4b726d260",
+    "experiment_record": "6e894ff17c0184b86512fe39e58280d338cc3321"
+  },
+  "immutable_external_inputs": {
+    "pilot_start_state": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "s02_scenario_doc": "18c909eab7bd72b8b8401acab74bdad7a6bfa3a3",
+    "s02_operator_oracle": "054a302c6233321fa3988ce2f2be4a723039fa80",
+    "evaluator": "3aaaa9924f09ba18a5888d94373a9edc04187926"
+  },
+  "drift": [],
+  "contestant_runs_started": 0,
+  "results_present": 0,
+  "first_mode_modified": false,
+  "automatic_first_adoption": false
+}
