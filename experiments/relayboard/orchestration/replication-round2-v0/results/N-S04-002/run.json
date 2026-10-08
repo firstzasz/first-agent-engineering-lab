@@ -1,0 +1,317 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "independent_replication_not_retry": true,
+  "run_id": "N-S04-002",
+  "scenario": "S04-v0",
+  "treatment": "neutral-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/n_s04_002",
+    "exact_launch_prompt": "You are contestant N-S04-002 in a fresh independent benchmark context, requested GPT-6.1 Sol / High. Your sole work area is /workspace/relayboard-round2-active/N-S04-002. Initial local commit 1006b4c5e2966292b928ddd10a6d9425f87bfc82. Work only on the task in TASK.md. Use normal host behavior; no treatment methodology bundle is assigned.\n\nOnly this run's fixture, task, assigned method sources and minimal manifest are allowlisted. Do not inspect sibling directories, orchestration control, lab history/results, peer runs, evaluator/oracle/reference solutions, credentials or an unassigned methodology. Public tools may technically exist, but do not fetch the research repository. Any accidental OR deliberate forbidden peer/evaluator information receipt requires immediate stop, CONTAMINATED disclosure with exact evidence, and preservation; no silent restart. Do not enumerate global agents. If needed, status queries must use path_prefix equal to your own canonical agent name. All files written must stay in this area; use .experiment for temporary/process evidence.\n\nExecute locally using public Python/SQLite/WSGI interfaces, public tests and independent local git history. No paid APIs, credentials, production, deployment, external messages or merges. Reversible local work is already authorized. Genuine product/preference questions go only to collaboration.send_message(target=\"/root\",message=\"OPERATOR QUESTION N-S04-002 ...\"); wait for the operator response before dependent work and record exchanges. Do not request evaluator information.\n\nIf your assigned method requires helpers: each must be fresh fork_turns=none with model=gpt-6.1-sol, reasoning_effort=high, receive only this same allowlisted packet/work area and these boundaries, operate serially, spawn no descendants, and terminate before another helper begins. Wait for all helpers before finishing. No hidden evaluation is allowed in the contestant context.\n\nPreserve a factual .experiment/REPORT.json with requested versus independently unverified runtime identity, method/source routes where applicable, local commits, public commands and outputs, questions/answers, checkpoints, helper evidence, path/action evidence, any contamination or scope incidents, and unavailable metrics. Keep evidence proportional to the assigned task/method; do not invent raw transcripts, tokens, tool counts, cost or attested identity. Commit the candidate and available evidence locally. Send concise visible checkpoints to /root when useful. End with final commit, actual public results, limitations and explicit access declaration, then terminate. The orchestrator freezes and evaluates only afterward; no hidden failures will be returned to this run."
+  },
+  "start": {
+    "run_id": "N-S04-002",
+    "workspace": "/workspace/relayboard-round2-active/N-S04-002",
+    "local_start_sha": "1006b4c5e2966292b928ddd10a6d9425f87bfc82",
+    "local_start_tree": "0d366ac9fbc1dd3b4d8cd8d99467b9c2f0be80ad",
+    "remote_prepared_sha": "bb2dd27751cd476ce1f4b42c7ef6328014253c7c",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "neutral-v0",
+    "prepared_at": "2026-10-08T02:23:25.760934+00:00",
+    "files": {
+      ".experiment/RUN_MANIFEST.json": "dac280df19faa9870efcd65371e7614659ce22ef",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "TASK.md": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-08 02:26:27 UTC",
+  "candidate_frozen_at": "2026-10-08T02:26:27.628103+00:00",
+  "local_candidate_sha": "e7cc6af1743b03a078cb18786760955af9a75bb0",
+  "local_candidate_tree": "27f923769ba3b0652941e7ff1a69e8f98f235346",
+  "remote_candidate": {
+    "sha": "99f9967e61b1ab42101469bb2a2d7a5c87f52f9f",
+    "tree_sha": "27f923769ba3b0652941e7ff1a69e8f98f235346",
+    "branch": "candidate/N-S04-002"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/36",
+    "number": 36,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S04-v0 task in a fresh neutral-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-round2. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "N-S04-002: neutral-v0 frozen benchmark candidate",
+    "base": "treatment/neutral/N-S04-002",
+    "base_sha": "bb2dd27751cd476ce1f4b42c7ef6328014253c7c",
+    "head": "candidate/N-S04-002",
+    "head_sha": "99f9967e61b1ab42101469bb2a2d7a5c87f52f9f",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-08T02:26:35Z",
+    "updated_at": "2026-10-08T02:26:35Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 6,
+    "additions": 410,
+    "deletions": 1,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/36",
+    "display_title": "N-S04-002: neutral-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "1006b4c5e2966292b928ddd10a6d9425f87bfc82",
+      "metadata": "commit 1006b4c5e2966292b928ddd10a6d9425f87bfc82\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Thu Oct 8 02:23:25 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Thu Oct 8 02:23:25 2026 +0000\n\n    benchmark: frozen standalone N-S04-002 starting packet\n"
+    },
+    {
+      "sha": "4df71cce5997ffb5d8d84b9ecfb844356f22553e",
+      "metadata": "commit 4df71cce5997ffb5d8d84b9ecfb844356f22553e\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Thu Oct 8 02:25:17 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Thu Oct 8 02:25:17 2026 +0000\n\n    Fix premature failure alerts during retries\n"
+    },
+    {
+      "sha": "e7cc6af1743b03a078cb18786760955af9a75bb0",
+      "metadata": "commit e7cc6af1743b03a078cb18786760955af9a75bb0\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Thu Oct 8 02:26:05 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Thu Oct 8 02:26:05 2026 +0000\n\n    Record local diagnosis and public verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/REPORT.json               | 146 ++++++++++++++++++++++++++++++++++\n .experiment/baseline-tests.txt        |  10 +++\n .experiment/regression-before-fix.txt | 132 ++++++++++++++++++++++++++++++\n .experiment/tests-after-fix.txt       |  14 ++++\n relayboard/service.py                 |   1 -\n tests/test_retry_alerts.py            | 108 +++++++++++++++++++++++++\n 6 files changed, 410 insertions(+), 1 deletion(-)\n",
+  "operator_interactions": [],
+  "helper_contexts_observed": [],
+  "requested_helper_configuration": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "agent_completion_claim": "Committed fix and evidence e7cc6af1743b03a078cb18786760955af9a75bb0. Removed premature failure alert from retry branch; terminal failed Runs retain individual alerts. Baseline 5 public tests passed; regressions reproduced 8 failures before fix; all 9 passed afterward; clean working tree. Limits: deterministic SQLite/WSGI, no concurrency testing or migration of existing alerts. Access declaration: assigned fixture/local git only, no peer/evaluator/credential/external repo/unassigned methodology; runtime independently unverified.",
+  "visible_checkpoints": [
+    {
+      "message": "The retry branch in RelayBoardService.record_attempt emits run_failed while the Run is still running, then terminal failure emits it again. GLOSSARY.md defines alerts after terminal outcomes. I will remove the premature emission and verify retry exhaustion, retry recovery, and independent Runs using local public tests."
+    },
+    {
+      "run_id": "N-S04-002",
+      "observed_at": "2026-10-08 02:25:21 UTC",
+      "message": "Baseline public suite passed (5 tests). Added public regressions reproduced the issue before the fix (9 tests, 8 failing assertions/subtests). Removing the retry-branch emission makes all 9 tests pass, including eventual success with no alert, retry exhaustion, same-job distinct Runs, terminal rejection, and WSGI alert visibility. Preparing local commits and factual .experiment evidence."
+    }
+  ],
+  "worker_report": {
+    "contestant": "N-S04-002",
+    "work_area": "/workspace/relayboard-round2-active/N-S04-002",
+    "task": "Diagnose and fix duplicate failure alerts for a Run using retries; preserve retries and distinct-Run alerts.",
+    "runtime_identity": {
+      "requested_model": "GPT-6.1 Sol",
+      "requested_reasoning_effort": "High",
+      "independently_verified_model": null,
+      "independently_verified_reasoning_effort": null,
+      "attestation": "Unavailable; requested identity is not an attested runtime identity.",
+      "observed_python_version": "Python 3.12.14"
+    },
+    "method": {
+      "assigned": "Normal host behavior; no treatment methodology bundle assigned.",
+      "methodology_sources_accessed": [],
+      "fixture_sources": [
+        "TASK.md",
+        "README.md",
+        "pyproject.toml",
+        "GLOSSARY.md",
+        "relayboard/models.py",
+        "relayboard/service.py",
+        "relayboard/store.py",
+        "relayboard/testing.py",
+        "relayboard/web.py",
+        "tests/test_public.py"
+      ],
+      "approach": "Read local public code and domain glossary, add regressions, reproduce failure, remove premature retry-branch alert, run public tests, commit locally."
+    },
+    "diagnosis": {
+      "cause": "record_attempt emitted run_failed for every unsuccessful Attempt with retries remaining, and emitted again at terminal failure.",
+      "domain_evidence": "GLOSSARY.md defines AlertRule emission after terminal Run outcome and associates alerts with Runs, not Attempts.",
+      "fix": "Remove _emit_failure_alert from the retry branch; terminal failure still sets failed status and emits the alert.",
+      "production_change": "One deleted line in relayboard/service.py."
+    },
+    "commits": {
+      "initial": "1006b4c5e2966292b928ddd10a6d9425f87bfc82",
+      "candidate": "4df71cce5997ffb5d8d84b9ecfb844356f22553e",
+      "evidence_commit": "This report and evidence logs will be committed as a child of the candidate commit; its hash is available from local git history and the final response."
+    },
+    "public_commands": [
+      {
+        "command": "pwd && rg --files -g 'TASK.md' -g 'AGENTS.md' -g 'README*' -g '*test*' -g 'pyproject.toml' -g 'requirements*' -g 'package.json' -g '*manifest*' -g '!node_modules' -g '!.git'",
+        "exit_code": 0,
+        "output_summary": "Confirmed assigned cwd; listed relayboard/testing.py, README.md, tests/test_public.py, TASK.md, pyproject.toml; no AGENTS.md in the assigned tree."
+      },
+      {
+        "command": "cat TASK.md README.md pyproject.toml && rg --files -g '!.git' && git status --short && git log -3 --oneline",
+        "exit_code": 0,
+        "output_summary": "Read allowed local task and fixture metadata, listed local fixture files, clean initial status, sole initial commit 1006b4c. README links to external benchmark/evaluator documentation were not followed."
+      },
+      {
+        "command": "cat relayboard/models.py relayboard/service.py relayboard/store.py",
+        "exit_code": 0,
+        "output_summary": "Read public dataclasses, service lifecycle, SQLite persistence; located both alert emissions."
+      },
+      {
+        "command": "cat tests/test_public.py relayboard/testing.py GLOSSARY.md relayboard/web.py",
+        "exit_code": 0,
+        "output_summary": "Read five baseline tests, public WSGI helper and routes, seed retry policy, terminal alert glossary."
+      },
+      {
+        "command": "mkdir -p .experiment && python -m unittest discover -s tests -v > .experiment/baseline-tests.txt 2>&1 && cat .experiment/baseline-tests.txt && python --version",
+        "exit_code": 0,
+        "output_file": ".experiment/baseline-tests.txt",
+        "result": "5 tests passed; Python 3.12.14."
+      },
+      {
+        "command": "python -m unittest discover -s tests -v > .experiment/regression-before-fix.txt 2>&1\nresult=$?\ncat .experiment/regression-before-fix.txt\nexit \"$result\"",
+        "exit_code": 1,
+        "output_file": ".experiment/regression-before-fix.txt",
+        "result": "9 tests ran; unittest reported failures=8, including subtests. Failures show premature alerts on retries and alerts after eventual success."
+      },
+      {
+        "command": "python -m unittest discover -s tests -v > .experiment/tests-after-fix.txt 2>&1\nresult=$?\ncat .experiment/tests-after-fix.txt\nexit \"$result\"",
+        "exit_code": 0,
+        "output_file": ".experiment/tests-after-fix.txt",
+        "result": "All 9 tests passed."
+      },
+      {
+        "command": "git diff --check && git diff --stat && git status --short",
+        "exit_code": 0,
+        "output_summary": "No whitespace errors; production diff one deletion; new test and three evidence logs untracked before staging."
+      },
+      {
+        "command": "git add relayboard/service.py tests/test_retry_alerts.py && git commit -m 'Fix premature failure alerts during retries' && git rev-parse HEAD",
+        "exit_code": 0,
+        "output_summary": "Committed candidate 4df71cce5997ffb5d8d84b9ecfb844356f22553e; 2 files changed, 108 insertions, 1 deletion."
+      }
+    ],
+    "verification": {
+      "baseline_tests": 5,
+      "post_fix_tests": 9,
+      "post_fix_result": "OK",
+      "coverage": [
+        "Retry limits 1, 2 and 4 for manual and scheduled Runs; running status and no alert before exhaustion.",
+        "Attempt numbering and recorded failure outcomes preserved.",
+        "One terminal failure alert with expected Run, Job, kind and message.",
+        "Success on attempts 1, 2 or 4 produces no failure alert and preserves recorded attempts.",
+        "Two interleaved Runs of the same Job each emit their own terminal failure alert.",
+        "Terminal Runs reject additional attempts without extra alerts.",
+        "Public WSGI retry and terminal-failure responses expose expected status and alert counts."
+      ],
+      "limitations": [
+        "Verification uses deterministic in-memory SQLite and public Python/WSGI interfaces.",
+        "No concurrent execution or crash recovery guarantees were added or tested.",
+        "Existing stored alerts are not migrated or deduplicated."
+      ]
+    },
+    "questions_and_answers": [],
+    "checkpoints": [
+      "Sent /root diagnosis: retry branch emits alert before terminal outcome; planned removal and regressions.",
+      "Sent /root public outcomes: baseline 5 passing, regressions 9 tests with 8 failures before fix, all 9 passing after fix; preparing evidence commits."
+    ],
+    "helpers": {
+      "used": false,
+      "evidence": []
+    },
+    "path_action_evidence": {
+      "reads": "Only assigned fixture files and independent local git history within work_area.",
+      "writes": [
+        "relayboard/service.py",
+        "tests/test_retry_alerts.py",
+        ".experiment/baseline-tests.txt",
+        ".experiment/regression-before-fix.txt",
+        ".experiment/tests-after-fix.txt",
+        ".experiment/REPORT.json",
+        "Local .git index/object/history and Python-generated __pycache__ files within work_area."
+      ],
+      "external_actions": [],
+      "access_declaration": "No sibling directories, orchestration control, lab history/results, peer runs, evaluators, oracle/reference solutions, credentials, unassigned methodology, external repository, paid API, production, deployment, external messages or merges accessed or used. Parent collaboration checkpoints only."
+    },
+    "contamination": {
+      "occurred": false,
+      "incidents": []
+    },
+    "scope_incidents": [],
+    "unavailable_metrics": [
+      "Attested runtime model and reasoning effort",
+      "Raw model transcript",
+      "Token usage",
+      "Tool counts",
+      "Cost",
+      "Hidden evaluator results"
+    ]
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": null,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_api_reports_retry_before_emitting_terminal_alert (test_retry_alerts.RetryAlertTests.test_api_reports_retry_before_emitting_terminal_alert) ... ok\ntest_distinct_runs_of_same_job_each_emit_an_alert (test_retry_alerts.RetryAlertTests.test_distinct_runs_of_same_job_each_emit_an_alert) ... ok\ntest_failure_alert_waits_for_retry_exhaustion (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_retry_exhaustion) ... ok\ntest_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.007s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S04-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": null,
+  "source_pins": [],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 15159,
+    "sha256": "66122b78c51c73c06d78c839705ad82dc0117f6d0075f55740c82c1f4bb4cfd9",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}
