@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "execution_variant": "staged-screening-v0.1",
+  "status": "FROZEN_PRE_RUN",
+  "parent_full_cohort_branch": "research/exp0014-requirement-mechanisms",
+  "parent_full_cohort_head": "80cdd684c130760eba9f09d943f869bd6b3b11e8",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "scenario": "S02-v0.1",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "methods": {
+    "M0": {
+      "name": "neutral",
+      "method": null
+    },
+    "M1": {
+      "name": "authority-classification",
+      "path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/methods/M1_AUTHORITY_CLASSIFICATION.md",
+      "blob": "c160a2182e1c708770c6e0f32703937e0c146724"
+    },
+    "M2": {
+      "name": "decision-frontier",
+      "path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/methods/M2_DECISION_FRONTIER.md",
+      "blob": "ca9f28cf54b6bc98d3be5ccab12ae3e6e20c0260"
+    },
+    "M3": {
+      "name": "authority-plus-frontier",
+      "path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/methods/M3_AUTHORITY_FRONTIER.md",
+      "blob": "3204b9b1336a23df2209550d8519dd8fa25ea9bb"
+    }
+  },
+  "task": {
+    "path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/TASK_S02_V0_1.md",
+    "blob": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a"
+  },
+  "evaluator_blob": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+  "oracle_blob": "054a302c6233321fa3988ce2f2be4a723039fa80",
+  "stage1": {
+    "planned_runs": 4,
+    "order": [
+      {
+        "position": 1,
+        "run_id": "RD-M1-S1",
+        "arm": "M1",
+        "replicate": 1,
+        "sha256": "4fab80d8d85ebd2edb095e5dab09c65cc85d26b1d1fd31c62a2eb540c0a2339f"
+      },
+      {
+        "position": 2,
+        "run_id": "RD-M0-S1",
+        "arm": "M0",
+        "replicate": 1,
+        "sha256": "7dff0c11da186bee65d0519dd2531107bbeddadb1740f642d7a44f2c45ca2810"
+      },
+      {
+        "position": 3,
+        "run_id": "RD-M2-S1",
+        "arm": "M2",
+        "replicate": 1,
+        "sha256": "801e47075a7a7f8815dca59f911744231a06911e5c2fdd3c5b1a04ea39dc458a"
+      },
+      {
+        "position": 4,
+        "run_id": "RD-M3-S1",
+        "arm": "M3",
+        "replicate": 1,
+        "sha256": "bd2c8c28c974821a22e0b2db9a38767501a45ee99a334ab11e6d5ed7d7c3f42b"
+      }
+    ]
+  },
+  "stage2": {
+    "conditional": true,
+    "max_additional_runs": 8,
+    "global_order": [
+      {
+        "position": 1,
+        "run_id": "RD-M0-R2",
+        "arm": "M0",
+        "replicate": 2,
+        "sha256": "3ea0227ec9474a448592afdd401cbbd476eb92be43508898f5216ec8632e9aa9"
+      },
+      {
+        "position": 2,
+        "run_id": "RD-M1-R3",
+        "arm": "M1",
+        "replicate": 3,
+        "sha256": "48928fcd80dbda03394cfa9864719feb9c6b59e08ebb2b308c64106b9a9dde5d"
+      },
+      {
+        "position": 3,
+        "run_id": "RD-M3-R3",
+        "arm": "M3",
+        "replicate": 3,
+        "sha256": "5b608fc0fa38296baafb263e34d43afc087b496c7f1c33841f4ba4ead39a2ea2"
+      },
+      {
+        "position": 4,
+        "run_id": "RD-M0-R3",
+        "arm": "M0",
+        "replicate": 3,
+        "sha256": "8bd810937e286e5a4b2290441ed1a393f2a0008d3ec6f77e3fa5ad363c651d24"
+      },
+      {
+        "position": 5,
+        "run_id": "RD-M2-R2",
+        "arm": "M2",
+        "replicate": 2,
+        "sha256": "8dec7be798ce9557ff3bff0ccbdf589adb5250792418f27fafa6356b3dcc76d1"
+      },
+      {
+        "position": 6,
+        "run_id": "RD-M2-R3",
+        "arm": "M2",
+        "replicate": 3,
+        "sha256": "bde7bd60a75d6a7c0e6954c684670f74dd1ed97671d0bf24cabe1ab446830990"
+      },
+      {
+        "position": 7,
+        "run_id": "RD-M3-R2",
+        "arm": "M3",
+        "replicate": 2,
+        "sha256": "da9e73ec07840cff7a506bc9a5a1cff34758ab0f00e9f7c86182ef56d065dae5"
+      },
+      {
+        "position": 8,
+        "run_id": "RD-M1-R2",
+        "arm": "M1",
+        "replicate": 2,
+        "sha256": "f21faba0ca49e27f21e56b51b98790849828f2ee515ce79500929346a0322e81"
+      }
+    ]
+  },
+  "continuation_rule": {
+    "mechanism_qualifies_if": [
+      "surfaced_decisions >= valid_M0_surfaced + 2",
+      "silent_assumptions <= valid_M0_silent - 2"
+    ],
+    "invalid_M0": "STOP_INCONCLUSIVE_REDESIGN",
+    "invalid_mechanism": "eligible for its R2/R3 only if M0 valid; preserve original invalid disposition; no retry"
+  },
+  "automatic_first_adoption": false,
+  "first_mode_modified": false
+}
