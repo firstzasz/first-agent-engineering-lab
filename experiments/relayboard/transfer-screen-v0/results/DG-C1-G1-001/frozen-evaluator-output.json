@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "C:\\Users\\first\\Documents\\Codex\\2026-10-18\\new-chat\\work\\transfer-control\\frozen_evaluator.py",
+    "--scenario",
+    "RD-C1-v0",
+    "--workspace",
+    "C:\\Users\\first\\Documents\\Codex\\2026-10-18\\new-chat\\work\\transfer-control\\evaluation\\DG-C1-G1-001"
+  ],
+  "returncode": 0,
+  "stdout": "{\n  \"failures\": [],\n  \"passed\": true,\n  \"scenario\": \"RD-C1-v0\"\n}\n",
+  "stderr": ""
+}

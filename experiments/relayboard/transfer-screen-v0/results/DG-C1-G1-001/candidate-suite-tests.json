@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_cancel_between_retries_preserves_attempts_and_alerts (test_cancellation.CancellationTests.test_cancel_between_retries_preserves_attempts_and_alerts) ... ok\ntest_cancel_manual_and_scheduled_runs_before_first_attempt (test_cancellation.CancellationTests.test_cancel_manual_and_scheduled_runs_before_first_attempt) ... ok\ntest_cancel_route_requires_post_and_exact_path (test_cancellation.CancellationTests.test_cancel_route_requires_post_and_exact_path) ... ok\ntest_cancel_terminal_runs_is_conflict_and_preserves_records (test_cancellation.CancellationTests.test_cancel_terminal_runs_is_conflict_and_preserves_records) ... ok\ntest_cancelled_run_is_latest_dashboard_result (test_cancellation.CancellationTests.test_cancelled_run_is_latest_dashboard_result) ... ok\ntest_cancelling_one_run_does_not_change_other_runs_or_retry_behavior (test_cancellation.CancellationTests.test_cancelling_one_run_does_not_change_other_runs_or_retry_behavior) ... ok\ntest_missing_run_is_not_found (test_cancellation.CancellationTests.test_missing_run_is_not_found) ... ok\ntest_repeated_cancellation_is_idempotent (test_cancellation.CancellationTests.test_repeated_cancellation_is_idempotent) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_cancel_running_run_blocks_further_attempts (test_public_feature.CancelRunPublicTests.test_cancel_running_run_blocks_further_attempts) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.011s\n\nOK\n"
+}

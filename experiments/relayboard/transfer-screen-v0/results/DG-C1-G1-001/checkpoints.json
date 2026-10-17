@@ -1,0 +1,14 @@
+[
+  {
+    "message": "Confirmed. Matrix rescan includes cancel before first Attempt, between retries, after succeeded/failed/cancelled; success/failure Attempts after cancellation; missing IDs; manual/scheduled sources; alert history; latest dashboard result. No additional unresolved product cells. Baseline: 5 existing tests pass; cancellation public test fails with 404 as expected. Implementing the agreed behavior now.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Implementation and verification complete: cancellation is idempotent, finished outcomes conflict, cancelled Attempts return 409, cancellation adds no alerts, dashboard naturally selects cancelled as latest terminal result. All 14 tests pass (6 public + 8 added behavior cases), and git diff --check passes. Preserved the existing retry-alert behavior, including alerts between retries. Preparing local commit.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "run_id": "DG-C1-G1-001",
+  "candidate_sha": "802740a1ea970b5522b9b8987acf51467a202234",
+  "candidate_tree": "02714861f6a795067dacc1a3349f7f951b001247",
+  "evaluation_started_at_utc": "2026-10-17T23:24:45.687851+00:00",
+  "evaluation_finished_at_utc": "2026-10-17T23:24:46.435720+00:00",
+  "evaluator_blob": "b7d00333f08527e13706cb68402e9749b8ec5e0d",
+  "public_base_pass": true,
+  "public_feature_pass": true,
+  "candidate_suite_pass": true,
+  "evaluator_pass": true,
+  "frozen_evaluator_result": {
+    "failures": [],
+    "passed": true,
+    "scenario": "RD-C1-v0"
+  },
+  "candidate_unchanged_after_evaluation": true,
+  "hidden_feedback_to_same_contestant": false
+}
