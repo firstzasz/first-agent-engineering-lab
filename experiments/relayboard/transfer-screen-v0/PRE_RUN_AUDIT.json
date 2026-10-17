@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0017",
+  "status": "PASS",
+  "audited_pre_run_head": "09fb0ef1180370cbf2981d73012e741596d9c3cf",
+  "checked_before_contestant_runs": true,
+  "checks": {
+    "cohort_frozen_pre_run": true,
+    "stage1_ready_not_started": true,
+    "stage1_four_arms_balanced": true,
+    "stage2_conditional_not_authorized": true,
+    "stage1_execution_order_frozen": true,
+    "stage2_possible_relative_order_frozen": true,
+    "fixture_tree_matches_pilot_start_state_v0_1": true,
+    "first_mode_v0_blob_unchanged": true,
+    "G1_G2_G3_no_C1_C2_specific_leakage": true,
+    "G0_receives_no_method": true,
+    "all_eight_manifests_result_null": true,
+    "no_results_directory_entries": true,
+    "transfer_evaluator_blob_matches_verified_EXP0016_harness": true,
+    "C1_public_test_blob_matches_verified_EXP0016_harness": true,
+    "C2_public_test_blob_matches_verified_EXP0016_harness": true,
+    "operator_oracles_frozen_and_contestant_hidden": true,
+    "transfer_scoring_frozen": true,
+    "no_automatic_first_adoption": true
+  },
+  "protected_refs": {
+    "main": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "round1": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+    "round2": "226a03a883c65c81223ca49e00ddd058e1b38691"
+  },
+  "frozen_trees": {
+    "fixture": "737d9fab677dbf51d9c4c3f15c6149e2559a449c"
+  },
+  "frozen_blobs": {
+    "FIRST_MODE_V0": "22ef0c77d90c3410785dd593f2b5c161edaed531",
+    "C1_task": "ee7a8ac4f13d0dec6900462fff2be78fcfebf784",
+    "C2_task": "aaa6228f39e1563ecd01e98dd44047a90ffa7c1c",
+    "G1": "6c3def27eb2c4fd1429610e6d887f5926e7a3c83",
+    "G2": "9ece1910162dfa8d81de30c624476f9d78442c1d",
+    "G3": "adbe6ddebdbe60e88b227950c7b2a448f2b41084",
+    "C1_oracle": "b865a35e7c50666dce50347fda97bca9ff2117c3",
+    "C2_oracle": "7e288b72e455273b53983bcb062c56fbee618703",
+    "scoring": "68adeddc969c64a4da78aa2927360729df25900a",
+    "evaluator": "b7d00333f08527e13706cb68402e9749b8ec5e0d",
+    "C1_public_test": "5f1735ed175b47370d33ec7f7a0307e696b4438e",
+    "C2_public_test": "ef97a3f8d8596c10226816cac33b9b8d26f2a5ec",
+    "cohort": "331fd0cefe4860b42a167e6ac93a9fe2bbaaf49e",
+    "execution_order": "611298c020030660aca817a1ee6569206c6cdcd6",
+    "batch": "4efd9e550feb24f7dd0be2f4a628bac0a7c2115b",
+    "orchestrator_handoff": "4072245527df2db60b1d784ce003ad700af51b2c"
+  },
+  "manifest_blobs": {
+    "DG-C1-G2-001": "2ae6761943b27d79a0ec7ce4ba95803998b84153",
+    "DG-C1-G1-001": "b309445e22e008f3e1a416c64c8bb84423c36983",
+    "DG-C1-G0-001": "02876e6b7099edf994a8e9d2825e0da5b4ba8661",
+    "DG-C1-G3-001": "78b12f35d30f66144bcfc4a32b0c5f8b4faa671f",
+    "DG-C2-G3-001": "6c8b0eef60cb8fe5d080f780cfb9eb2d0206fda0",
+    "DG-C2-G1-001": "3610a0de67bd26ce490e7b74456bf842fa398296",
+    "DG-C2-G2-001": "d74a8c98aa594d7d5dd969d37ec0f3cab8345d4a",
+    "DG-C2-G0-001": "981cd515c68b142c4ecc27c5621ba9f108eaffcd"
+  },
+  "harness_evidence": {
+    "source_experiment": "EXP-0016",
+    "github_actions_run": 39077925964,
+    "conclusion": "success",
+    "verified": "red/green paths + eight targeted mutation checks"
+  },
+  "stage1_order": [
+    "DG-C1-G2-001",
+    "DG-C1-G1-001",
+    "DG-C1-G0-001",
+    "DG-C1-G3-001"
+  ],
+  "stage2_possible_order": [
+    "DG-C2-G3-001",
+    "DG-C2-G1-001",
+    "DG-C2-G2-001",
+    "DG-C2-G0-001"
+  ],
+  "limitations": [
+    "Procedural isolation is not cryptographic secrecy in a public repository.",
+    "Requested model/reasoning identity is not guaranteed unless the host exposes attestation.",
+    "Stage 1 is a one-shot screen, not confirmatory statistics."
+  ]
+}
