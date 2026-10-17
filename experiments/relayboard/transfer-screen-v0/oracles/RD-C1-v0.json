@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scenario": "RD-C1-v0",
+  "status": "FROZEN_BEFORE_TREATMENT",
+  "decisions": [
+    {
+      "id": "terminal_run_cancel",
+      "question": "What should happen if cancel is requested for a Run that has already succeeded or failed?",
+      "answer": "Return a conflict/error and do not alter the terminal Run."
+    },
+    {
+      "id": "cancel_alert_behavior",
+      "question": "Should cancelling a running Run emit an Alert?",
+      "answer": "No. Cancellation itself emits no failure or cancellation Alert."
+    },
+    {
+      "id": "cancelled_dashboard_last_result",
+      "question": "Should a cancelled Run become the Job's dashboard Last result?",
+      "answer": "Yes. Show cancelled as the most recent terminal result."
+    },
+    {
+      "id": "repeated_cancel",
+      "question": "What should happen when cancel is repeated on an already-cancelled Run?",
+      "answer": "Treat it as idempotent success and return the cancelled Run."
+    }
+  ],
+  "explicit_prompt_semantics": [
+    "A cancelled Run must not accept further Attempts.",
+    "POST /api/runs/{id}/cancel must exist."
+  ]
+}
