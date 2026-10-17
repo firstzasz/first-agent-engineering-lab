@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "scenario": "RD-C1",
+  "status": "PROVISIONAL_DESIGN_NOT_FROZEN_FOR_TREATMENT",
+  "decisions": {
+    "terminal_run_cancel": "conflict",
+    "cancel_alert_behavior": "no_alert",
+    "cancelled_dashboard_last_result": "include_as_cancelled",
+    "repeated_cancel": "idempotent_success"
+  },
+  "explicit_prompt_semantic": {
+    "cancelled_run_accepts_further_attempts": false
+  },
+  "note": "Provisional oracle used to validate evaluator feasibility. Must be frozen together with final scenario/evaluator before any contestant run."
+}
