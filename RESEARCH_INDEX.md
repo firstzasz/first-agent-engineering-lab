@@ -350,3 +350,22 @@ EXP-0016 decomposes requirement discovery into decision generation, dependency r
 Repository-native red/green and mutation-sensitivity harnesses for C1/C2 are independently green in GitHub Actions run `39077925964`. No FIRST-mode change and no contestant execution occurred.
 
 See [EXP-0016](./docs/experiments/0016-decision-space-generation-design.md), [mechanism model](./docs/comparisons/requirement-discovery-mechanism-model-v1.md), and [harness status](./experiments/relayboard/decision-generation-design-v0/HARNESS_STATUS.md).
+
+
+## EXP-0017 — Decision-generation transfer screen
+
+Status: **FROZEN PRE-RUN; no contestant outcome**
+
+EXP-0017 converts the EXP-0016 decision-generation model into a cost-controlled transfer screen.
+
+Arms:
+- G0 neutral;
+- G1 behavior-matrix generation;
+- G2 dependency decision graph;
+- G3 coverage loop.
+
+Stage 1 runs the four arms once each on RD-C1 Cancel Run. Stage 2 is conditional and may run selected mechanisms plus neutral on RD-C2 Archive Job. The maximum is eight contestant runs; the cohort stops at four when the frozen screening rule finds no signal.
+
+The exact tasks, operator oracles, scoring, mechanism packets, execution order, manifests and stopping rules are frozen before treatment. FIRST-mode v0 remains unchanged and no mechanism can be promoted into FIRST automatically.
+
+See [EXP-0017](./docs/experiments/0017-decision-generation-transfer-screen.md) and [pre-run audit](./experiments/relayboard/transfer-screen-v0/PRE_RUN_AUDIT.json).
