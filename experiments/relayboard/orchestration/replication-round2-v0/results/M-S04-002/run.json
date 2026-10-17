@@ -1,0 +1,696 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "independent_replication_not_retry": true,
+  "run_id": "M-S04-002",
+  "scenario": "S04-v0",
+  "treatment": "matt-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_m_s04_002"
+  },
+  "start": {
+    "run_id": "M-S04-002",
+    "workspace": "/workspace/relayboard-round2-active/M-S04-002",
+    "local_start_sha": "904b43673bcd118c8da23fe888dbb301f2b24cd2",
+    "local_start_tree": "546a722ce9f2e58e897bc8fed76609ed21ed2ff5",
+    "remote_prepared_sha": "9dab77e03ae2edf70d3ca906d9147861ab5d2827",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "matt-codex-port-v0",
+    "prepared_at": "2026-10-07T13:25:51.284259+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "d735ea5af2d34c65764fcc2050ada3d428a253bc",
+      "upstream/matt/skills/engineering/grill-with-docs/SKILL.md": "62b9efb6f991d1b229adee7506962f13ced0c499",
+      "upstream/matt/skills/engineering/implement/SKILL.md": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69",
+      "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md": "1b929e29fb519c26b500d3eda744177986883ac8",
+      "upstream/matt/skills/engineering/tdd/SKILL.md": "250871ccdfefa7525309acfebda090edf4046882",
+      "upstream/matt/skills/engineering/code-review/SKILL.md": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4",
+      "upstream/matt/skills/engineering/to-spec/SKILL.md": "3f52599ae2a4347aee5a07432c2707518e691a7f",
+      "upstream/matt/skills/engineering/to-tickets/SKILL.md": "e868c831fcfb1e124e010bcdf84a429ec879160f",
+      "upstream/matt/skills/productivity/grilling/SKILL.md": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3",
+      "upstream/matt/skills/engineering/domain-modeling/SKILL.md": "a4438c6879c517d1a08e2b5fbca049b632688dfe",
+      "upstream/matt/skills/engineering/implement-spec/SKILL.md": "183923797ab58f1b3ef09e03bc1f1f203c309f37",
+      "upstream/matt/LICENSE": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+      "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6",
+      "upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7",
+      "upstream/matt/skills/engineering/tdd/tests.md": "7ab86479f925a1f9e8ba680af33cb3b12e015381",
+      "upstream/matt/skills/engineering/tdd/mocking.md": "71cbfee674d93244ce81d1830b930ca9a69200bd",
+      ".experiment/RUN_MANIFEST.json": "672eb8127c7d264f96752720a6a2e14d60c352bc"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 13:36:06 UTC",
+  "candidate_frozen_at": "2026-10-07T13:36:06.465219+00:00",
+  "local_candidate_sha": "1476d283be3073c413467598bc46e92241fbbb18",
+  "local_candidate_tree": "877c81f113983c2ddee2ff4094cbf81cf9f5a781",
+  "remote_candidate": {
+    "sha": "2512a6b2466f12e3f95ff5853adbbc21913d2dad",
+    "tree_sha": "877c81f113983c2ddee2ff4094cbf81cf9f5a781",
+    "branch": "candidate/M-S04-002"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/31",
+    "number": 31,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S04-v0 task in a fresh matt-codex-port-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-round2. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "M-S04-002: matt-codex-port-v0 frozen benchmark candidate",
+    "base": "treatment/matt/M-S04-002",
+    "base_sha": "9dab77e03ae2edf70d3ca906d9147861ab5d2827",
+    "head": "candidate/M-S04-002",
+    "head_sha": "2512a6b2466f12e3f95ff5853adbbc21913d2dad",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T13:36:17Z",
+    "updated_at": "2026-10-07T13:36:17Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 38,
+    "additions": 928,
+    "deletions": 1,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/31",
+    "display_title": "M-S04-002: matt-codex-port-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "904b43673bcd118c8da23fe888dbb301f2b24cd2",
+      "metadata": "commit 904b43673bcd118c8da23fe888dbb301f2b24cd2\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:25:51 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:25:51 2026 +0000\n\n    benchmark: frozen standalone M-S04-002 starting packet\n"
+    },
+    {
+      "sha": "374f6e4754358d12129e94ae23e4ee33ec66f28b",
+      "metadata": "commit 374f6e4754358d12129e94ae23e4ee33ec66f28b\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:29:48 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:29:48 2026 +0000\n\n    Fix failure alerts emitted for nonterminal retry attempts\n"
+    },
+    {
+      "sha": "eb19dddaa944c4308148ea5842ea06c6bea229a2",
+      "metadata": "commit eb19dddaa944c4308148ea5842ea06c6bea229a2\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:34:01 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:34:01 2026 +0000\n\n    Record frozen diagnostic and public verification evidence\n"
+    },
+    {
+      "sha": "1476d283be3073c413467598bc46e92241fbbb18",
+      "metadata": "commit 1476d283be3073c413467598bc46e92241fbbb18\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 13:35:20 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 13:35:20 2026 +0000\n\n    Record report-validation write-scope deviation and operator ruling\n"
+    }
+  ],
+  "diff_stat": " .experiment/REPORT.json                       | 399 ++++++++++++++++++++++++++\n .experiment/actions.md                        |  16 ++\n .experiment/capture.py                        |  15 +\n .experiment/cleanup-check.txt                 |   1 +\n .experiment/commands.jsonl                    |  19 ++\n .experiment/diagnosis.md                      |  20 ++\n .experiment/diff-check.txt                    |   0\n .experiment/full-public-suite.txt             |  11 +\n .experiment/helpers.json                      |  26 ++\n .experiment/incidents.jsonl                   |   1 +\n .experiment/initial-evidence.json             |  28 ++\n .experiment/minimize.py                       |  13 +\n .experiment/minimized-no-retry.txt            |   1 +\n .experiment/minimized-one-attempt.txt         |   1 +\n .experiment/minimized-red.txt                 |   6 +\n .experiment/operator-exchanges.json           |  36 +++\n .experiment/original-repro-green.txt          |   3 +\n .experiment/path-evidence.json                |  73 +++++\n .experiment/probe-red.txt                     |   2 +\n .experiment/probe.py                          |   6 +\n .experiment/regression-green.txt              |   6 +\n .experiment/regression-red.txt                |  21 ++\n .experiment/repro-red-1.txt                   |   1 +\n .experiment/repro-red-2.txt                   |   6 +\n .experiment/repro-red-3.txt                   |   8 +\n .experiment/repro-red-repeat.txt              |   8 +\n .experiment/repro.py                          |  17 ++\n .experiment/retry-variants-green.txt          |   4 +\n .experiment/retry-variants.py                 |  27 ++\n .experiment/review-commits.txt                |   1 +\n .experiment/review-diff.txt                   |  70 +++++\n .experiment/review-fixed-point.txt            |   1 +\n .experiment/review-spec.md                    |  14 +\n .experiment/review-standards.md               |  11 +\n .experiment/review-summary.md                 |   9 +\n .experiment/unchanged-method-and-upstream.txt |   0\n relayboard/service.py                         |   1 -\n tests/test_public.py                          |  47 +++\n 38 files changed, 928 insertions(+), 1 deletion(-)\n",
+  "operator_interactions": [
+    {
+      "run_id": "M-S04-002",
+      "observed_at": "2026-10-07 13:35:07 UTC",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+      "type": "WRITE_SCOPE_DEVIATION",
+      "reported_action": "python -m json.tool .experiment/REPORT.json > /tmp/M-S04-002-report-validated.json",
+      "external_artifact": "/tmp/M-S04-002-report-validated.json",
+      "content_scope": "Own run's existing report only; no outside/peer/evaluator material read or received.",
+      "worker_evidence_commit_before_ruling": "eb19dddaa944c4308148ea5842ea06c6bea229a2",
+      "disposition": "Preserve original deviation and ruling append-only; evidence-only commit then terminate. Orchestrator archives external own report afterward. No contamination established; no retry, implementation/test/hidden guidance.",
+      "frozen_protocol_unchanged": true
+    }
+  ],
+  "helper_contexts_observed": [
+    "/root/contestant_m_s04_002/standards_review",
+    "/root/contestant_m_s04_002/spec_review"
+  ],
+  "requested_helper_configuration": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "agent_completion_claim": "Completed with recorded write-scope deviation. Fix374f6e4754358d12129e94ae23e4ee33ec66f28b finalevidence1476d283be3073c413467598bc46e92241fbbb18 clean.6public pass +repro/retryvariants. Standards/Spec serial complete0findings. .REPORT. Ownreport accidentally written /tmp; preserved deviation/ruling, no forbidden receipt established; externalartifact untouched by contestant.",
+  "visible_checkpoints": [
+    {
+      "observed_at": "2026-10-07 13:28:18 UTC",
+      "message": "Deterministic WSGI repro gives two identical run_failed alerts for one daily-report Run/two failed Attempts; first failed Attempt gives one alert while Run remains running. Four ranked preprobe hypotheses: per-Attempt/nonterminal emission; different retry/terminal emission origins; Store duplicates one emission; WSGI replays attempt. Task/glossary terminal semantics explicit, no product question."
+    },
+    {
+      "observed_at": "2026-10-07 13:33:06 UTC",
+      "message": "Exact diagnosing-bugs→implement/TDD→code-review. Deterministic WSGI red twice; directservice boundary probe confirms premature retrybranch emission, no replay/duplicateinsert. Regression red→one-line deletion→green;6public pass +original/retrysuccess/3attempt/distinctRun/terminal checks. Implementation374f6e4754358d12129e94ae23e4ee33ec66f28b. Two serial fresh requested GPT6.1SolHigh reviewers complete0findings, scoped statuses. Noforbiddenaccess;finalizing."
+    }
+  ],
+  "worker_report": {
+    "contestant": "M-S04-002",
+    "method": "matt-codex-port-v0",
+    "status": "COMPLETE_WITH_WRITE_SCOPE_DEVIATION",
+    "assigned_root": "/workspace/relayboard-round2-active/M-S04-002",
+    "commits": {
+      "initial": "904b43673bcd118c8da23fe888dbb301f2b24cd2",
+      "implementation_candidate": "374f6e4754358d12129e94ae23e4ee33ec66f28b",
+      "implementation_message": "Fix failure alerts emitted for nonterminal retry attempts",
+      "evidence_commit": "Full SHA recorded in final git command output and final response; report cannot contain its own containing-commit SHA.",
+      "original_evidence_commit": "eb19dddaa944c4308148ea5842ea06c6bea229a2"
+    },
+    "source_version": "mattpocock/skills 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d as frozen in METHOD.md; bundled sources and METHOD unchanged, verified by empty diff output",
+    "routes_invoked": [
+      "diagnosing-bugs",
+      "implement",
+      "tdd",
+      "code-review"
+    ],
+    "routes_not_needed": {
+      "grill-with-docs/to-spec/to-tickets/implement-spec": "Narrow diagnosed bug with one mechanical unit; glossary establishes per-terminal-Run semantics, TASK.md serves as tiny originating spec. No genuine preference/product question or graph needed."
+    },
+    "spec_ticket_status": {
+      "originating_spec": "TASK.md",
+      "implementation_unit": "complete",
+      "local_tickets": "not used; one unit"
+    },
+    "diagnosis": {
+      "cause": "record_attempt emitted a run_failed alert on a failed Attempt eligible for retry, then emitted again when Run became terminal failed",
+      "fix": "Remove alert emission from nonterminal retry branch; retain terminal failure emission and retry return/recording",
+      "hypotheses_before_probes": 4,
+      "hypothesis_checkpoint": "sent nonblocking to /root before service/store cause read and targeted probe",
+      "phase_skip_justifications": "No phase skipped; REPL-style public state inspection used instead of source instrumentation; inert seed Job not removed because repro did not exercise it. Initial harness invocation/status errors retained explicitly."
+    },
+    "decisions": {
+      "test_seams": "Existing real WSGI request helper and real in-memory SQLite; additional public service/Store checks as established in public tests",
+      "approvals": "Standing reversible seam/ticket-shape approval from frozen METHOD binding; no extra operator approval/product answer needed",
+      "scope": "No schema, API, retry-policy or job-level suppression changes"
+    },
+    "checks": {
+      "full_public_suite": {
+        "command": "python -m unittest discover -s tests -v",
+        "result": "PASS, 6 tests",
+        "output_path": ".experiment/full-public-suite.txt"
+      },
+      "regression_red": {
+        "command": "python -m unittest discover -s tests -p test_public.py -k retry_failure -v",
+        "result": "FAIL before fix, premature alert observed",
+        "output_path": ".experiment/regression-red.txt"
+      },
+      "regression_green": {
+        "same_command_as": "regression_red",
+        "result": "PASS after fix",
+        "output_path": ".experiment/regression-green.txt"
+      },
+      "original_reproduction": {
+        "command": "env PYTHONPATH=. python .experiment/repro.py",
+        "result": "RED twice at correct duplicate-alert assertion, GREEN after fix",
+        "output_paths": [
+          ".experiment/repro-red-3.txt",
+          ".experiment/repro-red-repeat.txt",
+          ".experiment/original-repro-green.txt"
+        ]
+      },
+      "retry_variants": {
+        "command": "env PYTHONPATH=. python .experiment/retry-variants.py",
+        "result": "PASS: retry then success no alert; 3 failed Attempts one alert; another distinct Run another alert; Attempt sequence and terminal rejection preserved",
+        "output_path": ".experiment/retry-variants-green.txt"
+      }
+    },
+    "testcommands_results_outputpaths": [
+      {
+        "command": [
+          "python",
+          "-m",
+          ".experiment.repro"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 1,
+        "output_path": ".experiment/repro-red-1.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/repro.py"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 1,
+        "output_path": ".experiment/repro-red-2.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/repro.py"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 1,
+        "output_path": ".experiment/repro-red-3.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/repro.py"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 1,
+        "output_path": ".experiment/repro-red-repeat.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/minimize.py",
+          "2",
+          "daily-report"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 1,
+        "output_path": ".experiment/minimized-red.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/minimize.py",
+          "1",
+          "daily-report"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/minimized-one-attempt.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/minimize.py",
+          "1",
+          "cleanup"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/minimized-no-retry.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/probe.py"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/probe-red.txt"
+      },
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_public.py",
+          "-k",
+          "retry_failure",
+          "-v"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 1,
+        "output_path": ".experiment/regression-red.txt"
+      },
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_public.py",
+          "-k",
+          "retry_failure",
+          "-v"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/regression-green.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/retry-variants.py"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/retry-variants-green.txt"
+      },
+      {
+        "command": [
+          "env",
+          "PYTHONPATH=.",
+          "python",
+          ".experiment/repro.py"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/original-repro-green.txt"
+      },
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/full-public-suite.txt"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/diff-check.txt"
+      },
+      {
+        "command": [
+          "git",
+          "rev-parse",
+          "904b43673bcd118c8da23fe888dbb301f2b24cd2"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/review-fixed-point.txt"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "904b43673bcd118c8da23fe888dbb301f2b24cd2...HEAD"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/review-diff.txt"
+      },
+      {
+        "command": [
+          "git",
+          "log",
+          "904b43673bcd118c8da23fe888dbb301f2b24cd2..HEAD",
+          "--oneline"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/review-commits.txt"
+      },
+      {
+        "command": [
+          "python",
+          "-c",
+          "from pathlib import Path; files = list(Path(\"relayboard\").glob(\"*.py\")) + list(Path(\"tests\").glob(\"*.py\")); hits = [str(p) for p in files if \"[DEBUG-\" in p.read_text()]; print({\"debug_instrumentation_paths\": hits, \"harness_location\": \".experiment (preserved diagnostic evidence)\"}); assert not hits"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/cleanup-check.txt"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "904b43673bcd118c8da23fe888dbb301f2b24cd2",
+          "--",
+          "METHOD.md",
+          "upstream/matt"
+        ],
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "exit_code": 0,
+        "output_path": ".experiment/unchanged-method-and-upstream.txt"
+      }
+    ],
+    "reviews": {
+      "fixed_point": "904b43673bcd118c8da23fe888dbb301f2b24cd2",
+      "reviewed_candidate": "374f6e4754358d12129e94ae23e4ee33ec66f28b",
+      "Standards": {
+        "findings": 0,
+        "report_path": ".experiment/review-standards.md"
+      },
+      "Spec": {
+        "findings": 0,
+        "report_path": ".experiment/review-spec.md"
+      },
+      "helpers": "Both fresh fork_turns=none, requested gpt-6.1-sol/high, strictly sequential, read-only, no descendants; scoped list_agents confirmed both completed before finalization",
+      "helper_evidence_path": ".experiment/helpers.json"
+    },
+    "operator_exchanges": [
+      {
+        "kind": "nonblocking hypothesis checkpoint",
+        "recipient": "/root",
+        "message": "Deterministic two-failed-Attempt WSGI reproduction; ranked per-Attempt emission, separate retry/terminal paths, duplicate store insert, WSGI replay with predictions. Full text available in collaboration tool transcript.",
+        "question": false,
+        "answer_received": false
+      },
+      {
+        "kind": "operator administrative status request",
+        "sender": "/root",
+        "message": "Please preserve and send a concise nonblocking checkpoint of your diagnostic route, public red/green verification and review state. Continue to completion without waiting for reply. No product or hidden guidance supplied.",
+        "question": false,
+        "product_guidance_received": false
+      },
+      {
+        "kind": "nonblocking completion checkpoint",
+        "recipient": "/root",
+        "message": "Diagnosing-bugs → implement/tdd → two-axis code-review. WSGI red twice, minimized premature alert, 4 ranked hypotheses before cause read, direct return-boundary probe. Regression red then one-line fix green. 6/6 public tests, original repro and retry variants pass. Implementation 374f6e4754358d12129e94ae23e4ee33ec66f28b. Serial fresh requested gpt-6.1-sol/high helpers completed with 0 findings per axis. No forbidden access. Finalizing REPORT and evidence commit. Full sent text in tool transcript.",
+        "question": false,
+        "reply_needed": false
+      },
+      {
+        "kind": "administrative incident classification question",
+        "recipient": "/root",
+        "question": true,
+        "message": "During final JSON validation I accidentally redirected python -m json.tool .experiment/REPORT.json to /tmp/M-S04-002-report-validated.json, outside assigned root. Stopped further actions, preserved file, asked classification. No evaluator/peer exposure or outside reads."
+      },
+      {
+        "kind": "administrative ruling",
+        "sender": "/root",
+        "message": "Administrative ruling: this is a recorded write-scope deviation, not established contamination. The reported output contains only your own run's existing report; no forbidden peer/evaluator information was received. Preserve the original action/path and this ruling in an append-only incident record inside your assigned area, update final report status honestly, commit evidence-only changes and terminate. Do not inspect or delete the external artifact; the orchestrator will hash/archive it after termination. No contestant restart, new implementation, testing or hidden guidance is authorized/needed by this ruling.",
+        "product_guidance": false,
+        "hidden_guidance": false
+      }
+    ],
+    "action_path_evidence_paths": [
+      ".experiment/actions.md",
+      ".experiment/initial-evidence.json",
+      ".experiment/path-evidence.json",
+      ".experiment/diagnosis.md",
+      ".experiment/commands.jsonl",
+      ".experiment/helpers.json",
+      ".experiment/incidents.jsonl"
+    ],
+    "runtime_identity_usage": {
+      "lead_requested": "gpt-6.1-sol/high per METHOD and benchmark instruction",
+      "lead_observed": "Codex GPT-6 developer description; exact runtime identity/reasoning unavailable",
+      "helpers_requested": "gpt-6.1-sol/high via spawn tool arguments",
+      "helpers_observed": "Both independently report identity unavailable/unknown",
+      "usage": "Token/compute usage not exposed or independently attested"
+    },
+    "adaptations": [
+      "Explicit file invocation replaces native Claude Skill tool/plugin",
+      "Local task/records replace external tracker and native setup approval",
+      "Existing public seams and standing reversible approval replace interactive seam/ticket shape approval",
+      "Fresh sequential same-model Codex helpers replace native parallel model-diverse review/worktrees",
+      "No native plugin, model diversity or parallel-throughput claim",
+      "Orchestrator publication after termination replaces shipping/tracker closure"
+    ],
+    "evaluator_or_peer_material_accessed": false,
+    "forbidden_access": "No hidden/evaluator/oracle/reference solution, sibling/control/prior/peer result, credential or alternate-method access; README outside links not followed. Review helpers report false.",
+    "external_actions": "None: no network fetching, paid APIs, production, deploy, external messages, remote push or merge; only authorized benchmark operator coordination.",
+    "gaps": [
+      "Exact runtime model/reasoning and token usage unattested",
+      "Helpers performed static public review; Standards inspected recorded outputs without rerunning, Spec did not independently check test outputs",
+      "No hidden evaluation attempted; frozen candidate evaluated separately by orchestrator after agents terminate",
+      "Final evidence commit SHA is available in final response/tool transcript rather than self-referential REPORT content",
+      "Final JSON formatting command wrote own report copy to /tmp/M-S04-002-report-validated.json outside assigned root; operator classified as write-scope deviation, not established contamination. External artifact untouched after report; orchestrator will archive it."
+    ],
+    "incidents": [
+      {
+        "incident": "Final JSON validation output written outside assigned root",
+        "action": "python -m json.tool .experiment/REPORT.json > /tmp/M-S04-002-report-validated.json",
+        "cwd": "/workspace/relayboard-round2-active/M-S04-002",
+        "external_path": "/tmp/M-S04-002-report-validated.json",
+        "content_provenance": "Formatted copy of this run's existing .experiment/REPORT.json; no outside content read",
+        "classification": "Recorded write-scope deviation; not established contamination",
+        "operator_question": "During final JSON validation I accidentally redirected python -m json.tool .experiment/REPORT.json to /tmp/M-S04-002-report-validated.json, outside assigned root. Stopped further actions, preserved file, asked classification. No evaluator/peer exposure or outside reads.",
+        "operator_ruling": "Administrative ruling: this is a recorded write-scope deviation, not established contamination. The reported output contains only your own run's existing report; no forbidden peer/evaluator information was received. Preserve the original action/path and this ruling in an append-only incident record inside your assigned area, update final report status honestly, commit evidence-only changes and terminate. Do not inspect or delete the external artifact; the orchestrator will hash/archive it after termination. No contestant restart, new implementation, testing or hidden guidance is authorized/needed by this ruling.",
+        "disposition": "External artifact preserved, not inspected/deleted; only evidence metadata updated; implementation/checks unchanged."
+      }
+    ]
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.004s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S04-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "source_pins": [
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/grill-with-docs/SKILL.md",
+      "blob_sha": "62b9efb6f991d1b229adee7506962f13ced0c499"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement/SKILL.md",
+      "blob_sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/diagnosing-bugs/SKILL.md",
+      "blob_sha": "1b929e29fb519c26b500d3eda744177986883ac8"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/SKILL.md",
+      "blob_sha": "250871ccdfefa7525309acfebda090edf4046882"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/code-review/SKILL.md",
+      "blob_sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-spec/SKILL.md",
+      "blob_sha": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-tickets/SKILL.md",
+      "blob_sha": "e868c831fcfb1e124e010bcdf84a429ec879160f"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/productivity/grilling/SKILL.md",
+      "blob_sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/SKILL.md",
+      "blob_sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement-spec/SKILL.md",
+      "blob_sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "LICENSE",
+      "blob_sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+      "blob_sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/ADR-FORMAT.md",
+      "blob_sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/tests.md",
+      "blob_sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/mocking.md",
+      "blob_sha": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+    }
+  ],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 56236,
+    "sha256": "91078f9e2d61c470271ca7fa7c52e79bc0dceb5e419a2d16c93209953693a7d9",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}

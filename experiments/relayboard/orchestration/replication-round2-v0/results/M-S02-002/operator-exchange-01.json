@@ -1,0 +1,40 @@
+{
+  "run_id": "M-S02-002",
+  "round": 1,
+  "observed_at": "2026-10-07 13:38:14 UTC",
+  "question": "Invoked grill-with-docs (grilling/domain-modeling). Facts enabled gates scheduled starts; disabled allow manual; Runs retry max_attempts; no queue/catchup exists; dashboard Enabled/Last result. Q1 pause scope: block only new scheduled or also manual/retries/inflight? Q2 separate persistent pause vs enabled alias? Q3 idempotent200 job response, missing404/no body? Q4 paused Jobs API/dashboard column preserving fields? Requested frontier then recompute/confirm.",
+  "answer": "Q1: scheduled start skipped/not queued; manual allowed; in-progress continues terminal with retries/alerts. Q2/Q3/Q4 no product/interface preference; task/public interfaces/reversible judgment. No blanket confirmation/unasked behavior.",
+  "classification": "MIXED",
+  "product_decisions_answered": [
+    "scheduled_start_while_paused",
+    "manual_run_while_paused",
+    "pause_in_progress_run"
+  ],
+  "questions": [
+    {
+      "id": "Q1",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+      "decisions": [
+        "scheduled_start_while_paused",
+        "manual_run_while_paused",
+        "pause_in_progress_run"
+      ]
+    },
+    {
+      "id": "Q2",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    },
+    {
+      "id": "Q3",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    },
+    {
+      "id": "Q4",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    }
+  ],
+  "FACT_questions": 0,
+  "FACT_evidence_supplied_by_contestant": true,
+  "volunteered_requirements": false,
+  "answer_sheet_supplied": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "scenario": "RD-C2",
+  "status": "PROVISIONAL_DESIGN_NOT_FROZEN_FOR_TREATMENT",
+  "decisions": {
+    "scheduled_run_while_archived": "blocked",
+    "manual_run_while_archived": "blocked",
+    "existing_run_when_archived": "continues",
+    "restore_enabled_state": "preserve_pre_archive_value"
+  },
+  "explicit_prompt_semantics": {
+    "normal_jobs_listing_visibility": "hidden",
+    "normal_dashboard_visibility": "hidden",
+    "preserve_run_history": true
+  },
+  "note": "Provisional oracle used to validate evaluator feasibility. Must be frozen together with final scenario/evaluator before any contestant run."
+}

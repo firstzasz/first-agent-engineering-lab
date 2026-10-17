@@ -1,0 +1,4 @@
+{
+  "observed_at": "2026-10-07 09:48:55 UTC",
+  "message": "Deterministic WSGI/SQLite repro: retry then failed, two run_failed alerts on run-001. Minimized one Job/Run/two failed Attempts; removing second eliminates duplicate. Before probes hypotheses ranked: intermediate failed attempt emits premature alert; Store duplicates single emission; WSGI repeats/creates extra Runs. Glossary terminal semantics explicit, no product question needed."
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "run_id": "RD-M1-003",
+  "arm": "M1",
+  "replicate": 3,
+  "scenario": "S02-v0.1",
+  "treatment": "rd-authority-v0",
+  "status": "READY",
+  "execution_digest_prefix": "3b9499f2",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "contestant_packet": {
+    "fixture": "fixtures/relayboard current tree from frozen base only",
+    "task": {
+      "path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/TASK_S02_V0_1.md",
+      "blob": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a"
+    },
+    "method": {
+      "path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/methods/M1_AUTHORITY_CLASSIFICATION.md",
+      "blob": "c160a2182e1c708770c6e0f32703937e0c146724"
+    },
+    "method_delivery": "Deliver exact method blob as METHOD.md.",
+    "independent_history": true,
+    "lab_remote": false,
+    "forbidden_material": [
+      "evaluator implementation/tests",
+      "operator oracle/answer sheet",
+      "reference solutions",
+      "Round 1/Round 2 outcomes",
+      "EXP-0014 peer outcomes",
+      "treatment-aware comparison summaries"
+    ]
+  },
+  "operator_protocol": {
+    "source": "experiments/relayboard/evaluator/S02_OPERATOR_ORACLE_V0_1.json",
+    "source_contestant_visible": false,
+    "answer_only_valid_product_or_preference_questions": true,
+    "no_volunteered_product_requirements": true,
+    "fact_and_reversible_questions_receive_product_guidance": false
+  },
+  "evaluation": {
+    "phase": "AFTER_CONTESTANT_AND_SAME_RUN_HELPERS_TERMINATE",
+    "evaluator_blob": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+    "hidden_feedback_to_same_run": false
+  },
+  "outcome": {
+    "candidate_sha": null,
+    "public_acceptance": null,
+    "evaluator_acceptance": null,
+    "product_decisions_surfaced_of_4": null,
+    "silent_product_assumptions_of_4": null,
+    "operator_interactions": null,
+    "contamination": null
+  },
+  "no_silent_retry": true,
+  "no_main_merge": true
+}

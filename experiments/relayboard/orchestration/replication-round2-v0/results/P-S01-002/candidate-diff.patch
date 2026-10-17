@@ -1,0 +1,477 @@
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..6b595f7
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,216 @@
++{
++  "contestant": "P-S01-002",
++  "task": "Change Jobs table heading from Last result to Latest result without changing API or unrelated dashboard behavior.",
++  "classification": "Feature, truly mechanical one-file edit",
++  "done_predicate": "Public GET /dashboard changes only the requested heading, public GET /api/jobs stays identical, public tests pass, lead and fresh helper review complete, candidate and evidence committed locally.",
++  "identity": {
++    "requested_model": "gpt-6.1-sol",
++    "requested_reasoning": "high",
++    "observed_runtime_identity": "independently unverified",
++    "attested_identity": null
++  },
++  "method": {
++    "label": "pstack-codex-port-v0",
++    "upstream": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
++    "core_route": "upstream/pstack/skills/poteto-mode/SKILL.md",
++    "playbook": "upstream/pstack/skills/poteto-mode/playbooks/feature.md",
++    "principles_read": [
++      "laziness-protocol",
++      "model-the-domain",
++      "prove-it-works",
++      "fix-root-causes",
++      "test-behavior-not-implementation",
++      "sequence-verifiable-units",
++      "never-block-on-the-human"
++    ],
++    "trail_route": "upstream/pstack/skills/show-me-your-work/SKILL.md",
++    "adaptations_and_skips": ".experiment/TODO.md"
++  },
++  "initial_commit": "c0190576cf54853337b328935f6bdfb730cccee7",
++  "local_commits": [
++    {
++      "sha": "35e27f6173df2f8e5c8362cd2be199fcf325a7aa",
++      "purpose": "Verified candidate heading change",
++      "evidence": ".experiment/candidate_commit.log"
++    }
++  ],
++  "public_commands": [
++    {
++      "command": [
++        "python",
++        ".experiment/verify_dashboard.py",
++        "baseline"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/baseline.log"
++    },
++    {
++      "command": [
++        "python",
++        ".experiment/verify_dashboard.py"
++      ],
++      "exit_code": 1,
++      "output_path": ".experiment/before_change.log"
++    },
++    {
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/baseline_suite.log"
++    },
++    {
++      "command": [
++        "python",
++        ".experiment/verify_dashboard.py"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/after_change.log"
++    },
++    {
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/final_suite.log"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "--check"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/diff_check.log"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "--",
++        "relayboard/web.py"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/candidate.diff"
++    },
++    {
++      "command": [
++        "git",
++        "show",
++        "--stat",
++        "--format=fuller",
++        "HEAD"
++      ],
++      "exit_code": 0,
++      "output_path": ".experiment/candidate_commit.log"
++    }
++  ],
++  "questions_and_answers": [],
++  "checkpoints": [
++    {
++      "phase": "scope",
++      "result": "One literal heading in relayboard/web.py; direct lead trace; no product questions."
++    },
++    {
++      "phase": "verify",
++      "result": "Requested heading passes, exact full dashboard replacement matches, API baseline unchanged, public tests 5/5, diff clean."
++    },
++    {
++      "phase": "review",
++      "result": "Fresh serial reviewer finished; no production changes requested; public checks rerun successfully."
++    },
++    {
++      "phase": "commit",
++      "result": "Candidate committed locally at 35e27f6173df2f8e5c8362cd2be199fcf325a7aa; evidence commit follows."
++    }
++  ],
++  "helpers": [
++    {
++      "task_name": "/root/p_s01_002/scoped_review",
++      "role": "fresh scoped code and evidence reviewer",
++      "fork_turns": "none",
++      "requested_model": "gpt-6.1-sol",
++      "requested_reasoning": "high",
++      "runtime_identity": "independently unverified",
++      "serial": true,
++      "descendants": false,
++      "status": "completed",
++      "evidence": ".experiment/helper-review.txt",
++      "result": "Code review passes; focused check, 5 public tests and diff check independently reported passing; pending completion records addressed by lead.",
++      "access_declaration": "Assigned material and local git only; no edits, network, credentials, siblings or hidden material."
++    }
++  ],
++  "access": {
++    "root": "/workspace/relayboard-round2-active/P-S01-002",
++    "read_categories": [
++      "assigned TASK.md and METHOD.md",
++      "bundled method sources",
++      "local fixture files and public tests",
++      "local git status and initial commit",
++      "this run fresh helper review response"
++    ],
++    "writes": [
++      ".experiment artifacts",
++      "planned relayboard/web.py heading edit",
++      "local git commits"
++    ],
++    "external_access": false,
++    "peer_or_evaluator_access": false,
++    "final_declaration": "Only assigned run fixture, task, method sources, public tests, local evidence, local git and the fresh scoped helper response were accessed. No siblings, peers, evaluator/oracle/reference solution, credentials, external network or hidden evaluation were accessed. No contamination or scope incidents."
++  },
++  "contamination": false,
++  "scope_incidents": [],
++  "unavailable_metrics": [
++    "attested runtime identity",
++    "raw transcript export",
++    "tokens",
++    "cost",
++    "tool count",
++    "hidden evaluation"
++  ],
++  "results": {
++    "before_change_focused_check": "Expected failure: Latest result heading missing",
++    "after_change_focused_check": "PASS public GET /dashboard differs only by heading and GET /api/jobs equals baseline",
++    "full_public_suite": "PASS 5 tests",
++    "diff_check": "PASS",
++    "fresh_review": "PASS code and evidence review; finalization checklist addressed; port limitations retained."
++  },
++  "limitations": [
++    "WSGI response checks rather than native browser/controller verification.",
++    "Fresh same-requested-model review rather than native model-family diversity."
++  ],
++  "public_execution_environment": {
++    "PYTHONDONTWRITEBYTECODE": "1",
++    "PYTHONPATH": ".",
++    "cwd": "/workspace/relayboard-round2-active/P-S01-002"
++  },
++  "attention": [
++    "Historical before/after ordering is evidenced by captured logs and decisions, not an exported raw transcript.",
++    "Direct public WSGI and seeded API comparisons substitute for unavailable native UI tooling.",
++    "Same requested model reviewer substitutes for unavailable model-family diversity; runtime identity remains unverified."
++  ],
++  "inspection_evidence": [
++    "TASK.md and METHOD.md read before routing",
++    "Assigned Poteto Mode core, Feature playbook, seven core principles and Show me your work read in full",
++    "Local README.md, pyproject.toml, relayboard/web.py, relayboard/testing.py and tests/test_public.py read",
++    "Local git status, initial history, candidate diff and status inspected",
++    "Lead audited both TSV rows against produced artifacts; no native transcript route available"
++  ],
++  "final_evidence_commit": {
++    "resolution": "The final HEAD after committing .experiment evidence. Exact SHA is included in the final handoff.",
++    "note": "A commit cannot embed its own hash in REPORT.json."
++  },
++  "open_decisions": []
++}
+diff --git a/.experiment/TODO.md b/.experiment/TODO.md
+new file mode 100644
+index 0000000..106bdf6
+--- /dev/null
++++ b/.experiment/TODO.md
+@@ -0,0 +1,39 @@
++### Feature
++
++**You own the design. Plan, review, verify.** Delegate implementation. Stay in the lead.
++
++1. `how` over the affected subsystem.
++2. `architect` for parallel design exploration.
++3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
++   - **Blocking first steps.** Gates run before fan-out.
++   - **Independent workstreams.** Disjoint files, services, or layers parallelize. Shared writes serialize.
++   - **Shared mutable state.** Default to splitting the target (the **separate-before-serializing-shared-state** principle skill). Serialize only for real invariants.
++   - **Smallest safe decomposition.** If one worker is best, name why.
++4. Delegate code-writing to a subagent using your configured feature model (default `grok-4.7-xhigh-fast`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). When the implementation admits multiple valid shapes (error handling, abstraction layer, test structure), delegate via the **arena** skill instead so the runners surface the alternatives and the cross-judge guards the pick. Mandatory: no skip-with-reason escape, and Laziness Protocol does not override it (the gain is review separation, not lines saved). A subagent forbidden to spawn satisfies this by owning the diff directly with the same review separation. No "standing by" reply that waits on a nested agent. Comments per **Comments**. Surgical edits, re-ground against the source for upstream-derived files. Port shared-primitive improvements to all consumers and verify each. Commit liberally.
++5. Verify on the matching surface. "Inconclusive" or wrong-surface is not a pass. Flag it.
++6. Rebase into small, ordered commits. Stack follow-ups.
++   Use the **sequence-verifiable-units** principle skill, building, verifying, and committing each small unit before the next.
++7. If the design is contested, `interrogate` before shipping.
++8. Run **Opening a PR**.
++
++Code-coupled work (one feature, one migration) goes to a single owner with the checkpoint inline. That owner fans out internally after the blocking phase. Parent-level fan-out is for slices that produce independent artifacts (audits, cross-subsystem investigations, competing experiments). Rewrite the checkpoint at phase boundaries. Spawn a fresh owner rather than chaining interrupts.
++
++**Reply:** what you built, what you chose and why, the throughput checkpoint, open decisions. Tables for design alternatives.
++
++## Port dispositions
++
++1. Completed by direct lead trace. The literal heading is in RelayBoardApp.render_dashboard and GET /dashboard returns it through the WSGI HTML response. Skip How helper because the method permits direct tracing for simple scope.
++2. skip: A text-only one-file edit crosses no function boundary and has no architectural choice.
++3. Blocking first steps. Locate the rendered heading and capture the existing public response before editing.
++   Independent workstreams. n/a: One literal change, checks and review run serially.
++   Shared mutable state. n/a: Only the lead writes production code. Reviewer reads the same checkout serially.
++   Smallest safe decomposition. One lead owns the single replacement and checks, then a fresh helper reviews the diff and evidence.
++4. skip: METHOD.md explicitly permits direct ownership of a truly mechanical one-file edit with separate fresh review. The data shape is an existing HTML table heading string. Retain that shape without adding state or abstraction.
++5. Completed. GET /dashboard matches the exact requested replacement and GET /api/jobs matches its baseline. Full public suite passes 5 tests. Captured logs and fresh helper reruns agree.
++6. Verification and fresh review completed. Candidate and evidence commits are recorded in REPORT.json and the final handoff. Rebase is unnecessary because the isolated run begins at the supplied initial commit and has no upstream changes.
++7. skip: The requested wording is explicit and no design is contested.
++8. Native Opening a PR is unbundled. METHOD.md substitutes handing a local immutable commit to the orchestrator. No external publication in the contestant context.
++
++Unsupported native routes. unslop, technical-writing, create-skill, deslop, no-comments, control-ui/control-cli and Opening a PR are not bundled or installed. Apply the frozen port bindings with scoped diff cleanup/review, direct public WSGI checks and local commit handoff. Show me your work template, helper script and native transcript directory are unbundled. Use the documented TSV header and captured public commands, not invented transcripts. No native model diversity or parallel throughput claim.
++
++Principles used. Laziness Protocol selects the single literal replacement. Model the Domain retains the existing HTML string and adds no abstraction. Prove It Works selects the real WSGI dashboard response. Test Behavior, Not Implementation selects public requests and literal user-visible expectations. Sequence Work into Verifiable Units selects baseline, one edit, verification, review, commit. Never Block on the Human uses standing authorization for reversible local work. Fix Root Causes was read but is not applied because this is an explicit wording change rather than a reported defect.
+diff --git a/.experiment/after_change.log b/.experiment/after_change.log
+new file mode 100644
+index 0000000..a987c8f
+--- /dev/null
++++ b/.experiment/after_change.log
+@@ -0,0 +1,2 @@
++PASS GET /dashboard shows Latest result and differs only in that heading.
++PASS GET /api/jobs equals baseline.
+diff --git a/.experiment/baseline.json b/.experiment/baseline.json
+new file mode 100644
+index 0000000..fb28a27
+--- /dev/null
++++ b/.experiment/baseline.json
+@@ -0,0 +1,19 @@
++{
++  "dashboard": "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>",
++  "api_jobs": {
++    "jobs": [
++      {
++        "enabled": false,
++        "id": "cleanup",
++        "max_attempts": 1,
++        "name": "Cleanup"
++      },
++      {
++        "enabled": true,
++        "id": "daily-report",
++        "max_attempts": 2,
++        "name": "Daily report"
++      }
++    ]
++  }
++}
+diff --git a/.experiment/baseline.log b/.experiment/baseline.log
+new file mode 100644
+index 0000000..49cb7d5
+--- /dev/null
++++ b/.experiment/baseline.log
+@@ -0,0 +1,2 @@
++PASS baseline GET /dashboard has Jobs table with Last result.
++PASS baseline GET /api/jobs captured.
+diff --git a/.experiment/baseline_suite.log b/.experiment/baseline_suite.log
+new file mode 100644
+index 0000000..c3b470d
+--- /dev/null
++++ b/.experiment/baseline_suite.log
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.002s
++
++OK
+diff --git a/.experiment/before_change.log b/.experiment/before_change.log
+new file mode 100644
+index 0000000..efacbff
+--- /dev/null
++++ b/.experiment/before_change.log
+@@ -0,0 +1,5 @@
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/P-S01-002/.experiment/verify_dashboard.py", line 22, in <module>
++    assert '<th>Latest result</th>' in dashboard, 'Latest result heading missing'
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: Latest result heading missing
+diff --git a/.experiment/candidate.diff b/.experiment/candidate.diff
+new file mode 100644
+index 0000000..cd82881
+--- /dev/null
++++ b/.experiment/candidate.diff
+@@ -0,0 +1,13 @@
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..67de7f4 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -150,7 +150,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
+diff --git a/.experiment/candidate_commit.log b/.experiment/candidate_commit.log
+new file mode 100644
+index 0000000..41d2f92
+--- /dev/null
++++ b/.experiment/candidate_commit.log
+@@ -0,0 +1,10 @@
++commit 35e27f6173df2f8e5c8362cd2be199fcf325a7aa
++Author:     RelayBoard Pilot <benchmark@example.invalid>
++AuthorDate: Thu Oct 8 01:58:36 2026 +0000
++Commit:     RelayBoard Pilot <benchmark@example.invalid>
++CommitDate: Thu Oct 8 01:58:36 2026 +0000
++
++    Change Jobs heading to Latest result
++
++ relayboard/web.py | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/.experiment/decisions.tsv b/.experiment/decisions.tsv
+new file mode 100644
+index 0000000..6601586
+--- /dev/null
++++ b/.experiment/decisions.tsv
+@@ -0,0 +1,5 @@
++ts	phase	decision	why	evidence	result
++2026-10-08T01:55:35.637132+00:00	scope	Use the direct mechanical-edit exception and retain the existing HTML heading shape	One explicit literal change needs no new state or design	.experiment/TODO.md	Ready for baseline
++2026-10-08T01:56:14.037078+00:00	verify	Replace the Jobs heading literal and verify public behavior	The direct WSGI check fails before and passes after the exact requested edit	.experiment/before_change.log;.experiment/after_change.log;.experiment/final_suite.log;.experiment/candidate.diff	Focused check and 5 public tests green
++2026-10-08T01:58:36.291848+00:00	review	Accept the fresh scoped review and complete the finalization records	Code and public checks pass; preserve declared review and tooling limits	.experiment/helper-review.txt;.experiment/REPORT.json	No production correction needed; helper completed
++2026-10-08T01:59:01.565536+00:00	commit	Commit the reviewed candidate and preserve the available evidence locally	One verified unit is complete; no open product decisions or publication action	.experiment/candidate_commit.log	Candidate committed; final evidence commit follows
+diff --git a/.experiment/diff_check.log b/.experiment/diff_check.log
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/final_suite.log b/.experiment/final_suite.log
+new file mode 100644
+index 0000000..c3b470d
+--- /dev/null
++++ b/.experiment/final_suite.log
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.002s
++
++OK
+diff --git a/.experiment/helper-review.txt b/.experiment/helper-review.txt
+new file mode 100644
+index 0000000..01453cb
+--- /dev/null
++++ b/.experiment/helper-review.txt
+@@ -0,0 +1,25 @@
++Review passes for the code change. No production correction or additional public check is needed.
++
++relayboard/web.py:153 changes only <th>Last result</th> to <th>Latest result</th>. The live diff matches .experiment/candidate.diff. API handlers, dashboard rows and other production files are unchanged.
++
++Fresh reviewer reported rerunning these commands from the assigned root, all exit 0.
++PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. python .experiment/verify_dashboard.py
++PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. python -m unittest discover -s tests -v
++git diff --check
++A read-only Python evidence audit confirmed every reported log path and decision evidence pointer resolves, both TSV records have expected columns, and captured diff equals live diff.
++
++Captured before_change.log records the expected missing-heading assertion failure. Baseline and final logs support verification claims. Baseline capture was not rerun because it writes a file. Local history contained only initial commit c0190576cf54853337b328935f6bdfb730cccee7 at review time.
++
++Principles used by the reviewer. Prove It Works and Test Behavior, Not Implementation shaped public WSGI reruns. Laziness Protocol shaped the one-literal scope assessment.
++
++Reviewer directly inspected TASK.md, METHOD.md, relayboard/web.py, relayboard/testing.py, tests/test_public.py, all thirteen .experiment artifacts then present, bundled Poteto Mode core and Feature playbook, Show me your work, and the seven bundled core leaf principles listed in REPORT.json.
++
++Reviewer access declaration. Commands ran inside assigned root. Only assigned material and local git evidence inspected. No edits, commits, descendants, network, siblings, credentials, evaluator, oracle, reference solutions or hidden evaluation. No forbidden material received. No raw transcript available or inspected.
++
++Attention review findings.
++Requested reviewer gpt-6.1-sol / high. Runtime identity independently unverified.
++Finalization pending at review time. Preserve review, populate helpers/local_commits, complete TODO steps 5 and 6, append review checkpoint and commit locally.
++Historical ordering supported by logs and decisions without raw transcript verification.
++Verification uses direct WSGI responses and seeded API data. Native browser/controller verification and model-family diversity remain port limitations.
++
++Evidence provenance. This file is a lead-preserved factual summary of the fresh helper final response, not a raw transcript or raw command-output export.
+diff --git a/.experiment/verify_dashboard.py b/.experiment/verify_dashboard.py
+new file mode 100644
+index 0000000..b145de4
+--- /dev/null
++++ b/.experiment/verify_dashboard.py
+@@ -0,0 +1,27 @@
++import json
++import sys
++from pathlib import Path
++
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++baseline_path = Path('.experiment/baseline.json')
++app = create_seeded_app()
++code, dashboard = request(app, 'GET', '/dashboard')
++api_code, api_jobs = request(app, 'GET', '/api/jobs')
++assert code == 200, code
++assert api_code == 200, api_code
++if sys.argv[1:] == ['baseline']:
++    assert '<th>Last result</th>' in dashboard
++    assert '<th>Latest result</th>' not in dashboard
++    baseline_path.write_text(json.dumps({'dashboard': dashboard, 'api_jobs': api_jobs}, indent=2) + '\n')
++    print('PASS baseline GET /dashboard has Jobs table with Last result.')
++    print('PASS baseline GET /api/jobs captured.')
++else:
++    baseline = json.loads(baseline_path.read_text())
++    assert '<th>Latest result</th>' in dashboard, 'Latest result heading missing'
++    assert '<th>Last result</th>' not in dashboard, 'Old heading still present'
++    assert dashboard == baseline['dashboard'].replace('<th>Last result</th>', '<th>Latest result</th>'), 'Unrelated dashboard output changed'
++    assert api_jobs == baseline['api_jobs'], 'GET /api/jobs changed'
++    print('PASS GET /dashboard shows Latest result and differs only in that heading.')
++    print('PASS GET /api/jobs equals baseline.')
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..67de7f4 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -150,7 +150,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Latest result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"

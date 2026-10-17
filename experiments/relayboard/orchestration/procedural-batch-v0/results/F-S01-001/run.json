@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "run_id": "F-S01-001",
+  "scenario": "S01-v0",
+  "treatment": "first-mode-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_f_s01_001"
+  },
+  "start": {
+    "run_id": "F-S01-001",
+    "workspace": "/workspace/relayboard-active/F-S01-001",
+    "local_start_sha": "f4949ab48a610e5fb0d3b2b7187583a91ac8efc2",
+    "local_start_tree": "31760023690b769d1757a099be2f14e2290a26a2",
+    "remote_prepared_sha": "dc4704ccb3ff4e3c4d392c96028ec194e73d5ac9",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "first-mode-v0",
+    "prepared_at": "2026-10-07T12:06:20.418215+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "5d142e5a9c03b9e82ec6a567457deaf7adb29834",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "22ef0c77d90c3410785dd593f2b5c161edaed531",
+      ".experiment/RUN_MANIFEST.json": "71f6b2011c4c9cb0eb573e66f5ff8cf80de9d126"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 12:09:07 UTC",
+  "candidate_frozen_at": "2026-10-07T12:09:07.978518+00:00",
+  "local_candidate_sha": "f9ca7bf73e88b524986710ecdd419849f23bbc58",
+  "local_candidate_tree": "ffa3d46551e79d481e1b0b4574c7be62bb1f529b",
+  "remote_candidate": {
+    "sha": "62fb2061cff76d2e6fc231aa861341e94be2466f",
+    "tree_sha": "ffa3d46551e79d481e1b0b4574c7be62bb1f529b",
+    "branch": "candidate/F-S01-001"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/25",
+    "number": 25,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S01-v0 task in a fresh first-mode-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-pilot. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "F-S01-001: first-mode-v0 frozen benchmark candidate",
+    "base": "treatment/first-mode/F-S01-001",
+    "base_sha": "dc4704ccb3ff4e3c4d392c96028ec194e73d5ac9",
+    "head": "candidate/F-S01-001",
+    "head_sha": "62fb2061cff76d2e6fc231aa861341e94be2466f",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T12:09:17Z",
+    "updated_at": "2026-10-07T12:09:17Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 8,
+    "additions": 226,
+    "deletions": 1,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/25",
+    "display_title": "F-S01-001: first-mode-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "f4949ab48a610e5fb0d3b2b7187583a91ac8efc2",
+      "metadata": "commit f4949ab48a610e5fb0d3b2b7187583a91ac8efc2\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 12:06:20 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 12:06:20 2026 +0000\n\n    benchmark: frozen standalone F-S01-001 starting packet\n"
+    },
+    {
+      "sha": "b50e13491d4906d4c78fce64b167c1d7c6ca4ee0",
+      "metadata": "commit b50e13491d4906d4c78fce64b167c1d7c6ca4ee0\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 12:08:20 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 12:08:20 2026 +0000\n\n    Rename Jobs dashboard heading to Latest result\n"
+    },
+    {
+      "sha": "f9ca7bf73e88b524986710ecdd419849f23bbc58",
+      "metadata": "commit f9ca7bf73e88b524986710ecdd419849f23bbc58\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 12:08:50 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 12:08:50 2026 +0000\n\n    Record FIRST L0 verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/COMMAND_LOG.json           | 125 +++++++++++++++++++++++++++++++++\n .experiment/REPORT.json                |  80 +++++++++++++++++++++\n .experiment/baseline.txt               |   1 +\n .experiment/dashboard-after.json       |   4 ++\n .experiment/dashboard-before.json      |   4 ++\n .experiment/dashboard-verification.txt |   1 +\n .experiment/public-tests.txt           |  10 +++\n relayboard/web.py                      |   2 +-\n 8 files changed, 226 insertions(+), 1 deletion(-)\n",
+  "operator_interactions": [],
+  "agent_completion_claim": "VERIFIED: Jobs heading now reads Latest result. Dashboard response differs only by requested label;5 public tests pass; workingtree clean. b50e134 change,f9ca7bf evidence. .experiment/REPORT.json. No helpers/operator questions/evaluator or peer access.",
+  "visible_checkpoints": [],
+  "worker_report": {
+    "status": "VERIFIED",
+    "contestant": "F-S01-001",
+    "working_area": "/workspace/relayboard-active/F-S01-001",
+    "task": "Change Jobs dashboard heading from Last result to Latest result without changing API or unrelated dashboard behavior.",
+    "initial_commit": "f4949ab48a610e5fb0d3b2b7187583a91ac8efc2",
+    "method": {
+      "source": "METHOD.md",
+      "name": "FIRST-mode v0",
+      "route": "L0: Direct verified execution",
+      "success_predicate": "GET /dashboard returns HTTP 200 with <th>Latest result</th> and without <th>Last result</th>; other response HTML matches baseline exactly; public tests pass; application diff is only the requested label.",
+      "decision_class": "REVERSIBLE_ENGINEERING",
+      "decision": "Replace the single literal heading in relayboard/web.py. Task is clear, small, reversible, and low-risk. No structural uncertainty trigger or helper is warranted."
+    },
+    "local_commits": [
+      {
+        "hash": "b50e13491d4906d4c78fce64b167c1d7c6ca4ee0",
+        "purpose": "One-line dashboard heading change"
+      },
+      {
+        "revision": "HEAD",
+        "purpose": "Evidence and report commit containing this report; exact hash is available from local git history after finalization."
+      }
+    ],
+    "tests": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python - (public WSGI dashboard baseline capture)",
+        "result": "PASS: pre-change response contains old heading",
+        "exit_code": 0,
+        "output_paths": [
+          ".experiment/baseline.txt",
+          ".experiment/dashboard-before.json"
+        ]
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python - (dashboard response comparison; full executable command in COMMAND_LOG.json)",
+        "result": "PASS: HTTP 200; new heading present; old heading absent; other response HTML byte-identical",
+        "exit_code": 0,
+        "output_paths": [
+          ".experiment/dashboard-verification.txt",
+          ".experiment/dashboard-after.json"
+        ]
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests -v",
+        "result": "PASS: all 5 public tests",
+        "exit_code": 0,
+        "output_paths": [
+          ".experiment/public-tests.txt"
+        ]
+      },
+      {
+        "command": "git diff --check && git diff -- relayboard/web.py",
+        "result": "PASS: clean whitespace; application diff contains only label replacement",
+        "exit_code": 0,
+        "output_paths": [
+          ".experiment/COMMAND_LOG.json"
+        ]
+      }
+    ],
+    "operator_interactions": [],
+    "helpers": {
+      "used": false,
+      "assignments": [],
+      "reports": []
+    },
+    "model_usage": {
+      "requested": "Inherited contestant model; no helper requested",
+      "observed": "No model/usage telemetry available from tools; no claims about measured model identity or token usage.",
+      "paid_api_calls": 0
+    },
+    "action_path_log": ".experiment/COMMAND_LOG.json",
+    "evaluator_or_peer_material_accessed": false,
+    "boundary_evidence": "Only supplied run area inspected. No siblings, control paths, hidden checks, peer status, external references, private transcripts or credentials accessed. README contains protocol-reference link text; linked files were not opened.",
+    "evidence_gaps": [
+      "No browser screenshot: verification checks HTML served through public WSGI request helper, matching this server-rendered label surface.",
+      "Initial read command outputs are summarized in command log; full outputs remain available in tool transcript.",
+      "Self-referential evidence commit hash is recorded as HEAD, resolved in local git history after commit."
+    ]
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.003s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S01-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": null,
+  "source_pins": [],
+  "available_evidence_paths": [
+    ".experiment/COMMAND_LOG.json",
+    ".experiment/REPORT.json"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 19534,
+    "sha256": "52401f010e5bab924ae16afd4746398f6d67b0e2357280784173598822de2feb",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}

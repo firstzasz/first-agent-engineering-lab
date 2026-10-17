@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "run_id": "F-S04-001",
+  "started_at": "2026-10-07T12:20:53.171934+00:00",
+  "finished_at": "2026-10-07T12:20:53.339677+00:00",
+  "context": "separate orchestrator-owned Python process after contestant termination",
+  "local_candidate_sha": "a8bcf014c8698e036007cfa13d1fa0271e7ad5dd",
+  "candidate_tree": "6f7b86c881f76315b83f97f592d4471eedd6d194",
+  "frozen_evaluator_ref": "b8048c069277ae3a6d15a2ad324d60c4b1500c2a",
+  "evaluator_blob_sha": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_distinct_failed_runs_keep_their_own_alerts_via_api (test_retry_alerts.RetryAlertTests.test_distinct_failed_runs_keep_their_own_alerts_via_api) ... ok\ntest_failure_alert_waits_for_terminal_attempt (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_terminal_attempt) ... ok\ntest_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.011s\n\nOK\n"
+  },
+  "oracle": {
+    "scenario": "S04-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "feedback_to_contestant": false
+}

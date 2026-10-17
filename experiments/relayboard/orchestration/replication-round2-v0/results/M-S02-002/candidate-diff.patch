@@ -1,0 +1,2640 @@
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..9e877b4
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,507 @@
++{
++  "status": "COMPLETE",
++  "contestant_id": "M-S02-002",
++  "method": "matt-codex-port-v0 (explicit non-native Codex port)",
++  "root": "/workspace/relayboard-round2-active/M-S02-002",
++  "source_version": "mattpocock/skills 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d; unchanged bundled files",
++  "initial_commit": "985b5380548ab80c2c243f97e9732a403bff88b3",
++  "commits": [
++    {
++      "sha": "0cee69f13fa15fe5190d5188e7469c03f059db7f",
++      "purpose": "persistent pause/resume feature, tests, local spec and glossary"
++    },
++    {
++      "sha": "ae485578f96038738e48219c32c3d60d1c0009a4",
++      "purpose": "address Standards duplication findings; completed spec"
++    }
++  ],
++  "candidate_product_commit": "ae485578f96038738e48219c32c3d60d1c0009a4",
++  "final_evidence_commit": "The local HEAD containing this report is the evidence-only final commit; self hash cannot be embedded before committing. Final tool transcript records its hash.",
++  "candidate_diff_output": ".experiment/candidate-product-diff.txt",
++  "route": [
++    "grill-with-docs (grilling + domain-modeling)",
++    "to-spec",
++    "implement (one cohesive lead implementation unit)",
++    "tdd (four red/green feature cycles)",
++    "code-review (fresh serial Standards then Spec)"
++  ],
++  "read_but_not_invoked": [
++    "to-tickets",
++    "implement-spec"
++  ],
++  "route_rationale": "Feature semantics needed interview. One small cohesive end-to-end unit has no useful independent blocking frontier; therefore no ticket graph. No reported bug so diagnosing-bugs not invoked. Reversible representation warrants no ADR.",
++  "spec": {
++    "path": ".scratch/work/spec.md",
++    "status": "completed",
++    "tickets": "not used: one cohesive unit"
++  },
++  "operator_exchanges": [
++    {
++      "direction": "request",
++      "channel": "collaboration.send_message /root",
++      "text": "OPERATOR QUESTION M-S02-002 \u2014 Invoked bundled grill-with-docs (grilling + domain-modeling). Public facts: enabled gates scheduled starts; disabled jobs allow manual runs; existing Runs retry by max_attempts; no queue/catch-up scheduler exists; dashboard shows Enabled and Last result. Current independent decision frontier:\nQ1 Pause scope: Should pause block only new scheduled Runs, or also manual Runs / retries / in-flight Runs? Recommended: only new scheduled Runs; existing/manual Runs, retries, alerts remain unchanged.\nQ2 Enabled relationship: Should paused be a separate persistent Job state, so pause/resume preserve enabled (including disabled jobs), or alias enabled/disabled? Recommended: separate persistent paused state; resume cannot enable a disabled Job.\nQ3 Repeated/missing operations: Should repeated pause/resume succeed idempotently with 200 and {job: ...}, and missing Job return existing 404? Recommended: yes; no request body required.\nQ4 Visibility: Should Jobs API expose paused and dashboard add a Paused column while preserving Enabled and Last result? Recommended: yes.\nPlease answer this frontier. I will recompute dependencies and request shared-understanding confirmation before implementation if your reply does not already confirm it."
++    },
++    {
++      "direction": "answer",
++      "channel": "operator via collaboration",
++      "text": "OPERATOR ANSWER Q1: A scheduled start while paused is skipped and not queued. Manual Runs remain allowed while paused. An in-progress Run continues to its terminal outcome, including existing retries and alerts. Q2/Q3/Q4: no additional product preference or interface guidance is supplied; use TASK.md, existing public interfaces and reversible engineering judgment for representation, enabled-state handling, idempotence/missing-Job responses and presentation. These answers cover requested product decisions only, not blanket confirmation of every recommended policy or unasked behavior."
++    },
++    {
++      "direction": "request",
++      "channel": "collaboration.send_message /root",
++      "text": "OPERATOR QUESTION M-S02-002 \u2014 Recomputed frontier is empty: Q1 settles product scope; Q2\u2013Q4 are delegated reversible engineering judgments. Shared understanding for confirmation: pause skips new scheduled starts with no queue/catch-up; manual Runs and already-started Runs continue, including retries/alerts. I will represent pause separately from enabled, so resume preserves disabled state, use idempotent bodyless 200 {job} pause/resume with existing 404 for absent jobs, expose paused in Jobs JSON and add dashboard Paused visibility preserving Enabled/Last result. These are local engineering choices, not assertions of supplied product guidance. Please confirm the shared product understanding so the bundled grilling completion condition is met before implementation."
++    },
++    {
++      "direction": "answer",
++      "channel": "operator via collaboration",
++      "text": "OPERATOR ANSWER to the confirmation you now requested: resume applies to future schedule activity only, with no catch-up. Your restatement of scheduled skip/no queue, manual allowance and in-progress continuation matches the earlier answers. Representation, enabled-state preservation, idempotence/response shape and dashboard presentation remain your engineering choices, not additional product preferences supplied by me. This confirms only the explicitly asked product understanding."
++    }
++  ],
++  "operator_checkpoint": "Nonblocking route/spec/implementation/tests/review-state checkpoint sent on operator request; recorded in session.md. No extra product guidance received.",
++  "decisions": {
++    "operator_confirmed": [
++      "scheduled starts skipped with no queue while paused",
++      "resume future activity only, no catch-up",
++      "manual Runs allowed",
++      "in-progress Runs continue through existing retries/alerts"
++    ],
++    "delegated_engineering": [
++      "separate persisted paused boolean default false",
++      "pause/resume preserve enabled",
++      "idempotent bodyless POST 200 {job}; missing Job existing404",
++      "Jobs JSON paused visibility and dashboard Paused column preserving existing columns",
++      "default-false migration for existing SQLite schema"
++    ]
++  },
++  "testcommands": [
++    {
++      "label": "baseline",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:38:21.635274+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/baseline.txt"
++    },
++    {
++      "label": "pause-red",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:39:53.859051+00:00",
++      "exit_code": 1,
++      "outputpath": ".experiment/pause-red.txt"
++    },
++    {
++      "label": "pause-green",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:40:16.675129+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/pause-green.txt"
++    },
++    {
++      "label": "resume-red",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:40:28.491660+00:00",
++      "exit_code": 1,
++      "outputpath": ".experiment/resume-red.txt"
++    },
++    {
++      "label": "resume-green",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:40:39.916768+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/resume-green.txt"
++    },
++    {
++      "label": "dashboard-red",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:40:52.814466+00:00",
++      "exit_code": 1,
++      "outputpath": ".experiment/dashboard-red.txt"
++    },
++    {
++      "label": "dashboard-green",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:41:01.593186+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/dashboard-green.txt"
++    },
++    {
++      "label": "persistence-red",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:41:23.795193+00:00",
++      "exit_code": 1,
++      "outputpath": ".experiment/persistence-red.txt"
++    },
++    {
++      "label": "persistence-green",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:41:31.487111+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/persistence-green.txt"
++    },
++    {
++      "label": "manual-preservation",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:41:51.954118+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/manual-preservation.txt"
++    },
++    {
++      "label": "existing-run-preservation",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:42:08.690075+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/existing-run-preservation.txt"
++    },
++    {
++      "label": "disabled-preservation",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:42:20.475043+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/disabled-preservation.txt"
++    },
++    {
++      "label": "enable-preservation",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:42:30.674521+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/enable-preservation.txt"
++    },
++    {
++      "label": "idempotence-verification",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:42:42.263167+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/idempotence-verification.txt"
++    },
++    {
++      "label": "missing-method-verification",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_pause.py",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:42:52.562250+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/missing-method-verification.txt"
++    },
++    {
++      "label": "full-before-review",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:43:02.454795+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/full-before-review.txt"
++    },
++    {
++      "label": "full-after-review",
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++      "time_utc": "2026-10-07T13:46:40.553280+00:00",
++      "exit_code": 0,
++      "outputpath": ".experiment/full-after-review.txt"
++    }
++  ],
++  "red_green_cycles": [
++    {
++      "slice": "pause",
++      "red": ".experiment/pause-red.txt",
++      "red_reason": "404 vs 200",
++      "green": ".experiment/pause-green.txt"
++    },
++    {
++      "slice": "resume",
++      "red": ".experiment/resume-red.txt",
++      "red_reason": "404 vs 200",
++      "green": ".experiment/resume-green.txt"
++    },
++    {
++      "slice": "dashboard",
++      "red": ".experiment/dashboard-red.txt",
++      "red_reason": "missing Paused column",
++      "green": ".experiment/dashboard-green.txt"
++    },
++    {
++      "slice": "existing-schema/reopen persistence",
++      "red": ".experiment/persistence-red.txt",
++      "red_reason": "IndexError absent paused column",
++      "green": ".experiment/persistence-green.txt"
++    }
++  ],
++  "verification": {
++    "baseline_tests": 5,
++    "final_public_tests": 15,
++    "full_command": "python -m unittest discover -s tests -v",
++    "final_outputpath": ".experiment/full-after-review.txt",
++    "result": "PASS",
++    "diff_check": "PASS (.experiment/diff-check-after-review.txt)",
++    "method_source_unchanged": "empty git diff, exit0 (.experiment/bundled-source-unchanged.txt)",
++    "characterization": "Six additional public preservation/API checks added serially and immediately passed with no implementation edits; no red-before-green claim for those checks."
++  },
++  "reviews": {
++    "fixed_point": "985b5380548ab80c2c243f97e9732a403bff88b3",
++    "reviewed_commit": "0cee69f13fa15fe5190d5188e7469c03f059db7f",
++    "Standards": {
++      "hard_violations": 0,
++      "heuristic_findings": 2,
++      "worst": "low-priority Duplicated Code",
++      "disposition": "both addressed by lead in review stage",
++      "report": ".experiment/standards-review.md"
++    },
++    "Spec": {
++      "findings": 0,
++      "report": ".experiment/spec-review.md"
++    },
++    "helpers": [
++      {
++        "task_name": "/root/contestant_m_s02_002/standards_review",
++        "axis": "Standards",
++        "order": 1,
++        "fork_turns": "none",
++        "requested_model": "gpt-6.1-sol",
++        "requested_reasoning_effort": "high",
++        "observed_identity": "unknown",
++        "observed_usage": "unknown",
++        "read_only": true,
++        "descendants_permitted": false,
++        "status": "completed",
++        "report": ".experiment/standards-review.md"
++      },
++      {
++        "task_name": "/root/contestant_m_s02_002/spec_review",
++        "axis": "Spec",
++        "order": 2,
++        "fork_turns": "none",
++        "requested_model": "gpt-6.1-sol",
++        "requested_reasoning_effort": "high",
++        "observed_identity": "unknown",
++        "observed_usage": "unknown",
++        "read_only": true,
++        "descendants_permitted": false,
++        "status": "completed",
++        "report": ".experiment/spec-review.md"
++      }
++    ],
++    "both_completed_before_finalization": true,
++    "final_fix_verification": "15 public tests pass; no fresh helper rereview claimed"
++  },
++  "action_path_evidence": {
++    "initial": ".experiment/initial-actions.json",
++    "read_paths": ".experiment/read-path-evidence.json",
++    "commands": ".experiment/commands.jsonl",
++    "decisions_checkpoints": ".experiment/session.md",
++    "helpers": ".experiment/helpers.json",
++    "commit_outputs": [
++      ".experiment/commit-implementation.txt",
++      ".experiment/commit-review-fixes.txt"
++    ],
++    "commit_list": ".experiment/candidate-commits.txt"
++  },
++  "identity": {
++    "lead_requested": "GPT-6.1 Sol/High per binding",
++    "lead_observed": "Exact variant/effort/usage unknown; generic system identifies Codex based on GPT-6.",
++    "helpers_requested": "gpt-6.1-sol/high, fork_turns=none",
++    "helpers_observed": "unknown without attestation; no usage metrics available"
++  },
++  "adaptations": [
++    "Read bundled skill files in place of native Skill tool",
++    "local spec/tracker with standing reversible seam/ticket-shape authorization",
++    "serial fresh helpers on local branch instead of native parallel reviewers/worktrees",
++    "no native model diversity",
++    "local commit/report replaces external tracker publication/closure"
++  ],
++  "evaluator_or_peer_material_accessed": false,
++  "contamination_observed": false,
++  "forbidden_actions_performed": [],
++  "hidden_evaluation_run": false,
++  "gaps": [
++    "Exact runtime model, reasoning-setting attestation and usage unavailable.",
++    "Helper raw nested tool outputs not available to lead; helper-reported commands, findings and access statements preserved in separate reports.",
++    "Helpers reviewed implementation commit; subsequent small refactors verified by lead full public suite, not helper rereview.",
++    "Public fixture checks only; no hidden evaluation or production/concurrent scheduler claims.",
++    "Final evidence-only commit hash supplied by final tool transcript/local git HEAD instead of embedding its self hash."
++  ],
++  "freeze_policy": "Stop after final local evidence commit and concise final. No subsequent edits, hidden feedback, paid APIs, network, deployment, publication, external messages or merges.",
++  "generated_at_utc": "2026-10-07T13:48:26.130878+00:00",
++  "finalization_commands": [
++    "git add .experiment",
++    "git diff --cached --check",
++    "git commit -m \"Preserve M-S02-002 method and public verification evidence\"",
++    "git status --short",
++    "git log -3 --oneline"
++  ],
++  "finalization_output_location": "Final tool transcript; evidence commit cannot include its own hash/output."
++}
+diff --git a/.experiment/baseline.txt b/.experiment/baseline.txt
+new file mode 100644
+index 0000000..8508d51
+--- /dev/null
++++ b/.experiment/baseline.txt
+@@ -0,0 +1,10 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.008s
++
++OK
+diff --git a/.experiment/bundled-source-unchanged.txt b/.experiment/bundled-source-unchanged.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/candidate-commits.txt b/.experiment/candidate-commits.txt
+new file mode 100644
+index 0000000..11e8c24
+--- /dev/null
++++ b/.experiment/candidate-commits.txt
+@@ -0,0 +1,2 @@
++ae485578f96038738e48219c32c3d60d1c0009a4 Apply pause review feedback and complete local spec
++0cee69f13fa15fe5190d5188e7469c03f059db7f Add persistent Job pause and resume controls
+diff --git a/.experiment/candidate-head.txt b/.experiment/candidate-head.txt
+new file mode 100644
+index 0000000..556f2d1
+--- /dev/null
++++ b/.experiment/candidate-head.txt
+@@ -0,0 +1 @@
++ae485578f96038738e48219c32c3d60d1c0009a4
+diff --git a/.experiment/candidate-product-diff.txt b/.experiment/candidate-product-diff.txt
+new file mode 100644
+index 0000000..abbb1b5
+--- /dev/null
++++ b/.experiment/candidate-product-diff.txt
+@@ -0,0 +1,397 @@
++diff --git a/.scratch/work/spec.md b/.scratch/work/spec.md
++new file mode 100644
++index 0000000..5c7b36e
++--- /dev/null
+++++ b/.scratch/work/spec.md
++@@ -0,0 +1,39 @@
+++# Pause and resume a Job
+++
+++Status: completed
+++Origin: TASK.md and confirmed operator product answers in .experiment/operator-exchanges.json.
+++
+++## Problem Statement
+++Operators need to temporarily stop a Job from starting normal scheduled work without disrupting other Run behavior.
+++
+++## Solution
+++Pause a Job to skip scheduled starts; resume it to allow future scheduled activity, with no queue or catch-up.
+++
+++## User Stories
+++1. As an operator, I want to pause scheduled starts so that work does not start during a temporary stop.
+++2. As an operator, I want to resume future scheduling so that skipped work is not replayed.
+++3. As an operator, I want manual Runs while paused so that I can explicitly request work.
+++4. As an operator, I want existing Runs to finish with their retries and alerts so that pause does not cancel work.
+++5. As an operator, I want disabled Jobs to remain disabled after resume so that separate scheduling intent is preserved.
+++6. As an API consumer, I want repeat pause/resume requests to be safe and unknown Jobs to use existing errors.
+++7. As an operator, I want pause visibility alongside Enabled and Last result so that I can understand scheduling state.
+++8. As an operator, I want pause state retained in storage so that rebuilding an app around the same database does not resume work.
+++
+++## Implementation Decisions
+++- Separate persistent boolean paused, default false; keep enabled unchanged. These are engineering choices delegated by the operator.
+++- Add bodyless POST /api/jobs/{id}/pause and /resume; return 200 with a job object including paused. Repeats are idempotent; missing Jobs use existing 404.
+++- Scheduled starts raise existing not-schedulable conflict while paused; they do not create a Run or queued work.
+++- Add paused to Jobs JSON and a dashboard Paused column; preserve Enabled and Last result semantics.
+++- Support existing SQLite jobs tables with a default-false schema upgrade. Preserve the positional Job constructor by appending a defaulted field.
+++- Do not modify manual start, attempt, retry or alert logic.
+++
+++## Testing Decisions
+++- Existing pre-agreed seams: WSGI requests using the public fixture request helper; real SQLite and Store/Service public interfaces for persistence and scheduler verification.
+++- Literal expectations from the confirmed spec; one test and minimal implementation per red/green cycle. No internal mocks.
+++- Prior art: existing public unittest tests. Use focused tests throughout, full discovery at completion.
+++
+++## Out of Scope
+++Cancellation, new queues, catch-up, new retry or alert policy, scheduling engines, external services and deployment.
+++
+++## Further Notes
+++Invoke to-spec without re-interviewing; reversible seam approval is standing in METHOD.md. This is one cohesive small implementation unit: pause/resume plus observable state. No independent ticket frontier or blocking edge would be meaningful; to-tickets and implement-spec are read for routing but not invoked. Lead implements directly using implement and tdd. No durable hard-to-reverse tradeoff warrants an ADR.
++diff --git a/GLOSSARY.md b/GLOSSARY.md
++index 1644e31..2946605 100644
++--- a/GLOSSARY.md
+++++ b/GLOSSARY.md
++@@ -6,7 +6,7 @@ Date frozen: 2026-10-06
++ 
++ This glossary defines the base domain shared by S01, S02, and S04.
++ 
++-It intentionally does **not** define the semantics of pausing a Job. Those semantics are the ambiguity under test in S02.
+++Pause terminology below records the resolved product understanding for this feature.
++ 
++ ## Job
++ 
++@@ -83,6 +83,8 @@ A Run explicitly requested by an operator/API call rather than started by the sc
++ 
++ ## Pause
++ 
++-Not defined in the base glossary.
+++A temporary Job scheduling state in which new scheduled Runs are skipped without being queued. Manual Runs and already-started Runs, including their retries and alerts, remain allowed.
++ 
++-S02 intentionally asks the treatment to introduce pause behavior while several product semantics remain unresolved.
+++## Resume
+++
+++The end of a Job's pause, applying to future scheduled activity without catching up skipped work.
++diff --git a/relayboard/models.py b/relayboard/models.py
++index c9c800a..e973fd9 100644
++--- a/relayboard/models.py
+++++ b/relayboard/models.py
++@@ -9,6 +9,7 @@ class Job:
++     name: str
++     enabled: bool
++     max_attempts: int
+++    paused: bool = False
++ 
++ 
++ @dataclass(frozen=True)
++diff --git a/relayboard/service.py b/relayboard/service.py
++index e924be0..64180d2 100644
++--- a/relayboard/service.py
+++++ b/relayboard/service.py
++@@ -24,8 +24,16 @@ class RelayBoardService:
++         job = self.store.get_job(job_id)
++         if not job.enabled:
++             raise JobNotSchedulable(f"job {job_id} is disabled")
+++        if job.paused:
+++            raise JobNotSchedulable(f"job {job_id} is paused")
++         return self.store.create_run(job_id, "scheduled")
++ 
+++    def pause_job(self, job_id: str) -> None:
+++        self.store.set_job_paused(job_id, True)
+++
+++    def resume_job(self, job_id: str) -> None:
+++        self.store.set_job_paused(job_id, False)
+++
++     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
++         self.store.set_job_enabled(job_id, enabled)
++ 
++diff --git a/relayboard/store.py b/relayboard/store.py
++index 3a49cc1..0fae46f 100644
++--- a/relayboard/store.py
+++++ b/relayboard/store.py
++@@ -18,7 +18,8 @@ class Store:
++                 id TEXT PRIMARY KEY,
++                 name TEXT NOT NULL,
++                 enabled INTEGER NOT NULL,
++-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+++                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
+++                paused INTEGER NOT NULL DEFAULT 0
++             );
++             CREATE TABLE IF NOT EXISTS runs (
++                 id TEXT PRIMARY KEY,
++@@ -41,6 +42,11 @@ class Store:
++             );
++             """
++         )
+++        columns = self.connection.execute("PRAGMA table_info(jobs)").fetchall()
+++        if not any(column["name"] == "paused" for column in columns):
+++            self.connection.execute(
+++                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL DEFAULT 0"
+++            )
++         self.connection.commit()
++ 
++     def add_job(
++@@ -65,21 +71,23 @@ class Store:
++         ).fetchone()
++         if row is None:
++             raise KeyError(job_id)
+++        return self._job_from_row(row)
+++
+++    @staticmethod
+++    def _job_from_row(row: sqlite3.Row) -> Job:
++         return Job(
++             row["id"],
++             row["name"],
++             bool(row["enabled"]),
++             row["max_attempts"],
+++            bool(row["paused"]),
++         )
++ 
++     def list_jobs(self) -> list[Job]:
++         rows = self.connection.execute(
++             "SELECT * FROM jobs ORDER BY id"
++         ).fetchall()
++-        return [
++-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
++-            for r in rows
++-        ]
+++        return [self._job_from_row(row) for row in rows]
++ 
++     def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
++         self.get_job(job_id)
++@@ -90,6 +98,15 @@ class Store:
++         self.connection.commit()
++         return self.get_job(job_id)
++ 
+++    def set_job_paused(self, job_id: str, paused: bool) -> Job:
+++        self.get_job(job_id)
+++        self.connection.execute(
+++            "UPDATE jobs SET paused = ? WHERE id = ?",
+++            (int(paused), job_id),
+++        )
+++        self.connection.commit()
+++        return self.get_job(job_id)
+++
++     def next_run_id(self) -> str:
++         row = self.connection.execute(
++             "SELECT COUNT(*) AS n FROM runs"
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..0f87eeb 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -51,6 +51,22 @@ class RelayBoardApp:
++                     },
++                 )
++ 
+++            if (
+++                method == "POST"
+++                and path.startswith("/api/jobs/")
+++                and path.endswith(("/pause", "/resume"))
+++            ):
+++                job_id = path.split("/")[3]
+++                if path.endswith("/pause"):
+++                    self.service.pause_job(job_id)
+++                else:
+++                    self.service.resume_job(job_id)
+++                return self._json(
+++                    start_response,
+++                    200,
+++                    {"job": self._job_json(self.store.get_job(job_id))},
+++                )
+++
++             if (
++                 method == "POST"
++                 and path.startswith("/api/jobs/")
++@@ -141,6 +157,7 @@ class RelayBoardApp:
++                 "<tr>"
++                 f"<td>{html.escape(job.name)}</td>"
++                 f"<td>{'yes' if job.enabled else 'no'}</td>"
+++                f"<td>{'yes' if job.paused else 'no'}</td>"
++                 f"<td>{html.escape(last)}</td>"
++                 "</tr>"
++             )
++@@ -150,7 +167,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
++@@ -163,6 +180,7 @@ class RelayBoardApp:
++             "name": job.name,
++             "enabled": job.enabled,
++             "max_attempts": job.max_attempts,
+++            "paused": job.paused,
++         }
++ 
++     @staticmethod
++diff --git a/tests/test_pause.py b/tests/test_pause.py
++new file mode 100644
++index 0000000..8e2594a
++--- /dev/null
+++++ b/tests/test_pause.py
++@@ -0,0 +1,167 @@
+++import sqlite3
+++import tempfile
+++import unittest
+++from pathlib import Path
+++
+++from relayboard.store import Store
+++from relayboard.testing import request
+++from relayboard.web import RelayBoardApp, create_seeded_app
+++
+++
+++class PauseJobTests(unittest.TestCase):
+++    def setUp(self) -> None:
+++        self.app = create_seeded_app()
+++
+++    def test_pause_and_resume_missing_jobs_use_existing_not_found_response(self) -> None:
+++        for action in ("pause", "resume"):
+++            self.assertEqual(
+++                request(self.app, "POST", f"/api/jobs/missing/{action}"),
+++                (404, {"error": "not found: missing"}),
+++            )
+++            self.assertEqual(
+++                request(self.app, "GET", f"/api/jobs/daily-report/{action}"),
+++                (404, {"error": "not found"}),
+++            )
+++
+++    def test_repeated_pause_and_resume_are_idempotent(self) -> None:
+++        for action, paused in (("pause", True), ("resume", False)):
+++            first = request(self.app, "POST", f"/api/jobs/daily-report/{action}")
+++            second = request(self.app, "POST", f"/api/jobs/daily-report/{action}")
+++            self.assertEqual(first, second)
+++            self.assertEqual(first[0], 200)
+++            self.assertEqual(first[1]["job"]["paused"], paused)
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 201)
+++        self.assertEqual(payload["run"]["id"], "run-001")
+++
+++    def test_enable_changes_do_not_clear_pause(self) -> None:
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        for enabled in (False, True):
+++            code, payload = request(self.app, "POST", "/api/jobs/daily-report/enabled",
+++                                    {"enabled": enabled})
+++            self.assertEqual(code, 200)
+++            self.assertTrue(payload["job"]["paused"])
+++        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                 {"source": "scheduled"})[0], 409)
+++
+++    def test_resume_does_not_enable_a_disabled_job(self) -> None:
+++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/pause")
+++        self.assertEqual(code, 200)
+++        self.assertTrue(payload["job"]["paused"])
+++        self.assertFalse(payload["job"]["enabled"])
+++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/resume")
+++        self.assertEqual(code, 200)
+++        self.assertFalse(payload["job"]["paused"])
+++        self.assertFalse(payload["job"]["enabled"])
+++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual((code, payload), (409, {"error": "job cleanup is disabled"}))
+++
+++    def test_pause_preserves_existing_run_retries_alerts_and_result(self) -> None:
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 201)
+++        run_id = payload["run"]["id"]
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        code, payload = request(self.app, "POST", f"/api/runs/{run_id}/attempts",
+++                                {"succeeded": False})
+++        self.assertEqual(code, 200)
+++        self.assertEqual(payload["status"], "retry")
+++        self.assertEqual(payload["run"]["id"], "run-001")
+++        code, payload = request(self.app, "POST", f"/api/runs/{run_id}/attempts",
+++                                {"succeeded": True})
+++        self.assertEqual(code, 200)
+++        self.assertEqual(payload["status"], "succeeded")
+++        self.assertEqual(payload["run"]["id"], "run-001")
+++        code, payload = request(self.app, "GET", "/api/alerts")
+++        self.assertEqual(code, 200)
+++        # Preserve the fixture's existing alert on a failed retryable attempt.
+++        self.assertEqual(payload, {"alerts": [{
+++            "id": 1, "job_id": "daily-report", "run_id": "run-001",
+++            "kind": "run_failed", "message": "Job Daily report failed for run run-001",
+++        }]})
+++        code, body = request(self.app, "GET", "/dashboard")
+++        self.assertEqual(code, 200)
+++        self.assertIn("<td>Daily report</td><td>yes</td><td>yes</td><td>succeeded</td>", body)
+++
+++    def test_pause_keeps_manual_runs_available(self) -> None:
+++        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause")[0], 200)
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs")
+++        self.assertEqual(code, 201)
+++        self.assertEqual(payload["run"], {
+++            "id": "run-001", "job_id": "daily-report", "source": "manual",
+++            "status": "running",
+++        })
+++
+++    def test_existing_database_upgrades_and_retains_pause_on_reopen(self) -> None:
+++        with tempfile.TemporaryDirectory() as directory:
+++            database = Path(directory) / "jobs.sqlite"
+++            connection = sqlite3.connect(database)
+++            connection.executescript("""
+++                CREATE TABLE jobs (
+++                    id TEXT PRIMARY KEY, name TEXT NOT NULL,
+++                    enabled INTEGER NOT NULL,
+++                    max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+++                );
+++                INSERT INTO jobs VALUES ('old-job', 'Old Job', 1, 2);
+++            """)
+++            app = RelayBoardApp(Store(connection))
+++            code, payload = request(app, "GET", "/api/jobs")
+++            self.assertEqual(code, 200)
+++            self.assertEqual(payload, {"jobs": [{
+++                "id": "old-job", "name": "Old Job", "enabled": True,
+++                "max_attempts": 2, "paused": False,
+++            }]})
+++            self.assertEqual(request(app, "POST", "/api/jobs/old-job/pause")[0], 200)
+++            connection.close()
+++            reopened = sqlite3.connect(database)
+++            try:
+++                app = RelayBoardApp(Store(reopened))
+++                code, payload = request(app, "GET", "/api/jobs")
+++                self.assertEqual(code, 200)
+++                self.assertTrue(payload["jobs"][0]["paused"])
+++                self.assertEqual(request(app, "POST", "/api/jobs/old-job/runs",
+++                                         {"source": "scheduled"})[0], 409)
+++            finally:
+++                reopened.close()
+++
+++    def test_dashboard_shows_pause_beside_existing_job_state(self) -> None:
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        code, body = request(self.app, "GET", "/dashboard")
+++        self.assertEqual(code, 200)
+++        self.assertIn("<th>Enabled</th><th>Paused</th><th>Last result</th>", body)
+++        self.assertIn("<td>Daily report</td><td>yes</td><td>yes</td><td>never</td>", body)
+++        self.assertIn("<td>Cleanup</td><td>no</td><td>no</td><td>never</td>", body)
+++
+++    def test_resume_allows_future_scheduling_without_catch_up(self) -> None:
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        code, _ = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                          {"source": "scheduled"})
+++        self.assertEqual(code, 409)
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/resume")
+++        self.assertEqual(code, 200)
+++        self.assertFalse(payload["job"]["paused"])
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 201)
+++        self.assertEqual(payload["run"], {
+++            "id": "run-001", "job_id": "daily-report", "source": "scheduled",
+++            "status": "running",
+++        })
+++
+++    def test_pause_blocks_new_scheduled_runs(self) -> None:
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        self.assertEqual(code, 200)
+++        self.assertEqual(payload, {"job": {
+++            "id": "daily-report", "name": "Daily report", "enabled": True,
+++            "max_attempts": 2, "paused": True,
+++        }})
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 409)
+++        self.assertEqual(payload, {"error": "job daily-report is paused"})
+++
+++
+++if __name__ == "__main__":
+++    unittest.main()
+diff --git a/.experiment/commands.jsonl b/.experiment/commands.jsonl
+new file mode 100644
+index 0000000..ccfb69e
+--- /dev/null
++++ b/.experiment/commands.jsonl
+@@ -0,0 +1,33 @@
++{"label": "baseline", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:38:21.635274+00:00", "exit_code": 0, "outputpath": ".experiment/baseline.txt"}
++{"label": "pause-red", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:39:53.859051+00:00", "exit_code": 1, "outputpath": ".experiment/pause-red.txt"}
++{"label": "pause-green", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:40:16.675129+00:00", "exit_code": 0, "outputpath": ".experiment/pause-green.txt"}
++{"label": "resume-red", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:40:28.491660+00:00", "exit_code": 1, "outputpath": ".experiment/resume-red.txt"}
++{"label": "resume-green", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:40:39.916768+00:00", "exit_code": 0, "outputpath": ".experiment/resume-green.txt"}
++{"label": "dashboard-red", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:40:52.814466+00:00", "exit_code": 1, "outputpath": ".experiment/dashboard-red.txt"}
++{"label": "dashboard-green", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:41:01.593186+00:00", "exit_code": 0, "outputpath": ".experiment/dashboard-green.txt"}
++{"label": "persistence-red", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:41:23.795193+00:00", "exit_code": 1, "outputpath": ".experiment/persistence-red.txt"}
++{"label": "persistence-green", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:41:31.487111+00:00", "exit_code": 0, "outputpath": ".experiment/persistence-green.txt"}
++{"label": "manual-preservation", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:41:51.954118+00:00", "exit_code": 0, "outputpath": ".experiment/manual-preservation.txt"}
++{"label": "existing-run-preservation", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:42:08.690075+00:00", "exit_code": 0, "outputpath": ".experiment/existing-run-preservation.txt"}
++{"label": "disabled-preservation", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:42:20.475043+00:00", "exit_code": 0, "outputpath": ".experiment/disabled-preservation.txt"}
++{"label": "enable-preservation", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:42:30.674521+00:00", "exit_code": 0, "outputpath": ".experiment/enable-preservation.txt"}
++{"label": "idempotence-verification", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:42:42.263167+00:00", "exit_code": 0, "outputpath": ".experiment/idempotence-verification.txt"}
++{"label": "missing-method-verification", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_pause.py", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:42:52.562250+00:00", "exit_code": 0, "outputpath": ".experiment/missing-method-verification.txt"}
++{"label": "full-before-review", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:02.454795+00:00", "exit_code": 0, "outputpath": ".experiment/full-before-review.txt"}
++{"label": "diff-check-before-review", "command": ["git", "diff", "--check"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:02.530476+00:00", "exit_code": 0, "outputpath": ".experiment/diff-check-before-review.txt"}
++{"label": "status-before-review", "command": ["git", "status", "--short"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:02.601743+00:00", "exit_code": 0, "outputpath": ".experiment/status-before-review.txt"}
++{"label": "ignore-check", "command": ["git", "check-ignore", ".scratch/work/spec.md", ".experiment/session.md"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:02.672365+00:00", "exit_code": 1, "outputpath": ".experiment/ignore-check.txt"}
++{"label": "stage-implementation", "command": ["git", "add", "GLOSSARY.md", "relayboard/models.py", "relayboard/service.py", "relayboard/store.py", "relayboard/web.py", "tests/test_pause.py", ".scratch/work/spec.md"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:13.791392+00:00", "exit_code": 0, "outputpath": ".experiment/stage-implementation.txt"}
++{"label": "commit-implementation", "command": ["git", "commit", "-m", "Add persistent Job pause and resume controls"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:13.861979+00:00", "exit_code": 0, "outputpath": ".experiment/commit-implementation.txt"}
++{"label": "fixed-point", "command": ["git", "rev-parse", "985b5380548ab80c2c243f97e9732a403bff88b3"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:13.910890+00:00", "exit_code": 0, "outputpath": ".experiment/fixed-point.txt"}
++{"label": "review-diff", "command": ["git", "diff", "985b5380548ab80c2c243f97e9732a403bff88b3...HEAD"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:13.960845+00:00", "exit_code": 0, "outputpath": ".experiment/review-diff.txt"}
++{"label": "review-commits", "command": ["git", "log", "985b5380548ab80c2c243f97e9732a403bff88b3..HEAD", "--oneline"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:43:14.003024+00:00", "exit_code": 0, "outputpath": ".experiment/review-commits.txt"}
++{"label": "full-after-review", "command": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:46:40.553280+00:00", "exit_code": 0, "outputpath": ".experiment/full-after-review.txt"}
++{"label": "diff-check-after-review", "command": ["git", "diff", "--check"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:46:40.596197+00:00", "exit_code": 0, "outputpath": ".experiment/diff-check-after-review.txt"}
++{"label": "review-fix-diff", "command": ["git", "diff", "--", "relayboard/store.py", "relayboard/web.py"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:46:40.648614+00:00", "exit_code": 0, "outputpath": ".experiment/review-fix-diff.txt"}
++{"label": "stage-review-fixes", "command": ["git", "add", "relayboard/store.py", "relayboard/web.py", ".scratch/work/spec.md"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:47:11.573534+00:00", "exit_code": 0, "outputpath": ".experiment/stage-review-fixes.txt"}
++{"label": "commit-review-fixes", "command": ["git", "commit", "-m", "Apply pause review feedback and complete local spec"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:47:11.757521+00:00", "exit_code": 0, "outputpath": ".experiment/commit-review-fixes.txt"}
++{"label": "candidate-head", "command": ["git", "rev-parse", "HEAD"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:47:11.991868+00:00", "exit_code": 0, "outputpath": ".experiment/candidate-head.txt"}
++{"label": "candidate-commits", "command": ["git", "log", "985b5380548ab80c2c243f97e9732a403bff88b3..HEAD", "--format=%H%x20%s"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:47:12.121366+00:00", "exit_code": 0, "outputpath": ".experiment/candidate-commits.txt"}
++{"label": "candidate-product-diff", "command": ["git", "diff", "985b5380548ab80c2c243f97e9732a403bff88b3...HEAD"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:47:12.224417+00:00", "exit_code": 0, "outputpath": ".experiment/candidate-product-diff.txt"}
++{"label": "bundled-source-unchanged", "command": ["git", "diff", "985b5380548ab80c2c243f97e9732a403bff88b3", "HEAD", "--", "METHOD.md", "upstream/matt"], "cwd": "/workspace/relayboard-round2-active/M-S02-002", "time_utc": "2026-10-07T13:47:12.301102+00:00", "exit_code": 0, "outputpath": ".experiment/bundled-source-unchanged.txt"}
+diff --git a/.experiment/commit-implementation.txt b/.experiment/commit-implementation.txt
+new file mode 100644
+index 0000000..dce9b4a
+--- /dev/null
++++ b/.experiment/commit-implementation.txt
+@@ -0,0 +1,4 @@
++[candidate/M-S02-002 0cee69f] Add persistent Job pause and resume controls
++ 7 files changed, 268 insertions(+), 6 deletions(-)
++ create mode 100644 .scratch/work/spec.md
++ create mode 100644 tests/test_pause.py
+diff --git a/.experiment/commit-review-fixes.txt b/.experiment/commit-review-fixes.txt
+new file mode 100644
+index 0000000..c4e980e
+--- /dev/null
++++ b/.experiment/commit-review-fixes.txt
+@@ -0,0 +1,2 @@
++[candidate/M-S02-002 ae48557] Apply pause review feedback and complete local spec
++ 3 files changed, 11 insertions(+), 21 deletions(-)
+diff --git a/.experiment/dashboard-green.txt b/.experiment/dashboard-green.txt
+new file mode 100644
+index 0000000..857687b
+--- /dev/null
++++ b/.experiment/dashboard-green.txt
+@@ -0,0 +1,8 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++
++----------------------------------------------------------------------
++Ran 3 tests in 0.002s
++
++OK
+diff --git a/.experiment/dashboard-red.txt b/.experiment/dashboard-red.txt
+new file mode 100644
+index 0000000..312d994
+--- /dev/null
++++ b/.experiment/dashboard-red.txt
+@@ -0,0 +1,16 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... FAIL
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++
++======================================================================
++FAIL: test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 15, in test_dashboard_shows_pause_beside_existing_job_state
++    self.assertIn("<th>Enabled</th><th>Paused</th><th>Last result</th>", body)
++AssertionError: '<th>Enabled</th><th>Paused</th><th>Last result</th>' not found in "<!doctype html><html><head><title>RelayBoard</title></head><body><h1>Jobs</h1><table id='jobs'><thead><tr><th>Job</th><th>Enabled</th><th>Last result</th></tr></thead><tbody><tr><td>Cleanup</td><td>no</td><td>never</td></tr><tr><td>Daily report</td><td>yes</td><td>never</td></tr></tbody></table></body></html>"
++
++----------------------------------------------------------------------
++Ran 3 tests in 0.003s
++
++FAILED (failures=1)
+diff --git a/.experiment/diff-check-after-review.txt b/.experiment/diff-check-after-review.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/diff-check-before-review.txt b/.experiment/diff-check-before-review.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/disabled-preservation.txt b/.experiment/disabled-preservation.txt
+new file mode 100644
+index 0000000..8fea5e7
+--- /dev/null
++++ b/.experiment/disabled-preservation.txt
+@@ -0,0 +1,12 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++test_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok
++
++----------------------------------------------------------------------
++Ran 7 tests in 0.008s
++
++OK
+diff --git a/.experiment/enable-preservation.txt b/.experiment/enable-preservation.txt
+new file mode 100644
+index 0000000..390666e
+--- /dev/null
++++ b/.experiment/enable-preservation.txt
+@@ -0,0 +1,13 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_enable_changes_do_not_clear_pause (test_pause.PauseJobTests.test_enable_changes_do_not_clear_pause) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++test_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok
++
++----------------------------------------------------------------------
++Ran 8 tests in 0.013s
++
++OK
+diff --git a/.experiment/existing-run-preservation.txt b/.experiment/existing-run-preservation.txt
+new file mode 100644
+index 0000000..5bafbcf
+--- /dev/null
++++ b/.experiment/existing-run-preservation.txt
+@@ -0,0 +1,11 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++
++----------------------------------------------------------------------
++Ran 6 tests in 0.006s
++
++OK
+diff --git a/.experiment/fixed-point.txt b/.experiment/fixed-point.txt
+new file mode 100644
+index 0000000..564ec57
+--- /dev/null
++++ b/.experiment/fixed-point.txt
+@@ -0,0 +1 @@
++985b5380548ab80c2c243f97e9732a403bff88b3
+diff --git a/.experiment/full-after-review.txt b/.experiment/full-after-review.txt
+new file mode 100644
+index 0000000..89fdde0
+--- /dev/null
++++ b/.experiment/full-after-review.txt
+@@ -0,0 +1,20 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_enable_changes_do_not_clear_pause (test_pause.PauseJobTests.test_enable_changes_do_not_clear_pause) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_and_resume_missing_jobs_use_existing_not_found_response (test_pause.PauseJobTests.test_pause_and_resume_missing_jobs_use_existing_not_found_response) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
++test_repeated_pause_and_resume_are_idempotent (test_pause.PauseJobTests.test_repeated_pause_and_resume_are_idempotent) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++test_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 15 tests in 0.021s
++
++OK
+diff --git a/.experiment/full-before-review.txt b/.experiment/full-before-review.txt
+new file mode 100644
+index 0000000..9151080
+--- /dev/null
++++ b/.experiment/full-before-review.txt
+@@ -0,0 +1,20 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_enable_changes_do_not_clear_pause (test_pause.PauseJobTests.test_enable_changes_do_not_clear_pause) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_and_resume_missing_jobs_use_existing_not_found_response (test_pause.PauseJobTests.test_pause_and_resume_missing_jobs_use_existing_not_found_response) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
++test_repeated_pause_and_resume_are_idempotent (test_pause.PauseJobTests.test_repeated_pause_and_resume_are_idempotent) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++test_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 15 tests in 0.013s
++
++OK
+diff --git a/.experiment/helpers.json b/.experiment/helpers.json
+new file mode 100644
+index 0000000..ccddcfa
+--- /dev/null
++++ b/.experiment/helpers.json
+@@ -0,0 +1,41 @@
++{
++  "helpers": [
++    {
++      "task_name": "/root/contestant_m_s02_002/standards_review",
++      "axis": "Standards",
++      "order": 1,
++      "fork_turns": "none",
++      "requested_model": "gpt-6.1-sol",
++      "requested_reasoning_effort": "high",
++      "observed_identity": "unknown",
++      "observed_usage": "unknown",
++      "read_only": true,
++      "descendants_permitted": false,
++      "status": "completed",
++      "report": ".experiment/standards-review.md"
++    },
++    {
++      "task_name": "/root/contestant_m_s02_002/spec_review",
++      "axis": "Spec",
++      "order": 2,
++      "fork_turns": "none",
++      "requested_model": "gpt-6.1-sol",
++      "requested_reasoning_effort": "high",
++      "observed_identity": "unknown",
++      "observed_usage": "unknown",
++      "read_only": true,
++      "descendants_permitted": false,
++      "status": "completed",
++      "report": ".experiment/spec-review.md"
++    }
++  ],
++  "strictly_serial": true,
++  "completion_evidence": "Each FINAL_ANSWER arrived before next helper spawn; scoped collaboration.list_agents returned both completed before finalization.",
++  "identical_status_scope": "Implementation locally committed at 0cee69f; initial 985b5380548ab80c2c243f97e9732a403bff88b3; public suite 15 passed; .experiment untracked; no hidden evaluation; product/spec diff only.",
++  "boundary": "Only assigned root, explicit workdir, read-only; no siblings/control paths, evaluator/oracle/reference solution, credentials, peer material, other methods, network or lab fetching; stop/report contamination; no descendants.",
++  "standards_prompt_baseline_source": "Full fixed smell baseline from bundled code-review was pasted in prompt. Report per file/hunk documented standard breaches vs labelled judgement calls; repo overrides, skip tooling enforcement; under 400 words.",
++  "spec_prompt": "Review TASK.md plus local spec and resolved glossary; quote missing/partial, unasked or wrong requirements, under 400 words. Confirmed product decisions vs delegated engineering choices explicitly distinguished.",
++  "reviewed_commit": "0cee69f13fa15fe5190d5188e7469c03f059db7f",
++  "lead_fix_commit": "ae485578f96038738e48219c32c3d60d1c0009a4",
++  "second_review_after_fixes": false
++}
+diff --git a/.experiment/idempotence-verification.txt b/.experiment/idempotence-verification.txt
+new file mode 100644
+index 0000000..b37fdd7
+--- /dev/null
++++ b/.experiment/idempotence-verification.txt
+@@ -0,0 +1,14 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_enable_changes_do_not_clear_pause (test_pause.PauseJobTests.test_enable_changes_do_not_clear_pause) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
++test_repeated_pause_and_resume_are_idempotent (test_pause.PauseJobTests.test_repeated_pause_and_resume_are_idempotent) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++test_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok
++
++----------------------------------------------------------------------
++Ran 9 tests in 0.009s
++
++OK
+diff --git a/.experiment/ignore-check.txt b/.experiment/ignore-check.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/initial-00.txt b/.experiment/initial-00.txt
+new file mode 100644
+index 0000000..67352f7
+--- /dev/null
++++ b/.experiment/initial-00.txt
+@@ -0,0 +1 @@
++/workspace/relayboard-round2-active/M-S02-002
+diff --git a/.experiment/initial-01.txt b/.experiment/initial-01.txt
+new file mode 100644
+index 0000000..b5ce7be
+--- /dev/null
++++ b/.experiment/initial-01.txt
+@@ -0,0 +1 @@
++?? .experiment/initial-00.txt
+diff --git a/.experiment/initial-02.txt b/.experiment/initial-02.txt
+new file mode 100644
+index 0000000..9118a8e
+--- /dev/null
++++ b/.experiment/initial-02.txt
+@@ -0,0 +1 @@
++985b5380548ab80c2c243f97e9732a403bff88b3 benchmark: frozen standalone M-S02-002 starting packet
+diff --git a/.experiment/initial-03.txt b/.experiment/initial-03.txt
+new file mode 100644
+index 0000000..8a5a8d8
+--- /dev/null
++++ b/.experiment/initial-03.txt
+@@ -0,0 +1,28 @@
++./upstream/matt/LICENSE
++./upstream/matt/skills/productivity/grilling/SKILL.md
++./pyproject.toml
++./GLOSSARY.md
++./upstream/matt/skills/engineering/to-spec/SKILL.md
++./upstream/matt/skills/engineering/to-tickets/SKILL.md
++./upstream/matt/skills/engineering/grill-with-docs/SKILL.md
++./upstream/matt/skills/engineering/implement-spec/SKILL.md
++./upstream/matt/skills/engineering/code-review/SKILL.md
++./upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md
++./upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md
++./upstream/matt/skills/engineering/domain-modeling/SKILL.md
++./upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md
++./upstream/matt/skills/engineering/implement/SKILL.md
++./upstream/matt/skills/engineering/tdd/tests.md
++./upstream/matt/skills/engineering/tdd/mocking.md
++./upstream/matt/skills/engineering/tdd/SKILL.md
++./README.md
++./tests/test_public.py
++./METHOD.md
++./TASK.md
++./relayboard/testing.py
++./relayboard/service.py
++./relayboard/models.py
++./relayboard/__main__.py
++./relayboard/store.py
++./relayboard/__init__.py
++./relayboard/web.py
+diff --git a/.experiment/initial-04.txt b/.experiment/initial-04.txt
+new file mode 100644
+index 0000000..21653a1
+--- /dev/null
++++ b/.experiment/initial-04.txt
+@@ -0,0 +1 @@
++Python 3.12.14
+diff --git a/.experiment/initial-actions.json b/.experiment/initial-actions.json
+new file mode 100644
+index 0000000..13ae758
+--- /dev/null
++++ b/.experiment/initial-actions.json
+@@ -0,0 +1,56 @@
++[
++  {
++    "command": [
++      "pwd"
++    ],
++    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++    "exit_code": 0,
++    "outputpath": ".experiment/initial-00.txt"
++  },
++  {
++    "command": [
++      "git",
++      "status",
++      "--short"
++    ],
++    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++    "exit_code": 0,
++    "outputpath": ".experiment/initial-01.txt"
++  },
++  {
++    "command": [
++      "git",
++      "log",
++      "-1",
++      "--format=%H %s"
++    ],
++    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++    "exit_code": 0,
++    "outputpath": ".experiment/initial-02.txt"
++  },
++  {
++    "command": [
++      "rg",
++      "--files",
++      "-g",
++      "!node_modules",
++      "-g",
++      "!.git",
++      "-g",
++      "!*.pyc",
++      "."
++    ],
++    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++    "exit_code": 0,
++    "outputpath": ".experiment/initial-03.txt"
++  },
++  {
++    "command": [
++      "python",
++      "--version"
++    ],
++    "cwd": "/workspace/relayboard-round2-active/M-S02-002",
++    "exit_code": 0,
++    "outputpath": ".experiment/initial-04.txt"
++  }
++]
+diff --git a/.experiment/manual-preservation.txt b/.experiment/manual-preservation.txt
+new file mode 100644
+index 0000000..78682ea
+--- /dev/null
++++ b/.experiment/manual-preservation.txt
+@@ -0,0 +1,10 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++
++----------------------------------------------------------------------
++Ran 5 tests in 0.005s
++
++OK
+diff --git a/.experiment/missing-method-verification.txt b/.experiment/missing-method-verification.txt
+new file mode 100644
+index 0000000..f162cf9
+--- /dev/null
++++ b/.experiment/missing-method-verification.txt
+@@ -0,0 +1,15 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_enable_changes_do_not_clear_pause (test_pause.PauseJobTests.test_enable_changes_do_not_clear_pause) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_and_resume_missing_jobs_use_existing_not_found_response (test_pause.PauseJobTests.test_pause_and_resume_missing_jobs_use_existing_not_found_response) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_pause_keeps_manual_runs_available (test_pause.PauseJobTests.test_pause_keeps_manual_runs_available) ... ok
++test_pause_preserves_existing_run_retries_alerts_and_result (test_pause.PauseJobTests.test_pause_preserves_existing_run_retries_alerts_and_result) ... ok
++test_repeated_pause_and_resume_are_idempotent (test_pause.PauseJobTests.test_repeated_pause_and_resume_are_idempotent) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++test_resume_does_not_enable_a_disabled_job (test_pause.PauseJobTests.test_resume_does_not_enable_a_disabled_job) ... ok
++
++----------------------------------------------------------------------
++Ran 10 tests in 0.009s
++
++OK
+diff --git a/.experiment/operator-exchanges.json b/.experiment/operator-exchanges.json
+new file mode 100644
+index 0000000..4264b76
+--- /dev/null
++++ b/.experiment/operator-exchanges.json
+@@ -0,0 +1,22 @@
++[
++  {
++    "direction": "request",
++    "channel": "collaboration.send_message /root",
++    "text": "OPERATOR QUESTION M-S02-002 \u2014 Invoked bundled grill-with-docs (grilling + domain-modeling). Public facts: enabled gates scheduled starts; disabled jobs allow manual runs; existing Runs retry by max_attempts; no queue/catch-up scheduler exists; dashboard shows Enabled and Last result. Current independent decision frontier:\nQ1 Pause scope: Should pause block only new scheduled Runs, or also manual Runs / retries / in-flight Runs? Recommended: only new scheduled Runs; existing/manual Runs, retries, alerts remain unchanged.\nQ2 Enabled relationship: Should paused be a separate persistent Job state, so pause/resume preserve enabled (including disabled jobs), or alias enabled/disabled? Recommended: separate persistent paused state; resume cannot enable a disabled Job.\nQ3 Repeated/missing operations: Should repeated pause/resume succeed idempotently with 200 and {job: ...}, and missing Job return existing 404? Recommended: yes; no request body required.\nQ4 Visibility: Should Jobs API expose paused and dashboard add a Paused column while preserving Enabled and Last result? Recommended: yes.\nPlease answer this frontier. I will recompute dependencies and request shared-understanding confirmation before implementation if your reply does not already confirm it."
++  },
++  {
++    "direction": "answer",
++    "channel": "operator via collaboration",
++    "text": "OPERATOR ANSWER Q1: A scheduled start while paused is skipped and not queued. Manual Runs remain allowed while paused. An in-progress Run continues to its terminal outcome, including existing retries and alerts. Q2/Q3/Q4: no additional product preference or interface guidance is supplied; use TASK.md, existing public interfaces and reversible engineering judgment for representation, enabled-state handling, idempotence/missing-Job responses and presentation. These answers cover requested product decisions only, not blanket confirmation of every recommended policy or unasked behavior."
++  },
++  {
++    "direction": "request",
++    "channel": "collaboration.send_message /root",
++    "text": "OPERATOR QUESTION M-S02-002 \u2014 Recomputed frontier is empty: Q1 settles product scope; Q2\u2013Q4 are delegated reversible engineering judgments. Shared understanding for confirmation: pause skips new scheduled starts with no queue/catch-up; manual Runs and already-started Runs continue, including retries/alerts. I will represent pause separately from enabled, so resume preserves disabled state, use idempotent bodyless 200 {job} pause/resume with existing 404 for absent jobs, expose paused in Jobs JSON and add dashboard Paused visibility preserving Enabled/Last result. These are local engineering choices, not assertions of supplied product guidance. Please confirm the shared product understanding so the bundled grilling completion condition is met before implementation."
++  },
++  {
++    "direction": "answer",
++    "channel": "operator via collaboration",
++    "text": "OPERATOR ANSWER to the confirmation you now requested: resume applies to future schedule activity only, with no catch-up. Your restatement of scheduled skip/no queue, manual allowance and in-progress continuation matches the earlier answers. Representation, enabled-state preservation, idempotence/response shape and dashboard presentation remain your engineering choices, not additional product preferences supplied by me. This confirms only the explicitly asked product understanding."
++  }
++]
+diff --git a/.experiment/pause-green.txt b/.experiment/pause-green.txt
+new file mode 100644
+index 0000000..a233bd2
+--- /dev/null
++++ b/.experiment/pause-green.txt
+@@ -0,0 +1,6 @@
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++
++----------------------------------------------------------------------
++Ran 1 test in 0.001s
++
++OK
+diff --git a/.experiment/pause-red.txt b/.experiment/pause-red.txt
+new file mode 100644
+index 0000000..7c87693
+--- /dev/null
++++ b/.experiment/pause-red.txt
+@@ -0,0 +1,14 @@
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... FAIL
++
++======================================================================
++FAIL: test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 13, in test_pause_blocks_new_scheduled_runs
++    self.assertEqual(code, 200)
++AssertionError: 404 != 200
++
++----------------------------------------------------------------------
++Ran 1 test in 0.003s
++
++FAILED (failures=1)
+diff --git a/.experiment/persistence-green.txt b/.experiment/persistence-green.txt
+new file mode 100644
+index 0000000..fa3cd9a
+--- /dev/null
++++ b/.experiment/persistence-green.txt
+@@ -0,0 +1,9 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ok
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++
++----------------------------------------------------------------------
++Ran 4 tests in 0.005s
++
++OK
+diff --git a/.experiment/persistence-red.txt b/.experiment/persistence-red.txt
+new file mode 100644
+index 0000000..586490c
+--- /dev/null
++++ b/.experiment/persistence-red.txt
+@@ -0,0 +1,27 @@
++test_dashboard_shows_pause_beside_existing_job_state (test_pause.PauseJobTests.test_dashboard_shows_pause_beside_existing_job_state) ... ok
++test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen) ... ERROR
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++
++======================================================================
++ERROR: test_existing_database_upgrades_and_retains_pause_on_reopen (test_pause.PauseJobTests.test_existing_database_upgrades_and_retains_pause_on_reopen)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 28, in test_existing_database_upgrades_and_retains_pause_on_reopen
++    code, payload = request(app, "GET", "/api/jobs")
++                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/workspace/relayboard-round2-active/M-S02-002/relayboard/testing.py", line 36, in request
++    body = b"".join(app(environ, start_response))
++                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/workspace/relayboard-round2-active/M-S02-002/relayboard/web.py", line 37, in __call__
++    for job in self.store.list_jobs()
++               ^^^^^^^^^^^^^^^^^^^^^^
++  File "/workspace/relayboard-round2-active/M-S02-002/relayboard/store.py", line 83, in list_jobs
++    bool(r["paused"]))
++         ~^^^^^^^^^^
++IndexError: No item with that key
++
++----------------------------------------------------------------------
++Ran 4 tests in 0.005s
++
++FAILED (errors=1)
+diff --git a/.experiment/read-path-evidence.json b/.experiment/read-path-evidence.json
+new file mode 100644
+index 0000000..b129cb6
+--- /dev/null
++++ b/.experiment/read-path-evidence.json
+@@ -0,0 +1,49 @@
++{
++  "root": "/workspace/relayboard-round2-active/M-S02-002",
++  "read_paths": [
++    "TASK.md",
++    "METHOD.md",
++    "GLOSSARY.md",
++    "README.md",
++    "pyproject.toml",
++    "relayboard/models.py",
++    "relayboard/store.py",
++    "relayboard/service.py",
++    "relayboard/web.py",
++    "relayboard/testing.py",
++    "tests/test_public.py",
++    "upstream/matt/skills/engineering/grill-with-docs/SKILL.md",
++    "upstream/matt/skills/productivity/grilling/SKILL.md",
++    "upstream/matt/skills/engineering/domain-modeling/SKILL.md",
++    "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
++    "upstream/matt/skills/engineering/to-spec/SKILL.md",
++    "upstream/matt/skills/engineering/to-tickets/SKILL.md",
++    "upstream/matt/skills/engineering/implement/SKILL.md",
++    "upstream/matt/skills/engineering/implement-spec/SKILL.md",
++    "upstream/matt/skills/engineering/tdd/SKILL.md",
++    "upstream/matt/skills/engineering/tdd/tests.md",
++    "upstream/matt/skills/engineering/tdd/mocking.md",
++    "upstream/matt/skills/engineering/code-review/SKILL.md"
++  ],
++  "bundled_method_source_hashes": {
++    "upstream/matt/skills/engineering/grill-with-docs/SKILL.md": "7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe",
++    "upstream/matt/skills/productivity/grilling/SKILL.md": "10ff989e7498b23b5acb49d5048f11dcd906757d2f79c5cdf8a00001381296f2",
++    "upstream/matt/skills/engineering/domain-modeling/SKILL.md": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
++    "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801",
++    "upstream/matt/skills/engineering/to-spec/SKILL.md": "43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088",
++    "upstream/matt/skills/engineering/to-tickets/SKILL.md": "5c9fba69845c2519b9b35b9af42ae5142c21f8ca15ac2123dc2722002c8058ae",
++    "upstream/matt/skills/engineering/implement/SKILL.md": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3",
++    "upstream/matt/skills/engineering/implement-spec/SKILL.md": "7a22dd2e60b8fcece478ced9d2533582adf3520d695acd3ab715341535c9e56d",
++    "upstream/matt/skills/engineering/tdd/SKILL.md": "93ea419b76e9caaf26153b828e984f7c3fb136f4caa67b14af95f32ea965a1cc",
++    "upstream/matt/skills/engineering/tdd/tests.md": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
++    "upstream/matt/skills/engineering/tdd/mocking.md": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
++    "upstream/matt/skills/engineering/code-review/SKILL.md": "47f4e52c21694def9c7c11cbfbf891ca35eac7a93e395797515be3c8a409ae50"
++  },
++  "source_open_commands": [
++    "cat TASK.md METHOD.md",
++    "cat GLOSSARY.md",
++    "cat README.md pyproject.toml relayboard/models.py relayboard/store.py relayboard/service.py relayboard/web.py relayboard/testing.py tests/test_public.py upstream/matt/skills/engineering/grill-with-docs/SKILL.md upstream/matt/skills/productivity/grilling/SKILL.md upstream/matt/skills/engineering/domain-modeling/SKILL.md",
++    "cat upstream/matt/skills/engineering/to-spec/SKILL.md upstream/matt/skills/engineering/to-tickets/SKILL.md upstream/matt/skills/engineering/implement/SKILL.md upstream/matt/skills/engineering/implement-spec/SKILL.md upstream/matt/skills/engineering/tdd/SKILL.md upstream/matt/skills/engineering/tdd/tests.md upstream/matt/skills/engineering/tdd/mocking.md upstream/matt/skills/engineering/code-review/SKILL.md upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md"
++  ],
++  "edits": "tools.apply_patch for four source modules and tests/test_pause.py; Python write for glossary, spec and experiment evidence. Exact product diff captured in review-diff.txt; tool transcript preserves patch actions."
++}
+diff --git a/.experiment/resume-green.txt b/.experiment/resume-green.txt
+new file mode 100644
+index 0000000..7a1d331
+--- /dev/null
++++ b/.experiment/resume-green.txt
+@@ -0,0 +1,7 @@
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... ok
++
++----------------------------------------------------------------------
++Ran 2 tests in 0.002s
++
++OK
+diff --git a/.experiment/resume-red.txt b/.experiment/resume-red.txt
+new file mode 100644
+index 0000000..441f532
+--- /dev/null
++++ b/.experiment/resume-red.txt
+@@ -0,0 +1,15 @@
++test_pause_blocks_new_scheduled_runs (test_pause.PauseJobTests.test_pause_blocks_new_scheduled_runs) ... ok
++test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up) ... FAIL
++
++======================================================================
++FAIL: test_resume_allows_future_scheduling_without_catch_up (test_pause.PauseJobTests.test_resume_allows_future_scheduling_without_catch_up)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S02-002/tests/test_pause.py", line 17, in test_resume_allows_future_scheduling_without_catch_up
++    self.assertEqual(code, 200)
++AssertionError: 404 != 200
++
++----------------------------------------------------------------------
++Ran 2 tests in 0.002s
++
++FAILED (failures=1)
+diff --git a/.experiment/review-commits.txt b/.experiment/review-commits.txt
+new file mode 100644
+index 0000000..d7dffc3
+--- /dev/null
++++ b/.experiment/review-commits.txt
+@@ -0,0 +1 @@
++0cee69f Add persistent Job pause and resume controls
+diff --git a/.experiment/review-diff.txt b/.experiment/review-diff.txt
+new file mode 100644
+index 0000000..f3a87ac
+--- /dev/null
++++ b/.experiment/review-diff.txt
+@@ -0,0 +1,397 @@
++diff --git a/.scratch/work/spec.md b/.scratch/work/spec.md
++new file mode 100644
++index 0000000..6342ea4
++--- /dev/null
+++++ b/.scratch/work/spec.md
++@@ -0,0 +1,39 @@
+++# Pause and resume a Job
+++
+++Status: ready-for-agent
+++Origin: TASK.md and confirmed operator product answers in .experiment/operator-exchanges.json.
+++
+++## Problem Statement
+++Operators need to temporarily stop a Job from starting normal scheduled work without disrupting other Run behavior.
+++
+++## Solution
+++Pause a Job to skip scheduled starts; resume it to allow future scheduled activity, with no queue or catch-up.
+++
+++## User Stories
+++1. As an operator, I want to pause scheduled starts so that work does not start during a temporary stop.
+++2. As an operator, I want to resume future scheduling so that skipped work is not replayed.
+++3. As an operator, I want manual Runs while paused so that I can explicitly request work.
+++4. As an operator, I want existing Runs to finish with their retries and alerts so that pause does not cancel work.
+++5. As an operator, I want disabled Jobs to remain disabled after resume so that separate scheduling intent is preserved.
+++6. As an API consumer, I want repeat pause/resume requests to be safe and unknown Jobs to use existing errors.
+++7. As an operator, I want pause visibility alongside Enabled and Last result so that I can understand scheduling state.
+++8. As an operator, I want pause state retained in storage so that rebuilding an app around the same database does not resume work.
+++
+++## Implementation Decisions
+++- Separate persistent boolean paused, default false; keep enabled unchanged. These are engineering choices delegated by the operator.
+++- Add bodyless POST /api/jobs/{id}/pause and /resume; return 200 with a job object including paused. Repeats are idempotent; missing Jobs use existing 404.
+++- Scheduled starts raise existing not-schedulable conflict while paused; they do not create a Run or queued work.
+++- Add paused to Jobs JSON and a dashboard Paused column; preserve Enabled and Last result semantics.
+++- Support existing SQLite jobs tables with a default-false schema upgrade. Preserve the positional Job constructor by appending a defaulted field.
+++- Do not modify manual start, attempt, retry or alert logic.
+++
+++## Testing Decisions
+++- Existing pre-agreed seams: WSGI requests using the public fixture request helper; real SQLite and Store/Service public interfaces for persistence and scheduler verification.
+++- Literal expectations from the confirmed spec; one test and minimal implementation per red/green cycle. No internal mocks.
+++- Prior art: existing public unittest tests. Use focused tests throughout, full discovery at completion.
+++
+++## Out of Scope
+++Cancellation, new queues, catch-up, new retry or alert policy, scheduling engines, external services and deployment.
+++
+++## Further Notes
+++Invoke to-spec without re-interviewing; reversible seam approval is standing in METHOD.md. This is one cohesive small implementation unit: pause/resume plus observable state. No independent ticket frontier or blocking edge would be meaningful; to-tickets and implement-spec are read for routing but not invoked. Lead implements directly using implement and tdd. No durable hard-to-reverse tradeoff warrants an ADR.
++diff --git a/GLOSSARY.md b/GLOSSARY.md
++index 1644e31..2946605 100644
++--- a/GLOSSARY.md
+++++ b/GLOSSARY.md
++@@ -6,7 +6,7 @@ Date frozen: 2026-10-06
++ 
++ This glossary defines the base domain shared by S01, S02, and S04.
++ 
++-It intentionally does **not** define the semantics of pausing a Job. Those semantics are the ambiguity under test in S02.
+++Pause terminology below records the resolved product understanding for this feature.
++ 
++ ## Job
++ 
++@@ -83,6 +83,8 @@ A Run explicitly requested by an operator/API call rather than started by the sc
++ 
++ ## Pause
++ 
++-Not defined in the base glossary.
+++A temporary Job scheduling state in which new scheduled Runs are skipped without being queued. Manual Runs and already-started Runs, including their retries and alerts, remain allowed.
++ 
++-S02 intentionally asks the treatment to introduce pause behavior while several product semantics remain unresolved.
+++## Resume
+++
+++The end of a Job's pause, applying to future scheduled activity without catching up skipped work.
++diff --git a/relayboard/models.py b/relayboard/models.py
++index c9c800a..e973fd9 100644
++--- a/relayboard/models.py
+++++ b/relayboard/models.py
++@@ -9,6 +9,7 @@ class Job:
++     name: str
++     enabled: bool
++     max_attempts: int
+++    paused: bool = False
++ 
++ 
++ @dataclass(frozen=True)
++diff --git a/relayboard/service.py b/relayboard/service.py
++index e924be0..64180d2 100644
++--- a/relayboard/service.py
+++++ b/relayboard/service.py
++@@ -24,8 +24,16 @@ class RelayBoardService:
++         job = self.store.get_job(job_id)
++         if not job.enabled:
++             raise JobNotSchedulable(f"job {job_id} is disabled")
+++        if job.paused:
+++            raise JobNotSchedulable(f"job {job_id} is paused")
++         return self.store.create_run(job_id, "scheduled")
++ 
+++    def pause_job(self, job_id: str) -> None:
+++        self.store.set_job_paused(job_id, True)
+++
+++    def resume_job(self, job_id: str) -> None:
+++        self.store.set_job_paused(job_id, False)
+++
++     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
++         self.store.set_job_enabled(job_id, enabled)
++ 
++diff --git a/relayboard/store.py b/relayboard/store.py
++index 3a49cc1..b8e8679 100644
++--- a/relayboard/store.py
+++++ b/relayboard/store.py
++@@ -18,7 +18,8 @@ class Store:
++                 id TEXT PRIMARY KEY,
++                 name TEXT NOT NULL,
++                 enabled INTEGER NOT NULL,
++-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+++                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
+++                paused INTEGER NOT NULL DEFAULT 0
++             );
++             CREATE TABLE IF NOT EXISTS runs (
++                 id TEXT PRIMARY KEY,
++@@ -41,6 +42,11 @@ class Store:
++             );
++             """
++         )
+++        columns = self.connection.execute("PRAGMA table_info(jobs)").fetchall()
+++        if not any(column["name"] == "paused" for column in columns):
+++            self.connection.execute(
+++                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL DEFAULT 0"
+++            )
++         self.connection.commit()
++ 
++     def add_job(
++@@ -70,6 +76,7 @@ class Store:
++             row["name"],
++             bool(row["enabled"]),
++             row["max_attempts"],
+++            bool(row["paused"]),
++         )
++ 
++     def list_jobs(self) -> list[Job]:
++@@ -77,7 +84,8 @@ class Store:
++             "SELECT * FROM jobs ORDER BY id"
++         ).fetchall()
++         return [
++-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
+++            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"],
+++                bool(r["paused"]))
++             for r in rows
++         ]
++ 
++@@ -90,6 +98,15 @@ class Store:
++         self.connection.commit()
++         return self.get_job(job_id)
++ 
+++    def set_job_paused(self, job_id: str, paused: bool) -> Job:
+++        self.get_job(job_id)
+++        self.connection.execute(
+++            "UPDATE jobs SET paused = ? WHERE id = ?",
+++            (int(paused), job_id),
+++        )
+++        self.connection.commit()
+++        return self.get_job(job_id)
+++
++     def next_run_id(self) -> str:
++         row = self.connection.execute(
++             "SELECT COUNT(*) AS n FROM runs"
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 88aa15e..0b650a3 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -51,6 +51,32 @@ class RelayBoardApp:
++                     },
++                 )
++ 
+++            if (
+++                method == "POST"
+++                and path.startswith("/api/jobs/")
+++                and path.endswith("/resume")
+++            ):
+++                job_id = path.split("/")[3]
+++                self.service.resume_job(job_id)
+++                return self._json(
+++                    start_response,
+++                    200,
+++                    {"job": self._job_json(self.store.get_job(job_id))},
+++                )
+++
+++            if (
+++                method == "POST"
+++                and path.startswith("/api/jobs/")
+++                and path.endswith("/pause")
+++            ):
+++                job_id = path.split("/")[3]
+++                self.service.pause_job(job_id)
+++                return self._json(
+++                    start_response,
+++                    200,
+++                    {"job": self._job_json(self.store.get_job(job_id))},
+++                )
+++
++             if (
++                 method == "POST"
++                 and path.startswith("/api/jobs/")
++@@ -141,6 +167,7 @@ class RelayBoardApp:
++                 "<tr>"
++                 f"<td>{html.escape(job.name)}</td>"
++                 f"<td>{'yes' if job.enabled else 'no'}</td>"
+++                f"<td>{'yes' if job.paused else 'no'}</td>"
++                 f"<td>{html.escape(last)}</td>"
++                 "</tr>"
++             )
++@@ -150,7 +177,7 @@ class RelayBoardApp:
++             "<html><head><title>RelayBoard</title></head><body>"
++             "<h1>Jobs</h1>"
++             "<table id='jobs'><thead><tr>"
++-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
+++            "<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>"
++             "</tr></thead><tbody>"
++             + "".join(rows)
++             + "</tbody></table></body></html>"
++@@ -163,6 +190,7 @@ class RelayBoardApp:
++             "name": job.name,
++             "enabled": job.enabled,
++             "max_attempts": job.max_attempts,
+++            "paused": job.paused,
++         }
++ 
++     @staticmethod
++diff --git a/tests/test_pause.py b/tests/test_pause.py
++new file mode 100644
++index 0000000..8e2594a
++--- /dev/null
+++++ b/tests/test_pause.py
++@@ -0,0 +1,167 @@
+++import sqlite3
+++import tempfile
+++import unittest
+++from pathlib import Path
+++
+++from relayboard.store import Store
+++from relayboard.testing import request
+++from relayboard.web import RelayBoardApp, create_seeded_app
+++
+++
+++class PauseJobTests(unittest.TestCase):
+++    def setUp(self) -> None:
+++        self.app = create_seeded_app()
+++
+++    def test_pause_and_resume_missing_jobs_use_existing_not_found_response(self) -> None:
+++        for action in ("pause", "resume"):
+++            self.assertEqual(
+++                request(self.app, "POST", f"/api/jobs/missing/{action}"),
+++                (404, {"error": "not found: missing"}),
+++            )
+++            self.assertEqual(
+++                request(self.app, "GET", f"/api/jobs/daily-report/{action}"),
+++                (404, {"error": "not found"}),
+++            )
+++
+++    def test_repeated_pause_and_resume_are_idempotent(self) -> None:
+++        for action, paused in (("pause", True), ("resume", False)):
+++            first = request(self.app, "POST", f"/api/jobs/daily-report/{action}")
+++            second = request(self.app, "POST", f"/api/jobs/daily-report/{action}")
+++            self.assertEqual(first, second)
+++            self.assertEqual(first[0], 200)
+++            self.assertEqual(first[1]["job"]["paused"], paused)
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 201)
+++        self.assertEqual(payload["run"]["id"], "run-001")
+++
+++    def test_enable_changes_do_not_clear_pause(self) -> None:
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        for enabled in (False, True):
+++            code, payload = request(self.app, "POST", "/api/jobs/daily-report/enabled",
+++                                    {"enabled": enabled})
+++            self.assertEqual(code, 200)
+++            self.assertTrue(payload["job"]["paused"])
+++        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                 {"source": "scheduled"})[0], 409)
+++
+++    def test_resume_does_not_enable_a_disabled_job(self) -> None:
+++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/pause")
+++        self.assertEqual(code, 200)
+++        self.assertTrue(payload["job"]["paused"])
+++        self.assertFalse(payload["job"]["enabled"])
+++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/resume")
+++        self.assertEqual(code, 200)
+++        self.assertFalse(payload["job"]["paused"])
+++        self.assertFalse(payload["job"]["enabled"])
+++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual((code, payload), (409, {"error": "job cleanup is disabled"}))
+++
+++    def test_pause_preserves_existing_run_retries_alerts_and_result(self) -> None:
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 201)
+++        run_id = payload["run"]["id"]
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        code, payload = request(self.app, "POST", f"/api/runs/{run_id}/attempts",
+++                                {"succeeded": False})
+++        self.assertEqual(code, 200)
+++        self.assertEqual(payload["status"], "retry")
+++        self.assertEqual(payload["run"]["id"], "run-001")
+++        code, payload = request(self.app, "POST", f"/api/runs/{run_id}/attempts",
+++                                {"succeeded": True})
+++        self.assertEqual(code, 200)
+++        self.assertEqual(payload["status"], "succeeded")
+++        self.assertEqual(payload["run"]["id"], "run-001")
+++        code, payload = request(self.app, "GET", "/api/alerts")
+++        self.assertEqual(code, 200)
+++        # Preserve the fixture's existing alert on a failed retryable attempt.
+++        self.assertEqual(payload, {"alerts": [{
+++            "id": 1, "job_id": "daily-report", "run_id": "run-001",
+++            "kind": "run_failed", "message": "Job Daily report failed for run run-001",
+++        }]})
+++        code, body = request(self.app, "GET", "/dashboard")
+++        self.assertEqual(code, 200)
+++        self.assertIn("<td>Daily report</td><td>yes</td><td>yes</td><td>succeeded</td>", body)
+++
+++    def test_pause_keeps_manual_runs_available(self) -> None:
+++        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause")[0], 200)
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs")
+++        self.assertEqual(code, 201)
+++        self.assertEqual(payload["run"], {
+++            "id": "run-001", "job_id": "daily-report", "source": "manual",
+++            "status": "running",
+++        })
+++
+++    def test_existing_database_upgrades_and_retains_pause_on_reopen(self) -> None:
+++        with tempfile.TemporaryDirectory() as directory:
+++            database = Path(directory) / "jobs.sqlite"
+++            connection = sqlite3.connect(database)
+++            connection.executescript("""
+++                CREATE TABLE jobs (
+++                    id TEXT PRIMARY KEY, name TEXT NOT NULL,
+++                    enabled INTEGER NOT NULL,
+++                    max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
+++                );
+++                INSERT INTO jobs VALUES ('old-job', 'Old Job', 1, 2);
+++            """)
+++            app = RelayBoardApp(Store(connection))
+++            code, payload = request(app, "GET", "/api/jobs")
+++            self.assertEqual(code, 200)
+++            self.assertEqual(payload, {"jobs": [{
+++                "id": "old-job", "name": "Old Job", "enabled": True,
+++                "max_attempts": 2, "paused": False,
+++            }]})
+++            self.assertEqual(request(app, "POST", "/api/jobs/old-job/pause")[0], 200)
+++            connection.close()
+++            reopened = sqlite3.connect(database)
+++            try:
+++                app = RelayBoardApp(Store(reopened))
+++                code, payload = request(app, "GET", "/api/jobs")
+++                self.assertEqual(code, 200)
+++                self.assertTrue(payload["jobs"][0]["paused"])
+++                self.assertEqual(request(app, "POST", "/api/jobs/old-job/runs",
+++                                         {"source": "scheduled"})[0], 409)
+++            finally:
+++                reopened.close()
+++
+++    def test_dashboard_shows_pause_beside_existing_job_state(self) -> None:
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        code, body = request(self.app, "GET", "/dashboard")
+++        self.assertEqual(code, 200)
+++        self.assertIn("<th>Enabled</th><th>Paused</th><th>Last result</th>", body)
+++        self.assertIn("<td>Daily report</td><td>yes</td><td>yes</td><td>never</td>", body)
+++        self.assertIn("<td>Cleanup</td><td>no</td><td>no</td><td>never</td>", body)
+++
+++    def test_resume_allows_future_scheduling_without_catch_up(self) -> None:
+++        request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        code, _ = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                          {"source": "scheduled"})
+++        self.assertEqual(code, 409)
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/resume")
+++        self.assertEqual(code, 200)
+++        self.assertFalse(payload["job"]["paused"])
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 201)
+++        self.assertEqual(payload["run"], {
+++            "id": "run-001", "job_id": "daily-report", "source": "scheduled",
+++            "status": "running",
+++        })
+++
+++    def test_pause_blocks_new_scheduled_runs(self) -> None:
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/pause")
+++        self.assertEqual(code, 200)
+++        self.assertEqual(payload, {"job": {
+++            "id": "daily-report", "name": "Daily report", "enabled": True,
+++            "max_attempts": 2, "paused": True,
+++        }})
+++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
+++                                {"source": "scheduled"})
+++        self.assertEqual(code, 409)
+++        self.assertEqual(payload, {"error": "job daily-report is paused"})
+++
+++
+++if __name__ == "__main__":
+++    unittest.main()
+diff --git a/.experiment/review-fix-diff.txt b/.experiment/review-fix-diff.txt
+new file mode 100644
+index 0000000..aa94c20
+--- /dev/null
++++ b/.experiment/review-fix-diff.txt
+@@ -0,0 +1,61 @@
++diff --git a/relayboard/store.py b/relayboard/store.py
++index b8e8679..0fae46f 100644
++--- a/relayboard/store.py
+++++ b/relayboard/store.py
++@@ -71,6 +71,10 @@ class Store:
++         ).fetchone()
++         if row is None:
++             raise KeyError(job_id)
+++        return self._job_from_row(row)
+++
+++    @staticmethod
+++    def _job_from_row(row: sqlite3.Row) -> Job:
++         return Job(
++             row["id"],
++             row["name"],
++@@ -83,11 +87,7 @@ class Store:
++         rows = self.connection.execute(
++             "SELECT * FROM jobs ORDER BY id"
++         ).fetchall()
++-        return [
++-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"],
++-                bool(r["paused"]))
++-            for r in rows
++-        ]
+++        return [self._job_from_row(row) for row in rows]
++ 
++     def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
++         self.get_job(job_id)
++diff --git a/relayboard/web.py b/relayboard/web.py
++index 0b650a3..0f87eeb 100644
++--- a/relayboard/web.py
+++++ b/relayboard/web.py
++@@ -54,23 +54,13 @@ class RelayBoardApp:
++             if (
++                 method == "POST"
++                 and path.startswith("/api/jobs/")
++-                and path.endswith("/resume")
+++                and path.endswith(("/pause", "/resume"))
++             ):
++                 job_id = path.split("/")[3]
++-                self.service.resume_job(job_id)
++-                return self._json(
++-                    start_response,
++-                    200,
++-                    {"job": self._job_json(self.store.get_job(job_id))},
++-                )
++-
++-            if (
++-                method == "POST"
++-                and path.startswith("/api/jobs/")
++-                and path.endswith("/pause")
++-            ):
++-                job_id = path.split("/")[3]
++-                self.service.pause_job(job_id)
+++                if path.endswith("/pause"):
+++                    self.service.pause_job(job_id)
+++                else:
+++                    self.service.resume_job(job_id)
++                 return self._json(
++                     start_response,
++                     200,
+diff --git a/.experiment/review-summary.md b/.experiment/review-summary.md
+new file mode 100644
+index 0000000..fd92a47
+--- /dev/null
++++ b/.experiment/review-summary.md
+@@ -0,0 +1,9 @@
++## Standards
++
++0 documented-rule violations; 2 low-priority Duplicated Code judgements, both addressed by lead after helper termination. Full separate report: standards-review.md.
++
++## Spec
++
++0 findings. Full separate report: spec-review.md.
++
++Findings per axis: Standards 2 low-priority duplication concerns, addressed; Spec 0. Full public suite passed after refactors; helpers reviewed implementation commit only, with no second helper review claimed.
+diff --git a/.experiment/run.py b/.experiment/run.py
+new file mode 100644
+index 0000000..06adfae
+--- /dev/null
++++ b/.experiment/run.py
+@@ -0,0 +1,17 @@
++"""Capture local public command evidence; no shell or network helpers."""
++import datetime
++import json
++from pathlib import Path
++import subprocess
++import sys
++
++root = Path(__file__).resolve().parent.parent
++label, *command = sys.argv[1:]
++result = subprocess.run(command, cwd=root, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
++output = root / '.experiment' / f'{label}.txt'
++output.write_text(result.stdout)
++with (root / '.experiment' / 'commands.jsonl').open('a') as log:
++    log.write(json.dumps({'label': label, 'command': command, 'cwd': str(root), 'time_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'exit_code': result.returncode, 'outputpath': str(output.relative_to(root))}) + '\n')
++print(result.stdout, end='')
++print(f'Captured {label}: exit {result.returncode}')
++sys.exit(result.returncode)
+diff --git a/.experiment/session.md b/.experiment/session.md
+new file mode 100644
+index 0000000..05b1dab
+--- /dev/null
++++ b/.experiment/session.md
+@@ -0,0 +1,19 @@
++# Run evidence
++
++Assigned area: /workspace/relayboard-round2-active/M-S02-002.
++Starting commit: 985b5380548ab80c2c243f97e9732a403bff88b3.
++Assigned method: matt-codex-port-v0, explicitly non-native; unchanged bundled upstream source version 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d.
++Lead requested identity: GPT-6.1 Sol, High. Runtime identity/usage attestation unavailable; system identifies Codex based on GPT-6 without exact variant/effort attestation.
++No external network, credentials, sibling workspaces, hidden/evaluator/peer material accessed. README contains links outside the area; those links were not followed.
++Initial discovery and source reads: TASK.md, METHOD.md, GLOSSARY.md, README.md, pyproject.toml, relayboard/{models,store,service,web,testing}.py, tests/test_public.py.
++Method sources opened: grill-with-docs, grilling, domain-modeling, GLOSSARY-FORMAT, to-spec, to-tickets, implement, implement-spec, tdd, tdd/tests, tdd/mocking, code-review.
++Invoked so far: grill-with-docs, composing grilling and domain-modeling. Facts explored directly before product frontier. No exploration helper needed once facts were locally established.
++Adaptations: local spec/tracker and standing reversible seam/ticket-shape authorization; public WSGI/SQLite/Store seams pre-agreed. Native skill host, tracker, model diversity, concurrency/worktree workflow not claimed.
++
++Decision checkpoint: confirmed product frontier empty. Pause/no queue, resume/future only, manual allowance and existing Run continuation supplied by operator; representation, enabled preservation, response/idempotence and presentation delegated to engineering judgment. Invoked to-spec, implement and tdd for one cohesive unit. No to-tickets/implement-spec invocation; no genuine blocking edges. No ADR: reversible change.
++
++Implementation checkpoint: four new feature cycles each red before green at public WSGI seam: pause (404), resume (404), dashboard (missing column), existing-schema/reopen persistence (IndexError). Each cycle one test and minimal implementation; saved exact outputs in commands.jsonl and corresponding *-red/*-green.txt. Six preservation/API-contract checks were added sequentially and immediately passed without code changes; these are characterization/verification, not claimed red/green cycles. Existing premature retry alert behavior observed in public service.py was deliberately preserved per TASK.md, with literal alert expectation. No speculative bug fix or diagnosing-bugs invocation. Public full suite: 15 passed. No invented Python typecheck. Local commit 0cee69f contains cohesive implementation unit; code-review invoked against fixed initial 985b5380548ab80c2c243f97e9732a403bff88b3. Native parallel axes replaced by serial fresh read-only helpers as frozen binding requires.
++
++Nonblocking checkpoint sent to operator on request: route/spec complete, implementation commit 0cee69f, four red/green cycles, six immediately-green preservation checks, 15 public tests pass, serial Standards running/Spec not yet started, no forbidden access, runtime attestation unknown. No product guidance supplied in response. Standards helper final report received before Spec helper spawn; each fork_turns=none GPT-6.1 Sol/high, root-only read-only, no descendants.
++
++Review checkpoint: Standards 0 hard violations/2 low-priority duplicated-code heuristics; Spec 0 findings. Separate reports preserved verbatim/lightly cleaned in standards-review.md and spec-review.md; no axis merged or reranked. Addressed both Standards judgements during review: one shared pause/resume response route and one shared SQLite row-to-Job converter. No behavior changes; all 15 tests passed after fixes. Helpers confirmed completed by scoped collaboration.list_agents(path_prefix=/root/contestant_m_s02_002). No descendants. No second helper pass claimed after lead fixes. Final spec status completed; ticket graph unused.
+diff --git a/.experiment/spec-review.md b/.experiment/spec-review.md
+new file mode 100644
+index 0000000..43acfda
+--- /dev/null
++++ b/.experiment/spec-review.md
+@@ -0,0 +1,29 @@
++Spec review: **0 findings**.
++
++(a) No missing or partial product requirements identified.
++(b) No unrequested behavior or scope creep identified. Persistent pause state, separate enabled state, response semantics, and dashboard presentation match the recorded delegated engineering decisions.
++(c) No incorrectly implemented requirements identified.
++
++The diff blocks scheduled starts before Run creation, resumes without generating catch-up work, preserves manual Runs and existing attempt/retry/alert logic, retains enabled state, persists pause through SQLite schema migration, and exposes the specified API and dashboard state. These match .scratch/work/spec.md:10, lines 15–28, and the resolved Pause/Resume glossary definitions.
++
++Evidence appendix: All shell commands used workdir /workspace/relayboard-round2-active/M-S02-002:
++
++    pwd
++    cat TASK.md
++    cat METHOD.md
++    cat upstream/matt/skills/engineering/code-review/SKILL.md
++    git rev-parse 985b5380548ab80c2c243f97e9732a403bff88b3
++    git diff 985b5380548ab80c2c243f97e9732a403bff88b3...HEAD
++    git log 985b5380548ab80c2c243f97e9732a403bff88b3..HEAD --oneline
++    cat .scratch/work/spec.md
++    cat GLOSSARY.md
++    nl -ba relayboard/service.py
++    nl -ba relayboard/store.py
++    nl -ba relayboard/web.py
++    nl -ba .scratch/work/spec.md
++
++The baseline resolved; the diff was nonempty; the commit list contained only 0cee69f Add persistent Job pause and resume controls.
++
++Access status: CLEAN; no contamination observed. No forbidden material, experiment evidence contents, network, siblings, or control paths accessed. No writes, test execution, descendants, commits, deployment, or merges. This was static product/spec review only; supplied test results were not independently rerun. Standards were not assessed.
++
++Requested identity: GPT-6.1 Sol / High. Observed identity and usage: unknown, absent actual attestation.
+diff --git a/.experiment/stage-implementation.txt b/.experiment/stage-implementation.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/stage-review-fixes.txt b/.experiment/stage-review-fixes.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/standards-review.md b/.experiment/standards-review.md
+new file mode 100644
+index 0000000..8065b9f
+--- /dev/null
++++ b/.experiment/standards-review.md
+@@ -0,0 +1,26 @@
++Standards: **0 documented-rule violations; 2 low-priority judgement calls.**
++
++- **Possible Duplicated Code — `relayboard/web.py:54–78`.** Both new endpoint blocks repeat `"method == \"POST\""`, `path.startswith("/api/jobs/")`, `job_id = path.split("/")[3]`, and the identical 200 Job response. Only the suffix and service operation differ. A narrowly shared pause/resume dispatch could reduce duplication. Existing explicit route blocks make retaining this shape defensible; this is not a hard violation.
++- **Possible Duplicated Code — `relayboard/store.py:74–89`.** Both changed construction sites repeat the Job row mapping, including `"bool(row[\"paused\"])"` and `"bool(r[\"paused\"])"`. A shared row-to-Job converter would avoid future field changes requiring synchronized edits. This duplication predates pause and is extended by this diff.
++
++No additional findings across the remaining smell baseline. The service wrappers follow the existing service boundary; the cross-layer changes concern one feature. Tests use real SQLite/WSGI public seams and literal expectations, consistent with METHOD.md §5. Red-before-green history and full-suite execution cannot be independently established from this product diff; no experiment evidence was inspected.
++
++Evidence: every shell command used workdir /workspace/relayboard-round2-active/M-S02-002:
++
++    pwd
++    cat TASK.md METHOD.md upstream/matt/skills/engineering/code-review/SKILL.md pyproject.toml
++    git rev-parse 985b5380548ab80c2c243f97e9732a403bff88b3
++    git diff 985b5380548ab80c2c243f97e9732a403bff88b3...HEAD
++    git log 985b5380548ab80c2c243f97e9732a403bff88b3..HEAD --oneline
++    nl -ba relayboard/store.py
++    nl -ba relayboard/service.py
++    nl -ba relayboard/web.py
++    cat tests/test_api.py tests/test_service.py
++    rg --files tests
++    cat tests/test_public.py
++
++The attempted test-file read failed because those paths do not exist. Fixed point resolved; diff was nonempty; commit list contained 0cee69f Add persistent Job pause and resume controls.
++
++Access status: uncontaminated; assigned-root read-only access only. No writes, tests, descendants, network, external messages, credentials, experiment-evidence reads, or forbidden materials accessed.
++
++Identity: requested GPT-6.1 Sol/High; observed identity, reasoning setting, and usage unknown without attestation.
+diff --git a/.experiment/status-before-review.txt b/.experiment/status-before-review.txt
+new file mode 100644
+index 0000000..dccd8c6
+--- /dev/null
++++ b/.experiment/status-before-review.txt
+@@ -0,0 +1,34 @@
++ M GLOSSARY.md
++ M relayboard/models.py
++ M relayboard/service.py
++ M relayboard/store.py
++ M relayboard/web.py
++?? .experiment/baseline.txt
++?? .experiment/commands.jsonl
++?? .experiment/dashboard-green.txt
++?? .experiment/dashboard-red.txt
++?? .experiment/diff-check-before-review.txt
++?? .experiment/disabled-preservation.txt
++?? .experiment/enable-preservation.txt
++?? .experiment/existing-run-preservation.txt
++?? .experiment/full-before-review.txt
++?? .experiment/idempotence-verification.txt
++?? .experiment/initial-00.txt
++?? .experiment/initial-01.txt
++?? .experiment/initial-02.txt
++?? .experiment/initial-03.txt
++?? .experiment/initial-04.txt
++?? .experiment/initial-actions.json
++?? .experiment/manual-preservation.txt
++?? .experiment/missing-method-verification.txt
++?? .experiment/operator-exchanges.json
++?? .experiment/pause-green.txt
++?? .experiment/pause-red.txt
++?? .experiment/persistence-green.txt
++?? .experiment/persistence-red.txt
++?? .experiment/resume-green.txt
++?? .experiment/resume-red.txt
++?? .experiment/run.py
++?? .experiment/session.md
++?? .scratch/
++?? tests/test_pause.py
+diff --git a/.scratch/work/spec.md b/.scratch/work/spec.md
+new file mode 100644
+index 0000000..5c7b36e
+--- /dev/null
++++ b/.scratch/work/spec.md
+@@ -0,0 +1,39 @@
++# Pause and resume a Job
++
++Status: completed
++Origin: TASK.md and confirmed operator product answers in .experiment/operator-exchanges.json.
++
++## Problem Statement
++Operators need to temporarily stop a Job from starting normal scheduled work without disrupting other Run behavior.
++
++## Solution
++Pause a Job to skip scheduled starts; resume it to allow future scheduled activity, with no queue or catch-up.
++
++## User Stories
++1. As an operator, I want to pause scheduled starts so that work does not start during a temporary stop.
++2. As an operator, I want to resume future scheduling so that skipped work is not replayed.
++3. As an operator, I want manual Runs while paused so that I can explicitly request work.
++4. As an operator, I want existing Runs to finish with their retries and alerts so that pause does not cancel work.
++5. As an operator, I want disabled Jobs to remain disabled after resume so that separate scheduling intent is preserved.
++6. As an API consumer, I want repeat pause/resume requests to be safe and unknown Jobs to use existing errors.
++7. As an operator, I want pause visibility alongside Enabled and Last result so that I can understand scheduling state.
++8. As an operator, I want pause state retained in storage so that rebuilding an app around the same database does not resume work.
++
++## Implementation Decisions
++- Separate persistent boolean paused, default false; keep enabled unchanged. These are engineering choices delegated by the operator.
++- Add bodyless POST /api/jobs/{id}/pause and /resume; return 200 with a job object including paused. Repeats are idempotent; missing Jobs use existing 404.
++- Scheduled starts raise existing not-schedulable conflict while paused; they do not create a Run or queued work.
++- Add paused to Jobs JSON and a dashboard Paused column; preserve Enabled and Last result semantics.
++- Support existing SQLite jobs tables with a default-false schema upgrade. Preserve the positional Job constructor by appending a defaulted field.
++- Do not modify manual start, attempt, retry or alert logic.
++
++## Testing Decisions
++- Existing pre-agreed seams: WSGI requests using the public fixture request helper; real SQLite and Store/Service public interfaces for persistence and scheduler verification.
++- Literal expectations from the confirmed spec; one test and minimal implementation per red/green cycle. No internal mocks.
++- Prior art: existing public unittest tests. Use focused tests throughout, full discovery at completion.
++
++## Out of Scope
++Cancellation, new queues, catch-up, new retry or alert policy, scheduling engines, external services and deployment.
++
++## Further Notes
++Invoke to-spec without re-interviewing; reversible seam approval is standing in METHOD.md. This is one cohesive small implementation unit: pause/resume plus observable state. No independent ticket frontier or blocking edge would be meaningful; to-tickets and implement-spec are read for routing but not invoked. Lead implements directly using implement and tdd. No durable hard-to-reverse tradeoff warrants an ADR.
+diff --git a/GLOSSARY.md b/GLOSSARY.md
+index 1644e31..2946605 100644
+--- a/GLOSSARY.md
++++ b/GLOSSARY.md
+@@ -6,7 +6,7 @@ Date frozen: 2026-10-06
+ 
+ This glossary defines the base domain shared by S01, S02, and S04.
+ 
+-It intentionally does **not** define the semantics of pausing a Job. Those semantics are the ambiguity under test in S02.
++Pause terminology below records the resolved product understanding for this feature.
+ 
+ ## Job
+ 
+@@ -83,6 +83,8 @@ A Run explicitly requested by an operator/API call rather than started by the sc
+ 
+ ## Pause
+ 
+-Not defined in the base glossary.
++A temporary Job scheduling state in which new scheduled Runs are skipped without being queued. Manual Runs and already-started Runs, including their retries and alerts, remain allowed.
+ 
+-S02 intentionally asks the treatment to introduce pause behavior while several product semantics remain unresolved.
++## Resume
++
++The end of a Job's pause, applying to future scheduled activity without catching up skipped work.
+diff --git a/relayboard/models.py b/relayboard/models.py
+index c9c800a..e973fd9 100644
+--- a/relayboard/models.py
++++ b/relayboard/models.py
+@@ -9,6 +9,7 @@ class Job:
+     name: str
+     enabled: bool
+     max_attempts: int
++    paused: bool = False
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..64180d2 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -24,8 +24,16 @@ class RelayBoardService:
+         job = self.store.get_job(job_id)
+         if not job.enabled:
+             raise JobNotSchedulable(f"job {job_id} is disabled")
++        if job.paused:
++            raise JobNotSchedulable(f"job {job_id} is paused")
+         return self.store.create_run(job_id, "scheduled")
+ 
++    def pause_job(self, job_id: str) -> None:
++        self.store.set_job_paused(job_id, True)
++
++    def resume_job(self, job_id: str) -> None:
++        self.store.set_job_paused(job_id, False)
++
+     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
+         self.store.set_job_enabled(job_id, enabled)
+ 
+diff --git a/relayboard/store.py b/relayboard/store.py
+index 3a49cc1..0fae46f 100644
+--- a/relayboard/store.py
++++ b/relayboard/store.py
+@@ -18,7 +18,8 @@ class Store:
+                 id TEXT PRIMARY KEY,
+                 name TEXT NOT NULL,
+                 enabled INTEGER NOT NULL,
+-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
++                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
++                paused INTEGER NOT NULL DEFAULT 0
+             );
+             CREATE TABLE IF NOT EXISTS runs (
+                 id TEXT PRIMARY KEY,
+@@ -41,6 +42,11 @@ class Store:
+             );
+             """
+         )
++        columns = self.connection.execute("PRAGMA table_info(jobs)").fetchall()
++        if not any(column["name"] == "paused" for column in columns):
++            self.connection.execute(
++                "ALTER TABLE jobs ADD COLUMN paused INTEGER NOT NULL DEFAULT 0"
++            )
+         self.connection.commit()
+ 
+     def add_job(
+@@ -65,21 +71,23 @@ class Store:
+         ).fetchone()
+         if row is None:
+             raise KeyError(job_id)
++        return self._job_from_row(row)
++
++    @staticmethod
++    def _job_from_row(row: sqlite3.Row) -> Job:
+         return Job(
+             row["id"],
+             row["name"],
+             bool(row["enabled"]),
+             row["max_attempts"],
++            bool(row["paused"]),
+         )
+ 
+     def list_jobs(self) -> list[Job]:
+         rows = self.connection.execute(
+             "SELECT * FROM jobs ORDER BY id"
+         ).fetchall()
+-        return [
+-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
+-            for r in rows
+-        ]
++        return [self._job_from_row(row) for row in rows]
+ 
+     def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
+         self.get_job(job_id)
+@@ -90,6 +98,15 @@ class Store:
+         self.connection.commit()
+         return self.get_job(job_id)
+ 
++    def set_job_paused(self, job_id: str, paused: bool) -> Job:
++        self.get_job(job_id)
++        self.connection.execute(
++            "UPDATE jobs SET paused = ? WHERE id = ?",
++            (int(paused), job_id),
++        )
++        self.connection.commit()
++        return self.get_job(job_id)
++
+     def next_run_id(self) -> str:
+         row = self.connection.execute(
+             "SELECT COUNT(*) AS n FROM runs"
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..0f87eeb 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -51,6 +51,22 @@ class RelayBoardApp:
+                     },
+                 )
+ 
++            if (
++                method == "POST"
++                and path.startswith("/api/jobs/")
++                and path.endswith(("/pause", "/resume"))
++            ):
++                job_id = path.split("/")[3]
++                if path.endswith("/pause"):
++                    self.service.pause_job(job_id)
++                else:
++                    self.service.resume_job(job_id)
++                return self._json(
++                    start_response,
++                    200,
++                    {"job": self._job_json(self.store.get_job(job_id))},
++                )
++
+             if (
+                 method == "POST"
+                 and path.startswith("/api/jobs/")
+@@ -141,6 +157,7 @@ class RelayBoardApp:
+                 "<tr>"
+                 f"<td>{html.escape(job.name)}</td>"
+                 f"<td>{'yes' if job.enabled else 'no'}</td>"
++                f"<td>{'yes' if job.paused else 'no'}</td>"
+                 f"<td>{html.escape(last)}</td>"
+                 "</tr>"
+             )
+@@ -150,7 +167,7 @@ class RelayBoardApp:
+             "<html><head><title>RelayBoard</title></head><body>"
+             "<h1>Jobs</h1>"
+             "<table id='jobs'><thead><tr>"
+-            "<th>Job</th><th>Enabled</th><th>Last result</th>"
++            "<th>Job</th><th>Enabled</th><th>Paused</th><th>Last result</th>"
+             "</tr></thead><tbody>"
+             + "".join(rows)
+             + "</tbody></table></body></html>"
+@@ -163,6 +180,7 @@ class RelayBoardApp:
+             "name": job.name,
+             "enabled": job.enabled,
+             "max_attempts": job.max_attempts,
++            "paused": job.paused,
+         }
+ 
+     @staticmethod
+diff --git a/tests/test_pause.py b/tests/test_pause.py
+new file mode 100644
+index 0000000..8e2594a
+--- /dev/null
++++ b/tests/test_pause.py
+@@ -0,0 +1,167 @@
++import sqlite3
++import tempfile
++import unittest
++from pathlib import Path
++
++from relayboard.store import Store
++from relayboard.testing import request
++from relayboard.web import RelayBoardApp, create_seeded_app
++
++
++class PauseJobTests(unittest.TestCase):
++    def setUp(self) -> None:
++        self.app = create_seeded_app()
++
++    def test_pause_and_resume_missing_jobs_use_existing_not_found_response(self) -> None:
++        for action in ("pause", "resume"):
++            self.assertEqual(
++                request(self.app, "POST", f"/api/jobs/missing/{action}"),
++                (404, {"error": "not found: missing"}),
++            )
++            self.assertEqual(
++                request(self.app, "GET", f"/api/jobs/daily-report/{action}"),
++                (404, {"error": "not found"}),
++            )
++
++    def test_repeated_pause_and_resume_are_idempotent(self) -> None:
++        for action, paused in (("pause", True), ("resume", False)):
++            first = request(self.app, "POST", f"/api/jobs/daily-report/{action}")
++            second = request(self.app, "POST", f"/api/jobs/daily-report/{action}")
++            self.assertEqual(first, second)
++            self.assertEqual(first[0], 200)
++            self.assertEqual(first[1]["job"]["paused"], paused)
++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
++                                {"source": "scheduled"})
++        self.assertEqual(code, 201)
++        self.assertEqual(payload["run"]["id"], "run-001")
++
++    def test_enable_changes_do_not_clear_pause(self) -> None:
++        request(self.app, "POST", "/api/jobs/daily-report/pause")
++        for enabled in (False, True):
++            code, payload = request(self.app, "POST", "/api/jobs/daily-report/enabled",
++                                    {"enabled": enabled})
++            self.assertEqual(code, 200)
++            self.assertTrue(payload["job"]["paused"])
++        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/runs",
++                                 {"source": "scheduled"})[0], 409)
++
++    def test_resume_does_not_enable_a_disabled_job(self) -> None:
++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/pause")
++        self.assertEqual(code, 200)
++        self.assertTrue(payload["job"]["paused"])
++        self.assertFalse(payload["job"]["enabled"])
++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/resume")
++        self.assertEqual(code, 200)
++        self.assertFalse(payload["job"]["paused"])
++        self.assertFalse(payload["job"]["enabled"])
++        code, payload = request(self.app, "POST", "/api/jobs/cleanup/runs",
++                                {"source": "scheduled"})
++        self.assertEqual((code, payload), (409, {"error": "job cleanup is disabled"}))
++
++    def test_pause_preserves_existing_run_retries_alerts_and_result(self) -> None:
++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
++                                {"source": "scheduled"})
++        self.assertEqual(code, 201)
++        run_id = payload["run"]["id"]
++        request(self.app, "POST", "/api/jobs/daily-report/pause")
++        code, payload = request(self.app, "POST", f"/api/runs/{run_id}/attempts",
++                                {"succeeded": False})
++        self.assertEqual(code, 200)
++        self.assertEqual(payload["status"], "retry")
++        self.assertEqual(payload["run"]["id"], "run-001")
++        code, payload = request(self.app, "POST", f"/api/runs/{run_id}/attempts",
++                                {"succeeded": True})
++        self.assertEqual(code, 200)
++        self.assertEqual(payload["status"], "succeeded")
++        self.assertEqual(payload["run"]["id"], "run-001")
++        code, payload = request(self.app, "GET", "/api/alerts")
++        self.assertEqual(code, 200)
++        # Preserve the fixture's existing alert on a failed retryable attempt.
++        self.assertEqual(payload, {"alerts": [{
++            "id": 1, "job_id": "daily-report", "run_id": "run-001",
++            "kind": "run_failed", "message": "Job Daily report failed for run run-001",
++        }]})
++        code, body = request(self.app, "GET", "/dashboard")
++        self.assertEqual(code, 200)
++        self.assertIn("<td>Daily report</td><td>yes</td><td>yes</td><td>succeeded</td>", body)
++
++    def test_pause_keeps_manual_runs_available(self) -> None:
++        self.assertEqual(request(self.app, "POST", "/api/jobs/daily-report/pause")[0], 200)
++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs")
++        self.assertEqual(code, 201)
++        self.assertEqual(payload["run"], {
++            "id": "run-001", "job_id": "daily-report", "source": "manual",
++            "status": "running",
++        })
++
++    def test_existing_database_upgrades_and_retains_pause_on_reopen(self) -> None:
++        with tempfile.TemporaryDirectory() as directory:
++            database = Path(directory) / "jobs.sqlite"
++            connection = sqlite3.connect(database)
++            connection.executescript("""
++                CREATE TABLE jobs (
++                    id TEXT PRIMARY KEY, name TEXT NOT NULL,
++                    enabled INTEGER NOT NULL,
++                    max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
++                );
++                INSERT INTO jobs VALUES ('old-job', 'Old Job', 1, 2);
++            """)
++            app = RelayBoardApp(Store(connection))
++            code, payload = request(app, "GET", "/api/jobs")
++            self.assertEqual(code, 200)
++            self.assertEqual(payload, {"jobs": [{
++                "id": "old-job", "name": "Old Job", "enabled": True,
++                "max_attempts": 2, "paused": False,
++            }]})
++            self.assertEqual(request(app, "POST", "/api/jobs/old-job/pause")[0], 200)
++            connection.close()
++            reopened = sqlite3.connect(database)
++            try:
++                app = RelayBoardApp(Store(reopened))
++                code, payload = request(app, "GET", "/api/jobs")
++                self.assertEqual(code, 200)
++                self.assertTrue(payload["jobs"][0]["paused"])
++                self.assertEqual(request(app, "POST", "/api/jobs/old-job/runs",
++                                         {"source": "scheduled"})[0], 409)
++            finally:
++                reopened.close()
++
++    def test_dashboard_shows_pause_beside_existing_job_state(self) -> None:
++        request(self.app, "POST", "/api/jobs/daily-report/pause")
++        code, body = request(self.app, "GET", "/dashboard")
++        self.assertEqual(code, 200)
++        self.assertIn("<th>Enabled</th><th>Paused</th><th>Last result</th>", body)
++        self.assertIn("<td>Daily report</td><td>yes</td><td>yes</td><td>never</td>", body)
++        self.assertIn("<td>Cleanup</td><td>no</td><td>no</td><td>never</td>", body)
++
++    def test_resume_allows_future_scheduling_without_catch_up(self) -> None:
++        request(self.app, "POST", "/api/jobs/daily-report/pause")
++        code, _ = request(self.app, "POST", "/api/jobs/daily-report/runs",
++                          {"source": "scheduled"})
++        self.assertEqual(code, 409)
++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/resume")
++        self.assertEqual(code, 200)
++        self.assertFalse(payload["job"]["paused"])
++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
++                                {"source": "scheduled"})
++        self.assertEqual(code, 201)
++        self.assertEqual(payload["run"], {
++            "id": "run-001", "job_id": "daily-report", "source": "scheduled",
++            "status": "running",
++        })
++
++    def test_pause_blocks_new_scheduled_runs(self) -> None:
++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/pause")
++        self.assertEqual(code, 200)
++        self.assertEqual(payload, {"job": {
++            "id": "daily-report", "name": "Daily report", "enabled": True,
++            "max_attempts": 2, "paused": True,
++        }})
++        code, payload = request(self.app, "POST", "/api/jobs/daily-report/runs",
++                                {"source": "scheduled"})
++        self.assertEqual(code, 409)
++        self.assertEqual(payload, {"error": "job daily-report is paused"})
++
++
++if __name__ == "__main__":
++    unittest.main()

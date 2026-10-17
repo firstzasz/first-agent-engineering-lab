@@ -1,0 +1,62 @@
+[
+  {
+    "run_id": "F-S04-002",
+    "expected_task_blob": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+    "verified": true
+  },
+  {
+    "run_id": "F-S02-002",
+    "expected_task_blob": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+    "verified": true
+  },
+  {
+    "run_id": "F-S01-002",
+    "expected_task_blob": "5d142e5a9c03b9e82ec6a567457deaf7adb29834",
+    "verified": true
+  },
+  {
+    "run_id": "M-S04-002",
+    "expected_task_blob": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+    "verified": true
+  },
+  {
+    "run_id": "M-S02-002",
+    "expected_task_blob": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+    "verified": true
+  },
+  {
+    "run_id": "M-S01-002",
+    "expected_task_blob": "5d142e5a9c03b9e82ec6a567457deaf7adb29834",
+    "verified": true
+  },
+  {
+    "run_id": "P-S04-002",
+    "expected_task_blob": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+    "verified": true
+  },
+  {
+    "run_id": "P-S02-002",
+    "expected_task_blob": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+    "verified": true
+  },
+  {
+    "run_id": "P-S01-002",
+    "expected_task_blob": "5d142e5a9c03b9e82ec6a567457deaf7adb29834",
+    "verified": true
+  },
+  {
+    "run_id": "N-S04-002",
+    "expected_task_blob": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+    "verified": true
+  },
+  {
+    "run_id": "N-S02-002",
+    "expected_task_blob": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+    "verified": true
+  },
+  {
+    "run_id": "N-S01-002",
+    "expected_task_blob": "5d142e5a9c03b9e82ec6a567457deaf7adb29834",
+    "verified": true
+  }
+]

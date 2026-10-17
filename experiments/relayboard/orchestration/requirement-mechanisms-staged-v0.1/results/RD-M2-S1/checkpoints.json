@@ -1,0 +1,14 @@
+[
+  {
+    "message": "Baseline verification in contestant-03 passed all 5 public tests. Existing conventions: disabled Jobs reject scheduled Runs with 409 but allow manual Runs; enabled updates return 200 with {job: ...}. Existing retry code emits alerts on intermediate failures as well as terminal failures, so I will preserve that observable behavior unless operator-directed pause semantics require otherwise.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Implemented pause/resume with an independent persisted paused flag, idempotent 200 Job responses, 404 missing Jobs, and 409 scheduled-run rejection. Manual Runs and ongoing Attempts/retries/alerts retain existing behavior. Dashboard adds a Paused column while preserving Enabled and Last result. All 13 tests pass (5 baseline + 8 new), including legacy database migration and pause-state persistence. Reviewing diff before local commit; no unresolved product frontier remains after your answer.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

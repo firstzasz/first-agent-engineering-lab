@@ -1,0 +1,6 @@
+{
+  "run_id": "N-S04-002",
+  "observed_at": "2026-10-08 02:24:35 UTC",
+  "agent": "/root/n_s04_002",
+  "message": "The retry branch in RelayBoardService.record_attempt emits run_failed while the Run is still running, then terminal failure emits it again. GLOSSARY.md defines alerts after terminal outcomes. I will remove the premature emission and verify retry exhaustion, retry recovery, and independent Runs using local public tests."
+}

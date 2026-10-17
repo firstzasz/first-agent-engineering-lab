@@ -1,0 +1,54 @@
+{
+  "run_id": "RD-M2-S1",
+  "candidate_diff": [
+    {
+      "path": "README.md",
+      "added": 19,
+      "deleted": 0,
+      "category": "documentation_or_process"
+    },
+    {
+      "path": "relayboard/models.py",
+      "added": 1,
+      "deleted": 0,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/service.py",
+      "added": 9,
+      "deleted": 1,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/store.py",
+      "added": 28,
+      "deleted": 3,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/web.py",
+      "added": 21,
+      "deleted": 1,
+      "category": "production"
+    },
+    {
+      "path": "tests/test_pause.py",
+      "added": 126,
+      "deleted": 0,
+      "category": "test"
+    }
+  ],
+  "files_changed": 6,
+  "production_files_changed": 4,
+  "test_files_changed": 1,
+  "documentation_or_process_files_changed": 1,
+  "total_lines_added": 204,
+  "total_lines_deleted": 5,
+  "helper_count": 0,
+  "visible_checkpoints_observed": 2,
+  "operator_exchanges": 1,
+  "raw_tool_call_count": null,
+  "tokens": null,
+  "cost": null,
+  "note": "Application/test/documentation footprint excludes the unchanged supplied task/method files and external orchestrator evidence packaging. Artifact counts are descriptive, not penalties."
+}

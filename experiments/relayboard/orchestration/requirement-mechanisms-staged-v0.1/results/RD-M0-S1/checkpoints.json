@@ -1,0 +1,14 @@
+[
+  {
+    "message": "Baseline verification passed all 5 public tests. Code has synchronous Runs/Attempts, enabled scheduling flag, 200 job envelopes for state mutations, and 409 JobNotSchedulable responses. No METHOD.md is present. Awaiting product semantics before dependent changes.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Implemented separate persisted paused flag, idempotent 200 pause/resume endpoints, 409 scheduling guard, and dashboard Paused column preserving Last result. Manual and in-flight Runs/retries/alerts remain unchanged. All 13 tests now pass, including storage upgrade/reopen, API/status behavior, independent enabled state, and paused-versus-unpaused retry/alert parity. Initial temp-directory sandbox failure was fixed by placing test temporary files inside assigned workspace. Reviewing and committing locally.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

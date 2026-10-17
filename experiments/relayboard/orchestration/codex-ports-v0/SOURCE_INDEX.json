@@ -1,0 +1,277 @@
+{
+  "status": "FROZEN_BEFORE_OUTCOMES",
+  "sources": [
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/SKILL.md",
+      "blob_sha": "de51c56164ff3da8f958437e207d14cec7d7fe99",
+      "bundled_path": "upstream/pstack/skills/poteto-mode/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "blob_sha": "eeebc42b7477d435d8ac61d631d84822f908f59c",
+      "bundled_path": "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+      "blob_sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6",
+      "bundled_path": "upstream/pstack/skills/poteto-mode/playbooks/feature.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+      "blob_sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a",
+      "bundled_path": "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/tdd/SKILL.md",
+      "blob_sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94",
+      "bundled_path": "upstream/pstack/skills/tdd/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/grill-with-docs/SKILL.md",
+      "blob_sha": "62b9efb6f991d1b229adee7506962f13ced0c499",
+      "bundled_path": "upstream/matt/skills/engineering/grill-with-docs/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement/SKILL.md",
+      "blob_sha": "7a0b11f5f4fe9505ea5c7983c3083ba1bf754f69",
+      "bundled_path": "upstream/matt/skills/engineering/implement/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/diagnosing-bugs/SKILL.md",
+      "blob_sha": "1b929e29fb519c26b500d3eda744177986883ac8",
+      "bundled_path": "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/SKILL.md",
+      "blob_sha": "250871ccdfefa7525309acfebda090edf4046882",
+      "bundled_path": "upstream/matt/skills/engineering/tdd/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/code-review/SKILL.md",
+      "blob_sha": "e28d7acbf7b3bb4d7817b7eb5d9c105af03f6ec4",
+      "bundled_path": "upstream/matt/skills/engineering/code-review/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-spec/SKILL.md",
+      "blob_sha": "3f52599ae2a4347aee5a07432c2707518e691a7f",
+      "bundled_path": "upstream/matt/skills/engineering/to-spec/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/to-tickets/SKILL.md",
+      "blob_sha": "e868c831fcfb1e124e010bcdf84a429ec879160f",
+      "bundled_path": "upstream/matt/skills/engineering/to-tickets/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/how/SKILL.md",
+      "blob_sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318",
+      "bundled_path": "upstream/pstack/skills/how/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/SKILL.md",
+      "blob_sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9",
+      "bundled_path": "upstream/pstack/skills/architect/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "blob_sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828",
+      "bundled_path": "upstream/pstack/skills/principle-laziness-protocol/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+      "blob_sha": "e1d664a19243c90a84e5e7a816e9e05146c88720",
+      "bundled_path": "upstream/pstack/skills/principle-model-the-domain/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "blob_sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125",
+      "bundled_path": "upstream/pstack/skills/principle-prove-it-works/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "blob_sha": "7e5a419aeec97b4076fa517865013677428a9fa3",
+      "bundled_path": "upstream/pstack/skills/principle-fix-root-causes/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "blob_sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab",
+      "bundled_path": "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "blob_sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9",
+      "bundled_path": "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/productivity/grilling/SKILL.md",
+      "blob_sha": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3",
+      "bundled_path": "upstream/matt/skills/productivity/grilling/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/SKILL.md",
+      "blob_sha": "a4438c6879c517d1a08e2b5fbca049b632688dfe",
+      "bundled_path": "upstream/matt/skills/engineering/domain-modeling/SKILL.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/implement-spec/SKILL.md",
+      "blob_sha": "183923797ab58f1b3ef09e03bc1f1f203c309f37",
+      "bundled_path": "upstream/matt/skills/engineering/implement-spec/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/LICENSE",
+      "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+      "bundled_path": "upstream/pstack/LICENSE"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/show-me-your-work/SKILL.md",
+      "blob_sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1",
+      "bundled_path": "upstream/pstack/skills/show-me-your-work/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "blob_sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee",
+      "bundled_path": "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/arena/SKILL.md",
+      "blob_sha": "bd260a064d6e07a06073df6841e3d180d643372a",
+      "bundled_path": "upstream/pstack/skills/arena/SKILL.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/rationale-template.md",
+      "blob_sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588",
+      "bundled_path": "upstream/pstack/skills/architect/references/rationale-template.md"
+    },
+    {
+      "arm": "pstack",
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/design-red-flags.md",
+      "blob_sha": "f8503c9595b289c607ff5088f82b21197edf94ec",
+      "bundled_path": "upstream/pstack/skills/architect/references/design-red-flags.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "LICENSE",
+      "blob_sha": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+      "bundled_path": "upstream/matt/LICENSE"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+      "blob_sha": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6",
+      "bundled_path": "upstream/matt/skills/engineering/domain-modeling/GLOSSARY-FORMAT.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/domain-modeling/ADR-FORMAT.md",
+      "blob_sha": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7",
+      "bundled_path": "upstream/matt/skills/engineering/domain-modeling/ADR-FORMAT.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/tests.md",
+      "blob_sha": "7ab86479f925a1f9e8ba680af33cb3b12e015381",
+      "bundled_path": "upstream/matt/skills/engineering/tdd/tests.md"
+    },
+    {
+      "arm": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/engineering/tdd/mocking.md",
+      "blob_sha": "71cbfee674d93244ce81d1830b930ca9a69200bd",
+      "bundled_path": "upstream/matt/skills/engineering/tdd/mocking.md"
+    }
+  ]
+}

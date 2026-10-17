@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "execution_variant": "staged-screening-v0.1",
+  "stage": 1,
+  "created_at_utc": "2026-10-17T22:52:45.166527+00:00",
+  "frozen_protocol_commit": "63aea9e37dca19beb476e07eaac36fe46d0b2cf1",
+  "stage1_all_four_dispositions_durable": true,
+  "stage1_persistence_commits": {
+    "RD-M1-S1": "db0da7b6ecea2362f3c06519714515eb1b55cb61",
+    "RD-M0-S1": "3d9332936affb8976c2ab4197d74c20e9836afdc",
+    "RD-M2-S1": "89d0937a478fc93e89143c7a2d76e01806519833",
+    "RD-M3-S1": "74cd2caa37550c607b341bf20c27da8f2a73635a"
+  },
+  "stage1_order": [
+    "RD-M1-S1",
+    "RD-M0-S1",
+    "RD-M2-S1",
+    "RD-M3-S1"
+  ],
+  "status": "SCREEN_STOP_NO_STRONG_SIGNAL",
+  "M0": {
+    "valid": true,
+    "run_id": "RD-M0-S1",
+    "surfaced": 2,
+    "silent": 2,
+    "FACT_LOOKUP_burden": 1,
+    "public_acceptance": "PASS",
+    "frozen_evaluator_acceptance": "PASS"
+  },
+  "arms": {
+    "M1": {
+      "screening": "NOT_SELECTED_BY_SCREEN",
+      "qualifies": false,
+      "continuation_eligible": false,
+      "arithmetic": {
+        "surfaced": 2,
+        "M0_surfaced": 2,
+        "surfaced_threshold": 4,
+        "surfaced_difference": 0,
+        "surfaced_threshold_met": false,
+        "silent": 2,
+        "M0_silent": 2,
+        "silent_threshold": 0,
+        "silent_reduction": 0,
+        "silent_threshold_met": false,
+        "combine": "OR"
+      },
+      "FACT_LOOKUP_burden": 1,
+      "public_acceptance": "PASS",
+      "frozen_evaluator_acceptance": "PASS"
+    },
+    "M2": {
+      "screening": "NOT_SELECTED_BY_SCREEN",
+      "qualifies": false,
+      "continuation_eligible": false,
+      "arithmetic": {
+        "surfaced": 2,
+        "M0_surfaced": 2,
+        "surfaced_threshold": 4,
+        "surfaced_difference": 0,
+        "surfaced_threshold_met": false,
+        "silent": 2,
+        "M0_silent": 2,
+        "silent_threshold": 0,
+        "silent_reduction": 0,
+        "silent_threshold_met": false,
+        "combine": "OR"
+      },
+      "FACT_LOOKUP_burden": 1,
+      "public_acceptance": "PASS",
+      "frozen_evaluator_acceptance": "PASS"
+    },
+    "M3": {
+      "screening": "NOT_SELECTED_BY_SCREEN",
+      "qualifies": false,
+      "continuation_eligible": false,
+      "arithmetic": {
+        "surfaced": 2,
+        "M0_surfaced": 2,
+        "surfaced_threshold": 4,
+        "surfaced_difference": 0,
+        "surfaced_threshold_met": false,
+        "silent": 2,
+        "M0_silent": 2,
+        "silent_threshold": 0,
+        "silent_reduction": 0,
+        "silent_threshold_met": false,
+        "combine": "OR"
+      },
+      "FACT_LOOKUP_burden": 1,
+      "public_acceptance": "PASS",
+      "frozen_evaluator_acceptance": "PASS"
+    }
+  },
+  "continuation_eligible_mechanism_arms": [],
+  "protocol_authorized_stage2_run_ids_if_separately_requested": [],
+  "authorized_stage2_run_ids": [],
+  "stage2_execution_authorized_by_user": false,
+  "stage2_launched": false,
+  "stage2_runs_started": 0,
+  "stop_reason": "No mechanism met either frozen continuation threshold against valid M0; stop the cohort under STAGED_PROTOCOL.md. The user also explicitly prohibited Stage 2 execution in this task.",
+  "transfer_eligible": false,
+  "automatic_first_adoption": false,
+  "first_mode_modified": false,
+  "interpretation": "One-run exploratory screen; not a confirmatory test, no proof of no effect for unselected arms, and no transfer or production adoption claim."
+}

@@ -1,0 +1,10 @@
+{
+  "run_id": "P-S04-001",
+  "observed_at": "2026-10-07 07:23:50 UTC",
+  "classification": "CONTAMINATED",
+  "access": "collaboration.list_agents called without path_prefix returned peer-run final summaries",
+  "intent": "worker reports accidental",
+  "reason": "Frozen protocol invalidates receipt of information unavailable to another arm outside the assigned treatment. Preserve/exclude peer exposure; no silent retry.",
+  "disposition": "Stop implementation/review; terminate same-run helpers; preserve files/commits/evidence. No hidden feedback.",
+  "product_guidance": false
+}

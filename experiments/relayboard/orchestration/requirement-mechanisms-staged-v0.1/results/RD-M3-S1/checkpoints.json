@@ -1,0 +1,8 @@
+[
+  {
+    "message": "Implemented pause/resume with persisted independent paused state, scheduler rejection, idempotent 200 API responses, and a separate dashboard Paused column. Manual Runs and existing Run retry/alert traces match unpaused behavior. All 12 public + new tests pass; finishing documentation/diff review before local commit. No unresolved product decisions.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

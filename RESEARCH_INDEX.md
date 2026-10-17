@@ -82,7 +82,46 @@ The common analysis frame is:
 
 ## Phase 1: Comparative experiments
 
-Status: **PILOT IN PROGRESS**
+Status: **PILOT BATCH EXECUTED; SINGLE-SHOT EVIDENCE PRESERVED**
+
+### Phase 1L: Independent replication Round 2
+
+Status: **EXECUTING, FIXED REVERSE ORDER**
+
+- New research branch `research/batch-orchestration-round2` from verified Round 1 HEAD `a700a3e52d1d8a66246806366d7f14eb7ba9b77a`.
+- Twelve new -002 runs reuse exact frozen fixture/task/evaluator/scoring/oracle/method versions; no port regeneration.
+- Exact reverse chronological Round 1 execution order frozen before first contestant at `b9c7da1e8cb797f49d86e46b229d21e9493b483f`.
+- Fresh serial assigned-only contexts, independent histories and requested GPT-6.1 Sol / High; any forbidden receipt excluded without silent retry.
+- Round 1 branch and 125 original result/evidence/orchestration blobs protected unchanged; no merges to main.
+- Cross-round comparison follows all twelve dispositions, preserving unavailable metrics and avoiding a universal winner.
+- [Active Round 2 batch](./experiments/relayboard/orchestration/replication-round2-v0/README.md)
+
+### Phase 1K: Frozen procedural protocol continuation
+
+Status: **EXECUTED and VERIFIED for behavior; one contamination exclusion**
+
+- Eleven remaining runs attempted serially in fresh contexts from Pilot Start State v0.1: ten public/frozen-evaluator PASS, P-S04-001 CONTAMINATED after peer-status exposure and excluded without retry.
+- N-S01-001 remains completed and untouched. No candidate or orchestration work merged to main.
+- Prior hard-access BLOCKED_ISOLATION is historical and exceeded the frozen public-repository protocol.
+- Non-native pstack-codex-port-v0 and matt-codex-port-v0 were frozen before outcomes at `311871987a48a072e36f434e199b1cb28563c81b`; FIRST used its exact original frozen method.
+- S02 product decisions surfaced: Neutral 0/4, pstack port 2/4, Matt port 4/4, FIRST-mode 3/4; passing correctness does not remove silent-assumption counts.
+- GitHub final audit verified 72 protected blobs, eleven unmerged treatment-targeted draft PRs, unchanged main and N-S01 state.
+- Partial execution evidence, unknown runtime identity/usage and single-shot/port limitations remain explicit.
+- [Completed batch and run evidence](./experiments/relayboard/orchestration/procedural-batch-v0/README.md)
+- [EXP-0012 findings](./docs/experiments/0012-procedural-batch-results.md)
+- [Correction record](./docs/experiments/0011-procedural-orchestration-correction.md)
+
+### Phase 1J: Remaining batch orchestration preflight (historical hard-isolation gate)
+
+Status: **PREPARATION IMPLEMENTED and VERIFIED; EXECUTION BLOCKED**
+
+- GitHub connector verified the requested repository and research branch at `d7d277c0e684d1e9aed0c30259796deb48c7c207`.
+- Two GPT-6.1 Sol High pilot workers used fresh task contexts. Synthetic probes demonstrated shared filesystem access; inherited tools and lab Git history prevent the previous orchestration gate's hard evaluator-access denial.
+- Eleven remaining run manifests are staged; nine new treatment branches plus the two existing neutral branches passed current-tree fixture/prompt/allowlist checks.
+- pstack/Matt pins are recorded but packages are not installed. FIRST-mode branches contain the exact frozen method.
+- No remaining benchmark run or hidden evaluation started. N-S01-001 remains completed and untouched.
+- [Batch artifacts and resumption protocol](./experiments/relayboard/orchestration/batch-v0.1/README.md)
+- [EXP-0010 capability preflight](./docs/experiments/0010-batch-orchestration-preflight.md)
 
 ### Phase 1I: First neutral S01 execution
 
@@ -270,11 +309,44 @@ The experiment plan and metrics are in [docs/comparisons/phase-1-plan.md](./docs
 
 ## Next work
 
-1. Execute the remaining N-S02-001 and N-S04-001 in fresh evaluator-blind coding-agent contexts using the prepared treatment branches.
-2. Evaluate each completed run outside its treatment context and persist the evidence.
-3. Record model, host, operator interactions, checkpoints, diff, and evaluator result for every run.
-4. Calibrate operator-interruption and process-overhead measurements from the neutral pilot.
-5. Run pstack, Matt Pocock, and FIRST-mode v0 only after the neutral execution protocol is proven.
-6. Keep full-workflow and mechanism-isolation conclusions separate.
-7. Expand to architecture, verification-trap, pickup, autonomy, and multi-agent scenarios only after the harness proves useful.
-8. Compare evidence by scenario and mechanism rather than declaring an overall winner.
+1. Review the completed per-scenario profiles and preserved failures without assigning a universal winner.
+2. If extending the experiment, declare a new repeated-run cohort and host/port controls before outcomes; do not silently replace contaminated P-S04-001.
+3. Arrange blind subjective rationale/maintainability review where practical; current reports do not assign those scores.
+4. Improve export of raw execution traces and model/usage attestation for future runs. Keep frozen pilot definitions unchanged.
+
+## Benchmark Replication Round 2 — finalized 2026-10-08
+
+Status: **IMPLEMENTED and VERIFIED within the frozen fixture scope**. Twelve dispositions: eleven evaluated PASS and one excluded host failure (P-S02-002), preserved without retry. Ten valid matched Round 1/Round 2 pairs pass acceptance; overhead and elicitation show both repeated and variable behavior. Matt S02 discovery is 4/4 in both rounds; FIRST 3→2 and Neutral 0→3. No universal winner, causal speed/cost claim or main merge.
+
+See [EXP-0013](./docs/experiments/0013-relayboard-replication-round2.md), [cross-round report](./experiments/relayboard/orchestration/replication-round2-v0/cross-round-report.md), [profiles](./experiments/relayboard/orchestration/replication-round2-v0/profiles.json) and [final audit](./experiments/relayboard/orchestration/replication-round2-v0/final-audit.json). No contestant remains pending. Future cohorts must preserve existing exclusions and freeze new controls before outcomes.
+
+
+## EXP-0014 — Requirement-discovery mechanism isolation
+
+Status: **FROZEN PRE-RUN; no contestant outcome observed**
+
+Rather than running a third full system-level 4×3 comparison, the next cohort isolates requirement-discovery mechanisms on S02-v0.1:
+
+- M0: neutral host control;
+- M1: explicit authority classification only;
+- M2: recomputed product-decision frontier only;
+- M3: authority classification + frontier.
+
+Three fresh repetitions per arm are predeclared (12 total) with a deterministic frozen execution order and unchanged pilot start state, evaluator, oracle and scoring. The mechanism packets are vendor-neutral and are **not FIRST-mode revisions**.
+
+A passing mechanism becomes eligible only for a later transfer test on new ambiguous-requirement tasks. Nothing is promoted into FIRST automatically.
+
+See [EXP-0014](./docs/experiments/0014-requirement-discovery-mechanism-isolation.md) and the [frozen cohort control plane](./experiments/relayboard/orchestration/requirement-mechanisms-v0/README.md).
+
+
+## EXP-0016 — Decision-space generation design
+
+Status: **IMPLEMENTED AND VERIFIED (harness scope); no contestant run**
+
+EXP-0014 showed that authority classification and simplified frontier traversal alone did not reproduce Matt's 4/4 S02 elicitation. EXP-0015 trace synthesis identified decision-space generation and dependency representation as plausible missing mechanisms.
+
+EXP-0016 decomposes requirement discovery into decision generation, dependency representation, authority resolution, question scheduling and exhaustion checking. Three transfer scenarios were designed; RD-C1 Cancel Run and RD-C2 Archive Job were selected, while RD-C3 Retry Policy Update was deferred to avoid coupling with the known S04 retry-alert defect.
+
+Repository-native red/green and mutation-sensitivity harnesses for C1/C2 are independently green in GitHub Actions run `39077925964`. No FIRST-mode change and no contestant execution occurred.
+
+See [EXP-0016](./docs/experiments/0016-decision-space-generation-design.md), [mechanism model](./docs/comparisons/requirement-discovery-mechanism-model-v1.md), and [harness status](./experiments/relayboard/decision-generation-design-v0/HARNESS_STATUS.md).

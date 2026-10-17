@@ -1,0 +1,559 @@
+{
+  "schema_version": 1,
+  "run_id": "P-S04-001",
+  "scenario": "S04-v0",
+  "treatment": "pstack-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "CONTAMINATED",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_p_s04_001"
+  },
+  "start": {
+    "run_id": "P-S04-001",
+    "workspace": "/workspace/relayboard-active/P-S04-001",
+    "local_start_sha": "a736d8366f95b1b586ab8b0c31f52dc876cf2e6a",
+    "local_start_tree": "2ff4618de4464072192d75ff33d4ef3d9986dd25",
+    "remote_prepared_sha": "7f2c851511e80d9d3b6b5cacdcbd6644b7e6303b",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "pstack-codex-port-v0",
+    "prepared_at": "2026-10-07T07:17:10.868136+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "28595feb8726aa4d0478e0047c0534ecaf4e422f",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "3bbd6167a61c5cef9f1bcacf2c9f2023e273a4ca",
+      "upstream/pstack/skills/poteto-mode/SKILL.md": "de51c56164ff3da8f958437e207d14cec7d7fe99",
+      "upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md": "eeebc42b7477d435d8ac61d631d84822f908f59c",
+      "upstream/pstack/skills/poteto-mode/playbooks/feature.md": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6",
+      "upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md": "12c3a7d84effcacf3550cb893be67498d7b28a4a",
+      "upstream/pstack/skills/tdd/SKILL.md": "ca6f24c963001d9d518db2936dfe3d12f29b4e94",
+      "upstream/pstack/skills/how/SKILL.md": "139cac5e4dce5d5889daaf77faa8d5f81dd87318",
+      "upstream/pstack/skills/architect/SKILL.md": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9",
+      "upstream/pstack/skills/principle-laziness-protocol/SKILL.md": "e5bc77e62aa96ae13e482a84df61b3c711c5d828",
+      "upstream/pstack/skills/principle-model-the-domain/SKILL.md": "e1d664a19243c90a84e5e7a816e9e05146c88720",
+      "upstream/pstack/skills/principle-prove-it-works/SKILL.md": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125",
+      "upstream/pstack/skills/principle-fix-root-causes/SKILL.md": "7e5a419aeec97b4076fa517865013677428a9fa3",
+      "upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab",
+      "upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9",
+      "upstream/pstack/LICENSE": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+      "upstream/pstack/skills/show-me-your-work/SKILL.md": "d350a150c36ca16382b4aa6d4196b39e67454ad1",
+      "upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md": "986371260ebccd9a5a6818c9561e88c1d270d0ee",
+      "upstream/pstack/skills/arena/SKILL.md": "bd260a064d6e07a06073df6841e3d180d643372a",
+      "upstream/pstack/skills/architect/references/rationale-template.md": "a10f77f59510c532cd909faaf3bfeee5ffbfd588",
+      "upstream/pstack/skills/architect/references/design-red-flags.md": "f8503c9595b289c607ff5088f82b21197edf94ec",
+      ".experiment/RUN_MANIFEST.json": "cca45fbe2f9fc9b60efaafe0ca4c69f799dc3dac"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 07:26:34 UTC",
+  "candidate_frozen_at": "2026-10-07T07:27:28.226264+00:00",
+  "local_candidate_sha": "0072e40b7a7c4b9dc9995834e2ecb2557fe4975d",
+  "local_candidate_tree": "d24ba9f36922efad8846de8fe4b30566c6f33c04",
+  "remote_candidate": {
+    "sha": "8e93f4fc218008604e4b6e5e28ce890f75455550",
+    "tree_sha": "d24ba9f36922efad8846de8fe4b30566c6f33c04",
+    "branch": "candidate/P-S04-001"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/21",
+    "number": 21,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S04-v0 task in a fresh pstack-codex-port-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-pilot. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "P-S04-001: pstack-codex-port-v0 frozen benchmark candidate",
+    "base": "treatment/pstack/P-S04-001",
+    "base_sha": "7f2c851511e80d9d3b6b5cacdcbd6644b7e6303b",
+    "head": "candidate/P-S04-001",
+    "head_sha": "8e93f4fc218008604e4b6e5e28ce890f75455550",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T07:27:36Z",
+    "updated_at": "2026-10-07T07:27:37Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 18,
+    "additions": 999,
+    "deletions": 1,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/21",
+    "display_title": "P-S04-001: pstack-codex-port-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "a736d8366f95b1b586ab8b0c31f52dc876cf2e6a",
+      "metadata": "commit a736d8366f95b1b586ab8b0c31f52dc876cf2e6a\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:17:10 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:17:10 2026 +0000\n\n    benchmark: frozen standalone P-S04-001 starting packet\n"
+    },
+    {
+      "sha": "9a4af6c6ba431462451cee0965481b7c9c639359",
+      "metadata": "commit 9a4af6c6ba431462451cee0965481b7c9c639359\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:22:00 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:22:00 2026 +0000\n\n    test: cover failure alerts across retrying run lifecycles\n"
+    },
+    {
+      "sha": "c6d5358836f21881a7c4715e0858cac7d8fc8c73",
+      "metadata": "commit c6d5358836f21881a7c4715e0858cac7d8fc8c73\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:25:08 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:25:08 2026 +0000\n\n    Preserve halted S04 candidate and contamination evidence\n"
+    },
+    {
+      "sha": "0072e40b7a7c4b9dc9995834e2ecb2557fe4975d",
+      "metadata": "commit 0072e40b7a7c4b9dc9995834e2ecb2557fe4975d\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 07:26:12 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 07:26:12 2026 +0000\n\n    Record invalid S04 run disposition and final evidence report\n"
+    }
+  ],
+  "diff_stat": " .experiment/INCIDENT.json                 |  41 +++++\n .experiment/PLAN.md                       |  36 +++++\n .experiment/REPORT.json                   | 256 ++++++++++++++++++++++++++++++\n .experiment/commands.json                 |  47 ++++++\n .experiment/decisions.tsv                 |  19 +++\n .experiment/helper-completion.json        |   8 +\n .experiment/helper-implementation.json    | 204 ++++++++++++++++++++++++\n .experiment/method-routes.json            |  67 ++++++++\n .experiment/outputs/baseline-public.txt   |  10 ++\n .experiment/outputs/helper-focused.txt    |  11 ++\n .experiment/outputs/helper-public.txt     |  16 ++\n .experiment/outputs/helper-red.txt        |  81 ++++++++++\n .experiment/outputs/helper-review.txt     |  33 ++++\n .experiment/outputs/repro-before-wsgi.txt |  10 ++\n .experiment/outputs/repro-before.txt      |   1 +\n .experiment/reproduce_alerts.py           |  35 ++++\n relayboard/service.py                     |   1 -\n tests/test_public.py                      | 124 +++++++++++++++\n 18 files changed, 999 insertions(+), 1 deletion(-)\n",
+  "operator_interactions": [
+    {
+      "run_id": "P-S04-001",
+      "observed_at": "2026-10-07 07:23:50 UTC",
+      "classification": "CONTAMINATED",
+      "access": "collaboration.list_agents called without path_prefix returned peer-run final summaries",
+      "intent": "worker reports accidental",
+      "reason": "Frozen protocol invalidates receipt of information unavailable to another arm outside the assigned treatment. Preserve/exclude peer exposure; no silent retry.",
+      "disposition": "Stop implementation/review; terminate same-run helpers; preserve files/commits/evidence. No hidden feedback.",
+      "product_guidance": false
+    }
+  ],
+  "agent_completion_claim": "CONTAMINATED and invalid, per operator disposition. An unscoped collaboration.list_agents({}) exposed peer-result summaries. Work stopped without retry. Preserved candidate removes premature retry alert. Before incident four regression tests failed then four focused and nine public passed. Lead verification/fresh review incomplete; helper terminated. Final local commit 0072e40b7a7c4b9dc9995834e2ecb2557fe4975d clean. REPORT.json records incident/exchange/evidence. No valid completion or independent review claimed.",
+  "visible_checkpoints": [],
+  "worker_report": {
+    "schema_version": 1,
+    "run_id": "P-S04-001",
+    "treatment": "pstack-codex-port-v0",
+    "declared_status": "CONTAMINATED",
+    "valid": false,
+    "completed_task": false,
+    "disposition": "Operator declared invalid after peer-result exposure. No retry, further implementation, fresh review or hidden evaluation feedback.",
+    "working_area": "/workspace/relayboard-active/P-S04-001",
+    "initial_local_commit": "a736d8366f95b1b586ab8b0c31f52dc876cf2e6a",
+    "local_commits": [
+      {
+        "sha": "9a4af6c6ba431462451cee0965481b7c9c639359",
+        "kind": "tests-first",
+        "files": [
+          "tests/test_public.py"
+        ],
+        "result": "Four public WSGI regression tests fail before production changes"
+      },
+      {
+        "sha": "c6d5358836f21881a7c4715e0858cac7d8fc8c73",
+        "kind": "halted-candidate-and-evidence",
+        "result": "Preserves the already-reached one-line deletion and contamination evidence; invalid candidate"
+      },
+      {
+        "sha": null,
+        "kind": "final-report-evidence",
+        "identity": "The self-containing final REPORT.json commit is identified by local HEAD in the handoff; hash cannot be embedded in its own contents"
+      }
+    ],
+    "candidate_reached": {
+      "change": "Removed _emit_failure_alert from the pending retry branch in record_attempt",
+      "root_cause": "Each failed Attempt with retries remaining emitted a Run failure alert while the Run was still running, then terminal failure emitted again",
+      "changed_code_paths": [
+        "relayboard/service.py",
+        "tests/test_public.py"
+      ],
+      "no_code_work_after_incident": true
+    },
+    "method": {
+      "source_version": "cursor/plugins pstack df581122cde17e6e27686b5a448bde23e4ad4318",
+      "binding": "METHOD.md",
+      "routes": ".experiment/method-routes.json",
+      "plan": ".experiment/PLAN.md",
+      "principles": "Laziness Protocol kept production to one deletion. Model the Domain retained stable Run identity. Fix Root Causes selected lifecycle emission, not Job-level suppression. Test Behavior used WSGI observable alerts. Sequence Work into Verifiable Units committed failing tests first. Prove It Works captured real public outputs. Never Block on the Human used standing local authorization.",
+      "completed_steps": [
+        "classification and direct How trace",
+        "throughput checkpoint",
+        "WSGI reproduction and mechanism diagnosis",
+        "serial bounded helper code implementation",
+        "red test commit",
+        "helper focused and full public checks"
+      ],
+      "cancelled_steps": [
+        "lead after-fix original script verification",
+        "complete lead review",
+        "fresh serial helper review and audit",
+        "valid candidate freeze"
+      ],
+      "adaptation_limits": "No native Cursor control/plugin/PR automation, raw transcript export, model diversity or parallel throughput. Unbundled routes were not fetched."
+    },
+    "model": {
+      "lead_requested": "gpt-6.1-sol",
+      "lead_reasoning_requested": "high",
+      "lead_observed": null,
+      "lead_reasoning_observed": null,
+      "helper_requested": "gpt-6.1-sol",
+      "helper_reasoning_requested": "high",
+      "helper_observed": null,
+      "usage": null
+    },
+    "helpers": [
+      {
+        "agent": "/root/contestant_p_s04_001/bounded_fix",
+        "fork_turns": "none",
+        "status": "completed",
+        "serial": true,
+        "descendants": false,
+        "assignment": ".experiment/method-routes.json",
+        "report": ".experiment/helper-implementation.json",
+        "completion": ".experiment/helper-completion.json"
+      }
+    ],
+    "all_helpers_terminated": true,
+    "test_commands_results": [
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "workdir": "/workspace/relayboard-active/P-S04-001",
+        "phase": "baseline",
+        "exit_code": 0,
+        "tests": 5,
+        "output_path": ".experiment/outputs/baseline-public.txt"
+      },
+      {
+        "command": "python -m .experiment.reproduce_alerts",
+        "workdir": "/workspace/relayboard-active/P-S04-001",
+        "phase": "initial harness error",
+        "exit_code": 1,
+        "result": "Relative module names not supported; inconclusive product check",
+        "output_path": ".experiment/outputs/repro-before.txt"
+      },
+      {
+        "command": "PYTHONPATH=. python .experiment/reproduce_alerts.py",
+        "workdir": "/workspace/relayboard-active/P-S04-001",
+        "phase": "lead original WSGI reproduction before fix",
+        "exit_code": 1,
+        "result": "Two alerts on each failed retrying Run; one premature alert retained on recovered Run",
+        "output_path": ".experiment/outputs/repro-before-wsgi.txt"
+      },
+      {
+        "command": "PYTHONPATH=tests:. python -m unittest -v test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert",
+        "actual_invocation_detail": ".experiment/helper-implementation.json commands uses Python subprocess and PYTHONPATH=tests:.",
+        "workdir": "/workspace/relayboard-active/P-S04-001",
+        "phase": "helper red before production change",
+        "exit_code": 1,
+        "tests": 4,
+        "failures": 4,
+        "verbatim_summary": "FAILED (failures=4)\nEXIT_CODE=1",
+        "output_path": ".experiment/outputs/helper-red.txt"
+      },
+      {
+        "command": "PYTHONPATH=tests:. python -m unittest -v test_public.RelayBoardPublicTests.test_pending_retries_do_not_emit_failure_alerts test_public.RelayBoardPublicTests.test_exhausted_retries_emit_one_failure_alert test_public.RelayBoardPublicTests.test_distinct_failed_runs_of_same_job_each_emit_alert test_public.RelayBoardPublicTests.test_successful_retry_does_not_emit_failure_alert",
+        "actual_invocation_detail": ".experiment/helper-implementation.json",
+        "workdir": "/workspace/relayboard-active/P-S04-001",
+        "phase": "helper passing after deletion and before halt notice",
+        "exit_code": 0,
+        "tests": 4,
+        "verbatim_summary": "Ran 4 tests in 0.004s\n\nOK\n\nEXIT_CODE=0",
+        "output_path": ".experiment/outputs/helper-focused.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "actual_invocation_detail": ".experiment/helper-implementation.json",
+        "workdir": "/workspace/relayboard-active/P-S04-001",
+        "phase": "helper full public after deletion and before halt notice",
+        "exit_code": 0,
+        "tests": 9,
+        "verbatim_summary": "Ran 9 tests in 0.008s\n\nOK\n\nEXIT_CODE=0",
+        "output_path": ".experiment/outputs/helper-public.txt"
+      },
+      {
+        "command": "git diff --check",
+        "workdir": "/workspace/relayboard-active/P-S04-001",
+        "phase": "helper scoped self-check before halt",
+        "exit_code": 0,
+        "output_path": ".experiment/outputs/helper-review.txt"
+      },
+      {
+        "command": "PYTHONPATH=. python .experiment/reproduce_alerts.py",
+        "phase": "lead after-fix original script",
+        "result": "NOT RUN; cancelled on contamination",
+        "exit_code": null,
+        "output_path": null
+      }
+    ],
+    "operator_interactions": [
+      {
+        "request": "OPERATOR QUESTION Boundary incident. I called collaboration.list_agents without path_prefix to check whether my code helper had finished. It returned full-team statuses including peer-run final summaries. I have accessed peer material unintentionally through this status tool; no peer files or hidden checks were retrieved. I am stopping implementation/review and preserving the incident under .experiment. The task had reached a tests-first commit and one-line production deletion. Please confirm administrative disposition; I will not continue a valid-method claim. This is not a product guidance request.",
+        "response": "Administrative disposition: preserve this run as CONTAMINATED/invalid due to peer-result exposure through the unscoped status call, even though you report it accidental. Do not continue implementation or review and do not retry this run. Have any active same-run helper stop and preserve current evidence; wait until it has finished. Record the exact call, observed peer material and sequence honestly in .experiment/REPORT.json and incident evidence, including the candidate reached so far. Commit available local evidence, give a concise final and terminate. No hidden evaluation feedback will be supplied. This answer contains no product guidance.",
+        "product_guidance": false
+      }
+    ],
+    "action_path_log": {
+      "lead_commands": ".experiment/commands.json",
+      "helper_commands_and_patches": ".experiment/helper-implementation.json",
+      "decisions": ".experiment/decisions.tsv",
+      "incident": ".experiment/INCIDENT.json",
+      "paths_read": [
+        "TASK.md",
+        "METHOD.md",
+        ".experiment/RUN_MANIFEST.json",
+        "README.md",
+        "GLOSSARY.md",
+        "pyproject.toml",
+        ".gitignore",
+        "relayboard/models.py",
+        "relayboard/service.py",
+        "relayboard/store.py",
+        "relayboard/testing.py",
+        "relayboard/web.py",
+        "tests/test_public.py",
+        "assigned bundled upstream/pstack skill sources enumerated in method-routes.json",
+        "same-run public output files and helper report",
+        "local git HEAD, status and own-change diff only"
+      ],
+      "paths_written": [
+        "tests/test_public.py",
+        "relayboard/service.py",
+        "local git index/commits",
+        ".experiment evidence files"
+      ],
+      "nonfilesystem_access": "Unscoped collaboration.list_agents({}) exposed peer final summaries, violating the boundary. Incident recorded immediately.",
+      "post_halt_actions": [
+        "operator and helper halt messages",
+        "incident and operator exchange preservation",
+        "read existing helper evidence for REPORT, not further code review",
+        "wait for helper final completion message",
+        "commit reached candidate/evidence",
+        "write and commit final report"
+      ],
+      "shell_policy": "All shell commands used explicit assigned workdir. No remote, deployment, paid API, external message or merge occurred."
+    },
+    "evaluator_or_peer_material_accessed": true,
+    "evaluator_material_accessed": false,
+    "peer_material_accessed": true,
+    "incident": {
+      "exact_call": {
+        "tool": "collaboration.list_agents",
+        "arguments": {}
+      },
+      "observed_peer_material": {
+        "peer_run_ids": [
+          "P-S01-001",
+          "P-S02-001"
+        ],
+        "peer_s01_summary": "Completed and committed Last result to Latest result in relayboard/web.py; WSGI before/after check passed; 5 public tests passed; reviewer PASS; source commit 89f11c9b5b1725dd3126606fffcb846cf60c61b9; final evidence commit 085855fbb248ddfcab0aeb8a4ff0368af6664f63; clean tree; report path; Laziness Protocol, serial review, no open decisions; identity/usage unknown.",
+        "peer_s02_summary": "Completed pause/resume with independent persisted state; scheduled Runs reject paused Jobs; manual Runs, retries/alerts, enabled and dashboard preserved; final commit 4d4ce07308ff16861baab097f839ccc4d3484213; tests failed before implementation then 10 focused and 15 public passed; WSGI and legacy migration passed; review accepted; no blockers; early capture gaps and concurrent admission limits; finalization.log untracked.",
+        "peer_s02_helper_summaries": [
+          "Implementation tests-first commit 087535a1e0b0ddf43cf4e9e843f76c297d6bce66 and implementation commit b04219d12bf6e1d60782a75e354bac273a7168bd; baseline 7 failures and 3 errors; final 10 focused and 15 public checks pass; diff passes; persisted state, legacy migration, routes, scheduling guard, dashboard; evidence capture limitations.",
+          "Review accepted with no code blockers; preservation check passed; stale TODO states and decision provenance/pointers require correction; capture gaps, unknown identity/usage, and existing concurrent admission limitation disclosed."
+        ],
+        "own_run_status": "running",
+        "own_helper_status": "running",
+        "root_status": "running",
+        "kind": "Tool output with peer final-result summaries and local commit references. No peer files were opened."
+      },
+      "sequence": [
+        "Lead read assigned task and method and reproduced duplicate alerts on public WSGI surface.",
+        "Lead delegated one bounded code-writing helper.",
+        "Helper had committed failing regression tests and applied the one-line deletion when lead last inspected the same-run diff.",
+        "Lead called wait_agent; it returned Wait completed without a final helper report.",
+        "Lead mistakenly called unscoped list_agents, which exposed peer final results.",
+        "Lead immediately reported the incident through OPERATOR QUESTION and requested administrative disposition.",
+        "Lead told the active same-run helper to stop task work and finish only current evidence.",
+        "Operator declared the run CONTAMINATED/invalid, prohibited further implementation/review/retry, and instructed preservation and termination."
+      ],
+      "evidence_path": ".experiment/INCIDENT.json",
+      "reported_as_accidental": true,
+      "operator_invalidated": true
+    },
+    "unavailable_evidence": [
+      "Observed runtime model identity, reasoning and token usage are unknown",
+      "No full raw transcript export; early lead command entries are summarized rather than exact multiline inputs",
+      "No fresh independent code or decision-trail review because halt was required",
+      "No post-fix run of the lead original reproduction script",
+      "The full raw agent-list response is not exported; exact call and factual observed peer-summary content are preserved",
+      "Final report self-containing commit hash is provided in handoff, not embedded in REPORT.json"
+    ],
+    "attention": [
+      "CONTAMINATED/invalid. Peer results were exposed by an unscoped status-tool call.",
+      "Candidate evidence is preserved only; no valid completion or independent review claimed.",
+      "Decision trail incident row preceded its delayed resumed-lead start row; append-only record retains the sequence."
+    ],
+    "open_decisions": [],
+    "no_retry": true
+  },
+  "contamination": {
+    "contaminated": true,
+    "status": "OBSERVED",
+    "worker_declared_hidden_or_peer_access": true,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": false
+  },
+  "public_tests": {
+    "passed": null,
+    "skipped": true,
+    "reason": "No post-termination public rerun; see frozen worker logs."
+  },
+  "hidden_evaluation": {
+    "scenario": "S04-v0",
+    "passed": null,
+    "failures": [],
+    "error": null,
+    "skipped": true,
+    "reason": "CONTAMINATED before freeze; excluded without hidden evaluation."
+  },
+  "hidden_evaluation_context": "Hidden evaluation not executed: contaminated candidate excluded; worker public evidence remains archived.",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": "311871987a48a072e36f434e199b1cb28563c81b",
+  "source_pins": [
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/SKILL.md",
+      "blob_sha": "de51c56164ff3da8f958437e207d14cec7d7fe99"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "blob_sha": "eeebc42b7477d435d8ac61d631d84822f908f59c"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+      "blob_sha": "79a6bbbe0ce61c3b5ef9af1ee8e3ccdb0557edc6"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/poteto-mode/playbooks/autonomous-run.md",
+      "blob_sha": "12c3a7d84effcacf3550cb893be67498d7b28a4a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/tdd/SKILL.md",
+      "blob_sha": "ca6f24c963001d9d518db2936dfe3d12f29b4e94"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/how/SKILL.md",
+      "blob_sha": "139cac5e4dce5d5889daaf77faa8d5f81dd87318"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/SKILL.md",
+      "blob_sha": "c9c0726f57556f4c26bd7e7df5314ba15b3f1ac9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "blob_sha": "e5bc77e62aa96ae13e482a84df61b3c711c5d828"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+      "blob_sha": "e1d664a19243c90a84e5e7a816e9e05146c88720"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "blob_sha": "5dc14a3b06f9d579e5c17cd8a7242f432ddb3125"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "blob_sha": "7e5a419aeec97b4076fa517865013677428a9fa3"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "blob_sha": "42de6f8f7cab01b9f67aa28bd59b128f7574fbab"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "blob_sha": "11f08b6ef1fd93a3b3e47c57eb84716dc9acbff9"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/LICENSE",
+      "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/show-me-your-work/SKILL.md",
+      "blob_sha": "d350a150c36ca16382b4aa6d4196b39e67454ad1"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "blob_sha": "986371260ebccd9a5a6818c9561e88c1d270d0ee"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/arena/SKILL.md",
+      "blob_sha": "bd260a064d6e07a06073df6841e3d180d643372a"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/rationale-template.md",
+      "blob_sha": "a10f77f59510c532cd909faaf3bfeee5ffbfd588"
+    },
+    {
+      "repository": "cursor/plugins",
+      "ref": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "path": "pstack/skills/architect/references/design-red-flags.md",
+      "blob_sha": "f8503c9595b289c607ff5088f82b21197edf94ec"
+    }
+  ],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json",
+    ".experiment/decisions.tsv"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 68448,
+    "sha256": "f8fa239f485347a316a6d83de489e815aa155998e35465d71cb01f4ea2d2cc97",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}

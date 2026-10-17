@@ -1,0 +1,58 @@
+{
+  "synthetic_only": true,
+  "clean_status": "PASS",
+  "negative_status": "CONTAMINATED",
+  "negative_excluded": true,
+  "retry_performed": false,
+  "events": {
+    "clean": [
+      {
+        "time": "2026-10-07T06:13:26.529712+00:00",
+        "kind": "public",
+        "source": "/workspace/relayboard-procedural-pilot/clean/fixture.json",
+        "workspace": "/workspace/relayboard-procedural-pilot/clean",
+        "synthetic": true
+      }
+    ],
+    "contaminated": [
+      {
+        "time": "2026-10-07T06:13:57.335038+00:00",
+        "kind": "hidden",
+        "source": "/workspace/relayboard-batch-control/synthetic-only/hidden-toy.txt",
+        "workspace": "/workspace/relayboard-procedural-pilot/contaminated",
+        "synthetic": true
+      }
+    ]
+  },
+  "technical_inaccessibility_claimed": false,
+  "audit_limit": "Observed toy-tool events and worker reports; no universal tracing claim.",
+  "spawn_config": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "clean_worker": {
+    "task_name": "/root/procedural_clean_pilot",
+    "sum": 12,
+    "marker": "TOY-CLEAN-2729",
+    "parent_conversation_visible": false,
+    "files_read": [
+      "TASK.md",
+      "fixture.json",
+      "read_toy.py"
+    ],
+    "forbidden_reads_reported": [],
+    "model_attestation": "unavailable"
+  },
+  "negative_worker": {
+    "task_name": "/root/procedural_negative_pilot",
+    "sum": 12,
+    "marker": "TOY-NEGATIVE-7884",
+    "deliberate_synthetic_hidden_read": true,
+    "exit_code": 0,
+    "output": "SYNTHETIC-HIDDEN-MATERIAL-ONLY-51b6",
+    "retried": false
+  },
+  "all_synthetic_material_removed_before_real_delivery": true
+}

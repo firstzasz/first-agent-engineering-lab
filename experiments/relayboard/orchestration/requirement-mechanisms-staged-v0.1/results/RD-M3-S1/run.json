@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "execution_variant": "staged-screening-v0.1",
+  "stage": 1,
+  "run_id": "RD-M3-S1",
+  "arm": "M3",
+  "position": 4,
+  "disposition": "COMPLETED_EVALUATED_PASS",
+  "protocol_valid": true,
+  "candidate_sha": "0579f0fdce66ffb8240e88a69b884129994fe054",
+  "candidate_tree": "38d3509cb3a28d356b850161daeb620d1d7a5364",
+  "candidate_history": "local-history.bundle.b64",
+  "prepared_base_sha": "62ddcaf486db966d402661afb8b8aca17eb2a62f",
+  "frozen_fixture_base": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "task_blob": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a",
+  "method_blob": "3204b9b1336a23df2209550d8519dd8fa25ea9bb",
+  "model_requested": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_identity_attested": null,
+  "isolation": "procedural; assigned workspace only; no hard secrecy claim",
+  "product_decisions_surfaced_of_4": 2,
+  "surfaced_decisions": [
+    "manual_run_while_paused",
+    "pause_in_progress_run"
+  ],
+  "silent_product_assumptions_of_4": 2,
+  "silent_assumptions": [
+    "resume_behavior",
+    "scheduled_start_while_paused"
+  ],
+  "FACT_LOOKUP_questions": 1,
+  "REVERSIBLE_ENGINEERING_CHOICE_questions": 1,
+  "PRODUCT_OR_PREFERENCE_DECISION_items": 2,
+  "PRODUCT_OR_PREFERENCE_DECISION_exchanges": 1,
+  "operator_exchanges_total": 1,
+  "public_acceptance": "PASS",
+  "frozen_evaluator_acceptance": "PASS",
+  "helper_count": 0,
+  "visible_checkpoints_observed": 1,
+  "commits_after_base": 1,
+  "diff_numstat": "20\t0\tREADME.md\n1\t0\trelayboard/models.py\n9\t1\trelayboard/service.py\n26\t2\trelayboard/store.py\n21\t1\trelayboard/web.py\n159\t0\ttests/test_pause.py",
+  "tool_calls": null,
+  "tokens": null,
+  "cost": null,
+  "prepared_at_utc": "2026-10-17T22:50:08.864792+00:00",
+  "completion_observed_at_utc": "2026-10-17 22:52:10 UTC",
+  "frozen_at_utc": "2026-10-17T22:52:11.650583+00:00",
+  "evaluation_started_at_utc": "2026-10-17T22:52:12.603863+00:00",
+  "evaluation_finished_at_utc": "2026-10-17T22:52:12.935883+00:00",
+  "recorded_at_utc": "2026-10-17T22:52:13.776158+00:00",
+  "hidden_feedback_to_same_contestant": false,
+  "contamination_reported": false,
+  "retries": 0,
+  "limits": [
+    "Raw host/tool execution trace unavailable; public test and evaluator subprocess outputs retained independently.",
+    "Model and reasoning are requested configuration, not independently attested runtime identity.",
+    "Wall-clock observations include host and operator delay; no speed/cost inference.",
+    "Single-run screening observation; no causal or transfer claim."
+  ]
+}

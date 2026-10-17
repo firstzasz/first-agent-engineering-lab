@@ -1,0 +1,25 @@
+[
+  {
+    "question_received_at_utc": null,
+    "recorded_at_utc": "2026-10-17 22:48:05 UTC",
+    "question": "I inspected TASK.md, METHOD.md, glossary, all visible code and public tests in contestant-03. Product decision frontier: (1) While a Job is paused, should explicit manual Runs still be allowed? (2) Should already-running Runs continue accepting Attempts/retries and emitting their existing alerts, or should pause suspend any of those? (3) Should pause be independent of enabled/disabled scheduling, so resuming a previously disabled Job leaves it disabled? (4) Should the dashboard expose paused status separately from Enabled and Last result? Proposed semantics are yes to all four (continue existing Runs/retries/alerts), with idempotent pause/resume returning the updated Job as the existing enabled API does. Please provide operator decisions before I commit dependent behavior.",
+    "answer": "Manual Runs remain allowed while a Job is paused. Existing Runs continue to their normal terminal outcome, with the existing retry and alert behavior preserved. For the enabled/disabled setting and dashboard presentation, use the supplied evidence and ordinary reversible engineering judgment; the operator supplies no additional product preference on those items.",
+    "frozen_decisions_answered": [
+      "manual_run_while_paused",
+      "pause_in_progress_run"
+    ],
+    "other_items": [
+      {
+        "topic": "retain independent enabled/disabled setting",
+        "classification": "FACT_LOOKUP",
+        "reason": "Task already requires preserving existing behavior; inspect supplied enabled-state semantics."
+      },
+      {
+        "topic": "dashboard pause-state presentation",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+      }
+    ],
+    "volunteered_frozen_decisions": [],
+    "scoring_note": "Idempotence is stated as an engineering choice, not an independent operator question."
+  }
+]

@@ -1,0 +1,1161 @@
+diff --git a/.experiment/REPORT.json b/.experiment/REPORT.json
+new file mode 100644
+index 0000000..5794f47
+--- /dev/null
++++ b/.experiment/REPORT.json
+@@ -0,0 +1,399 @@
++{
++  "contestant": "M-S04-002",
++  "method": "matt-codex-port-v0",
++  "status": "COMPLETE_WITH_WRITE_SCOPE_DEVIATION",
++  "assigned_root": "/workspace/relayboard-round2-active/M-S04-002",
++  "commits": {
++    "initial": "904b43673bcd118c8da23fe888dbb301f2b24cd2",
++    "implementation_candidate": "374f6e4754358d12129e94ae23e4ee33ec66f28b",
++    "implementation_message": "Fix failure alerts emitted for nonterminal retry attempts",
++    "evidence_commit": "Full SHA recorded in final git command output and final response; report cannot contain its own containing-commit SHA.",
++    "original_evidence_commit": "eb19dddaa944c4308148ea5842ea06c6bea229a2"
++  },
++  "source_version": "mattpocock/skills 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d as frozen in METHOD.md; bundled sources and METHOD unchanged, verified by empty diff output",
++  "routes_invoked": [
++    "diagnosing-bugs",
++    "implement",
++    "tdd",
++    "code-review"
++  ],
++  "routes_not_needed": {
++    "grill-with-docs/to-spec/to-tickets/implement-spec": "Narrow diagnosed bug with one mechanical unit; glossary establishes per-terminal-Run semantics, TASK.md serves as tiny originating spec. No genuine preference/product question or graph needed."
++  },
++  "spec_ticket_status": {
++    "originating_spec": "TASK.md",
++    "implementation_unit": "complete",
++    "local_tickets": "not used; one unit"
++  },
++  "diagnosis": {
++    "cause": "record_attempt emitted a run_failed alert on a failed Attempt eligible for retry, then emitted again when Run became terminal failed",
++    "fix": "Remove alert emission from nonterminal retry branch; retain terminal failure emission and retry return/recording",
++    "hypotheses_before_probes": 4,
++    "hypothesis_checkpoint": "sent nonblocking to /root before service/store cause read and targeted probe",
++    "phase_skip_justifications": "No phase skipped; REPL-style public state inspection used instead of source instrumentation; inert seed Job not removed because repro did not exercise it. Initial harness invocation/status errors retained explicitly."
++  },
++  "decisions": {
++    "test_seams": "Existing real WSGI request helper and real in-memory SQLite; additional public service/Store checks as established in public tests",
++    "approvals": "Standing reversible seam/ticket-shape approval from frozen METHOD binding; no extra operator approval/product answer needed",
++    "scope": "No schema, API, retry-policy or job-level suppression changes"
++  },
++  "checks": {
++    "full_public_suite": {
++      "command": "python -m unittest discover -s tests -v",
++      "result": "PASS, 6 tests",
++      "output_path": ".experiment/full-public-suite.txt"
++    },
++    "regression_red": {
++      "command": "python -m unittest discover -s tests -p test_public.py -k retry_failure -v",
++      "result": "FAIL before fix, premature alert observed",
++      "output_path": ".experiment/regression-red.txt"
++    },
++    "regression_green": {
++      "same_command_as": "regression_red",
++      "result": "PASS after fix",
++      "output_path": ".experiment/regression-green.txt"
++    },
++    "original_reproduction": {
++      "command": "env PYTHONPATH=. python .experiment/repro.py",
++      "result": "RED twice at correct duplicate-alert assertion, GREEN after fix",
++      "output_paths": [
++        ".experiment/repro-red-3.txt",
++        ".experiment/repro-red-repeat.txt",
++        ".experiment/original-repro-green.txt"
++      ]
++    },
++    "retry_variants": {
++      "command": "env PYTHONPATH=. python .experiment/retry-variants.py",
++      "result": "PASS: retry then success no alert; 3 failed Attempts one alert; another distinct Run another alert; Attempt sequence and terminal rejection preserved",
++      "output_path": ".experiment/retry-variants-green.txt"
++    }
++  },
++  "testcommands_results_outputpaths": [
++    {
++      "command": [
++        "python",
++        "-m",
++        ".experiment.repro"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 1,
++      "output_path": ".experiment/repro-red-1.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/repro.py"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 1,
++      "output_path": ".experiment/repro-red-2.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/repro.py"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 1,
++      "output_path": ".experiment/repro-red-3.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/repro.py"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 1,
++      "output_path": ".experiment/repro-red-repeat.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/minimize.py",
++        "2",
++        "daily-report"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 1,
++      "output_path": ".experiment/minimized-red.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/minimize.py",
++        "1",
++        "daily-report"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/minimized-one-attempt.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/minimize.py",
++        "1",
++        "cleanup"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/minimized-no-retry.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/probe.py"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/probe-red.txt"
++    },
++    {
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_public.py",
++        "-k",
++        "retry_failure",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 1,
++      "output_path": ".experiment/regression-red.txt"
++    },
++    {
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-p",
++        "test_public.py",
++        "-k",
++        "retry_failure",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/regression-green.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/retry-variants.py"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/retry-variants-green.txt"
++    },
++    {
++      "command": [
++        "env",
++        "PYTHONPATH=.",
++        "python",
++        ".experiment/repro.py"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/original-repro-green.txt"
++    },
++    {
++      "command": [
++        "python",
++        "-m",
++        "unittest",
++        "discover",
++        "-s",
++        "tests",
++        "-v"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/full-public-suite.txt"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "--check"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/diff-check.txt"
++    },
++    {
++      "command": [
++        "git",
++        "rev-parse",
++        "904b43673bcd118c8da23fe888dbb301f2b24cd2"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/review-fixed-point.txt"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "904b43673bcd118c8da23fe888dbb301f2b24cd2...HEAD"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/review-diff.txt"
++    },
++    {
++      "command": [
++        "git",
++        "log",
++        "904b43673bcd118c8da23fe888dbb301f2b24cd2..HEAD",
++        "--oneline"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/review-commits.txt"
++    },
++    {
++      "command": [
++        "python",
++        "-c",
++        "from pathlib import Path; files = list(Path(\"relayboard\").glob(\"*.py\")) + list(Path(\"tests\").glob(\"*.py\")); hits = [str(p) for p in files if \"[DEBUG-\" in p.read_text()]; print({\"debug_instrumentation_paths\": hits, \"harness_location\": \".experiment (preserved diagnostic evidence)\"}); assert not hits"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/cleanup-check.txt"
++    },
++    {
++      "command": [
++        "git",
++        "diff",
++        "904b43673bcd118c8da23fe888dbb301f2b24cd2",
++        "--",
++        "METHOD.md",
++        "upstream/matt"
++      ],
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "exit_code": 0,
++      "output_path": ".experiment/unchanged-method-and-upstream.txt"
++    }
++  ],
++  "reviews": {
++    "fixed_point": "904b43673bcd118c8da23fe888dbb301f2b24cd2",
++    "reviewed_candidate": "374f6e4754358d12129e94ae23e4ee33ec66f28b",
++    "Standards": {
++      "findings": 0,
++      "report_path": ".experiment/review-standards.md"
++    },
++    "Spec": {
++      "findings": 0,
++      "report_path": ".experiment/review-spec.md"
++    },
++    "helpers": "Both fresh fork_turns=none, requested gpt-6.1-sol/high, strictly sequential, read-only, no descendants; scoped list_agents confirmed both completed before finalization",
++    "helper_evidence_path": ".experiment/helpers.json"
++  },
++  "operator_exchanges": [
++    {
++      "kind": "nonblocking hypothesis checkpoint",
++      "recipient": "/root",
++      "message": "Deterministic two-failed-Attempt WSGI reproduction; ranked per-Attempt emission, separate retry/terminal paths, duplicate store insert, WSGI replay with predictions. Full text available in collaboration tool transcript.",
++      "question": false,
++      "answer_received": false
++    },
++    {
++      "kind": "operator administrative status request",
++      "sender": "/root",
++      "message": "Please preserve and send a concise nonblocking checkpoint of your diagnostic route, public red/green verification and review state. Continue to completion without waiting for reply. No product or hidden guidance supplied.",
++      "question": false,
++      "product_guidance_received": false
++    },
++    {
++      "kind": "nonblocking completion checkpoint",
++      "recipient": "/root",
++      "message": "Diagnosing-bugs \u2192 implement/tdd \u2192 two-axis code-review. WSGI red twice, minimized premature alert, 4 ranked hypotheses before cause read, direct return-boundary probe. Regression red then one-line fix green. 6/6 public tests, original repro and retry variants pass. Implementation 374f6e4754358d12129e94ae23e4ee33ec66f28b. Serial fresh requested gpt-6.1-sol/high helpers completed with 0 findings per axis. No forbidden access. Finalizing REPORT and evidence commit. Full sent text in tool transcript.",
++      "question": false,
++      "reply_needed": false
++    },
++    {
++      "kind": "administrative incident classification question",
++      "recipient": "/root",
++      "question": true,
++      "message": "During final JSON validation I accidentally redirected python -m json.tool .experiment/REPORT.json to /tmp/M-S04-002-report-validated.json, outside assigned root. Stopped further actions, preserved file, asked classification. No evaluator/peer exposure or outside reads."
++    },
++    {
++      "kind": "administrative ruling",
++      "sender": "/root",
++      "message": "Administrative ruling: this is a recorded write-scope deviation, not established contamination. The reported output contains only your own run's existing report; no forbidden peer/evaluator information was received. Preserve the original action/path and this ruling in an append-only incident record inside your assigned area, update final report status honestly, commit evidence-only changes and terminate. Do not inspect or delete the external artifact; the orchestrator will hash/archive it after termination. No contestant restart, new implementation, testing or hidden guidance is authorized/needed by this ruling.",
++      "product_guidance": false,
++      "hidden_guidance": false
++    }
++  ],
++  "action_path_evidence_paths": [
++    ".experiment/actions.md",
++    ".experiment/initial-evidence.json",
++    ".experiment/path-evidence.json",
++    ".experiment/diagnosis.md",
++    ".experiment/commands.jsonl",
++    ".experiment/helpers.json",
++    ".experiment/incidents.jsonl"
++  ],
++  "runtime_identity_usage": {
++    "lead_requested": "gpt-6.1-sol/high per METHOD and benchmark instruction",
++    "lead_observed": "Codex GPT-6 developer description; exact runtime identity/reasoning unavailable",
++    "helpers_requested": "gpt-6.1-sol/high via spawn tool arguments",
++    "helpers_observed": "Both independently report identity unavailable/unknown",
++    "usage": "Token/compute usage not exposed or independently attested"
++  },
++  "adaptations": [
++    "Explicit file invocation replaces native Claude Skill tool/plugin",
++    "Local task/records replace external tracker and native setup approval",
++    "Existing public seams and standing reversible approval replace interactive seam/ticket shape approval",
++    "Fresh sequential same-model Codex helpers replace native parallel model-diverse review/worktrees",
++    "No native plugin, model diversity or parallel-throughput claim",
++    "Orchestrator publication after termination replaces shipping/tracker closure"
++  ],
++  "evaluator_or_peer_material_accessed": false,
++  "forbidden_access": "No hidden/evaluator/oracle/reference solution, sibling/control/prior/peer result, credential or alternate-method access; README outside links not followed. Review helpers report false.",
++  "external_actions": "None: no network fetching, paid APIs, production, deploy, external messages, remote push or merge; only authorized benchmark operator coordination.",
++  "gaps": [
++    "Exact runtime model/reasoning and token usage unattested",
++    "Helpers performed static public review; Standards inspected recorded outputs without rerunning, Spec did not independently check test outputs",
++    "No hidden evaluation attempted; frozen candidate evaluated separately by orchestrator after agents terminate",
++    "Final evidence commit SHA is available in final response/tool transcript rather than self-referential REPORT content",
++    "Final JSON formatting command wrote own report copy to /tmp/M-S04-002-report-validated.json outside assigned root; operator classified as write-scope deviation, not established contamination. External artifact untouched after report; orchestrator will archive it."
++  ],
++  "incidents": [
++    {
++      "incident": "Final JSON validation output written outside assigned root",
++      "action": "python -m json.tool .experiment/REPORT.json > /tmp/M-S04-002-report-validated.json",
++      "cwd": "/workspace/relayboard-round2-active/M-S04-002",
++      "external_path": "/tmp/M-S04-002-report-validated.json",
++      "content_provenance": "Formatted copy of this run's existing .experiment/REPORT.json; no outside content read",
++      "classification": "Recorded write-scope deviation; not established contamination",
++      "operator_question": "During final JSON validation I accidentally redirected python -m json.tool .experiment/REPORT.json to /tmp/M-S04-002-report-validated.json, outside assigned root. Stopped further actions, preserved file, asked classification. No evaluator/peer exposure or outside reads.",
++      "operator_ruling": "Administrative ruling: this is a recorded write-scope deviation, not established contamination. The reported output contains only your own run's existing report; no forbidden peer/evaluator information was received. Preserve the original action/path and this ruling in an append-only incident record inside your assigned area, update final report status honestly, commit evidence-only changes and terminate. Do not inspect or delete the external artifact; the orchestrator will hash/archive it after termination. No contestant restart, new implementation, testing or hidden guidance is authorized/needed by this ruling.",
++      "disposition": "External artifact preserved, not inspected/deleted; only evidence metadata updated; implementation/checks unchanged."
++    }
++  ]
++}
+diff --git a/.experiment/actions.md b/.experiment/actions.md
+new file mode 100644
+index 0000000..2c21595
+--- /dev/null
++++ b/.experiment/actions.md
+@@ -0,0 +1,16 @@
++# Action evidence
++
++All shell work used explicit workdir /workspace/relayboard-round2-active/M-S04-002. Initial git status clean; HEAD 904b43673bcd118c8da23fe888dbb301f2b24cd2.
++
++Read TASK.md, exact frozen METHOD.md, GLOSSARY.md, README.md, pyproject.toml, assigned public files and applicable bundled upstream skills. No outside path was opened; README external sibling references were not followed. Path/hash inventory: path-evidence.json. Initial command/output evidence remains in tool transcript; subsequent commands and complete outputs: commands.jsonl and named txt files.
++
++Mutations: created .experiment evidence directory/harnesses, added WSGI regression to tests/test_public.py, removed one retry-branch _emit_failure_alert call in relayboard/service.py. No schema/interface/dependency changes. No temporary instrumentation added to production files. Python-created __pycache__ is ignored/excluded from final artifacts.
++
++Implementation commit command: git add relayboard/service.py tests/test_public.py && git commit -m "Fix failure alerts emitted for nonterminal retry attempts".
++Result: 374f6e4, 2 files changed, 47 insertions, 1 deletion. Full candidate SHA to be recorded in REPORT.json. Checkpoints include reproduction/minimization, ranked hypotheses sent before cause read/probe, failing regression before fix, passing checks, pinned review.
++
++Review request: fresh standards_review helper, fork_turns=none, requested gpt-6.1-sol/high, read-only same assignment, no descendants/network, only public assigned materials; sequential Spec helper follows only after Standards terminates. Both receive identical status scope and fixedpoint/candidate, separate axes. Native diversity/parallel throughput not claimed. Tool transcript preserves spawn invocation.
++
++Standards helper finished before Spec spawn, confirmed by scoped list_agents. Spec finished and scoped list_agents confirmed both completed before finalization. Each axis reports zero findings. No source changes after reviewed candidate. Evidence commit final SHA is necessarily recorded in final tool output/response rather than self-referentially inside itself.
++
++Incident: JSON formatting command wrote own report copy to /tmp/M-S04-002-report-validated.json outside assigned write scope. Stopped/reported without inspecting or deleting it. Operator ruled recorded write-scope deviation, not established contamination; append-only incident and ruling in incidents.jsonl. Evidence-only report update authorized; no implementation or testing changes. Original evidence commit eb19dddaa944c4308148ea5842ea06c6bea229a2.
+diff --git a/.experiment/capture.py b/.experiment/capture.py
+new file mode 100644
+index 0000000..e2cbbfc
+--- /dev/null
++++ b/.experiment/capture.py
+@@ -0,0 +1,15 @@
++import json
++import subprocess
++import sys
++from pathlib import Path
++
++label, *command = sys.argv[1:]
++result = subprocess.run(command, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
++output = Path(".experiment") / f"{label}.txt"
++output.write_text(result.stdout)
++entry = {"command": command, "cwd": str(Path.cwd()), "exit_code": result.returncode, "output_path": str(output)}
++with Path(".experiment/commands.jsonl").open("a") as stream:
++    stream.write(json.dumps(entry) + "\n")
++print(json.dumps(entry))
++print(result.stdout, end="")
++sys.exit(result.returncode)
+diff --git a/.experiment/cleanup-check.txt b/.experiment/cleanup-check.txt
+new file mode 100644
+index 0000000..73a04dc
+--- /dev/null
++++ b/.experiment/cleanup-check.txt
+@@ -0,0 +1 @@
++{'debug_instrumentation_paths': [], 'harness_location': '.experiment (preserved diagnostic evidence)'}
+diff --git a/.experiment/commands.jsonl b/.experiment/commands.jsonl
+new file mode 100644
+index 0000000..3f8da92
+--- /dev/null
++++ b/.experiment/commands.jsonl
+@@ -0,0 +1,19 @@
++{"command": ["python", "-m", ".experiment.repro"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 1, "output_path": ".experiment/repro-red-1.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/repro.py"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 1, "output_path": ".experiment/repro-red-2.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/repro.py"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 1, "output_path": ".experiment/repro-red-3.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/repro.py"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 1, "output_path": ".experiment/repro-red-repeat.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/minimize.py", "2", "daily-report"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 1, "output_path": ".experiment/minimized-red.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/minimize.py", "1", "daily-report"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/minimized-one-attempt.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/minimize.py", "1", "cleanup"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/minimized-no-retry.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/probe.py"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/probe-red.txt"}
++{"command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_public.py", "-k", "retry_failure", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 1, "output_path": ".experiment/regression-red.txt"}
++{"command": ["python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_public.py", "-k", "retry_failure", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/regression-green.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/retry-variants.py"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/retry-variants-green.txt"}
++{"command": ["env", "PYTHONPATH=.", "python", ".experiment/repro.py"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/original-repro-green.txt"}
++{"command": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/full-public-suite.txt"}
++{"command": ["git", "diff", "--check"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/diff-check.txt"}
++{"command": ["git", "rev-parse", "904b43673bcd118c8da23fe888dbb301f2b24cd2"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/review-fixed-point.txt"}
++{"command": ["git", "diff", "904b43673bcd118c8da23fe888dbb301f2b24cd2...HEAD"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/review-diff.txt"}
++{"command": ["git", "log", "904b43673bcd118c8da23fe888dbb301f2b24cd2..HEAD", "--oneline"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/review-commits.txt"}
++{"command": ["python", "-c", "from pathlib import Path; files = list(Path(\"relayboard\").glob(\"*.py\")) + list(Path(\"tests\").glob(\"*.py\")); hits = [str(p) for p in files if \"[DEBUG-\" in p.read_text()]; print({\"debug_instrumentation_paths\": hits, \"harness_location\": \".experiment (preserved diagnostic evidence)\"}); assert not hits"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/cleanup-check.txt"}
++{"command": ["git", "diff", "904b43673bcd118c8da23fe888dbb301f2b24cd2", "--", "METHOD.md", "upstream/matt"], "cwd": "/workspace/relayboard-round2-active/M-S04-002", "exit_code": 0, "output_path": ".experiment/unchanged-method-and-upstream.txt"}
+diff --git a/.experiment/diagnosis.md b/.experiment/diagnosis.md
+new file mode 100644
+index 0000000..b643137
+--- /dev/null
++++ b/.experiment/diagnosis.md
+@@ -0,0 +1,20 @@
++# Diagnosis checkpoint
++
++Route: diagnosing-bugs → implement + tdd → code-review.
++Source: upstream/matt frozen commit 4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d; files bundled unchanged. TASK.md is the tiny originating spec. No product ambiguity: glossary states alerts are per terminal Run, Attempts are not Runs. Interview/to-spec/to-tickets ceremony omitted because one mechanical implementation unit suffices. No ADR exists in assigned files; no durable tradeoff requires one.
++
++Public seam: real WSGI via relayboard.testing.request and real in-memory SQLite, as already exposed by tests/test_public.py. Standing approval under METHOD.md replaces seam/ticket approval. No typechecker required for this standard-library Python fixture.
++
++Phase 1 errors retained: relative -m invocation unsupported; then guessed retrying Run status was incorrect. Corrected harness uses existing running Run status. Exact symptom reproduced twice: two identical run_failed alerts for one Run after two failed Attempts.
++
++Minimization: one Run, retry-enabled Job, two failed Attempts, inspect alerts. Red with two failures; dropping one failure removes duplicate (but exposes a premature single alert while Run is running). Single-attempt no-retry Job has one terminal alert. Seed includes unrelated cleanup Job but repro never exercises it; no need to mutate seed merely to remove inert setup. Removing Run/Job makes path unavailable; removing outcome/second attempt removes duplicate. Sources were read for public seams first; service/store cause logic read only after red/minimization and checkpoint.
++
++Ranked hypotheses sent nonblocking to operator before probes:
++1. Per-failed-Attempt alert before terminal Run: predicts premature first alert.
++2. Separate retry and terminal alert paths: predicts origins differ.
++3. Store duplicates emission insert: predicts two rows from one emission.
++4. WSGI replays record_attempt: predicts direct service differs / too many Attempts.
++
++Phase 4 probe: direct service public call, print public Run/Attempts/Alerts state only at return boundary. No production instrumentation or mocks. Inspection confirms distinct nonterminal/terminal emission branches; add_alert inserts once. Probe should show one Attempt and one alert after retry, then two Attempts and two alerts. This supports 1/2 and rejects 3/4. Hypotheses 1/2 overlap: concrete cause is alert emission in retry branch.
++
++Implementation unit: remove retry-branch alert call; preserve retry return, Attempt recording and terminal failure emission. Regression written before fix at WSGI seam. No broad deduplication, schema/interface change, or job-level suppression needed. Debug harnesses intentionally retained under .experiment as evidence, never imported by production/tests.
+diff --git a/.experiment/diff-check.txt b/.experiment/diff-check.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.experiment/full-public-suite.txt b/.experiment/full-public-suite.txt
+new file mode 100644
+index 0000000..4d4c37a
+--- /dev/null
++++ b/.experiment/full-public-suite.txt
+@@ -0,0 +1,11 @@
++test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok
++test_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok
++test_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok
++test_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok
++test_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run) ... ok
++test_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok
++
++----------------------------------------------------------------------
++Ran 6 tests in 0.006s
++
++OK
+diff --git a/.experiment/helpers.json b/.experiment/helpers.json
+new file mode 100644
+index 0000000..209932c
+--- /dev/null
++++ b/.experiment/helpers.json
+@@ -0,0 +1,26 @@
++[
++  {
++    "axis": "Standards",
++    "task_name": "/root/contestant_m_s04_002/standards_review",
++    "fork_turns": "none",
++    "requested_model": "gpt-6.1-sol",
++    "requested_reasoning_effort": "high",
++    "observed_runtime_identity": "unavailable",
++    "status": "completed; scoped list_agents confirmed before Spec spawn",
++    "access": "read-only assigned area; no forbidden material reported",
++    "findings": 0,
++    "report_path": ".experiment/review-standards.md"
++  },
++  {
++    "axis": "Spec",
++    "task_name": "/root/contestant_m_s04_002/spec_review",
++    "fork_turns": "none",
++    "requested_model": "gpt-6.1-sol",
++    "requested_reasoning_effort": "high",
++    "observed_runtime_identity": "unavailable",
++    "status": "completed; scoped list_agents confirms both helpers completed",
++    "access": "read-only assigned area; no forbidden material reported",
++    "findings": 0,
++    "report_path": ".experiment/review-spec.md"
++  }
++]
+diff --git a/.experiment/incidents.jsonl b/.experiment/incidents.jsonl
+new file mode 100644
+index 0000000..54dd803
+--- /dev/null
++++ b/.experiment/incidents.jsonl
+@@ -0,0 +1 @@
++{"incident": "Final JSON validation output written outside assigned root", "action": "python -m json.tool .experiment/REPORT.json > /tmp/M-S04-002-report-validated.json", "cwd": "/workspace/relayboard-round2-active/M-S04-002", "external_path": "/tmp/M-S04-002-report-validated.json", "content_provenance": "Formatted copy of this run's existing .experiment/REPORT.json; no outside content read", "classification": "Recorded write-scope deviation; not established contamination", "operator_question": "During final JSON validation I accidentally redirected python -m json.tool .experiment/REPORT.json to /tmp/M-S04-002-report-validated.json, outside assigned root. Stopped further actions, preserved file, asked classification. No evaluator/peer exposure or outside reads.", "operator_ruling": "Administrative ruling: this is a recorded write-scope deviation, not established contamination. The reported output contains only your own run's existing report; no forbidden peer/evaluator information was received. Preserve the original action/path and this ruling in an append-only incident record inside your assigned area, update final report status honestly, commit evidence-only changes and terminate. Do not inspect or delete the external artifact; the orchestrator will hash/archive it after termination. No contestant restart, new implementation, testing or hidden guidance is authorized/needed by this ruling.", "disposition": "External artifact preserved, not inspected/deleted; only evidence metadata updated; implementation/checks unchanged."}
+diff --git a/.experiment/initial-evidence.json b/.experiment/initial-evidence.json
+new file mode 100644
+index 0000000..a3b1cb8
+--- /dev/null
++++ b/.experiment/initial-evidence.json
+@@ -0,0 +1,28 @@
++{
++  "initial_commit": "904b43673bcd118c8da23fe888dbb301f2b24cd2",
++  "initial_git_status": "clean",
++  "root": "/workspace/relayboard-round2-active/M-S04-002",
++  "read_paths": [
++    "TASK.md",
++    "METHOD.md",
++    "GLOSSARY.md",
++    "README.md",
++    "pyproject.toml",
++    "tests/test_public.py",
++    "relayboard/testing.py",
++    "relayboard/models.py",
++    "relayboard/web.py",
++    "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md",
++    "upstream/matt/skills/engineering/implement/SKILL.md",
++    "upstream/matt/skills/engineering/tdd/SKILL.md",
++    "upstream/matt/skills/engineering/tdd/tests.md",
++    "upstream/matt/skills/engineering/tdd/mocking.md",
++    "upstream/matt/skills/engineering/code-review/SKILL.md"
++  ],
++  "initial_command_evidence": "Commands and complete outputs available in tool transcript; subsequent verification captured in commands.jsonl/output files.",
++  "forbidden_paths_followed": false,
++  "runtime_identity": {
++    "lead_requested": "gpt-6.1-sol/high (inherited benchmark request)",
++    "lead_observed": "Codex GPT-6 developer description; exact runtime model/reasoning not independently attested"
++  }
++}
+diff --git a/.experiment/minimize.py b/.experiment/minimize.py
+new file mode 100644
+index 0000000..73b6160
+--- /dev/null
++++ b/.experiment/minimize.py
+@@ -0,0 +1,13 @@
++import sys
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++app = create_seeded_app()
++count = int(sys.argv[1])
++job = sys.argv[2]
++_, payload = request(app, "POST", f"/api/jobs/{job}/runs")
++run_id = payload["run"]["id"]
++for _ in range(count):
++    request(app, "POST", f"/api/runs/{run_id}/attempts", {"succeeded": False})
++_, payload = request(app, "GET", "/api/alerts")
++print("failed_attempts", count, "job", job, "alerts", payload["alerts"])
++assert len(payload["alerts"]) <= 1, "duplicate alerts"
+diff --git a/.experiment/minimized-no-retry.txt b/.experiment/minimized-no-retry.txt
+new file mode 100644
+index 0000000..dbec41f
+--- /dev/null
++++ b/.experiment/minimized-no-retry.txt
+@@ -0,0 +1 @@
++failed_attempts 1 job cleanup alerts [{'id': 1, 'job_id': 'cleanup', 'kind': 'run_failed', 'message': 'Job Cleanup failed for run run-001', 'run_id': 'run-001'}]
+diff --git a/.experiment/minimized-one-attempt.txt b/.experiment/minimized-one-attempt.txt
+new file mode 100644
+index 0000000..d6ec298
+--- /dev/null
++++ b/.experiment/minimized-one-attempt.txt
+@@ -0,0 +1 @@
++failed_attempts 1 job daily-report alerts [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]
+diff --git a/.experiment/minimized-red.txt b/.experiment/minimized-red.txt
+new file mode 100644
+index 0000000..0fcccc1
+--- /dev/null
++++ b/.experiment/minimized-red.txt
+@@ -0,0 +1,6 @@
++failed_attempts 2 job daily-report alerts [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}, {'id': 2, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S04-002/.experiment/minimize.py", line 13, in <module>
++    assert len(payload["alerts"]) <= 1, "duplicate alerts"
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: duplicate alerts
+diff --git a/.experiment/operator-exchanges.json b/.experiment/operator-exchanges.json
+new file mode 100644
+index 0000000..1f4dafc
+--- /dev/null
++++ b/.experiment/operator-exchanges.json
+@@ -0,0 +1,36 @@
++[
++  {
++    "kind": "nonblocking hypothesis checkpoint",
++    "recipient": "/root",
++    "message": "Deterministic two-failed-Attempt WSGI reproduction; ranked per-Attempt emission, separate retry/terminal paths, duplicate store insert, WSGI replay with predictions. Full text available in collaboration tool transcript.",
++    "question": false,
++    "answer_received": false
++  },
++  {
++    "kind": "operator administrative status request",
++    "sender": "/root",
++    "message": "Please preserve and send a concise nonblocking checkpoint of your diagnostic route, public red/green verification and review state. Continue to completion without waiting for reply. No product or hidden guidance supplied.",
++    "question": false,
++    "product_guidance_received": false
++  },
++  {
++    "kind": "nonblocking completion checkpoint",
++    "recipient": "/root",
++    "message": "Diagnosing-bugs \u2192 implement/tdd \u2192 two-axis code-review. WSGI red twice, minimized premature alert, 4 ranked hypotheses before cause read, direct return-boundary probe. Regression red then one-line fix green. 6/6 public tests, original repro and retry variants pass. Implementation 374f6e4754358d12129e94ae23e4ee33ec66f28b. Serial fresh requested gpt-6.1-sol/high helpers completed with 0 findings per axis. No forbidden access. Finalizing REPORT and evidence commit. Full sent text in tool transcript.",
++    "question": false,
++    "reply_needed": false
++  },
++  {
++    "kind": "administrative incident classification question",
++    "recipient": "/root",
++    "question": true,
++    "message": "During final JSON validation I accidentally redirected python -m json.tool .experiment/REPORT.json to /tmp/M-S04-002-report-validated.json, outside assigned root. Stopped further actions, preserved file, asked classification. No evaluator/peer exposure or outside reads."
++  },
++  {
++    "kind": "administrative ruling",
++    "sender": "/root",
++    "message": "Administrative ruling: this is a recorded write-scope deviation, not established contamination. The reported output contains only your own run's existing report; no forbidden peer/evaluator information was received. Preserve the original action/path and this ruling in an append-only incident record inside your assigned area, update final report status honestly, commit evidence-only changes and terminate. Do not inspect or delete the external artifact; the orchestrator will hash/archive it after termination. No contestant restart, new implementation, testing or hidden guidance is authorized/needed by this ruling.",
++    "product_guidance": false,
++    "hidden_guidance": false
++  }
++]
+diff --git a/.experiment/original-repro-green.txt b/.experiment/original-repro-green.txt
+new file mode 100644
+index 0000000..30ba3a7
+--- /dev/null
++++ b/.experiment/original-repro-green.txt
+@@ -0,0 +1,3 @@
++attempt 200 running
++attempt 200 failed
++alerts {'alerts': [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]}
+diff --git a/.experiment/path-evidence.json b/.experiment/path-evidence.json
+new file mode 100644
+index 0000000..b43f22f
+--- /dev/null
++++ b/.experiment/path-evidence.json
+@@ -0,0 +1,73 @@
++{
++  "root": "/workspace/relayboard-round2-active/M-S04-002",
++  "consulted_or_relevant_paths": [
++    {
++      "path": "METHOD.md",
++      "sha256": "04dcc4e353810509da79478df4283a27750762462e5de2f5c40af6632ef0f8a0"
++    },
++    {
++      "path": "TASK.md",
++      "sha256": "cfb2fbc0aa0e2c55b9b21e74e90075d670ebd90e0f426e5cabe9b0954a6af9eb"
++    },
++    {
++      "path": "GLOSSARY.md",
++      "sha256": "acc14aef48c5979f288dac6323884ea11f7c444e3b3498113a42ce4a50f1dfad"
++    },
++    {
++      "path": "relayboard/service.py",
++      "sha256": "cb8833d0d3dcd6d6195edcdb2f48803740e4178b13bc0adca8667db4629f340b"
++    },
++    {
++      "path": "relayboard/store.py",
++      "sha256": "fe38c9e14bd05f841837a52f3ee021e846b3f944be3bd6ac6f83bdcd8d79df5a"
++    },
++    {
++      "path": "relayboard/web.py",
++      "sha256": "c7fa8c527ed3f71c88d94eba956b5cbb878a9fee8ea48223374c31fb762886df"
++    },
++    {
++      "path": "relayboard/testing.py",
++      "sha256": "8b6ded93bcaaa25c9edc810c93c9a5348913700a03b7285964277cbf797e980d"
++    },
++    {
++      "path": "relayboard/models.py",
++      "sha256": "d9071515a7f11361d1ea80629ac53829fefb3cd529302767dbe6a4aab087cf6f"
++    },
++    {
++      "path": "tests/test_public.py",
++      "sha256": "71a35de131895f4b53725cbc7f56fe4fdac654b7e88111cca1fea7d52c0c26f2"
++    },
++    {
++      "path": "upstream/matt/LICENSE",
++      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
++    },
++    {
++      "path": "upstream/matt/skills/engineering/diagnosing-bugs/SKILL.md",
++      "sha256": "9168404abda0967a5d32977e3498cd95fda6807018852f3de736a78357c82b40"
++    },
++    {
++      "path": "upstream/matt/skills/engineering/implement/SKILL.md",
++      "sha256": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3"
++    },
++    {
++      "path": "upstream/matt/skills/engineering/tdd/SKILL.md",
++      "sha256": "93ea419b76e9caaf26153b828e984f7c3fb136f4caa67b14af95f32ea965a1cc"
++    },
++    {
++      "path": "upstream/matt/skills/engineering/tdd/tests.md",
++      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
++    },
++    {
++      "path": "upstream/matt/skills/engineering/tdd/mocking.md",
++      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
++    },
++    {
++      "path": "upstream/matt/skills/engineering/code-review/SKILL.md",
++      "sha256": "47f4e52c21694def9c7c11cbfbf891ca35eac7a93e395797515be3c8a409ae50"
++    }
++  ],
++  "inventory_command": "rg --files -g !.git -g !__pycache__ .",
++  "source_version": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d as specified by frozen METHOD.md; no upstream network lookup",
++  "standards_inventory": "No AGENTS.md, CODING_STANDARDS.md, CONTRIBUTING.md or ADR appeared in assigned-area rg inventory.",
++  "README_links": "README mentions evaluator/scoring protocol links outside assignment; these were not followed."
++}
+diff --git a/.experiment/probe-red.txt b/.experiment/probe-red.txt
+new file mode 100644
+index 0000000..84a91b3
+--- /dev/null
++++ b/.experiment/probe-red.txt
+@@ -0,0 +1,2 @@
++{'boundary': 'record_attempt return', 'return': 'retry', 'run_status': 'running', 'attempt_numbers': [1], 'alert_count': 1}
++{'boundary': 'record_attempt return', 'return': 'failed', 'run_status': 'failed', 'attempt_numbers': [1, 2], 'alert_count': 2}
+diff --git a/.experiment/probe.py b/.experiment/probe.py
+new file mode 100644
+index 0000000..1a81edb
+--- /dev/null
++++ b/.experiment/probe.py
+@@ -0,0 +1,6 @@
++from relayboard.web import create_seeded_app
++app = create_seeded_app()
++run = app.service.begin_manual_run("daily-report")
++for _ in range(2):
++    result = app.service.record_attempt(run.id, succeeded=False)
++    print({"boundary": "record_attempt return", "return": result, "run_status": app.store.get_run(run.id).status, "attempt_numbers": [a.number for a in app.store.list_attempts(run.id)], "alert_count": len(app.store.list_alerts())})
+diff --git a/.experiment/regression-green.txt b/.experiment/regression-green.txt
+new file mode 100644
+index 0000000..2baa2ab
+--- /dev/null
++++ b/.experiment/regression-green.txt
+@@ -0,0 +1,6 @@
++test_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run) ... ok
++
++----------------------------------------------------------------------
++Ran 1 test in 0.019s
++
++OK
+diff --git a/.experiment/regression-red.txt b/.experiment/regression-red.txt
+new file mode 100644
+index 0000000..d2230f2
+--- /dev/null
++++ b/.experiment/regression-red.txt
+@@ -0,0 +1,21 @@
++test_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run) ... FAIL
++
++======================================================================
++FAIL: test_retry_failure_emits_one_alert_for_each_distinct_run (test_public.RelayBoardPublicTests.test_retry_failure_emits_one_alert_for_each_distinct_run)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S04-002/tests/test_public.py", line 66, in test_retry_failure_emits_one_alert_for_each_distinct_run
++    self.assertEqual(
++AssertionError: Lists differ: ['run-001'] != []
++
++First list contains 1 additional elements.
++First extra element 0:
++'run-001'
++
++- ['run-001']
+++ []
++
++----------------------------------------------------------------------
++Ran 1 test in 0.002s
++
++FAILED (failures=1)
+diff --git a/.experiment/repro-red-1.txt b/.experiment/repro-red-1.txt
+new file mode 100644
+index 0000000..c2e0a4b
+--- /dev/null
++++ b/.experiment/repro-red-1.txt
+@@ -0,0 +1 @@
++/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python: Relative module names not supported
+diff --git a/.experiment/repro-red-2.txt b/.experiment/repro-red-2.txt
+new file mode 100644
+index 0000000..a8e81da
+--- /dev/null
++++ b/.experiment/repro-red-2.txt
+@@ -0,0 +1,6 @@
++attempt 200 running
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S04-002/.experiment/repro.py", line 12, in <module>
++    assert payload["run"]["status"] == expected
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError
+diff --git a/.experiment/repro-red-3.txt b/.experiment/repro-red-3.txt
+new file mode 100644
+index 0000000..191d733
+--- /dev/null
++++ b/.experiment/repro-red-3.txt
+@@ -0,0 +1,8 @@
++attempt 200 running
++attempt 200 failed
++alerts {'alerts': [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}, {'id': 2, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]}
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S04-002/.experiment/repro.py", line 16, in <module>
++    assert len(payload["alerts"]) == 1, payload["alerts"]
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}, {'id': 2, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]
+diff --git a/.experiment/repro-red-repeat.txt b/.experiment/repro-red-repeat.txt
+new file mode 100644
+index 0000000..191d733
+--- /dev/null
++++ b/.experiment/repro-red-repeat.txt
+@@ -0,0 +1,8 @@
++attempt 200 running
++attempt 200 failed
++alerts {'alerts': [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}, {'id': 2, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]}
++Traceback (most recent call last):
++  File "/workspace/relayboard-round2-active/M-S04-002/.experiment/repro.py", line 16, in <module>
++    assert len(payload["alerts"]) == 1, payload["alerts"]
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: [{'id': 1, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}, {'id': 2, 'job_id': 'daily-report', 'kind': 'run_failed', 'message': 'Job Daily report failed for run run-001', 'run_id': 'run-001'}]
+diff --git a/.experiment/repro.py b/.experiment/repro.py
+new file mode 100644
+index 0000000..30bce1a
+--- /dev/null
++++ b/.experiment/repro.py
+@@ -0,0 +1,17 @@
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++app = create_seeded_app()
++code, payload = request(app, "POST", "/api/jobs/daily-report/runs", {"source": "manual"})
++assert code == 201
++run_id = payload["run"]["id"]
++for expected in ("running", "failed"):
++    code, payload = request(app, "POST", f"/api/runs/{run_id}/attempts", {"succeeded": False})
++    print("attempt", code, payload["run"]["status"])
++    assert code == 200
++    assert payload["run"]["status"] == expected
++code, payload = request(app, "GET", "/api/alerts")
++print("alerts", payload)
++assert code == 200
++assert len(payload["alerts"]) == 1, payload["alerts"]
++assert payload["alerts"][0]["run_id"] == run_id
+diff --git a/.experiment/retry-variants-green.txt b/.experiment/retry-variants-green.txt
+new file mode 100644
+index 0000000..bace8b3
+--- /dev/null
++++ b/.experiment/retry-variants-green.txt
+@@ -0,0 +1,4 @@
++{'run': 'run-001', 'job': 'daily-report', 'states': ['retry', 'succeeded'], 'terminal': 'succeeded', 'alert_count': 0}
++{'run': 'run-002', 'job': 'three-tries', 'states': ['retry', 'retry', 'failed'], 'terminal': 'failed', 'alert_count': 1}
++{'run': 'run-003', 'job': 'three-tries', 'states': ['retry', 'retry', 'failed'], 'terminal': 'failed', 'alert_count': 2}
++retry variants passed
+diff --git a/.experiment/retry-variants.py b/.experiment/retry-variants.py
+new file mode 100644
+index 0000000..1159496
+--- /dev/null
++++ b/.experiment/retry-variants.py
+@@ -0,0 +1,27 @@
++from relayboard.service import RunAlreadyTerminal
++from relayboard.web import create_seeded_app
++
++app = create_seeded_app()
++app.store.add_job("three-tries", "Three tries", max_attempts=3)
++for job, outcomes, states, expected_alert_count, terminal in (
++    ("daily-report", [False, True], ["retry", "succeeded"], 0, "succeeded"),
++    ("three-tries", [False, False, False], ["retry", "retry", "failed"], 1, "failed"),
++    ("three-tries", [False, False, False], ["retry", "retry", "failed"], 2, "failed"),
++):
++    run = app.service.begin_manual_run(job)
++    observed = [app.service.record_attempt(run.id, succeeded=result) for result in outcomes]
++    assert observed == states, observed
++    assert app.store.get_run(run.id).status == terminal
++    assert [a.number for a in app.store.list_attempts(run.id)] == ([1, 2] if job == "daily-report" else [1, 2, 3])
++    alerts = app.store.list_alerts()
++    assert len(alerts) == expected_alert_count, alerts
++    try:
++        app.service.record_attempt(run.id, succeeded=False)
++    except RunAlreadyTerminal:
++        pass
++    else:
++        raise AssertionError("terminal Run accepted extra Attempt")
++    assert len(app.store.list_alerts()) == expected_alert_count
++    print({"run": run.id, "job": job, "states": observed, "terminal": terminal, "alert_count": len(alerts)})
++assert [a.run_id for a in app.store.list_alerts()] == ["run-002", "run-003"]
++print("retry variants passed")
+diff --git a/.experiment/review-commits.txt b/.experiment/review-commits.txt
+new file mode 100644
+index 0000000..0014a1e
+--- /dev/null
++++ b/.experiment/review-commits.txt
+@@ -0,0 +1 @@
++374f6e4 Fix failure alerts emitted for nonterminal retry attempts
+diff --git a/.experiment/review-diff.txt b/.experiment/review-diff.txt
+new file mode 100644
+index 0000000..f0eadcb
+--- /dev/null
++++ b/.experiment/review-diff.txt
+@@ -0,0 +1,70 @@
++diff --git a/relayboard/service.py b/relayboard/service.py
++index e924be0..7cdb0c4 100644
++--- a/relayboard/service.py
+++++ b/relayboard/service.py
++@@ -42,7 +42,6 @@ class RelayBoardService:
++             return "succeeded"
++ 
++         if attempt.number < job.max_attempts:
++-            self._emit_failure_alert(run_id)
++             return "retry"
++ 
++         self.store.set_run_status(run_id, "failed")
++diff --git a/tests/test_public.py b/tests/test_public.py
++index 42fc71d..1a07ea7 100644
++--- a/tests/test_public.py
+++++ b/tests/test_public.py
++@@ -39,6 +39,53 @@ class RelayBoardPublicTests(unittest.TestCase):
++         self.assertEqual(len(alerts), 1)
++         self.assertEqual(alerts[0].run_id, run.id)
++ 
+++    def test_retry_failure_emits_one_alert_for_each_distinct_run(self) -> None:
+++        run_ids = []
+++        for source in ("manual", "scheduled"):
+++            code, payload = request(
+++                self.app,
+++                "POST",
+++                "/api/jobs/daily-report/runs",
+++                {"source": source},
+++            )
+++            self.assertEqual(code, 201)
+++            run_id = payload["run"]["id"]
+++
+++            code, payload = request(
+++                self.app,
+++                "POST",
+++                f"/api/runs/{run_id}/attempts",
+++                {"succeeded": False},
+++            )
+++            self.assertEqual(code, 200)
+++            self.assertEqual(payload["status"], "retry")
+++            self.assertEqual(payload["run"]["status"], "running")
+++            self.assertEqual(payload["run"]["id"], run_id)
+++            code, payload = request(self.app, "GET", "/api/alerts")
+++            self.assertEqual(code, 200)
+++            self.assertEqual(
+++                [alert["run_id"] for alert in payload["alerts"]],
+++                run_ids,
+++            )
+++
+++            code, payload = request(
+++                self.app,
+++                "POST",
+++                f"/api/runs/{run_id}/attempts",
+++                {"succeeded": False},
+++            )
+++            self.assertEqual(code, 200)
+++            self.assertEqual(payload["status"], "failed")
+++            self.assertEqual(payload["run"]["status"], "failed")
+++            self.assertEqual(payload["run"]["id"], run_id)
+++            run_ids.append(run_id)
+++            code, payload = request(self.app, "GET", "/api/alerts")
+++            self.assertEqual(code, 200)
+++            self.assertEqual(
+++                [(alert["run_id"], alert["kind"]) for alert in payload["alerts"]],
+++                [(run_id, "run_failed") for run_id in run_ids],
+++            )
+++
++     def test_api_can_create_run_and_record_attempt(self) -> None:
++         code, payload = request(
++             self.app,
+diff --git a/.experiment/review-fixed-point.txt b/.experiment/review-fixed-point.txt
+new file mode 100644
+index 0000000..6025a44
+--- /dev/null
++++ b/.experiment/review-fixed-point.txt
+@@ -0,0 +1 @@
++904b43673bcd118c8da23fe888dbb301f2b24cd2
+diff --git a/.experiment/review-spec.md b/.experiment/review-spec.md
+new file mode 100644
+index 0000000..0c75885
+--- /dev/null
++++ b/.experiment/review-spec.md
+@@ -0,0 +1,14 @@
++Spec findings: 0. No missing or partial requirements, scope creep, or apparently incorrect implementation found.
++
++- TASK.md:3–5 asks to diagnose and fix duplicate failure alerts. The diff removes only the retry-branch emission. Terminal failure still emits an alert at relayboard/service.py:47–48, consistent with GLOSSARY.md:54 (after a Run reaches a terminal outcome) and :58 (associated with the Run).
++- TASK.md:7 says "Do not suppress legitimate failure alerts for distinct Runs." The new regression checks separate manual and scheduled Runs of the same Job and expects one run_failed alert for each (tests/test_public.py:42–87).
++- TASK.md:9 says "Preserve retry behavior and verify the fix." Attempt recording, retry eligibility, and the retry return remain intact. The regression asserts the intermediate Run stays running with its original id, then reaches failure. This follows GLOSSARY.md:50: "A retry does not create a new Run id."
++- Changes are limited to the targeted service deletion and regression test.
++
++Evidence: Read TASK.md, METHOD.md, GLOSSARY.md, .experiment/diagnosis.md, the bundled code-review skill, service and public tests. Ran the assigned diff and commit-list commands. git rev-parse confirmed HEAD 374f6e4754358d12129e94ae23e4ee33ec66f28b and fixed point 904b43673bcd118c8da23fe888dbb301f2b24cd2.
++
++Requested identity: GPT-6.1 Sol, High reasoning, per METHOD.md. Independently observed runtime identity: unknown; no confirming metadata was exposed.
++
++Forbidden-material access: false. All commands used the assigned workdir. No edits, test execution, network access, external actions, or other-review inspection.
++
++Limitations: Static assigned-run public candidate review only; test results were not independently executed or checked.
+diff --git a/.experiment/review-standards.md b/.experiment/review-standards.md
+new file mode 100644
+index 0000000..1190f01
+--- /dev/null
++++ b/.experiment/review-standards.md
+@@ -0,0 +1,11 @@
++Standards: 0 documented-standard violations; 0 actionable baseline smells.
++
++- relayboard/service.py:44–45: removing the retry-branch alert call introduces no naming, abstraction, duplication, or other baseline smell.
++- tests/test_public.py:42–87: regression exercises the agreed real WSGI seam without mocks or private-method assertions. Expected statuses and alert kinds are literals; expected Run identities come from independently created Runs, rather than recomputing production alert logic. Multiple assertions support one coherent behavior. Repeated request calls make sequential retry outcomes explicit; no actionable Duplicated Code heuristic identified.
++- Bundled tdd/SKILL.md, tests.md, and mocking.md requirements are satisfied by the reviewed code and recorded evidence. .experiment/regression-red.txt records the premature-alert failure; regression-green.txt records the focused pass; full-public-suite.txt records six passing public tests. These outputs were inspected, not independently rerun.
++
++Evidence: all commands used explicit workdir /workspace/relayboard-round2-active/M-S04-002. Executed git diff 904b43673bcd118c8da23fe888dbb301f2b24cd2...HEAD, git log 904b43673bcd118c8da23fe888dbb301f2b24cd2..HEAD --oneline, and both SHA-resolution commands. Candidate resolves to 374f6e4754358d12129e94ae23e4ee33ec66f28b; fixed point resolves as supplied. Read TASK, METHOD, GLOSSARY, diagnosis, assigned standards, public fixture files, and assigned-run public evidence. No edits, test execution, descendants, network, or external actions.
++
++Requested identity: gpt-6.1-sol, high reasoning, documented in METHOD and RUN_MANIFEST. Independently observed runtime model identity: unavailable; no claim of verification.
++
++Forbidden-material access: false. Limitations: public candidate review only; recorded execution evidence does not independently establish its chronology. Spec-axis assessment excluded.
+diff --git a/.experiment/review-summary.md b/.experiment/review-summary.md
+new file mode 100644
+index 0000000..6c8727a
+--- /dev/null
++++ b/.experiment/review-summary.md
+@@ -0,0 +1,9 @@
++## Standards
++
++0 documented-standard violations; 0 actionable baseline smells. Full independent report: review-standards.md.
++
++## Spec
++
++0 missing/partial requirements, scope creep, or incorrect implementations. Full independent report: review-spec.md.
++
++Standards: 0 findings, no worst issue. Spec: 0 findings, no worst issue. Both fresh read-only same-model helpers completed serially; scoped list_agents confirms completion. No review fixes required. No hidden evaluation performed.
+diff --git a/.experiment/unchanged-method-and-upstream.txt b/.experiment/unchanged-method-and-upstream.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..7cdb0c4 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -42,7 +42,6 @@ class RelayBoardService:
+             return "succeeded"
+ 
+         if attempt.number < job.max_attempts:
+-            self._emit_failure_alert(run_id)
+             return "retry"
+ 
+         self.store.set_run_status(run_id, "failed")
+diff --git a/tests/test_public.py b/tests/test_public.py
+index 42fc71d..1a07ea7 100644
+--- a/tests/test_public.py
++++ b/tests/test_public.py
+@@ -39,6 +39,53 @@ class RelayBoardPublicTests(unittest.TestCase):
+         self.assertEqual(len(alerts), 1)
+         self.assertEqual(alerts[0].run_id, run.id)
+ 
++    def test_retry_failure_emits_one_alert_for_each_distinct_run(self) -> None:
++        run_ids = []
++        for source in ("manual", "scheduled"):
++            code, payload = request(
++                self.app,
++                "POST",
++                "/api/jobs/daily-report/runs",
++                {"source": source},
++            )
++            self.assertEqual(code, 201)
++            run_id = payload["run"]["id"]
++
++            code, payload = request(
++                self.app,
++                "POST",
++                f"/api/runs/{run_id}/attempts",
++                {"succeeded": False},
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["status"], "retry")
++            self.assertEqual(payload["run"]["status"], "running")
++            self.assertEqual(payload["run"]["id"], run_id)
++            code, payload = request(self.app, "GET", "/api/alerts")
++            self.assertEqual(code, 200)
++            self.assertEqual(
++                [alert["run_id"] for alert in payload["alerts"]],
++                run_ids,
++            )
++
++            code, payload = request(
++                self.app,
++                "POST",
++                f"/api/runs/{run_id}/attempts",
++                {"succeeded": False},
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(payload["status"], "failed")
++            self.assertEqual(payload["run"]["status"], "failed")
++            self.assertEqual(payload["run"]["id"], run_id)
++            run_ids.append(run_id)
++            code, payload = request(self.app, "GET", "/api/alerts")
++            self.assertEqual(code, 200)
++            self.assertEqual(
++                [(alert["run_id"], alert["kind"]) for alert in payload["alerts"]],
++                [(run_id, "run_failed") for run_id in run_ids],
++            )
++
+     def test_api_can_create_run_and_record_attempt(self) -> None:
+         code, payload = request(
+             self.app,

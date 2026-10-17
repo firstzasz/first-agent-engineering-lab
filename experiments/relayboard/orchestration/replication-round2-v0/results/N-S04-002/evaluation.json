@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "run_id": "N-S04-002",
+  "started_at": "2026-10-08T02:26:33.650625+00:00",
+  "finished_at": "2026-10-08T02:26:33.743295+00:00",
+  "context": "separate orchestrator-owned Python process after contestant termination",
+  "local_candidate_sha": "e7cc6af1743b03a078cb18786760955af9a75bb0",
+  "candidate_tree": "27f923769ba3b0652941e7ff1a69e8f98f235346",
+  "frozen_evaluator_ref": "b8048c069277ae3a6d15a2ad324d60c4b1500c2a",
+  "evaluator_blob_sha": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_api_reports_retry_before_emitting_terminal_alert (test_retry_alerts.RetryAlertTests.test_api_reports_retry_before_emitting_terminal_alert) ... ok\ntest_distinct_runs_of_same_job_each_emit_an_alert (test_retry_alerts.RetryAlertTests.test_distinct_runs_of_same_job_each_emit_an_alert) ... ok\ntest_failure_alert_waits_for_retry_exhaustion (test_retry_alerts.RetryAlertTests.test_failure_alert_waits_for_retry_exhaustion) ... ok\ntest_success_after_retries_emits_no_failure_alert (test_retry_alerts.RetryAlertTests.test_success_after_retries_emits_no_failure_alert) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.007s\n\nOK\n"
+  },
+  "oracle": {
+    "scenario": "S04-v0",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "feedback_to_contestant": false
+}

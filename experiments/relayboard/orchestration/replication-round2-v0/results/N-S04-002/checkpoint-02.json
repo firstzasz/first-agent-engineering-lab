@@ -1,0 +1,5 @@
+{
+  "run_id": "N-S04-002",
+  "observed_at": "2026-10-08 02:25:21 UTC",
+  "message": "Baseline public suite passed (5 tests). Added public regressions reproduced the issue before the fix (9 tests, 8 failing assertions/subtests). Removing the retry-branch emission makes all 9 tests pass, including eventual success with no alert, retry exhaustion, same-job distinct Runs, terminal rejection, and WSGI alert visibility. Preparing local commits and factual .experiment evidence."
+}

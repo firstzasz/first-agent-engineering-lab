@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "run_id": "N-S02-001",
+  "scenario": "S02-v0.1",
+  "treatment": "neutral-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_n_s02_001"
+  },
+  "start": {
+    "run_id": "N-S02-001",
+    "workspace": "/workspace/relayboard-active/N-S02-001",
+    "local_start_sha": "f91c95772723f1b3d248089f018d03be68af865f",
+    "local_start_tree": "aab58275db3ae4fae1c6858bbb9fcb19859f863b",
+    "remote_prepared_sha": "27332a47f13320178f8736a5ba328bac8604965d",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "neutral-v0",
+    "prepared_at": "2026-10-07T06:18:21.414720+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      ".experiment/RUN_MANIFEST.json": "1c5f08f6abd501fd13f1b54838a71377f362d343"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": {
+    "current_time": "2026-10-07 06:22:10 UTC"
+  },
+  "candidate_frozen_at": "2026-10-07T06:22:10.839133+00:00",
+  "local_candidate_sha": "2705aa8b3a43cf5377a747aa7c1b65c1b61145ac",
+  "local_candidate_tree": "bb42d4e96f2640659312f3e922fb5b270bb36532",
+  "remote_candidate": {
+    "sha": "c42d25164d01a0bc07213d8bf011bd93894a2617",
+    "tree_sha": "bb42d4e96f2640659312f3e922fb5b270bb36532",
+    "branch": "candidate/N-S02-001"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/17",
+    "number": 17,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S02-v0.1 task in a fresh neutral context from Pilot Start State v0.1. Candidate is frozen; evaluation evidence is retained separately on research/batch-orchestration-pilot. This benchmark PR targets its treatment branch and must not be merged into main.",
+    "title": "N-S02-001: neutral pause/resume benchmark candidate",
+    "base": "treatment/neutral/N-S02-001",
+    "base_sha": "27332a47f13320178f8736a5ba328bac8604965d",
+    "head": "candidate/N-S02-001",
+    "head_sha": "c42d25164d01a0bc07213d8bf011bd93894a2617",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T06:49:17Z",
+    "updated_at": "2026-10-07T06:49:17Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 13,
+    "additions": 513,
+    "deletions": 6,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/17",
+    "display_title": "N-S02-001: neutral pause/resume benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "f91c95772723f1b3d248089f018d03be68af865f",
+      "metadata": "commit f91c95772723f1b3d248089f018d03be68af865f\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 06:18:21 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 06:18:21 2026 +0000\n\n    benchmark: frozen standalone N-S02-001 starting packet\n"
+    },
+    {
+      "sha": "ee95430d7ca2a79b13eb603308c1289b9ba9028b",
+      "metadata": "commit ee95430d7ca2a79b13eb603308c1289b9ba9028b\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 06:21:08 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 06:21:08 2026 +0000\n\n    Add independent job pause and resume controls\n"
+    },
+    {
+      "sha": "2705aa8b3a43cf5377a747aa7c1b65c1b61145ac",
+      "metadata": "commit 2705aa8b3a43cf5377a747aa7c1b65c1b61145ac\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 06:21:33 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 06:21:47 2026 +0000\n\n    Record pause implementation verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/REPORT.json               |  63 ++++++++++++\n .experiment/action-log.jsonl          |  21 ++++\n .experiment/baseline-tests.txt        |  10 ++\n .experiment/diff-check.txt            |   0\n .experiment/final-tests.txt           |  18 ++++\n .experiment/implementation-commit.txt |   4 +\n .experiment/implementation-diff.txt   | 175 ++++++++++++++++++++++++++++++++++\n PAUSE.md                              |  15 +++\n relayboard/models.py                  |   1 +\n relayboard/service.py                 |  10 +-\n relayboard/store.py                   |  32 ++++++-\n relayboard/web.py                     |  22 ++++-\n tests/test_pause.py                   | 148 ++++++++++++++++++++++++++++\n 13 files changed, 513 insertions(+), 6 deletions(-)\n",
+  "operator_interactions": [],
+  "agent_completion_claim": "Completed pause/resume with persisted state, API endpoints, and dashboard visibility. Pause blocks new scheduled Runs; manual Runs, retries, alerts, and enabled state are preserved. Implementation commit ee95430; evidence commit 2705aa8b3a43cf5377a747aa7c1b65c1b61145ac. All 13 public tests pass; git diff --check passes. Working tree clean. No operator interactions or evaluator/peer material accessed.",
+  "worker_report": {
+    "task": "N-S02-001",
+    "treatment": "neutral-v0",
+    "declared_status": "completed",
+    "workspace": "/workspace/relayboard-active/N-S02-001",
+    "initial_local_commit": "f91c95772723f1b3d248089f018d03be68af865f",
+    "local_commits": [
+      {
+        "hash": "ee95430d7ca2a79b13eb603308c1289b9ba9028b",
+        "purpose": "Complete pause/resume implementation, documentation and regression tests"
+      }
+    ],
+    "evidence_commit": "The subsequent local commit containing this REPORT.json and .experiment evidence; its hash is given in the final response.",
+    "implemented_behavior": {
+      "pause": "Independent persisted boolean; blocks new scheduled Runs only.",
+      "preserved": "Enabled state, manual Runs, existing Runs/Attempts/retries/alerts, and dashboard enabled/last-result data.",
+      "api": "POST /api/jobs/{id}/pause and /resume return 200 job payload; idempotent; missing Jobs use existing 404; paused scheduled start uses existing 409.",
+      "visibility": "Jobs API includes paused; dashboard adds Paused column.",
+      "storage": "Existing jobs schema migrates to paused=false."
+    },
+    "public_tests": [
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "phase": "baseline",
+        "exit_code": 0,
+        "tests_run": 5,
+        "result": "passed",
+        "output_path": ".experiment/baseline-tests.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "phase": "after implementation",
+        "exit_code": 0,
+        "tests_run": 13,
+        "result": "passed",
+        "output_path": ".experiment/final-tests.txt"
+      }
+    ],
+    "other_checks": [
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "result": "passed",
+        "output_path": ".experiment/diff-check.txt"
+      }
+    ],
+    "operator_interactions": [],
+    "action_path_log": ".experiment/action-log.jsonl",
+    "supporting_outputs": [
+      ".experiment/implementation-diff.txt",
+      ".experiment/implementation-commit.txt"
+    ],
+    "evaluator_or_peer_material_accessed": false,
+    "boundary_notes": "Inspected only supplied workspace source, task, glossary, README and public tests. Did not follow README links outside supplied area. No other branches, history, external repository, evaluator, oracle, reference solution, peer results, credentials, network or external services accessed. No helper agents used.",
+    "unavailable_attestation_metrics": {
+      "process_attestation": "unknown",
+      "model_attestation": "unknown",
+      "model_runtime_identity": "unknown",
+      "token_usage": "unknown",
+      "wall_clock_metrics": "unknown",
+      "hidden_evaluation_result": "unknown"
+    }
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_api_pause_resume_and_list_jobs (test_pause.PauseTests.test_api_pause_resume_and_list_jobs) ... ok\ntest_dashboard_keeps_enabled_and_last_result_and_shows_pause (test_pause.PauseTests.test_dashboard_keeps_enabled_and_last_result_and_shows_pause) ... ok\ntest_enabled_and_paused_are_independent (test_pause.PauseTests.test_enabled_and_paused_are_independent) ... ok\ntest_legacy_schema_defaults_to_unpaused (test_pause.PauseTests.test_legacy_schema_defaults_to_unpaused) ... ok\ntest_missing_jobs_and_invalid_pause_routes (test_pause.PauseTests.test_missing_jobs_and_invalid_pause_routes) ... ok\ntest_pause_is_stored_and_survives_store_reinitialization (test_pause.PauseTests.test_pause_is_stored_and_survives_store_reinitialization) ... ok\ntest_pause_preserves_retry_and_alert_behavior (test_pause.PauseTests.test_pause_preserves_retry_and_alert_behavior) ... ok\ntest_pause_resume_blocks_only_new_scheduled_runs (test_pause.PauseTests.test_pause_resume_blocks_only_new_scheduled_runs) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 0.009s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": null,
+  "source_pins": [],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json",
+    ".experiment/action-log.jsonl"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "No operator question was observed. Correctness does not prove elicitation; product choices were inferred/assumed from public context.",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 17636,
+    "sha256": "8435c3a806e3ad33a7ed11f2d1ebcd78442d95a0b3b053798d1d26497f6db397",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}

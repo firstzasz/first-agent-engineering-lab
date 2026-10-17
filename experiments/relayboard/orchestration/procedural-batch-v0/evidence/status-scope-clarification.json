@@ -1,0 +1,10 @@
+{
+  "version": "procedural-status-scope-clarification-v0",
+  "reason": "P-S04-001 accidental peer exposure through unscoped collaboration.list_agents",
+  "scope": "All not-yet-launched contestant contexts and helpers, identical across remaining arms",
+  "rule": "Do not call unscoped collaboration.list_agents or enumerate team-wide statuses. If needed, use path_prefix exactly the current contestant lead's canonical task path. Do not inspect unrelated agent statuses/messages or public lab results. Helpers inherit the same run boundary.",
+  "methodology_changed": false,
+  "frozen_protocol_changed": false,
+  "technical_access_denial_claim": false,
+  "contaminated_run_retry": false
+}

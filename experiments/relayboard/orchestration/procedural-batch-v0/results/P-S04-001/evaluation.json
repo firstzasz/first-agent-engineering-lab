@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "run_id": "P-S04-001",
+  "context": "Hidden evaluation not executed: contaminated candidate excluded; worker public evidence remains archived.",
+  "local_candidate_sha": "0072e40b7a7c4b9dc9995834e2ecb2557fe4975d",
+  "candidate_tree": "d24ba9f36922efad8846de8fe4b30566c6f33c04",
+  "public_tests": {
+    "passed": null,
+    "skipped": true,
+    "reason": "No post-termination public rerun; see frozen worker logs."
+  },
+  "oracle": {
+    "scenario": "S04-v0",
+    "passed": null,
+    "failures": [],
+    "error": null,
+    "skipped": true,
+    "reason": "CONTAMINATED before freeze; excluded without hidden evaluation."
+  },
+  "feedback_to_contestant": false
+}

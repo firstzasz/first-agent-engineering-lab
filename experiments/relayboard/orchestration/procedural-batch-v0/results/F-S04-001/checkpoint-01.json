@@ -1,0 +1,5 @@
+{
+  "observed_at": "2026-10-07 12:17:12 UTC",
+  "classification": "LEGIBLE_CHECKPOINT",
+  "message": "Contestant reports complete FIRST method under delivery alias METHOD.md, no separately named file. Initial diagnosis to reproduce through public WSGI; root confirmed only byte-identical filename mapping, no diagnostic guidance."
+}

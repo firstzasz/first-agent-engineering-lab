@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0016",
+  "type": "local_reference_prototype_feasibility",
+  "executed_on": "2026-10-18",
+  "contestant_run": false,
+  "results": {
+    "RD-C1": {
+      "base_regression_tests": {
+        "passed": 5,
+        "total": 5
+      },
+      "candidate_hidden_semantic_tests": {
+        "passed": 5,
+        "total": 5
+      },
+      "combined": {
+        "passed": 10,
+        "total": 10
+      },
+      "result": "PASS"
+    },
+    "RD-C2": {
+      "first_prototype": {
+        "base_regression_tests": {
+          "passed": 4,
+          "total": 5
+        },
+        "hidden_semantic_tests": {
+          "passed": 4,
+          "total": 4
+        },
+        "failure": "existing single-attempt failure-alert behavior accidentally stubbed"
+      },
+      "corrected_prototype": {
+        "base_regression_tests": {
+          "passed": 5,
+          "total": 5
+        },
+        "candidate_hidden_semantic_tests": {
+          "passed": 4,
+          "total": 4
+        },
+        "combined": {
+          "passed": 9,
+          "total": 9
+        },
+        "result": "PASS"
+      }
+    }
+  },
+  "limitations": [
+    "Prototype code executed in a local sandbox and is not yet the durable repository evaluator/reference implementation.",
+    "These checks establish design feasibility only, not treatment effectiveness.",
+    "Oracle choices remain provisional until the runnable harness is committed, red/green selftested, reviewed, and frozen before contestant execution."
+  ]
+}

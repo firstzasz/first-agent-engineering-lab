@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "status": "PASS",
+  "audited_commit": "a63257339b4aed1baf44ffb329691d27f5ae4d01",
+  "observed_before_any_contestant": true,
+  "checks": {
+    "cohort_status_frozen_pre_run": true,
+    "batch_ready_not_started": true,
+    "run_count_12": true,
+    "three_runs_per_arm": true,
+    "execution_order_matches_batch": true,
+    "execution_order_hash_derivation_preserved": true,
+    "frozen_task_exact": true,
+    "task_blob_matches": true,
+    "M0_receives_no_method": true,
+    "M1_method_blob_matches": true,
+    "M2_method_blob_matches": true,
+    "M3_method_blob_matches": true,
+    "mechanism_docs_scenario_specific_leak_scan_pass": true,
+    "all_manifests_ready": true,
+    "all_outcomes_null": true,
+    "all_runs_base_sha_matches_pilot_v0_1": true,
+    "no_results_preexisting": true,
+    "evaluator_not_copied_to_cohort_root": true,
+    "operator_oracle_not_copied_to_cohort_root": true,
+    "first_mode_not_modified_by_cohort": true
+  },
+  "frozen_blobs": {
+    "task": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a",
+    "M1": "c160a2182e1c708770c6e0f32703937e0c146724",
+    "M2": "ca9f28cf54b6bc98d3be5ccab12ae3e6e20c0260",
+    "M3": "3204b9b1336a23df2209550d8519dd8fa25ea9bb",
+    "execution_order": "0e24b2d719b698018287f5f919ae322b2a16b8f0",
+    "evaluator": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+    "operator_oracle": "054a302c6233321fa3988ce2f2be4a723039fa80",
+    "scenario_doc": "18c909eab7bd72b8b8401acab74bdad7a6bfa3a3"
+  },
+  "manifest_blobs": {
+    "RD-M1-002": "df7db9aaa1a781ae5b726574d3df45a56e614c2b",
+    "RD-M2-003": "8c64f41f00d4806c941cd80938fb01171a80f99a",
+    "RD-M3-003": "c3c9a51439666da5bf9f41e4bb83a686bfb0c6bb",
+    "RD-M2-002": "2bb226d0855cf07dfbe4151b6af37d76c4b9b3eb",
+    "RD-M3-001": "e2de0cabd4a69b2b51efc8d088ccf655ca556b6b",
+    "RD-M1-003": "3d0e55e774aa3484f2e9c3fba378a6052dd7e393",
+    "RD-M0-002": "ecc5a1895f5f85923ad57a73c00481cb2994238e",
+    "RD-M3-002": "15829efb03b8b881617d46d3f94eb14be80a3851",
+    "RD-M1-001": "a0a66b83b9f2b94ceb731eae371c80117ad2a121",
+    "RD-M0-001": "8456a4feba99b38630705fb2294aacd46e90be65",
+    "RD-M0-003": "7e84f816a484558c07cab9de1cc27bed0e9651f5",
+    "RD-M2-001": "840dc3ad92c9007916535c2949100540dd4dd650"
+  },
+  "limitations": [
+    "Connector readback verifies repository content/state, not future Codex runtime isolation.",
+    "Model/reasoning runtime identity will remain unverified unless the host exposes attestation.",
+    "Procedural isolation follows Evaluator Protocol v0; public repository secrecy is not claimed."
+  ]
+}

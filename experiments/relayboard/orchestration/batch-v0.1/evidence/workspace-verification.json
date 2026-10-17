@@ -1,0 +1,822 @@
+{
+  "schema_version": 1,
+  "source": "GitHub connector recursive-tree, exact-ref and TASK.md reads",
+  "verified": [
+    {
+      "run_id": "N-S02-001",
+      "branch": "treatment/neutral/N-S02-001",
+      "head": "2fcdf1702b93bb2beb79add5dc57d8b82e3bda22",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "1422ea5f7ff645a39f3df95d6b9f1ffb424abae3"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "N-S04-001",
+      "branch": "treatment/neutral/N-S04-001",
+      "head": "58e55eebad654c357934b93b639e6ba91f6d235d",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "6d0bda876894b867592efcc83da336e2de5eab60"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "P-S01-001",
+      "branch": "treatment/pstack/P-S01-001",
+      "head": "32a15dd6209996fab8f4e6e25f1e3e87bfae77d2",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "a6561e5bdb5ec43b18611faf8b4a701c38a5ed98"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "5d142e5a9c03b9e82ec6a567457deaf7adb29834"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "P-S02-001",
+      "branch": "treatment/pstack/P-S02-001",
+      "head": "7b6ef64e88895ac6364ad2c978a93534fd80fbd6",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "b57562ec1ec9b26cacab98c0a6bc9d854c27b4df"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "P-S04-001",
+      "branch": "treatment/pstack/P-S04-001",
+      "head": "690561f1b65b149e7260351139e01f341251a289",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "81dcaf4330c0bd0f35cf87348ecd79e7a96fbd0d"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "M-S01-001",
+      "branch": "treatment/matt/M-S01-001",
+      "head": "53a1ab55cd6d120ae37995655b1112992b0849fa",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "ecec2c42c6540705b74b1a7bdd35a4d76edba2a3"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "5d142e5a9c03b9e82ec6a567457deaf7adb29834"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "M-S02-001",
+      "branch": "treatment/matt/M-S02-001",
+      "head": "3519a95b24be9aea82fc682b5ad130c45dd31be5",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "61511fa89a3a1151e18a249cb3359144829c99f5"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "M-S04-001",
+      "branch": "treatment/matt/M-S04-001",
+      "head": "73ba44a607c235006dc6719b831fbcb00967c699",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "4c8e81310b7727b159a4ff23eb053d083393e12c"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "F-S01-001",
+      "branch": "treatment/first-mode/F-S01-001",
+      "head": "ce705042fa918d2127f9c36f3860f60dc97dd92a",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "8225518ecaf8c6de60dde985b4447533c2bb936f"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "METHOD.md",
+          "sha": "22ef0c77d90c3410785dd593f2b5c161edaed531"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "5d142e5a9c03b9e82ec6a567457deaf7adb29834"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "F-S02-001",
+      "branch": "treatment/first-mode/F-S02-001",
+      "head": "ddfdae5562e3886e678c0f6b551ddad5e696aa81",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "75dd655cb7b61eacc118d8e97747e2d893668c81"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "METHOD.md",
+          "sha": "22ef0c77d90c3410785dd593f2b5c161edaed531"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    },
+    {
+      "run_id": "F-S04-001",
+      "branch": "treatment/first-mode/F-S04-001",
+      "head": "3b7de30cce433a1ae65dfc32cf157cc14dd21469",
+      "checks": {
+        "head_matches_prepared": true,
+        "not_truncated": true,
+        "exact_file_allowlist": true,
+        "fixture_blob_sha_match": true,
+        "frozen_prompt_only": true,
+        "first_method_exact": true
+      },
+      "passed": true,
+      "file_blobs": [
+        {
+          "path": ".experiment/RUN_MANIFEST.json",
+          "sha": "f10b8f5da2b8942f30c274ceb4c4810f60be7414"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "a160f494b397adda8d5741d811f8444558aa261a"
+        },
+        {
+          "path": "GLOSSARY.md",
+          "sha": "1644e3168948e94d8ac019ad14f388bccafaa886"
+        },
+        {
+          "path": "METHOD.md",
+          "sha": "22ef0c77d90c3410785dd593f2b5c161edaed531"
+        },
+        {
+          "path": "README.md",
+          "sha": "cf475bf5e7ad736baba984e217f298c0a5aa039d"
+        },
+        {
+          "path": "TASK.md",
+          "sha": "28595feb8726aa4d0478e0047c0534ecaf4e422f"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "4a91a057dfe1d3f9a7f132afb4461112db4e515b"
+        },
+        {
+          "path": "relayboard/__init__.py",
+          "sha": "99cbf76c3006fe569059838d131a107a13e172c9"
+        },
+        {
+          "path": "relayboard/__main__.py",
+          "sha": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26"
+        },
+        {
+          "path": "relayboard/models.py",
+          "sha": "c9c800ad511d2488ba9fdb980726f2d5cec3523e"
+        },
+        {
+          "path": "relayboard/service.py",
+          "sha": "e924be0db57cba6ba94a999caac6f2669d838c8f"
+        },
+        {
+          "path": "relayboard/store.py",
+          "sha": "3a49cc198ab1581f1d2c0669e21f748c3806f80d"
+        },
+        {
+          "path": "relayboard/testing.py",
+          "sha": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d"
+        },
+        {
+          "path": "relayboard/web.py",
+          "sha": "88aa15e67048b6806387efee0ee315bf07b0371e"
+        },
+        {
+          "path": "tests/test_public.py",
+          "sha": "42fc71d1c2b6eedde251b9028f2d4023a9372946"
+        }
+      ],
+      "history_is_not_sanitized": true
+    }
+  ],
+  "finding": "All current trees passed. This does not make ancestry or connectors evaluator-blind. No public or hidden benchmark tests ran."
+}

@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "status": "FROZEN_PRE_RUN",
+  "research_branch": "research/exp0014-requirement-mechanisms",
+  "parent_research_head": "226a03a883c65c81223ca49e00ddd058e1b38691",
+  "research_question": "Does an explicit recomputed product-decision frontier improve complete requirement elicitation without importing a larger workflow's ceremony?",
+  "scenario": "S02-v0.1",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "frozen_scenario_doc": {
+    "path": "docs/benchmarks/S02_AMBIGUOUS_REQUIREMENT.md",
+    "blob": "18c909eab7bd72b8b8401acab74bdad7a6bfa3a3"
+  },
+  "contestant_task": {
+    "path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/TASK_S02_V0_1.md",
+    "blob": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a"
+  },
+  "evaluator": {
+    "path": "experiments/relayboard/evaluator/evaluator.py",
+    "blob": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+    "contestant_visible": false
+  },
+  "operator_oracle": {
+    "path": "experiments/relayboard/evaluator/S02_OPERATOR_ORACLE_V0_1.json",
+    "blob": "054a302c6233321fa3988ce2f2be4a723039fa80",
+    "contestant_visible": false
+  },
+  "scoring": {
+    "path": "docs/benchmarks/SCORING_V0.md",
+    "status": "UNCHANGED_FROZEN"
+  },
+  "evaluator_protocol": {
+    "path": "docs/benchmarks/EVALUATOR_PROTOCOL_V0.md",
+    "status": "UNCHANGED_FROZEN"
+  },
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "isolation": "Procedural isolation per frozen Evaluator Protocol v0; fresh fork_turns=none contestant contexts, assigned packet only, independent local history, no supplied peer/hidden material.",
+  "repetitions_per_arm": 3,
+  "arms": {
+    "M0": {
+      "treatment": "rd-neutral-v0",
+      "method_path": null,
+      "method_blob": null,
+      "description": "Normal host behavior; no additional mechanism instruction delivered."
+    },
+    "M1": {
+      "treatment": "rd-authority-v0",
+      "method_path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/methods/M1_AUTHORITY_CLASSIFICATION.md",
+      "method_blob": "c160a2182e1c708770c6e0f32703937e0c146724",
+      "description": "Explicit decision-authority classifier only."
+    },
+    "M2": {
+      "treatment": "rd-frontier-v0",
+      "method_path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/methods/M2_DECISION_FRONTIER.md",
+      "method_blob": "ca9f28cf54b6bc98d3be5ccab12ae3e6e20c0260",
+      "description": "Recomputed unresolved product-decision frontier only."
+    },
+    "M3": {
+      "treatment": "rd-authority-frontier-v0",
+      "method_path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/methods/M3_AUTHORITY_FRONTIER.md",
+      "method_blob": "3204b9b1336a23df2209550d8519dd8fa25ea9bb",
+      "description": "Authority classifier plus recomputed product-decision frontier."
+    }
+  },
+  "run_count": 12,
+  "execution_order": [
+    {
+      "position": 1,
+      "run_id": "RD-M1-002"
+    },
+    {
+      "position": 2,
+      "run_id": "RD-M2-003"
+    },
+    {
+      "position": 3,
+      "run_id": "RD-M3-003"
+    },
+    {
+      "position": 4,
+      "run_id": "RD-M2-002"
+    },
+    {
+      "position": 5,
+      "run_id": "RD-M3-001"
+    },
+    {
+      "position": 6,
+      "run_id": "RD-M1-003"
+    },
+    {
+      "position": 7,
+      "run_id": "RD-M0-002"
+    },
+    {
+      "position": 8,
+      "run_id": "RD-M3-002"
+    },
+    {
+      "position": 9,
+      "run_id": "RD-M1-001"
+    },
+    {
+      "position": 10,
+      "run_id": "RD-M0-001"
+    },
+    {
+      "position": 11,
+      "run_id": "RD-M0-003"
+    },
+    {
+      "position": 12,
+      "run_id": "RD-M2-001"
+    }
+  ],
+  "retry_policy": "No silent replacement/retry after a run starts. Preserve and exclude CONTAMINATED or INVALID_HOST_FAILURE dispositions.",
+  "primary_outcomes": [
+    "product_decisions_surfaced_of_4",
+    "silent_product_assumptions_of_4",
+    "FACT_LOOKUP_questions",
+    "REVERSIBLE_ENGINEERING_CHOICE_questions",
+    "PRODUCT_OR_PREFERENCE_DECISION_exchanges",
+    "public_acceptance",
+    "frozen_evaluator_acceptance"
+  ],
+  "transfer_gate": {
+    "purpose": "Eligibility for a separate transfer experiment only; never automatic FIRST adoption.",
+    "conditions": [
+      "At least 2 of 3 valid runs surface all 4 frozen product decisions.",
+      "Median silent assumptions across valid runs is 0.",
+      "Median FACT_LOOKUP burden across valid runs is 0.",
+      "At least 2 of 3 planned runs produce valid public+evaluator PASS outcomes; excluded runs are not silently replaced."
+    ],
+    "comparative_signal": [
+      "Report whether median surfaced decisions improves by at least 2 versus M0.",
+      "Report whether median silent assumptions decreases by at least 2 versus M0."
+    ]
+  },
+  "first_governance": {
+    "first_mode_modified": false,
+    "automatic_promotion_to_first_forbidden": true,
+    "adoption_requires": "Separate FIRST-specific design proposal, explicit user approval, separately versioned experiment, and architecture review before production."
+  },
+  "results_visible_before_freeze": false,
+  "treatment_tuning_after_first_outcome_allowed": false
+}

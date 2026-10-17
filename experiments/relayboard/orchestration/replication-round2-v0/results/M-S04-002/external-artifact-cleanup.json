@@ -1,0 +1,8 @@
+{
+  "artifact": "/tmp/M-S04-002-report-validated.json",
+  "archived_to": "external-own-report.json",
+  "sha256": "063d7cb56e69ec845d5b660923bed651cd58ab2fe45214579fa59e33a2f6e418",
+  "removed_after_archival": true,
+  "before_next_delivery": true,
+  "forbidden_information_received": false
+}

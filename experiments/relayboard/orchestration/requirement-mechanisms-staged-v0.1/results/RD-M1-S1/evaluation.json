@@ -1,0 +1,17 @@
+{
+  "run_id": "RD-M1-S1",
+  "candidate_sha": "80102c46a4786e90c9f27b646eb0fb69b1b2699b",
+  "candidate_tree": "86b93b81f0930e9e4650c9427ab31eb245262f72",
+  "evaluation_started_at_utc": "2026-10-17T22:44:48.758651+00:00",
+  "evaluation_finished_at_utc": "2026-10-17T22:44:49.138750+00:00",
+  "evaluator_blob": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+  "public_pass": true,
+  "evaluator_pass": true,
+  "frozen_evaluator_result": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": []
+  },
+  "candidate_unchanged_after_evaluation": true,
+  "hidden_feedback_to_same_contestant": false
+}

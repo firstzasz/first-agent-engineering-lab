@@ -1,0 +1,17 @@
+{
+  "run_id": "RD-M3-S1",
+  "candidate_sha": "0579f0fdce66ffb8240e88a69b884129994fe054",
+  "candidate_tree": "38d3509cb3a28d356b850161daeb620d1d7a5364",
+  "evaluation_started_at_utc": "2026-10-17T22:52:12.603863+00:00",
+  "evaluation_finished_at_utc": "2026-10-17T22:52:12.935883+00:00",
+  "evaluator_blob": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+  "public_pass": true,
+  "evaluator_pass": true,
+  "frozen_evaluator_result": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": []
+  },
+  "candidate_unchanged_after_evaluation": true,
+  "hidden_feedback_to_same_contestant": false
+}

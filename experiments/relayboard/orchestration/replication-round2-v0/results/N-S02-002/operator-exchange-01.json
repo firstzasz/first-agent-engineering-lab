@@ -1,0 +1,38 @@
+{
+  "run_id": "N-S02-002",
+  "asked_at_observed": "2026-10-08 02:27:57 UTC",
+  "question": "The task leaves pause semantics open. My proposed behavior is an independent persisted paused flag that blocks new scheduled Runs, permits manual Runs, allows existing Runs/retries/alerts to continue unchanged, preserves enabled state across pause/resume, and shows pause state on the dashboard without changing existing columns. Confirm these semantics or specify differences before I implement dependent behavior.",
+  "question_classifications": [
+    {
+      "item": "new scheduled Runs while paused",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+    },
+    {
+      "item": "manual Runs while paused",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+    },
+    {
+      "item": "existing in-progress Runs",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+    },
+    {
+      "item": "persisted flag and preserving existing enabled state",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    },
+    {
+      "item": "dashboard presentation and retaining columns",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    }
+  ],
+  "frozen_decisions_answered": [
+    "scheduled_start_while_paused",
+    "manual_run_while_paused",
+    "pause_in_progress_run"
+  ],
+  "answer": "For the requested product decisions: an in-progress Run continues to its terminal outcome; scheduled starts while paused are skipped and are not queued; manual Runs while paused are allowed. The persisted representation, enabled-state handling, and dashboard presentation are reversible engineering choices; decide from the assigned task and fixture.",
+  "unasked_frozen_decisions_not_supplied": [
+    "resume_behavior"
+  ],
+  "oracle_ref": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "oracle_blob_sha": "054a302c6233321fa3988ce2f2be4a723039fa80"
+}

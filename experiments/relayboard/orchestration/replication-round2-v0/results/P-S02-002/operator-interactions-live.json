@@ -1,0 +1,40 @@
+[
+  {
+    "run_id": "P-S02-002",
+    "round": 1,
+    "observed_at": "2026-10-07 14:16:42 UTC",
+    "question": "The task defines pause as preventing normal scheduled work, while preserving existing Run/retry/alert/dashboard behavior unless needed. Please resolve pause semantics: (1) may operators still start manual Runs while paused; (2) do existing Runs continue Attempts/retries unchanged; (3) do failed Runs still emit existing alerts while paused; (4) should dashboard show pause state separately while retaining Enabled and Last result; (5) should resume preserve the preexisting enabled/disabled setting? My tentative minimal design uses a persisted paused flag separate from enabled, gates only new scheduled Runs, leaves in-flight Runs/retries/alerts intact, and adds a separate pause indicator. I will wait for your product answer before dependent implementation and record the exchange.",
+    "answer": "(1) Manual Runs remain allowed while paused. (2–3) An in-progress Run continues to terminal outcome with existing retries and alerts preserved. (4–5) No additional product preference for dashboard or pause/enabled-state representation: use TASK.md, existing public interfaces and reversible engineering judgment. This answers only the asked product decisions; no blanket confirmation of the tentative design or other semantics.",
+    "classification": "MIXED",
+    "product_decisions_answered": [
+      "manual_run_while_paused",
+      "pause_in_progress_run"
+    ],
+    "question_classifications": [
+      {
+        "item": "manual Runs while paused",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+      },
+      {
+        "item": "in-progress Attempts/retries",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+      },
+      {
+        "item": "existing alerts while paused",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+        "same_frozen_semantic": "pause_in_progress_run"
+      },
+      {
+        "item": "dashboard indicator",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+      },
+      {
+        "item": "enabled/disabled representation",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+      }
+    ],
+    "FACT_questions": 0,
+    "volunteered_requirements": false,
+    "answer_sheet_supplied": false
+  }
+]

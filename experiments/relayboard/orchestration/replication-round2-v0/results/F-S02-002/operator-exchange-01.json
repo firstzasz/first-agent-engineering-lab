@@ -1,0 +1,41 @@
+{
+  "run_id": "F-S02-002",
+  "round": 1,
+  "observed_at": "2026-10-07 13:17:41 UTC",
+  "question": "Product semantics remain undefined in GLOSSARY.md. Proposed policy: pause independently tracks scheduling suppression; manual runs remain allowed; existing Runs and retries continue and existing alerts still emit; resume removes pause without changing enabled/disabled state; pause/resume are idempotent; dashboard shows an explicit Paused field alongside Enabled and Last result. Please confirm or give desired changes, especially manual runs, in-flight retry/alerts, and dashboard representation. FACT evidence: current disabled jobs block only scheduled starts, allow manual runs; Runs already begun are independent; task requests preservation of existing behavior. No implementation dependent on these choices will proceed until your answer.",
+  "answer": "Manual Runs allowed while paused. In-progress Run continues terminal including existing retries/alerts. No additional guidance for representation/enabled/idempotence/dashboard; task/public interfaces/reversible judgment. No blanket confirmation of other proposed policy.",
+  "classification": "MIXED",
+  "product_decisions_answered": [
+    "manual_run_while_paused",
+    "pause_in_progress_run"
+  ],
+  "question_classifications": [
+    {
+      "item": "manual runs",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+    },
+    {
+      "item": "in-flight Run/retries/alerts",
+      "classification": "PRODUCT_OR_PREFERENCE_DECISION"
+    },
+    {
+      "item": "pause-state representation",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    },
+    {
+      "item": "enabled/disabled representation",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    },
+    {
+      "item": "idempotence",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    },
+    {
+      "item": "dashboard presentation",
+      "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+    }
+  ],
+  "FACT_questions": 0,
+  "FACT_evidence_supplied_by_contestant": true,
+  "volunteered_requirements": false
+}

@@ -1,0 +1,37 @@
+{
+  "repository": "firstzasz/first-agent-engineering-lab",
+  "branch": "research/batch-orchestration-round2",
+  "status": "COMPLETED",
+  "disposition_count": 12,
+  "evaluated_passes": [
+    "F-S04-002",
+    "F-S02-002",
+    "F-S01-002",
+    "M-S04-002",
+    "M-S02-002",
+    "M-S01-002",
+    "P-S04-002",
+    "P-S01-002",
+    "N-S04-002",
+    "N-S02-002",
+    "N-S01-002"
+  ],
+  "excluded": [
+    {
+      "run_id": "P-S02-002",
+      "status": "INVALID_HOST_FAILURE",
+      "no_retry": true,
+      "reason": "The resumed host no longer had the prior contestant/helper contexts or the working area/local history. No frozen candidate branch or independently verifiable final candidate could be recovered. Live checkpoint claims are preserved as partial process evidence only."
+    }
+  ],
+  "remaining_unstarted": [],
+  "resume_from": null,
+  "resume_instruction": "Round 2 complete. Do not restart or silently replace any run. All candidate PRs remain draft and unmerged. Reports/audit on this research branch; no main merge.",
+  "prior_resume_record_commit": "fbd65b3e6d393d82f19e2ed3e3fdd65a7b9ba60f",
+  "finalization": {
+    "profiles": "profiles.json",
+    "comparison": "cross-round-report.md",
+    "audit": "final-audit.json",
+    "status": "COMPLETED"
+  }
+}

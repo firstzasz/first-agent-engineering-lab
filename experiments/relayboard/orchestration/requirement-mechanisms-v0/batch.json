@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "status": "READY_NOT_STARTED",
+  "cohort_path": "experiments/relayboard/orchestration/requirement-mechanisms-v0/COHORT.json",
+  "serial": true,
+  "completed_count": 0,
+  "excluded_count": 0,
+  "runs": [
+    {
+      "position": 1,
+      "run_id": "RD-M1-002",
+      "arm": "M1",
+      "replicate": 2,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-authority-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M1-002.json",
+      "digest_prefix": "0f5083ab"
+    },
+    {
+      "position": 2,
+      "run_id": "RD-M2-003",
+      "arm": "M2",
+      "replicate": 3,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-frontier-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M2-003.json",
+      "digest_prefix": "19ac76cb"
+    },
+    {
+      "position": 3,
+      "run_id": "RD-M3-003",
+      "arm": "M3",
+      "replicate": 3,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-authority-frontier-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M3-003.json",
+      "digest_prefix": "2aa55ae3"
+    },
+    {
+      "position": 4,
+      "run_id": "RD-M2-002",
+      "arm": "M2",
+      "replicate": 2,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-frontier-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M2-002.json",
+      "digest_prefix": "2aac2c08"
+    },
+    {
+      "position": 5,
+      "run_id": "RD-M3-001",
+      "arm": "M3",
+      "replicate": 1,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-authority-frontier-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M3-001.json",
+      "digest_prefix": "3a7c0c3c"
+    },
+    {
+      "position": 6,
+      "run_id": "RD-M1-003",
+      "arm": "M1",
+      "replicate": 3,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-authority-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M1-003.json",
+      "digest_prefix": "3b9499f2"
+    },
+    {
+      "position": 7,
+      "run_id": "RD-M0-002",
+      "arm": "M0",
+      "replicate": 2,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-neutral-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M0-002.json",
+      "digest_prefix": "448bacf2"
+    },
+    {
+      "position": 8,
+      "run_id": "RD-M3-002",
+      "arm": "M3",
+      "replicate": 2,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-authority-frontier-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M3-002.json",
+      "digest_prefix": "754aeb0c"
+    },
+    {
+      "position": 9,
+      "run_id": "RD-M1-001",
+      "arm": "M1",
+      "replicate": 1,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-authority-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M1-001.json",
+      "digest_prefix": "8f228dab"
+    },
+    {
+      "position": 10,
+      "run_id": "RD-M0-001",
+      "arm": "M0",
+      "replicate": 1,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-neutral-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M0-001.json",
+      "digest_prefix": "99787c75"
+    },
+    {
+      "position": 11,
+      "run_id": "RD-M0-003",
+      "arm": "M0",
+      "replicate": 3,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-neutral-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M0-003.json",
+      "digest_prefix": "a6fa4a1d"
+    },
+    {
+      "position": 12,
+      "run_id": "RD-M2-001",
+      "arm": "M2",
+      "replicate": 1,
+      "scenario": "S02-v0.1",
+      "treatment": "rd-frontier-v0",
+      "status": "READY",
+      "manifest": "runs/RD-M2-001.json",
+      "digest_prefix": "f578414b"
+    }
+  ]
+}

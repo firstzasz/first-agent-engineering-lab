@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "replication_round": 2,
+  "run_id": "P-S02-002",
+  "scenario": "S02-v0.1",
+  "treatment": "pstack-codex-port-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "INVALID_HOST_FAILURE",
+  "included": false,
+  "prepared_sha": "576b346380d446bc7bd4562542e3019561f30923",
+  "prepared_tree_sha": "828b1121a8f818e7df32413a1261422b6484bc52",
+  "start_evidence": "results/P-S02-002/start.json",
+  "operator_interactions_evidence": "results/P-S02-002/operator-interactions-live.json",
+  "visible_checkpoints_evidence": "results/P-S02-002/visible-checkpoints-live.json",
+  "candidate_sha": null,
+  "public_tests": null,
+  "hidden_evaluation": null,
+  "hidden_evaluation_skipped": true,
+  "no_retry": true,
+  "failure_class": "HOST_STATE_LOSS",
+  "reason": "The resumed host no longer had the prior contestant/helper contexts or the working area/local history. No frozen candidate branch or independently verifiable final candidate could be recovered. Live checkpoint claims are preserved as partial process evidence only.",
+  "observed_partial_progress": {
+    "operator_exchange_preserved": true,
+    "checkpoints_preserved": 2,
+    "claimed_implementation_commit": "466c86b",
+    "independently_verified_candidate": false
+  },
+  "disposition": "Exclude from Round 2 outcome comparison. Do not restart or silently replace this run.",
+  "persistence_note": "This disposition was reconstructed from durable GitHub evidence plus the Codex resume report after the original persistence attempt failed."
+}

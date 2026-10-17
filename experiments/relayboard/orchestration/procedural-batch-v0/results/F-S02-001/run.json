@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "run_id": "F-S02-001",
+  "scenario": "S02-v0.1",
+  "treatment": "first-mode-v0",
+  "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "status": "COMPLETED_EVALUATED_PASS",
+  "host": "Codex subagent on shared managed cloud; procedural isolation",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_model_attestation": "unknown",
+  "spawn": {
+    "fork_turns": "none",
+    "serial": true,
+    "agent": "/root/contestant_f_s02_001"
+  },
+  "start": {
+    "run_id": "F-S02-001",
+    "workspace": "/workspace/relayboard-active/F-S02-001",
+    "local_start_sha": "87b90adc0538b9a29784d065076106475360ff8f",
+    "local_start_tree": "958b2c5dca7e3368a537bc253b949dc53cfd96c9",
+    "remote_prepared_sha": "13dae3136e2a81fc70ce278757d47aa33e572b46",
+    "base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "treatment": "first-mode-v0",
+    "prepared_at": "2026-10-07T12:09:30.403126+00:00",
+    "files": {
+      "GLOSSARY.md": "1644e3168948e94d8ac019ad14f388bccafaa886",
+      "README.md": "cf475bf5e7ad736baba984e217f298c0a5aa039d",
+      "pyproject.toml": "4a91a057dfe1d3f9a7f132afb4461112db4e515b",
+      "relayboard/__init__.py": "99cbf76c3006fe569059838d131a107a13e172c9",
+      "relayboard/__main__.py": "9ae4b232e62d3cea821003c7b8bb06f05ecdfb26",
+      "relayboard/models.py": "c9c800ad511d2488ba9fdb980726f2d5cec3523e",
+      "relayboard/service.py": "e924be0db57cba6ba94a999caac6f2669d838c8f",
+      "relayboard/store.py": "3a49cc198ab1581f1d2c0669e21f748c3806f80d",
+      "relayboard/testing.py": "5bc8f835d07c7d11ec6dce20e8d5b5c0731f513d",
+      "relayboard/web.py": "88aa15e67048b6806387efee0ee315bf07b0371e",
+      "tests/test_public.py": "42fc71d1c2b6eedde251b9028f2d4023a9372946",
+      "TASK.md": "ac1d7693f48dc3df3b12aa3b439e99e1a9263ed0",
+      ".gitignore": "a160f494b397adda8d5741d811f8444558aa261a",
+      "METHOD.md": "22ef0c77d90c3410785dd593f2b5c161edaed531",
+      ".experiment/RUN_MANIFEST.json": "8180a40225f65346e013c7d753253b50061b167d"
+    },
+    "no_lab_remote": true,
+    "independent_history": true
+  },
+  "contestant_completed_observed_at": "2026-10-07 12:15:20 UTC",
+  "candidate_frozen_at": "2026-10-07T12:15:20.911189+00:00",
+  "local_candidate_sha": "3c8d60f4258f282e6ded24d9db9de262de9c5396",
+  "local_candidate_tree": "9b1fe3ca90dfa1827058a835def1cbc550922c6b",
+  "remote_candidate": {
+    "sha": "fb4fb8d78c46699d75f7ff9bfc3945d531a3bba6",
+    "tree_sha": "9b1fe3ca90dfa1827058a835def1cbc550922c6b",
+    "branch": "candidate/F-S02-001"
+  },
+  "candidate_pr": {
+    "url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/26",
+    "number": 26,
+    "state": "open",
+    "merged": false,
+    "mergeable": false,
+    "draft": true,
+    "body": "Implements the frozen S02-v0.1 task in a fresh first-mode-v0 context from Pilot Start State v0.1. Local history and separate post-termination evaluation evidence are retained on research/batch-orchestration-pilot. This benchmark PR targets only its treatment branch and must not be merged into main.",
+    "title": "F-S02-001: first-mode-v0 frozen benchmark candidate",
+    "base": "treatment/first-mode/F-S02-001",
+    "base_sha": "13dae3136e2a81fc70ce278757d47aa33e572b46",
+    "head": "candidate/F-S02-001",
+    "head_sha": "fb4fb8d78c46699d75f7ff9bfc3945d531a3bba6",
+    "head_repo_id": 1406588983,
+    "head_repo_full_name": "firstzasz/first-agent-engineering-lab",
+    "merge_commit_sha": null,
+    "user": {
+      "login": "firstzasz",
+      "name": "firstzasz",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/68672825?v=4",
+      "id": 68672825
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-07T12:15:31Z",
+    "updated_at": "2026-10-07T12:15:31Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 1,
+    "changed_files": 19,
+    "additions": 788,
+    "deletions": 3,
+    "display_url": "https://github.com/firstzasz/first-agent-engineering-lab/pull/26",
+    "display_title": "F-S02-001: first-mode-v0 frozen benchmark candidate"
+  },
+  "local_commit_metadata": [
+    {
+      "sha": "87b90adc0538b9a29784d065076106475360ff8f",
+      "metadata": "commit 87b90adc0538b9a29784d065076106475360ff8f\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 12:09:30 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 12:09:30 2026 +0000\n\n    benchmark: frozen standalone F-S02-001 starting packet\n"
+    },
+    {
+      "sha": "236fc3e6033c261b44a8a970e08a8629ed7e7e5c",
+      "metadata": "commit 236fc3e6033c261b44a8a970e08a8629ed7e7e5c\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 12:13:31 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 12:13:31 2026 +0000\n\n    Add independent Job pause and resume controls\n"
+    },
+    {
+      "sha": "3c8d60f4258f282e6ded24d9db9de262de9c5396",
+      "metadata": "commit 3c8d60f4258f282e6ded24d9db9de262de9c5396\nAuthor:     RelayBoard Pilot <benchmark@example.invalid>\nAuthorDate: Wed Oct 7 12:15:05 2026 +0000\nCommit:     RelayBoard Pilot <benchmark@example.invalid>\nCommitDate: Wed Oct 7 12:15:05 2026 +0000\n\n    Record FIRST-mode decisions and public verification evidence\n"
+    }
+  ],
+  "diff_stat": " .experiment/REPORT.json                 | 100 +++++++++++++++++\n .experiment/STATE.md                    |  17 +++\n .experiment/action-path-log.json        |  68 ++++++++++++\n .experiment/artifact-review.txt         | 189 ++++++++++++++++++++++++++++++++\n .experiment/baseline-tests.txt          |  10 ++\n .experiment/commands.jsonl              |   5 +\n .experiment/final-check.txt             |  12 ++\n .experiment/green-tests.txt             |  18 +++\n .experiment/implementation-commit.txt   |   4 +\n .experiment/initial-command-record.json |  34 ++++++\n .experiment/operator-interactions.json  |   8 ++\n .experiment/red-tests.txt               |  97 ++++++++++++++++\n .experiment/run_logged.py               |  18 +++\n README.md                               |  16 +++\n relayboard/models.py                    |   1 +\n relayboard/service.py                   |   8 ++\n relayboard/store.py                     |  27 ++++-\n relayboard/web.py                       |  22 +++-\n tests/test_pause.py                     | 137 +++++++++++++++++++++++\n 19 files changed, 788 insertions(+), 3 deletions(-)\n",
+  "operator_interactions": [
+    {
+      "run_id": "F-S02-001",
+      "round": 1,
+      "observed_at": "2026-10-07 12:10:50 UTC",
+      "question": "The task and glossary leave pause semantics unresolved. Existing scheduling uses enabled; manual runs ignore enabled, retries and alerts proceed for active Runs. Please decide: (1) should pause block only new scheduled Runs, or also manual Runs? (2) should in-progress Runs/retries/alerts continue unchanged? (3) should resume preserve a Job's prior enabled/disabled state? My recommendation is an independent paused flag: block new scheduled Runs only, allow manual Runs, preserve in-progress Run/retry/alert behavior, and leave enabled unchanged on pause/resume. If dashboard presentation has a specific requirement, please supply it; otherwise I will expose a separate Paused column while preserving Enabled and Last result.",
+      "answer": "(1) A scheduled start while paused is skipped and is not queued. Manual Runs remain allowed while paused. (2) An in-progress Run continues to terminal outcome; preserve retries/alerts. (3) No additional guidance on enabled representation/dashboard presentation; TASK preservation, public interfaces and reversible judgment. No other product requirements supplied.",
+      "classification": "MIXED",
+      "product_decisions_answered": [
+        "scheduled_start_while_paused",
+        "manual_run_while_paused",
+        "pause_in_progress_run"
+      ],
+      "engineering_items": [
+        "enabled-state representation",
+        "dashboard presentation"
+      ],
+      "volunteered_requirements": false,
+      "answer_sheet_supplied": false
+    }
+  ],
+  "agent_completion_claim": "VERIFIED: Job pause/resume implemented;13public tests pass. Manual Runs/retries/alerts/enabled preserved. Local236fc3e implementation,3c8d60f evidence; clean. .experiment/REPORT.json. No evaluator/peer access declared, no helpers.",
+  "visible_checkpoints": [
+    {
+      "observed_at": "2026-10-07 12:15:01 UTC",
+      "message": "Exact FIRST method L1 route with L3 product question before implementation. No helpers. Paused independent state, scheduledstart rejected noqueue, manual/active behavior preserved, resume no immediate work, dashboard separate Paused. Baseline5pass; new checks red8fail inclsubtests/1error; final13public WSGI/storage pass. Implementation236fc3e6033c261b44a8a970e08a8629ed7e7e5c; evidence finalizing. No hidden/peer access declared."
+    }
+  ],
+  "worker_report": {
+    "schema_version": 1,
+    "run_id": "F-S02-001",
+    "status": "VERIFIED",
+    "implementation_status": "IMPLEMENTED",
+    "verification_status": "VERIFIED",
+    "method": {
+      "name": "FIRST-mode v0",
+      "source_path": "METHOD.md",
+      "source_sha256": "b4f4caa030da9a979097d3c21b225c50bef70572723352fef2a693a6e9a6b2e5",
+      "route": [
+        "L1 grounded reversible implementation",
+        "L3 product question; operator answered before dependent work",
+        "L1 executable red/green verification and persisted local evidence"
+      ],
+      "helpers": [],
+      "independent_evidence": "Executable WSGI API and storage assertions, existing public regressions, and preserved machine-generated outputs; no independent human or agent review claimed."
+    },
+    "success_predicate": "Pause/resume are persistent, idempotent API controls; paused scheduled starts create no Run/queue and return 409, manual Runs remain allowed, active retry/alert behavior is preserved, resume does not start work or override enabled, and dashboard/API expose paused without changing existing fields.",
+    "local_commits": [
+      {
+        "sha": "87b90adc0538b9a29784d065076106475360ff8f",
+        "role": "supplied initial independent commit"
+      },
+      {
+        "sha": "236fc3e6033c261b44a8a970e08a8629ed7e7e5c",
+        "role": "verified implementation, documentation and tests"
+      }
+    ],
+    "evidence_commit": "The local commit containing this REPORT and evidence follows the implementation commit; resolve its SHA with git rev-parse HEAD after finalization. Self-referential SHA not embedded.",
+    "testcommands": [
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "phase": "baseline",
+        "exit_code": 0,
+        "result": "5 passed",
+        "outputpath": ".experiment/baseline-tests.txt",
+        "provenance": "transcribed available tool output"
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "phase": "pre-implementation new checks",
+        "exit_code": 1,
+        "result": "13 tests; 8 failures including subtests and 1 error; existing public tests green",
+        "outputpath": ".experiment/red-tests.txt"
+      },
+      {
+        "command": "python -m unittest discover -s tests -v",
+        "phase": "post-implementation",
+        "exit_code": 0,
+        "result": "13 passed",
+        "outputpath": ".experiment/green-tests.txt"
+      },
+      {
+        "command": "git diff --check && git diff --stat && git diff -- relayboard README.md",
+        "phase": "artifact review",
+        "exit_code": 0,
+        "result": "Whitespace check passed and application/documentation diff inspected",
+        "outputpath": ".experiment/artifact-review.txt"
+      },
+      {
+        "command": "git diff --check && git status --short",
+        "phase": "pre-evidence-commit final check",
+        "exit_code": 0,
+        "result": "No whitespace errors or outstanding application changes; only new experiment evidence remained to commit.",
+        "outputpath": ".experiment/final-check.txt"
+      }
+    ],
+    "operator_interactions": {
+      "count": 1,
+      "path": ".experiment/operator-interactions.json",
+      "outcome": "Manual Runs allowed; scheduled work skipped without queue; active Run retries and alerts preserved; enabled/dashboard implementation left to reversible engineering judgment."
+    },
+    "action_path_log": ".experiment/action-path-log.json",
+    "command_logs": [
+      ".experiment/initial-command-record.json",
+      ".experiment/commands.jsonl"
+    ],
+    "evaluator_or_peer_material_accessed": false,
+    "contamination": null,
+    "observed_model_identity": "unknown",
+    "observed_reasoning_setting": "unknown",
+    "observed_usage": "unknown",
+    "requested_configuration": {
+      "model": "gpt-6.1-sol",
+      "reasoning": "high",
+      "source": ".experiment/RUN_MANIFEST.json"
+    },
+    "evidence_gaps": [
+      "Hidden evaluation was not available or accessed; claims cover public checks only.",
+      "No independent agent or human reviewer; verification is reproducible executable evidence.",
+      "Real WSGI application was exercised through the supplied request harness; no network-hosted browser/deployment check was performed.",
+      "Initial command outputs were available in tool responses; initial records and baseline output were reconstructed explicitly rather than contemporaneously logged.",
+      "Actual model identity, reasoning setting, token usage, and cost were not independently observable."
+    ],
+    "known_limitations": [
+      "Concurrency semantics remain those of the existing synchronous SQLite fixture; no new distributed scheduler or queue added."
+    ],
+    "remaining_application_work": []
+  },
+  "contamination": {
+    "contaminated": false,
+    "status": "NO_EVIDENCE_OBSERVED",
+    "worker_declared_hidden_or_peer_access": false,
+    "immutable_packet_drift": [],
+    "audit": "Delivered tree/immutable files checked; available worker report/action logs reviewed. No exhaustive raw host tool transcript is exported. Inherited public access remains technically possible.",
+    "included_in_outcome_comparison": true
+  },
+  "public_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": true,
+    "stdout": "",
+    "stderr": "test_active_runs_retries_and_alerts_match_unpaused_behavior (test_pause.JobPauseTests.test_active_runs_retries_and_alerts_match_unpaused_behavior) ... ok\ntest_enabled_changes_do_not_clear_pause (test_pause.JobPauseTests.test_enabled_changes_do_not_clear_pause) ... ok\ntest_existing_schema_defaults_to_unpaused_and_preserves_configuration (test_pause.JobPauseTests.test_existing_schema_defaults_to_unpaused_and_preserves_configuration) ... ok\ntest_pause_allows_manual_run_and_preserves_disabled_state (test_pause.JobPauseTests.test_pause_allows_manual_run_and_preserves_disabled_state) ... ok\ntest_pause_skips_scheduled_start_and_resume_does_not_queue_work (test_pause.JobPauseTests.test_pause_skips_scheduled_start_and_resume_does_not_queue_work) ... ok\ntest_pause_state_visible_and_last_result_preserved (test_pause.JobPauseTests.test_pause_state_visible_and_last_result_preserved) ... ok\ntest_state_survives_store_reconstruction (test_pause.JobPauseTests.test_state_survives_store_reconstruction) ... ok\ntest_unknown_job_actions_follow_not_found_convention (test_pause.JobPauseTests.test_unknown_job_actions_follow_not_found_convention) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 0.013s\n\nOK\n"
+  },
+  "hidden_evaluation": {
+    "scenario": "S02-v0.1",
+    "passed": true,
+    "failures": [],
+    "error": null
+  },
+  "hidden_evaluation_context": "separate orchestrator-owned Python process after contestant termination",
+  "hidden_feedback_to_same_run": false,
+  "port_freeze_commit": null,
+  "source_pins": [],
+  "available_evidence_paths": [
+    ".experiment/REPORT.json",
+    ".experiment/action-path-log.json",
+    ".experiment/run_logged.py"
+  ],
+  "unavailable_metrics": [
+    "exhaustive raw tool transcript",
+    "token usage",
+    "independently attested runtime model/reasoning"
+  ],
+  "notes": "",
+  "local_history_bundle": {
+    "path": "local-history.bundle.b64",
+    "bytes": 29803,
+    "sha256": "e6fe483580df1bbe96b093f7f58f75936dcaf31ad83756968eb24e1583fceae7",
+    "encoding": "base64; decode then git bundle verify"
+  }
+}

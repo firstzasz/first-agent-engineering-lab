@@ -1,0 +1,12 @@
+{
+  "run_id": "M-S02-001",
+  "observed_at": "2026-10-07 09:41:57 UTC",
+  "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+  "administrative_scope_ruling": true,
+  "reported_call": "pwd && rg --files -g 'METHOD.md' -g 'TASK.md' -g 'GLOSSARY.md' -g 'SKILL.md' -g 'spec.md' -g 'operator-interactions.md' with explicit assigned-run workdir",
+  "worker_original_claim": "Spec helper stopped; contamination=yes because it considered other supplied Matt skill filenames unassigned.",
+  "allowlist_basis": "Prepared packet contains all discovered upstream/matt skills as assigned method sources; filenames within this arm/run are allowed. No outside path, content, evaluator/peer exposure was reported.",
+  "disposition": "No contamination established by this scoped filename discovery. Preserve original claim and ruling; continue same incomplete Spec helper, no fresh contestant or hidden feedback.",
+  "no_product_guidance": true,
+  "no_silent_retry": true
+}

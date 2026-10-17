@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-10-17T22:42:34.915247+00:00",
+  "head": "63aea9e37dca19beb476e07eaac36fe46d0b2cf1",
+  "refs_before": {
+    "main": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "research/batch-orchestration-pilot": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+    "research/batch-orchestration-round2": "226a03a883c65c81223ca49e00ddd058e1b38691",
+    "research/exp0014-requirement-mechanisms": "80cdd684c130760eba9f09d943f869bd6b3b11e8"
+  },
+  "checks": {
+    "expected_head": true,
+    "audit_declared_pass": true,
+    "balanced_exact_stage1_order": true,
+    "not_started_no_stage2_authorization": true,
+    "all_downloaded_docs_match_blobs": true,
+    "task_exact_frozen_blob": true,
+    "methods_exact_frozen_blobs": true,
+    "evaluator_exact_frozen_blob": true,
+    "oracle_exact_frozen_blob": true,
+    "fixture_download_complete_exact_base": true,
+    "no_staged_results_preexisting": true,
+    "frozen_protocol_scoring_first_mode_match_base": true,
+    "continuation_thresholds_unchanged": true
+  },
+  "passed": 13,
+  "total": 13,
+  "contestants_started": 0,
+  "runtime_identity_attestation": "unknown",
+  "procedural_isolation": true,
+  "hard_secrecy_claimed": false,
+  "stage2_execution_authorized_by_user": false
+}
+
