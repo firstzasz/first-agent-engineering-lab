@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "execution_variant": "staged-screening-v0.1",
+  "status": "STAGE1_READY_NOT_STARTED",
+  "stage": 1,
+  "completed_count": 0,
+  "excluded_count": 0,
+  "stage1_runs": [
+    {
+      "position": 1,
+      "run_id": "RD-M1-S1",
+      "arm": "M1",
+      "replicate": 1,
+      "sha256": "4fab80d8d85ebd2edb095e5dab09c65cc85d26b1d1fd31c62a2eb540c0a2339f",
+      "status": "READY"
+    },
+    {
+      "position": 2,
+      "run_id": "RD-M0-S1",
+      "arm": "M0",
+      "replicate": 1,
+      "sha256": "7dff0c11da186bee65d0519dd2531107bbeddadb1740f642d7a44f2c45ca2810",
+      "status": "READY"
+    },
+    {
+      "position": 3,
+      "run_id": "RD-M2-S1",
+      "arm": "M2",
+      "replicate": 1,
+      "sha256": "801e47075a7a7f8815dca59f911744231a06911e5c2fdd3c5b1a04ea39dc458a",
+      "status": "READY"
+    },
+    {
+      "position": 4,
+      "run_id": "RD-M3-S1",
+      "arm": "M3",
+      "replicate": 1,
+      "sha256": "bd2c8c28c974821a22e0b2db9a38767501a45ee99a334ab11e6d5ed7d7c3f42b",
+      "status": "READY"
+    }
+  ],
+  "stage2_runs": [
+    {
+      "position": 1,
+      "run_id": "RD-M0-R2",
+      "arm": "M0",
+      "replicate": 2,
+      "sha256": "3ea0227ec9474a448592afdd401cbbd476eb92be43508898f5216ec8632e9aa9",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 2,
+      "run_id": "RD-M1-R3",
+      "arm": "M1",
+      "replicate": 3,
+      "sha256": "48928fcd80dbda03394cfa9864719feb9c6b59e08ebb2b308c64106b9a9dde5d",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 3,
+      "run_id": "RD-M3-R3",
+      "arm": "M3",
+      "replicate": 3,
+      "sha256": "5b608fc0fa38296baafb263e34d43afc087b496c7f1c33841f4ba4ead39a2ea2",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 4,
+      "run_id": "RD-M0-R3",
+      "arm": "M0",
+      "replicate": 3,
+      "sha256": "8bd810937e286e5a4b2290441ed1a393f2a0008d3ec6f77e3fa5ad363c651d24",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 5,
+      "run_id": "RD-M2-R2",
+      "arm": "M2",
+      "replicate": 2,
+      "sha256": "8dec7be798ce9557ff3bff0ccbdf589adb5250792418f27fafa6356b3dcc76d1",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 6,
+      "run_id": "RD-M2-R3",
+      "arm": "M2",
+      "replicate": 3,
+      "sha256": "bde7bd60a75d6a7c0e6954c684670f74dd1ed97671d0bf24cabe1ab446830990",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 7,
+      "run_id": "RD-M3-R2",
+      "arm": "M3",
+      "replicate": 2,
+      "sha256": "da9e73ec07840cff7a506bc9a5a1cff34758ab0f00e9f7c86182ef56d065dae5",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 8,
+      "run_id": "RD-M1-R2",
+      "arm": "M1",
+      "replicate": 2,
+      "sha256": "f21faba0ca49e27f21e56b51b98790849828f2ee515ce79500929346a0322e81",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    }
+  ]
+}
