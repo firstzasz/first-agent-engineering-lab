@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0017",
+  "run_id": "DG-C1-G0-001",
+  "scenario": "RD-C1-v0",
+  "arm": "G0",
+  "status": "READY",
+  "treatment": "decision-generation-g0-v0",
+  "fixture_base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "packet": {
+    "task": {
+      "path": "experiments/relayboard/transfer-screen-v0/tasks/RD-C1-v0.md",
+      "blob": "ee7a8ac4f13d0dec6900462fff2be78fcfebf784",
+      "public_test": "experiments/relayboard/decision-generation-design-v0/public_tests/RD-C1-v0/test_public_feature.py",
+      "public_blob": "5f1735ed175b47370d33ec7f7a0307e696b4438e"
+    },
+    "method": null,
+    "method_delivery": "No METHOD.md or substitute control instruction.",
+    "independent_history": true,
+    "lab_remote": false,
+    "forbidden": [
+      "scenario operator oracle",
+      "transfer evaluator implementation",
+      "reference patches/reference solutions",
+      "benchmark scenario docs containing ambiguity classes",
+      "EXP-0014/0015/0016 outcome summaries",
+      "peer EXP-0017 outcomes",
+      "other-arm method packets"
+    ]
+  },
+  "operator_protocol": {
+    "answer_only_genuinely_asked_product_decisions": true,
+    "no_volunteered_requirements": true,
+    "fact_and_reversible_questions_receive_no_product_guidance": true
+  },
+  "evaluation": {
+    "after_all_same_run_contexts_terminate": true,
+    "evaluator_blob": "b7d00333f08527e13706cb68402e9749b8ec5e0d",
+    "hidden_feedback_to_same_run": false
+  },
+  "result": null,
+  "no_silent_retry": true,
+  "no_main_merge": true
+}
