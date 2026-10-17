@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0016",
+  "type": "local_mutation_sensitivity",
+  "executed_on": "2026-10-18",
+  "contestant_run": false,
+  "scenarios": {
+    "RD-C1": {
+      "reference_combined_tests": {
+        "passed": 10,
+        "total": 10
+      },
+      "mutations": [
+        {
+          "name": "terminal_cancel_succeeds_instead_of_conflict",
+          "expected_hidden_case": "terminal_run_cancel_conflicts",
+          "red": true
+        },
+        {
+          "name": "cancel_emits_failure_alert",
+          "expected_hidden_case": "cancel_emits_no_alert",
+          "red": true
+        },
+        {
+          "name": "dashboard_ignores_cancelled",
+          "expected_hidden_case": "cancelled_is_dashboard_last_result",
+          "red": true
+        },
+        {
+          "name": "repeat_cancel_conflicts",
+          "expected_hidden_case": "repeat_cancel_is_idempotent",
+          "red": true
+        }
+      ]
+    },
+    "RD-C2": {
+      "reference_combined_tests": {
+        "passed": 9,
+        "total": 9
+      },
+      "mutations": [
+        {
+          "name": "allow_scheduled_run_while_archived",
+          "expected_hidden_case": "archived_blocks_scheduled",
+          "red": true
+        },
+        {
+          "name": "allow_manual_run_while_archived",
+          "expected_hidden_case": "archived_blocks_manual",
+          "red": true
+        },
+        {
+          "name": "archive_interrupts_existing_run",
+          "expected_hidden_case": "existing_run_continues",
+          "red": true
+        },
+        {
+          "name": "restore_forces_enabled_true",
+          "expected_hidden_case": "restore_preserves_enabled_state",
+          "red": true
+        }
+      ]
+    }
+  },
+  "result": "PASS_ALL_8_MUTATIONS_CAUGHT",
+  "interpretation": "Each provisional hidden semantic has at least one plausible wrong implementation that the prototype check rejects.",
+  "limitations": [
+    "Local prototype evidence only; durable repository evaluator/reference implementation is not yet frozen.",
+    "Mutation operators are hand-selected and do not prove completeness of the evaluator.",
+    "No treatment/model outcome is measured."
+  ]
+}
