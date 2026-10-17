@@ -1,7 +1,7 @@
 # EXP-0016: Decision-space generation and transfer-scenario design
 
 Date: 2026-10-18
-Status: DESIGN / STATIC ANALYSIS; no new contestant run started
+Status: **IMPLEMENTED AND VERIFIED through transfer-harness validation; no contestant run started**
 
 ## Starting evidence
 
@@ -106,3 +106,20 @@ It may not:
 - automatically revise FIRST-mode.
 
 Any FIRST-facing design requires a separate proposal and explicit user agreement before implementation.
+
+
+## Harness validation result
+
+RD-C1 and RD-C2 passed the design gate with executable repository-native evidence.
+
+GitHub Actions workflow run `39077925964` succeeded on research head `be2f1b4d608bac1b67257f5e6eb07c652c412702`.
+
+The dedicated transfer-harness job verified:
+- frozen-base red capability;
+- reference-patch green paths;
+- public regression preservation;
+- eight targeted wrong-but-reasonable mutations rejected.
+
+RD-C3 remains deferred because the existing frozen fixture intentionally carries the independent S04 retry-alert defect.
+
+The next experiment should be a separately frozen, economical staged transfer screen. EXP-0016 itself contains no contestant outcome.
