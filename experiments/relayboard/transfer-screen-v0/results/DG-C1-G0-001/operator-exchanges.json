@@ -1,0 +1,17 @@
+[
+  {
+    "recorded_at_utc": "2026-10-17 23:25:42 UTC",
+    "question_received_at_utc": null,
+    "question": "Product decisions needed for Run cancellation: (1) Should cancelling an already-cancelled Run return 200 idempotently or 409? (2) Should cancelling a succeeded/failed Run return 409 and preserve its outcome? (3) Should cancellation emit any alert, and should the dashboard's Last result include cancelled runs or continue showing the last succeeded/failed outcome? I can implement storage support and attempt rejection while awaiting these decisions.",
+    "answer": "1. Repeated cancellation is idempotent success: return the cancelled Run (200).\n2. Return a conflict (409) and do not alter a Run that has already succeeded or failed.\n3. Cancellation itself emits no failure or cancellation Alert. Yes—show cancelled as the Job's most recent terminal Last result.",
+    "frozen_decisions_answered": [
+      "repeated_cancel",
+      "terminal_run_cancel",
+      "cancel_alert_behavior",
+      "cancelled_dashboard_last_result"
+    ],
+    "other_items": [],
+    "volunteered_frozen_decisions": [],
+    "classification": "PRODUCT_OR_PREFERENCE_DECISION (four distinct explicitly requested semantics; item 3 asks both alert and dashboard behavior)"
+  }
+]

@@ -1,0 +1,216 @@
+diff --git a/GLOSSARY.md b/GLOSSARY.md
+index 1644e31..e0c1e58 100644
+--- a/GLOSSARY.md
++++ b/GLOSSARY.md
+@@ -27,9 +27,16 @@ One execution of a Job.
+ A Run has a stable id and one terminal outcome:
+ 
+ - succeeded;
+-- failed.
++- failed;
++- cancelled.
+ 
+-A Run may contain one or more Attempts.
++A Run may contain zero or more Attempts.
++
++An operator may cancel a running Run, including while it is awaiting a retry.
++A cancelled Run accepts no further Attempts. Cancelling it again succeeds
++without changing it; cancelling a succeeded or failed Run is a conflict.
++Cancellation preserves existing Attempts and Alerts and emits no new Alert.
++The Dashboard includes cancelled Runs when displaying a Job's Last result.
+ 
+ ## Attempt
+ 
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..17ece13 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -29,6 +29,14 @@ class RelayBoardService:
+     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
+         self.store.set_job_enabled(job_id, enabled)
+ 
++    def cancel_run(self, run_id: str) -> Run:
++        run = self.store.get_run(run_id)
++        if run.status == "cancelled":
++            return run
++        if run.status != "running":
++            raise RunAlreadyTerminal(run_id)
++        return self.store.set_run_status(run_id, "cancelled")
++
+     def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
+         run = self.store.get_run(run_id)
+         if run.status != "running":
+diff --git a/relayboard/store.py b/relayboard/store.py
+index 3a49cc1..5d1f778 100644
+--- a/relayboard/store.py
++++ b/relayboard/store.py
+@@ -24,7 +24,7 @@ class Store:
+                 id TEXT PRIMARY KEY,
+                 job_id TEXT NOT NULL REFERENCES jobs(id),
+                 source TEXT NOT NULL CHECK(source IN ('manual', 'scheduled')),
+-                status TEXT NOT NULL CHECK(status IN ('running', 'succeeded', 'failed'))
++                status TEXT NOT NULL CHECK(status IN ('running', 'succeeded', 'failed', 'cancelled'))
+             );
+             CREATE TABLE IF NOT EXISTS attempts (
+                 run_id TEXT NOT NULL REFERENCES runs(id),
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..8852d87 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -4,7 +4,7 @@ import html
+ import json
+ from collections.abc import Callable, Iterable
+ 
+-from .service import JobNotSchedulable, RelayBoardService
++from .service import JobNotSchedulable, RelayBoardService, RunAlreadyTerminal
+ from .store import Store
+ 
+ StartResponse = Callable[[str, list[tuple[str, str]]], None]
+@@ -94,6 +94,20 @@ class RelayBoardApp:
+                     {"run": run.__dict__},
+                 )
+ 
++            if (
++                method == "POST"
++                and path.startswith("/api/runs/")
++                and path.endswith("/cancel")
++                and len(path.split("/")) == 5
++            ):
++                run_id = path.split("/")[3]
++                run = self.service.cancel_run(run_id)
++                return self._json(
++                    start_response,
++                    200,
++                    {"run": run.__dict__},
++                )
++
+             if (
+                 method == "POST"
+                 and path.startswith("/api/runs/")
+@@ -120,7 +134,7 @@ class RelayBoardApp:
+                 404,
+                 {"error": f"not found: {exc.args[0]}"},
+             )
+-        except JobNotSchedulable as exc:
++        except (JobNotSchedulable, RunAlreadyTerminal) as exc:
+             return self._json(
+                 start_response,
+                 409,
+diff --git a/tests/test_cancellation.py b/tests/test_cancellation.py
+new file mode 100644
+index 0000000..a671906
+--- /dev/null
++++ b/tests/test_cancellation.py
+@@ -0,0 +1,112 @@
++import unittest
++
++from relayboard.service import RunAlreadyTerminal
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++
++class CancellationTests(unittest.TestCase):
++    def setUp(self) -> None:
++        self.app = create_seeded_app()
++
++    def test_cancel_is_idempotent_and_blocks_both_attempt_outcomes(self) -> None:
++        run = self.app.service.begin_manual_run("daily-report")
++
++        for _ in range(2):
++            code, payload = request(
++                self.app, "POST", f"/api/runs/{run.id}/cancel"
++            )
++            self.assertEqual(code, 200)
++            self.assertEqual(
++                payload["run"],
++                {**run.__dict__, "status": "cancelled"},
++            )
++
++        for succeeded in (True, False):
++            with self.assertRaises(RunAlreadyTerminal):
++                self.app.service.record_attempt(run.id, succeeded=succeeded)
++            code, payload = request(
++                self.app,
++                "POST",
++                f"/api/runs/{run.id}/attempts",
++                {"succeeded": succeeded},
++            )
++            self.assertEqual(code, 409)
++            self.assertIn("error", payload)
++
++        self.assertEqual(self.app.store.get_run(run.id).status, "cancelled")
++        self.assertEqual(self.app.store.list_attempts(run.id), [])
++        self.assertEqual(self.app.store.list_alerts(), [])
++
++    def test_cancel_between_attempts_preserves_history(self) -> None:
++        run = self.app.service.begin_scheduled_run("daily-report")
++        self.assertEqual(
++            self.app.service.record_attempt(run.id, succeeded=False), "retry"
++        )
++        attempts = self.app.store.list_attempts(run.id)
++        alerts = self.app.store.list_alerts()
++
++        self.app.service.cancel_run(run.id)
++        with self.assertRaises(RunAlreadyTerminal):
++            self.app.service.record_attempt(run.id, succeeded=False)
++
++        self.assertEqual(self.app.store.list_attempts(run.id), attempts)
++        self.assertEqual(self.app.store.list_alerts(), alerts)
++        self.assertEqual(self.app.store.get_run(run.id).source, "scheduled")
++        self.assertEqual(
++            self.app.store.last_result_for_job("daily-report"), "cancelled"
++        )
++        code, markup = request(self.app, "GET", "/dashboard")
++        self.assertEqual(code, 200)
++        self.assertIn("<td>cancelled</td>", markup)
++
++        next_run = self.app.service.begin_scheduled_run("daily-report")
++        self.assertEqual(
++            self.app.service.record_attempt(next_run.id, succeeded=False), "retry"
++        )
++        self.assertEqual(
++            self.app.service.record_attempt(next_run.id, succeeded=True), "succeeded"
++        )
++
++    def test_completed_runs_cannot_be_cancelled(self) -> None:
++        for succeeded in (True, False):
++            with self.subTest(succeeded=succeeded):
++                run = self.app.service.begin_manual_run("cleanup")
++                self.app.service.record_attempt(run.id, succeeded=succeeded)
++                completed = self.app.store.get_run(run.id)
++                attempts = self.app.store.list_attempts(run.id)
++                alerts = self.app.store.list_alerts()
++
++                with self.assertRaises(RunAlreadyTerminal):
++                    self.app.service.cancel_run(run.id)
++                code, payload = request(
++                    self.app, "POST", f"/api/runs/{run.id}/cancel", {}
++                )
++                self.assertEqual(code, 409)
++                self.assertIn("error", payload)
++                self.assertEqual(self.app.store.get_run(run.id), completed)
++                self.assertEqual(self.app.store.list_attempts(run.id), attempts)
++                self.assertEqual(self.app.store.list_alerts(), alerts)
++
++    def test_missing_run_is_not_found(self) -> None:
++        with self.assertRaises(KeyError):
++            self.app.service.cancel_run("missing")
++        code, payload = request(
++            self.app, "POST", "/api/runs/missing/cancel", {}
++        )
++        self.assertEqual(code, 404)
++        self.assertEqual(payload, {"error": "not found: missing"})
++
++    def test_cancel_requires_post_and_exact_route(self) -> None:
++        run = self.app.service.begin_manual_run("daily-report")
++        for method, path in (
++            ("GET", f"/api/runs/{run.id}/cancel"),
++            ("POST", f"/api/runs/{run.id}/extra/cancel"),
++        ):
++            code, _ = request(self.app, method, path)
++            self.assertEqual(code, 404)
++            self.assertEqual(self.app.store.get_run(run.id).status, "running")
++
++
++if __name__ == "__main__":
++    unittest.main()

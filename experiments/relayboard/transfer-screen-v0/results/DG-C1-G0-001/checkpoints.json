@@ -1,0 +1,8 @@
+[
+  {
+    "message": "Confirmed operator semantics are now implemented: cancel_run preserves terminal outcomes, repeats return success, and cancellation uses the existing dashboard terminal-result query without alerts. Adding focused service/API regressions, including cancellation between retry Attempts and preservation of prior Alerts; existing retry alert behavior remains unchanged.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

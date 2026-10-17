@@ -1,0 +1,30 @@
+{
+  "frozen_at_utc": "2026-10-17T23:26:37.277481+00:00",
+  "run_id": "DG-C1-G0-001",
+  "candidate_sha": "d6899e0a6238acf2c4d2bf5514cfaff1b147d98a",
+  "candidate_tree": "fda290b92fc9ef9f5da5667b98593345b72865ec",
+  "clean": true,
+  "commits_after_base": 1,
+  "diff_numstat": "9\t2\tGLOSSARY.md\n8\t0\trelayboard/service.py\n1\t1\trelayboard/store.py\n16\t2\trelayboard/web.py\n112\t0\ttests/test_cancellation.py",
+  "task_unchanged": true,
+  "method_unchanged": true,
+  "public_feature_test_unchanged": true,
+  "public_base_test_unchanged": true,
+  "bundle_sha256": "ba660ef4bb239c5a2fc82ee2213310f12f2bc2ed47d1be983110645a7628fa6a",
+  "tracked_files": [
+    "GLOSSARY.md",
+    "README.md",
+    "TASK.md",
+    "pyproject.toml",
+    "relayboard/__init__.py",
+    "relayboard/__main__.py",
+    "relayboard/models.py",
+    "relayboard/service.py",
+    "relayboard/store.py",
+    "relayboard/testing.py",
+    "relayboard/web.py",
+    "tests/test_cancellation.py",
+    "tests/test_public.py",
+    "tests/test_public_feature.py"
+  ]
+}

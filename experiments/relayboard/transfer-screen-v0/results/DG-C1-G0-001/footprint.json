@@ -1,0 +1,42 @@
+{
+  "run_id": "DG-C1-G0-001",
+  "candidate_diff": [
+    {
+      "path": "GLOSSARY.md",
+      "added": 9,
+      "deleted": 2,
+      "category": "documentation_or_process"
+    },
+    {
+      "path": "relayboard/service.py",
+      "added": 8,
+      "deleted": 0,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/store.py",
+      "added": 1,
+      "deleted": 1,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/web.py",
+      "added": 16,
+      "deleted": 2,
+      "category": "production"
+    },
+    {
+      "path": "tests/test_cancellation.py",
+      "added": 112,
+      "deleted": 0,
+      "category": "test"
+    }
+  ],
+  "files_changed": 5,
+  "production_files_changed": 3,
+  "test_files_changed": 1,
+  "documentation_or_process_files_changed": 1,
+  "total_lines_added": 146,
+  "total_lines_deleted": 5,
+  "note": "Descriptive footprint; supplied immutable task/method/public feature test excluded from changed-file counts."
+}

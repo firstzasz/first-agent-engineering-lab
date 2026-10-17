@@ -1,0 +1,22 @@
+{
+  "run_id": "DG-C1-G0-001",
+  "arm": "G0",
+  "scenario": "RD-C1-v0",
+  "position": 3,
+  "prepared_at_utc": "2026-10-17T23:25:06.345402+00:00",
+  "workspace": "C:\\Users\\first\\Documents\\Codex\\2026-10-18\\new-chat\\work\\transfer-contestant-03",
+  "frozen_fixture_base": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "local_base_commit": "34845b16a52574324f64e869bb50cbafe9d2eddf",
+  "local_base_tree": "5ddf8a795a696bf5bbd6ce693849842a5dcc7cae",
+  "independent_history": true,
+  "remotes": "",
+  "task_blob": "ee7a8ac4f13d0dec6900462fff2be78fcfebf784",
+  "feature_test_blob": "5f1735ed175b47370d33ec7f7a0307e696b4438e",
+  "method_blob": null,
+  "fixture_blobs_verified": true,
+  "model_requested": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_identity_attested": null
+}

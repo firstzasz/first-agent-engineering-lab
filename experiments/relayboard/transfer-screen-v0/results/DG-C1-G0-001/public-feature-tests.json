@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_public_feature.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_cancel_running_run_blocks_further_attempts (test_public_feature.CancelRunPublicTests.test_cancel_running_run_blocks_further_attempts) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.002s\n\nOK\n"
+}

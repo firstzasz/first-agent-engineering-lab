@@ -3,7 +3,7 @@
   "experiment": "EXP-0017",
   "status": "STAGE1_EXECUTING",
   "stage": 1,
-  "completed_count": 2,
+  "completed_count": 3,
   "excluded_count": 0,
   "stage1_runs": [
     {
@@ -30,7 +30,8 @@
       "scenario": "RD-C1-v0",
       "arm": "G0",
       "digest": "c98132ff4451523ed89760c88d2d0f349fc7c6b7f8dd4f18d9b28cbd6ca72cea",
-      "status": "READY"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result": "results/DG-C1-G0-001/run.json"
     },
     {
       "position": 4,
@@ -75,6 +76,6 @@
       "status": "CONDITIONAL_NOT_AUTHORIZED"
     }
   ],
-  "stage1_disposition_count": 2,
+  "stage1_disposition_count": 3,
   "stage2_started_count": 0
 }
