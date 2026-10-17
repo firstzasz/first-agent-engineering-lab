@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_cancel_after_retry_preserves_existing_attempt_and_alert (test_cancellation.CancellationTests.test_cancel_after_retry_preserves_existing_attempt_and_alert) ... ok\ntest_cancellation_is_latest_dashboard_result (test_cancellation.CancellationTests.test_cancellation_is_latest_dashboard_result) ... ok\ntest_cancelled_run_rejects_both_attempt_outcomes (test_cancellation.CancellationTests.test_cancelled_run_rejects_both_attempt_outcomes) ... ok\ntest_completed_runs_cannot_be_cancelled (test_cancellation.CancellationTests.test_completed_runs_cannot_be_cancelled) ... ok\ntest_other_and_future_runs_keep_retry_and_alert_behavior (test_cancellation.CancellationTests.test_other_and_future_runs_keep_retry_and_alert_behavior) ... ok\ntest_repeated_cancellation_is_idempotent (test_cancellation.CancellationTests.test_repeated_cancellation_is_idempotent) ... ok\ntest_running_manual_and_scheduled_runs_can_be_cancelled (test_cancellation.CancellationTests.test_running_manual_and_scheduled_runs_can_be_cancelled) ... ok\ntest_unknown_run_returns_404 (test_cancellation.CancellationTests.test_unknown_run_returns_404) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_cancel_running_run_blocks_further_attempts (test_public_feature.CancelRunPublicTests.test_cancel_running_run_blocks_further_attempts) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.012s\n\nOK\n"
+}

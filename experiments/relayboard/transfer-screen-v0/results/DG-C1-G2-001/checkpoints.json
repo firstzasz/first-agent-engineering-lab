@@ -1,0 +1,14 @@
+[
+  {
+    "message": "All four product leaves are resolved. Recomputed graph: running (including after a retry) → cancelled; cancelled → cancelled (200); succeeded/failed → unchanged (409). Cancellation's status is a prerequisite for attempt rejection and inclusion in Last result; the existing non-running guard and dashboard query already supply those behaviors once schema/service support exists. Cancellation creates no alert and leaves prior retry alerts intact, preserving current alert behavior. The route will return {run: ...}, map terminal-attempt/cancel conflicts to 409, and preserve missing-id 404. Baseline: five existing tests pass; cancellation public test fails at expected 404.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Implementation is complete and all 14 tests pass (6 supplied, 8 added). Cancellation supports manual/scheduled Runs, idempotent repeats, 409 on completed Runs and later Attempts, 404 unknown ids, no new alerts, and cancelled Dashboard Last result. Regression tests cover cancellation after retry, retained attempts/alerts, and unchanged retries/scheduling for other/future Runs. I recorded the resolved dependency graph in CANCELLATION_DECISIONS.md and am doing the final diff review before the local commit.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]
