@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scenario": "RD-C2-v0",
+  "status": "FROZEN_BEFORE_TREATMENT",
+  "decisions": [
+    {
+      "id": "scheduled_run_while_archived",
+      "question": "Can an archived Job start a new scheduled Run?",
+      "answer": "No. Scheduled Runs are blocked while archived."
+    },
+    {
+      "id": "manual_run_while_archived",
+      "question": "Can an operator manually start a Run for an archived Job by id?",
+      "answer": "No. Manual Runs are blocked while archived."
+    },
+    {
+      "id": "existing_run_when_archived",
+      "question": "What happens to a Run already in progress when its Job is archived?",
+      "answer": "It continues normally to its terminal outcome, including existing retry/alert behavior."
+    },
+    {
+      "id": "restore_enabled_state",
+      "question": "When a Job is restored, what enabled/disabled scheduling state should it have?",
+      "answer": "Preserve the Job's pre-archive enabled/disabled state."
+    }
+  ],
+  "explicit_prompt_semantics": [
+    "Archived Jobs are hidden from the normal Jobs dashboard and normal Jobs listing.",
+    "Run history is preserved.",
+    "POST /api/jobs/{id}/archive and /restore must exist."
+  ]
+}
