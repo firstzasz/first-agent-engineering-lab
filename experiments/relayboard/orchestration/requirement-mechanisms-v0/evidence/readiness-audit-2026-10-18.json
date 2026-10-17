@@ -1,0 +1,157 @@
+{
+  "checked_at_utc": "2026-10-17T22:37:01.092266+00:00",
+  "repository": "firstzasz/first-agent-engineering-lab",
+  "branch": "research/exp0014-requirement-mechanisms",
+  "head": "00395711815a934d0b40d3e8638c4fbe0b11aa4d",
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "ready_and_not_started",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "twelve_runs_three_per_arm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "batch_cohort_order_equal",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "order_sha256_recomputed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "all_readback_pins_match_current_tree",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "downloaded_packet_bytes_match_git_blobs",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M1-002_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M2-003_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M3-003_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M2-002_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M3-001_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M1-003_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M0-002_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M3-002_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M1-001_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M0-001_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M0-003_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "RD-M2-001_frozen_ready_manifest",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "no_cohort_results_in_tree",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "scenario_evaluator_oracle_match_frozen_base",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "scoring_protocol_first_mode_unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "fixture_unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "round1_tree_evidence_unchanged_on_cohort_branch",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "round2_tree_evidence_unchanged_on_cohort_branch",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "checks_passed": 24,
+  "checks_total": 24,
+  "next_run": "RD-M1-002",
+  "contestant_runs_started_by_this_audit": 0,
+  "limitations": [
+    "Repository content and pre-run state verified; contestant runtime and identity not exercised.",
+    "No new benchmark outcome or methodology effectiveness established.",
+    "main research index is older than the unmerged research branches."
+  ],
+  "verified_refs": {
+    "main": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "round1": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+    "round2": "226a03a883c65c81223ca49e00ddd058e1b38691",
+    "cohort": "00395711815a934d0b40d3e8638c4fbe0b11aa4d"
+  },
+  "frozen_blobs": {
+    "task": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a",
+    "M1": "c160a2182e1c708770c6e0f32703937e0c146724",
+    "M2": "ca9f28cf54b6bc98d3be5ccab12ae3e6e20c0260",
+    "M3": "3204b9b1336a23df2209550d8519dd8fa25ea9bb",
+    "cohort": "5f6aea08eb113f84ef6811ddb3e938dda70d97e6",
+    "batch": "94ca3c75ed71b30792b40c91d1f293b95a7eedda",
+    "execution_order": "0e24b2d719b698018287f5f919ae322b2a16b8f0",
+    "pre_run_audit": "22c0ea22a15d263bba88ee9af5599f6407b5d4da",
+    "orchestrator_handoff": "424bf7e71abb0ecc01261a988ab3eea4b726d260",
+    "experiment_record": "6e894ff17c0184b86512fe39e58280d338cc3321"
+  },
+  "scope": "Readiness assessment only, before contestant execution."
+}
