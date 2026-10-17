@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_cancel_between_attempts_preserves_attempt_and_alert_history (test_cancellation.CancellationTests.test_cancel_between_attempts_preserves_attempt_and_alert_history) ... ok\ntest_cancellation_after_service_state_read_still_blocks_recording (test_cancellation.CancellationTests.test_cancellation_after_service_state_read_still_blocks_recording) ... ok\ntest_cancellation_blocks_both_attempt_outcomes_at_all_entry_points (test_cancellation.CancellationTests.test_cancellation_blocks_both_attempt_outcomes_at_all_entry_points) ... ok\ntest_cancellation_is_idempotent_for_both_run_sources (test_cancellation.CancellationTests.test_cancellation_is_idempotent_for_both_run_sources) ... ok\ntest_cancelled_status_cannot_be_overwritten (test_cancellation.CancellationTests.test_cancelled_status_cannot_be_overwritten) ... ok\ntest_completed_runs_conflict_and_keep_history (test_cancellation.CancellationTests.test_completed_runs_conflict_and_keep_history) ... ok\ntest_dashboard_includes_cancelled_as_latest_terminal_result (test_cancellation.CancellationTests.test_dashboard_includes_cancelled_as_latest_terminal_result) ... ok\ntest_existing_database_migration_preserves_history_and_constraints (test_cancellation.CancellationTests.test_existing_database_migration_preserves_history_and_constraints) ... ok\ntest_missing_run_and_non_post_paths (test_cancellation.CancellationTests.test_missing_run_and_non_post_paths) ... ok\ntest_other_runs_and_retry_behavior_are_unchanged (test_cancellation.CancellationTests.test_other_runs_and_retry_behavior_are_unchanged) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_cancel_running_run_blocks_further_attempts (test_public_feature.CancelRunPublicTests.test_cancel_running_run_blocks_further_attempts) ... ok\n\n----------------------------------------------------------------------\nRan 16 tests in 0.015s\n\nOK\n"
+}

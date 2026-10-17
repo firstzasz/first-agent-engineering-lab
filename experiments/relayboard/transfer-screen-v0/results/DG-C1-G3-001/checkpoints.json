@@ -1,0 +1,20 @@
+[
+  {
+    "message": "Baseline verified: five existing tests pass; cancellation feature test fails at missing route (404). Compact coverage matrix covers Run states (fresh/retry running, succeeded, failed, cancelled, absent), manual/scheduled sources, cancel/repeat cancel/late attempt events, and storage/service/API/dashboard/alert surfaces. Unresolved graph: terminal cancellation policy -> HTTP/service outcomes; cancellation alert policy -> alert history; dashboard policy -> last_result query; in-progress policy -> attempt/status update boundary. Awaiting the four product answers before implementing dependent behavior.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Answers resolve the product graph. I will retain pre-existing alerts, leave future Runs/scheduling and retry behavior unchanged, and treat cancellation as winning over any later Attempt recording (the fixture records completed results synchronously and has no separate executing-Attempt entity). I will enforce the cancelled guard in storage as well as service so direct Store.add_attempt cannot bypass it. Exhaustion check covers all original matrix states/events and public surfaces; no operator-owned material decisions remain.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Cancellation is implemented across storage/service/API. It is idempotent, rejects completed Runs, blocks late Attempts (including direct storage calls), retains alert history without emitting cancellation alerts, and appears in Last result. Existing SQLite schemas are upgraded while preserving history and foreign keys. All 15 tests currently pass, including 9 new cancellation/regression/migration tests. I am checking the final diff and documenting the behavior before the local commit.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

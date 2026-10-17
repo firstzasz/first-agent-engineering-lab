@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "experiment": "EXP-0017",
-  "status": "STAGE1_EXECUTING",
+  "status": "STAGE1_DISPOSITIONS_COMPLETE_AWAITING_SCREEN",
   "stage": 1,
-  "completed_count": 3,
+  "completed_count": 4,
   "excluded_count": 0,
   "stage1_runs": [
     {
@@ -39,7 +39,8 @@
       "scenario": "RD-C1-v0",
       "arm": "G3",
       "digest": "fce920f9f803ae1b347ad000ece24667699f729491c43f10f3a850cd870b6665",
-      "status": "READY"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result": "results/DG-C1-G3-001/run.json"
     }
   ],
   "stage2_runs": [
@@ -76,6 +77,6 @@
       "status": "CONDITIONAL_NOT_AUTHORIZED"
     }
   ],
-  "stage1_disposition_count": 3,
+  "stage1_disposition_count": 4,
   "stage2_started_count": 0
 }

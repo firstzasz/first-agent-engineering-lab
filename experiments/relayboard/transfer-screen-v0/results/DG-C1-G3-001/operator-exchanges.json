@@ -1,0 +1,28 @@
+[
+  {
+    "recorded_at_utc": "2026-10-17 23:28:16 UTC",
+    "question_received_at_utc": null,
+    "question": "Workspace inspection: Runs are running/succeeded/failed; retries leave Run running and currently emit a failure alert; dashboard shows latest non-running status. Public feature test requires cancelled + attempts HTTP 409. Product decisions needed before implementation: (1) When cancelling succeeded/failed Runs, should API reject with 409, return unchanged success, or convert them? Should repeated cancellation return 200 unchanged or 409? (2) Should cancellation emit any alert, and should pre-existing retry/failure alerts be retained? (3) Should a cancelled Run count as the dashboard's Last result (display cancelled), or preserve the previous succeeded/failed result? (4) At the boundary where an Attempt is already in progress when cancellation arrives, should its completion be rejected/discarded, or recorded without changing cancelled status? No background worker exists, but this determines the service/storage boundary.",
+    "answer": "For a Run that has already succeeded or failed, return a conflict (409) and do not alter it. Repeated cancellation is idempotent success: return the cancelled Run (200). Cancellation itself emits no failure or cancellation Alert. Show cancelled as the Job's most recent terminal Last result.\n\nFor pre-existing alert retention and the service/storage invocation boundary, use the supplied task, existing fixture evidence, and ordinary reversible engineering judgment. The operator supplies no additional product preference on those items.",
+    "frozen_decisions_answered": [
+      "terminal_run_cancel",
+      "repeated_cancel",
+      "cancel_alert_behavior",
+      "cancelled_dashboard_last_result"
+    ],
+    "other_items": [
+      {
+        "topic": "retention of pre-existing retry/failure alerts",
+        "classification": "FACT_LOOKUP",
+        "reason": "The task requires preserving existing alert behavior; existing alert records and retry behavior are inspectable in the supplied fixture."
+      },
+      {
+        "topic": "in-progress Attempt service/storage invocation boundary",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE",
+        "reason": "The supplied synchronous fixture has no in-progress Attempt lifecycle or background worker. Transaction/guard placement at the service/storage seam is ordinary implementation judgment; no extra operator policy was supplied for a hypothetical asynchronous extension."
+      }
+    ],
+    "volunteered_frozen_decisions": [],
+    "classification": "Four distinct frozen PRODUCT_OR_PREFERENCE semantics plus separately classified supplementary items; exact wording retained for review."
+  }
+]
