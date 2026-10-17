@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_dashboard_keeps_last_result_and_shows_pause_state (test_pause.JobPauseTests.test_dashboard_keeps_last_result_and_shows_pause_state) ... ok\ntest_existing_database_is_migrated_without_losing_jobs (test_pause.JobPauseTests.test_existing_database_is_migrated_without_losing_jobs) ... ok\ntest_existing_runs_preserve_retries_outcomes_and_alerts (test_pause.JobPauseTests.test_existing_runs_preserve_retries_outcomes_and_alerts) ... ok\ntest_manual_runs_remain_allowed_while_paused (test_pause.JobPauseTests.test_manual_runs_remain_allowed_while_paused) ... ok\ntest_new_jobs_default_to_unpaused (test_pause.JobPauseTests.test_new_jobs_default_to_unpaused) ... ok\ntest_pause_and_resume_control_scheduled_work (test_pause.JobPauseTests.test_pause_and_resume_control_scheduled_work) ... ok\ntest_pause_is_independent_of_enabled_and_requests_are_idempotent (test_pause.JobPauseTests.test_pause_is_independent_of_enabled_and_requests_are_idempotent) ... ok\ntest_pause_routes_require_post_and_exact_job_path (test_pause.JobPauseTests.test_pause_routes_require_post_and_exact_job_path) ... ok\ntest_pause_state_survives_store_reopening (test_pause.JobPauseTests.test_pause_state_survives_store_reopening) ... ok\ntest_unknown_job_uses_existing_not_found_convention (test_pause.JobPauseTests.test_unknown_job_uses_existing_not_found_convention) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.021s\n\nOK\n"
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "question_received_at_utc": null,
+    "recorded_at_utc": "2026-10-17T22:43:36Z",
+    "timestamp_precision": "question receipt timestamp unavailable; recorded after answer",
+    "question": "Product decision needed before committing pause semantics: should a paused Job (1) still accept manual Runs, (2) let existing Runs and retries continue with their usual alerts, and (3) retain its independent enabled/disabled setting so resume does not enable a disabled Job? Also, should the dashboard visibly show pause state while preserving Last result, and should repeated pause/resume requests succeed idempotently? My proposed behavior is yes to all five; please confirm or specify alternatives.",
+    "answer": "Manual Runs remain allowed while a Job is paused. Existing Runs continue to their normal terminal outcome, with the existing retry and alert behavior preserved. For the enabled/disabled setting, dashboard presentation, and repeated-request handling, use the supplied evidence and ordinary reversible engineering judgment; the operator supplies no additional product preference on those items.",
+    "frozen_decisions_answered": [
+      "manual_run_while_paused",
+      "pause_in_progress_run"
+    ],
+    "other_items": [
+      {
+        "topic": "retain independent enabled/disabled setting",
+        "classification": "FACT_LOOKUP",
+        "reason": "Task already requires preserving existing behavior; inspect supplied enabled-state semantics."
+      },
+      {
+        "topic": "dashboard pause-state presentation",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+      },
+      {
+        "topic": "repeated pause/resume handling",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+      }
+    ],
+    "volunteered_frozen_decisions": []
+  }
+]

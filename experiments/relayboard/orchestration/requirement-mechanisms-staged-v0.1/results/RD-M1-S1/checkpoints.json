@@ -1,0 +1,14 @@
+[
+  {
+    "message": "Baseline public tests pass (5/5). Implemented persisted pause state and scheduler gate, with API responses following the existing job envelope. I received the operator decisions: manual Runs remain allowed, existing Runs/retries/alerts continue. I am preserving enabled independently, making pause/resume idempotent, and adding a Paused dashboard column while keeping Last result.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Implementation and verification complete: 15/15 tests pass (5 public, 10 new), including pause/resume scheduling, manual Runs, existing retry/alert behavior, disabled-state preservation, idempotence, dashboard Last result, 404s, and existing-database migration. git diff --check is clean. Committing locally now.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

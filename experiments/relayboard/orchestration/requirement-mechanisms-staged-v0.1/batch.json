@@ -2,9 +2,9 @@
   "schema_version": 1,
   "experiment": "EXP-0014",
   "execution_variant": "staged-screening-v0.1",
-  "status": "STAGE1_READY_NOT_STARTED",
+  "status": "STAGE1_EXECUTING",
   "stage": 1,
-  "completed_count": 0,
+  "completed_count": 1,
   "excluded_count": 0,
   "stage1_runs": [
     {
@@ -13,7 +13,8 @@
       "arm": "M1",
       "replicate": 1,
       "sha256": "4fab80d8d85ebd2edb095e5dab09c65cc85d26b1d1fd31c62a2eb540c0a2339f",
-      "status": "READY"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result": "results/RD-M1-S1/run.json"
     },
     {
       "position": 2,
@@ -105,5 +106,7 @@
       "sha256": "f21faba0ca49e27f21e56b51b98790849828f2ee515ce79500929346a0322e81",
       "status": "CONDITIONAL_NOT_AUTHORIZED"
     }
-  ]
+  ],
+  "stage1_disposition_count": 1,
+  "stage2_started_count": 0
 }
