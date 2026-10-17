@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0017",
+  "status": "VERIFIED_PRE_RUN_FREEZE",
+  "freeze_state_commit": "0dfa496ae255f748ea8ad498d1bc6319b9911a4e",
+  "note": "Audit-only child may be added after this state. Treatment/task/oracle/scoring/order content must not change after first contestant without a new cohort version.",
+  "contestant_runs_started": 0,
+  "results_present": 0,
+  "stage1_authorized": true,
+  "stage2_authorized": false,
+  "stage1_order": [
+    "DG-C1-G2-001",
+    "DG-C1-G1-001",
+    "DG-C1-G0-001",
+    "DG-C1-G3-001"
+  ],
+  "protected": {
+    "fixture_base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+    "first_mode_v0_blob": "22ef0c77d90c3410785dd593f2b5c161edaed531",
+    "transfer_evaluator_blob": "b7d00333f08527e13706cb68402e9749b8ec5e0d"
+  },
+  "governance": {
+    "first_mode_modified": false,
+    "automatic_first_adoption": false,
+    "stage2_requires_persisted_screening_decision": true
+  }
+}
