@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0016",
+  "observed_at": "2026-10-17T23:09:49Z",
+  "branch": "research/exp0016-decision-generation-design",
+  "tested_head": "be2f1b4d608bac1b67257f5e6eb07c652c412702",
+  "pull_request": 39,
+  "workflow_run": {
+    "id": 39077925964,
+    "name": "RelayBoard harness",
+    "event": "pull_request",
+    "conclusion": "success"
+  },
+  "jobs": {
+    "public_tests": "success",
+    "evaluator_red_capability": "success",
+    "treatment_runner": "success",
+    "reference_solutions": "success",
+    "decision_generation_transfer_harness": {
+      "conclusion": "success",
+      "steps": {
+        "red_green_paths": "success",
+        "mutation_sensitivity": "success"
+      }
+    }
+  },
+  "verified_claims": [
+    "RD-C1-v0 feature public surface is red on the frozen base and green under the exact reference patch.",
+    "RD-C2-v0 feature public surface is red on the frozen base and green under the exact reference patch.",
+    "The transfer evaluator rejects the frozen base for both scenarios and accepts both reference patches.",
+    "All eight targeted wrong-but-reasonable semantic mutations are rejected.",
+    "Existing RelayBoard public tests and frozen pilot harness jobs remain green on the research branch."
+  ],
+  "limitations": [
+    "This verifies harness behavior, not any model/treatment outcome.",
+    "Mutation sensitivity is targeted, not exhaustive.",
+    "Draft PR is research-only and remains unmerged."
+  ]
+}
