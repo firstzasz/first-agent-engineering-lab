@@ -1,0 +1,92 @@
+{
+  "experiment": "EXP-0017",
+  "audited_at_utc": "2026-10-17T23:31:10.252792+00:00",
+  "audited_commit": "f16de90a1886fa1bb7c75f29bb945c4b6a1aaad3",
+  "status": "PASS",
+  "checks": {
+    "all_original_files_except_mutable_batch_unchanged": true,
+    "protected_refs_unchanged": true,
+    "DG-C1-G2-001_immutable_packet_and_public_tests": true,
+    "DG-C1-G2-001_exact_candidate_independent_evaluation": true,
+    "DG-C1-G2-001_record_matches_acceptance": true,
+    "DG-C1-G2-001_fixture_only_independent_start": true,
+    "DG-C1-G1-001_immutable_packet_and_public_tests": true,
+    "DG-C1-G1-001_exact_candidate_independent_evaluation": true,
+    "DG-C1-G1-001_record_matches_acceptance": true,
+    "DG-C1-G1-001_fixture_only_independent_start": true,
+    "DG-C1-G0-001_immutable_packet_and_public_tests": true,
+    "DG-C1-G0-001_exact_candidate_independent_evaluation": true,
+    "DG-C1-G0-001_record_matches_acceptance": true,
+    "DG-C1-G0-001_fixture_only_independent_start": true,
+    "DG-C1-G3-001_immutable_packet_and_public_tests": true,
+    "DG-C1-G3-001_exact_candidate_independent_evaluation": true,
+    "DG-C1-G3-001_record_matches_acceptance": true,
+    "DG-C1-G3-001_fixture_only_independent_start": true,
+    "all_candidate_and_result_artifacts_readback_match": true,
+    "freeze_only_after_contestant_completion_before_evaluation": true,
+    "serial_frozen_order_without_overlap": true,
+    "no_hidden_feedback_or_retries": true,
+    "only_four_stage1_results": true,
+    "screening_readback_matches": true,
+    "mutable_batch_preserves_frozen_order_and_digests": true,
+    "mutable_batch_readback_matches": true,
+    "no_stage2_execution": true
+  },
+  "passed": 27,
+  "total": 27,
+  "frozen_file_drift": [],
+  "artifact_drift": [],
+  "stage1_results": [
+    {
+      "run_id": "DG-C1-G2-001",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "candidate_sha": "84fe9e9ddfcd36f9dc39827489b32b5eb7a809f6",
+      "candidate_tree": "5f4325a2abac802186737a7e2acb9c23bb4b9840",
+      "result_blob": "b4798e838afbc7fcd6bbd4a160cab97dcfc14634",
+      "persistence_commit": "1142ca663e939ff510d0852c97a5c62c37d07a50"
+    },
+    {
+      "run_id": "DG-C1-G1-001",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "candidate_sha": "802740a1ea970b5522b9b8987acf51467a202234",
+      "candidate_tree": "02714861f6a795067dacc1a3349f7f951b001247",
+      "result_blob": "a0342c9bce11aba0618ebc20b654d32e60dd8dfc",
+      "persistence_commit": "e353b11df1cc458d02e74486dba72aa333a24984"
+    },
+    {
+      "run_id": "DG-C1-G0-001",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "candidate_sha": "d6899e0a6238acf2c4d2bf5514cfaff1b147d98a",
+      "candidate_tree": "fda290b92fc9ef9f5da5667b98593345b72865ec",
+      "result_blob": "8f5abe2d926b7e9b9c75ed8f5cd06fc1181d4e6b",
+      "persistence_commit": "bbc12a1a375e1be5105607bdc14583666b3a55b5"
+    },
+    {
+      "run_id": "DG-C1-G3-001",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "candidate_sha": "b85511cd654bfa700d87e00efec506665e2e3fd2",
+      "candidate_tree": "db6a75376e2e72ae15c434d6f7add14f1f15c10f",
+      "result_blob": "87f91bec1e66d7c22c5867420d4ce43ee92b7c22",
+      "persistence_commit": "c5402401e617d1dbfbc9ffb3c1807583e727bb8d"
+    }
+  ],
+  "refs_after": {
+    "main": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "research/batch-orchestration-pilot": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+    "research/batch-orchestration-round2": "226a03a883c65c81223ca49e00ddd058e1b38691"
+  },
+  "stage2_started_count": 0,
+  "main_merge_performed": false,
+  "runtime_requested": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true
+  },
+  "runtime_identity_attested": null,
+  "limitations": [
+    "Procedural isolation; no exhaustive raw tool or filesystem-access trace.",
+    "Single observation per arm, not causal or generalization proof."
+  ]
+}
+
