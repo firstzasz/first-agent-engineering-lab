@@ -4,7 +4,7 @@
   "execution_variant": "staged-screening-v0.1",
   "status": "STAGE1_EXECUTING",
   "stage": 1,
-  "completed_count": 2,
+  "completed_count": 3,
   "excluded_count": 0,
   "stage1_runs": [
     {
@@ -31,7 +31,8 @@
       "arm": "M2",
       "replicate": 1,
       "sha256": "801e47075a7a7f8815dca59f911744231a06911e5c2fdd3c5b1a04ea39dc458a",
-      "status": "READY"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result": "results/RD-M2-S1/run.json"
     },
     {
       "position": 4,
@@ -108,6 +109,6 @@
       "status": "CONDITIONAL_NOT_AUTHORIZED"
     }
   ],
-  "stage1_disposition_count": 2,
+  "stage1_disposition_count": 3,
   "stage2_started_count": 0
 }

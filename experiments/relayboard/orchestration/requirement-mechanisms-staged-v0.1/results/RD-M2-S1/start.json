@@ -1,0 +1,20 @@
+{
+  "run_id": "RD-M2-S1",
+  "arm": "M2",
+  "position": 3,
+  "prepared_at_utc": "2026-10-17T22:47:20.005048+00:00",
+  "workspace": "C:\\Users\\first\\Documents\\Codex\\2026-10-18\\new-chat\\work\\contestant-03",
+  "frozen_fixture_base": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "local_base_commit": "839d66ab0c19ee943b03ffeedfc1873286ba983e",
+  "local_base_tree": "18fcd16d4d740e464e3f8f9e91fe52a5a45e0882",
+  "independent_history": true,
+  "remotes": "",
+  "task_blob": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a",
+  "method_blob": "ca9f28cf54b6bc98d3be5ccab12ae3e6e20c0260",
+  "fixture_blobs_verified": true,
+  "model_requested": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "runtime_identity_attested": null
+}

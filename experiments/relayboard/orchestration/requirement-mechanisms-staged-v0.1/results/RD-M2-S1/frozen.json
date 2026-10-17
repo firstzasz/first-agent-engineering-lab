@@ -1,0 +1,29 @@
+{
+  "frozen_at_utc": "2026-10-17T22:49:07.931487+00:00",
+  "run_id": "RD-M2-S1",
+  "candidate_sha": "22e94764bb7416a615812b8f6a3ba6d0dbad30f0",
+  "candidate_tree": "c404c349330ac7df2d9171ada303d7016887fd17",
+  "clean": true,
+  "commits_after_base": 1,
+  "diff_numstat": "19\t0\tREADME.md\n1\t0\trelayboard/models.py\n9\t1\trelayboard/service.py\n28\t3\trelayboard/store.py\n21\t1\trelayboard/web.py\n126\t0\ttests/test_pause.py",
+  "task_unchanged": true,
+  "method_unchanged": true,
+  "public_test_blob_unchanged": true,
+  "bundle_sha256": "d30135b2cfc503fa965c3c19535331c7a8df1bb9166bd3b4a340c2368ab8bc7f",
+  "tracked_files": [
+    "GLOSSARY.md",
+    "METHOD.md",
+    "README.md",
+    "TASK.md",
+    "pyproject.toml",
+    "relayboard/__init__.py",
+    "relayboard/__main__.py",
+    "relayboard/models.py",
+    "relayboard/service.py",
+    "relayboard/store.py",
+    "relayboard/testing.py",
+    "relayboard/web.py",
+    "tests/test_pause.py",
+    "tests/test_public.py"
+  ]
+}
