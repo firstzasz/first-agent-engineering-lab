@@ -1,0 +1,35 @@
+{
+  "experiment": "EXP-0017",
+  "head": "ad1ecf32eb6248d764a44157422257c330595f44",
+  "checked_at_utc": "2026-10-17T23:19:34.637082+00:00",
+  "status": "PASS",
+  "checks": {
+    "expected_head": true,
+    "frozen_audit_and_readback": true,
+    "exact_stage1_order": true,
+    "stage2_order_frozen": true,
+    "orders_sha256_recomputed": true,
+    "batch_not_started": true,
+    "downloaded_control_docs_match_blobs": true,
+    "all_frozen_packet_pins_match_tree": true,
+    "downloaded_task_feature_methods_evaluator_oracle_exact": true,
+    "fixture_tree_matches_frozen_start": true,
+    "fixture_bytes_complete_and_exact": true,
+    "first_mode_unchanged": true,
+    "protected_refs_unchanged": true,
+    "eight_manifests_untouched_and_unstarted": true,
+    "no_existing_results_or_decision": true
+  },
+  "passed": 15,
+  "total": 15,
+  "refs_before": {
+    "main": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "research/batch-orchestration-pilot": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+    "research/batch-orchestration-round2": "226a03a883c65c81223ca49e00ddd058e1b38691"
+  },
+  "contestants_started": 0,
+  "stage2_execution_authorized": false,
+  "procedural_isolation": true,
+  "runtime_identity_attestation": null
+}
+
