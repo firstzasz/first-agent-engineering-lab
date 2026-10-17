@@ -337,3 +337,16 @@ Three fresh repetitions per arm are predeclared (12 total) with a deterministic 
 A passing mechanism becomes eligible only for a later transfer test on new ambiguous-requirement tasks. Nothing is promoted into FIRST automatically.
 
 See [EXP-0014](./docs/experiments/0014-requirement-discovery-mechanism-isolation.md) and the [frozen cohort control plane](./experiments/relayboard/orchestration/requirement-mechanisms-v0/README.md).
+
+
+## EXP-0016 — Decision-space generation design
+
+Status: **IMPLEMENTED AND VERIFIED (harness scope); no contestant run**
+
+EXP-0014 showed that authority classification and simplified frontier traversal alone did not reproduce Matt's 4/4 S02 elicitation. EXP-0015 trace synthesis identified decision-space generation and dependency representation as plausible missing mechanisms.
+
+EXP-0016 decomposes requirement discovery into decision generation, dependency representation, authority resolution, question scheduling and exhaustion checking. Three transfer scenarios were designed; RD-C1 Cancel Run and RD-C2 Archive Job were selected, while RD-C3 Retry Policy Update was deferred to avoid coupling with the known S04 retry-alert defect.
+
+Repository-native red/green and mutation-sensitivity harnesses for C1/C2 are independently green in GitHub Actions run `39077925964`. No FIRST-mode change and no contestant execution occurred.
+
+See [EXP-0016](./docs/experiments/0016-decision-space-generation-design.md), [mechanism model](./docs/comparisons/requirement-discovery-mechanism-model-v1.md), and [harness status](./experiments/relayboard/decision-generation-design-v0/HARNESS_STATUS.md).
