@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "execution_variant": "staged-screening-v0.1",
+  "status": "PASS",
+  "checked_before_contestant_runs": true,
+  "errors": [],
+  "stage1_balanced": true,
+  "stage1_runs": [
+    "RD-M1-S1",
+    "RD-M0-S1",
+    "RD-M2-S1",
+    "RD-M3-S1"
+  ],
+  "stage2_authorized": false,
+  "frozen_blobs": {
+    "task": "949017ddc81a5689391ebe6aa2eb0a8efbe19b2a",
+    "M1": "c160a2182e1c708770c6e0f32703937e0c146724",
+    "M2": "ca9f28cf54b6bc98d3be5ccab12ae3e6e20c0260",
+    "M3": "3204b9b1336a23df2209550d8519dd8fa25ea9bb",
+    "evaluator": "3aaaa9924f09ba18a5888d94373a9edc04187926",
+    "oracle": "054a302c6233321fa3988ce2f2be4a723039fa80"
+  },
+  "note": "Original 12-run EXP-0014 cohort remains preserved on research/exp0014-requirement-mechanisms. This staged branch changes execution economy only, not treatment content."
+}
