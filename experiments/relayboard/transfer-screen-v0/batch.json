@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0017",
+  "status": "STAGE1_READY_NOT_STARTED",
+  "stage": 1,
+  "completed_count": 0,
+  "excluded_count": 0,
+  "stage1_runs": [
+    {
+      "position": 1,
+      "run_id": "DG-C1-G2-001",
+      "scenario": "RD-C1-v0",
+      "arm": "G2",
+      "digest": "133717fb79a48ae535a65a5915920e205177f2124565abd0c7e633743e8f139f",
+      "status": "READY"
+    },
+    {
+      "position": 2,
+      "run_id": "DG-C1-G1-001",
+      "scenario": "RD-C1-v0",
+      "arm": "G1",
+      "digest": "6a7a6ea594f16a9e09e7c5c0f2b0db82197cfea4e7636d27afa5e365e1fa4fcd",
+      "status": "READY"
+    },
+    {
+      "position": 3,
+      "run_id": "DG-C1-G0-001",
+      "scenario": "RD-C1-v0",
+      "arm": "G0",
+      "digest": "c98132ff4451523ed89760c88d2d0f349fc7c6b7f8dd4f18d9b28cbd6ca72cea",
+      "status": "READY"
+    },
+    {
+      "position": 4,
+      "run_id": "DG-C1-G3-001",
+      "scenario": "RD-C1-v0",
+      "arm": "G3",
+      "digest": "fce920f9f803ae1b347ad000ece24667699f729491c43f10f3a850cd870b6665",
+      "status": "READY"
+    }
+  ],
+  "stage2_runs": [
+    {
+      "position": 1,
+      "run_id": "DG-C2-G3-001",
+      "scenario": "RD-C2-v0",
+      "arm": "G3",
+      "digest": "571265f6184e207715aa606d8722e95856307d16f32fdb6c00727d1973329d78",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 2,
+      "run_id": "DG-C2-G1-001",
+      "scenario": "RD-C2-v0",
+      "arm": "G1",
+      "digest": "765a017b64929dd35072568bbbe82ca62d8b301b6ae9eda5f0899ea6b2001606",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 3,
+      "run_id": "DG-C2-G2-001",
+      "scenario": "RD-C2-v0",
+      "arm": "G2",
+      "digest": "a567d88cf0345395ba0120a02e2ce7c36196c8acccb266be771b0061c52a7e3c",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    },
+    {
+      "position": 4,
+      "run_id": "DG-C2-G0-001",
+      "scenario": "RD-C2-v0",
+      "arm": "G0",
+      "digest": "cb52ef49279fe14426f9e285592e8ead40b33d669f5ff4d075af2c9dea499b22",
+      "status": "CONDITIONAL_NOT_AUTHORIZED"
+    }
+  ]
+}
