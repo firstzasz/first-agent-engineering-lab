@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0014",
+  "execution_variant": "staged-screening-v0.1",
+  "audited_at_utc": "2026-10-17T22:53:26.726828+00:00",
+  "audited_commit": "ee332197392648c1db0e928a422ea5fc2e336290",
+  "status": "PASS",
+  "checks": {
+    "all_original_files_except_mutable_batch_unchanged": true,
+    "protected_refs_unchanged": true,
+    "RD-M1-S1_immutable_packet_and_public_tests": true,
+    "RD-M1-S1_independent_accepted_evaluation": true,
+    "RD-M0-S1_immutable_packet_and_public_tests": true,
+    "RD-M0-S1_independent_accepted_evaluation": true,
+    "RD-M2-S1_immutable_packet_and_public_tests": true,
+    "RD-M2-S1_independent_accepted_evaluation": true,
+    "RD-M3-S1_immutable_packet_and_public_tests": true,
+    "RD-M3-S1_independent_accepted_evaluation": true,
+    "all_result_artifacts_readback_match": true,
+    "four_dispositions_only": true,
+    "freeze_after_completed_context_before_evaluation": true,
+    "serial_frozen_order_without_overlap": true,
+    "no_hidden_feedback_or_retries": true,
+    "no_stage2_result_files": true,
+    "screening_readback_matches": true,
+    "no_stage2_launched": true
+  },
+  "passed": 18,
+  "total": 18,
+  "frozen_file_drift": [],
+  "artifact_drift": [],
+  "stage1_results": [
+    {
+      "run_id": "RD-M1-S1",
+      "candidate_sha": "80102c46a4786e90c9f27b646eb0fb69b1b2699b",
+      "candidate_tree": "86b93b81f0930e9e4650c9427ab31eb245262f72",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "result_blob": "08de5ffd19d5578f86ed20c800c3a00f12102c01",
+      "persisted_at_commit": "db0da7b6ecea2362f3c06519714515eb1b55cb61"
+    },
+    {
+      "run_id": "RD-M0-S1",
+      "candidate_sha": "a9c84967a09a5ac21f9c2c4e967e5b200382d043",
+      "candidate_tree": "1087d14daa7f9cd2ee1eb8be41138bff763846cf",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "result_blob": "733d3b29afa71088845610720291bdfe34141d10",
+      "persisted_at_commit": "3d9332936affb8976c2ab4197d74c20e9836afdc"
+    },
+    {
+      "run_id": "RD-M2-S1",
+      "candidate_sha": "22e94764bb7416a615812b8f6a3ba6d0dbad30f0",
+      "candidate_tree": "c404c349330ac7df2d9171ada303d7016887fd17",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "result_blob": "6146b743bc691d729d448d027baa2402aa15986f",
+      "persisted_at_commit": "89d0937a478fc93e89143c7a2d76e01806519833"
+    },
+    {
+      "run_id": "RD-M3-S1",
+      "candidate_sha": "0579f0fdce66ffb8240e88a69b884129994fe054",
+      "candidate_tree": "38d3509cb3a28d356b850161daeb620d1d7a5364",
+      "disposition": "COMPLETED_EVALUATED_PASS",
+      "result_blob": "0d3e6de5d514814d566e351fb751f3e2e6e0b05f",
+      "persisted_at_commit": "74cd2caa37550c607b341bf20c27da8f2a73635a"
+    }
+  ],
+  "refs_after": {
+    "main": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "research/batch-orchestration-pilot": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+    "research/batch-orchestration-round2": "226a03a883c65c81223ca49e00ddd058e1b38691",
+    "research/exp0014-requirement-mechanisms": "80cdd684c130760eba9f09d943f869bd6b3b11e8"
+  },
+  "main_merge_performed": false,
+  "stage2_started_count": 0,
+  "requested_contexts": {
+    "fork_turns": "none",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "serial": true,
+    "same_run_helpers": 0
+  },
+  "runtime_identity_attestation": "unknown",
+  "limitations": [
+    "Procedural isolation; no exhaustive filesystem or raw tool-access trace.",
+    "Requested runtime identity and reasoning not independently attested.",
+    "Single observation per arm; screening only."
+  ]
+}
+
