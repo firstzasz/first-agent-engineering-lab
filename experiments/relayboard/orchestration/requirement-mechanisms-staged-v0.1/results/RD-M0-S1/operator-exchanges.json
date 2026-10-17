@@ -1,0 +1,25 @@
+[
+  {
+    "question_received_at_utc": null,
+    "recorded_at_utc": "2026-10-17 22:45:55 UTC",
+    "question": "Product clarification needed before implementing dependent pause behavior: Should pause (1) block only new scheduled Runs while manual Runs and in-flight Runs/retries/alerts continue unchanged, or also block any of those; (2) be a separate persisted flag from enabled, so resume preserves disabled status; and (3) appear as a new Paused dashboard column? I recommend scheduled-only, separate flag, and a Paused column while preserving existing Last result. Repeated pause/resume would be idempotent 200 responses.",
+    "answer": "Manual Runs remain allowed while a Job is paused. Existing Runs continue to their normal terminal outcome, with the existing retry and alert behavior preserved. For the enabled/disabled setting and dashboard presentation, use the supplied evidence and ordinary reversible engineering judgment; the operator supplies no additional product preference on those items.",
+    "frozen_decisions_answered": [
+      "manual_run_while_paused",
+      "pause_in_progress_run"
+    ],
+    "other_items": [
+      {
+        "topic": "retain independent enabled/disabled setting",
+        "classification": "FACT_LOOKUP",
+        "reason": "Task already requires preserving existing behavior; inspect supplied enabled-state semantics."
+      },
+      {
+        "topic": "dashboard pause-state presentation",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+      }
+    ],
+    "volunteered_frozen_decisions": [],
+    "scoring_note": "Question about scheduled-only blocking repeats task requirement and asks manual/in-progress scope; it does not ask whether skipped scheduled work is queued or replayed. Idempotence is stated as an engineering choice, not a question."
+  }
+]
