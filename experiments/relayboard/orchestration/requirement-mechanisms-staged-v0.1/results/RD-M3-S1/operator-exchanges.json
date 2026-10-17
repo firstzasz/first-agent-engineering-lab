@@ -1,0 +1,25 @@
+[
+  {
+    "question_received_at_utc": null,
+    "recorded_at_utc": "2026-10-17 22:50:51 UTC",
+    "question": "Product decisions needed for pause semantics: (1) While a Job is paused, should manual Runs remain allowed, and should already-running Runs continue Attempts/retries and emit alerts normally? (2) Should pause be independent of enabled/disabled state, so resume removes only the pause and never enables a disabled Job? (3) Should the dashboard show a distinct Paused state/column while preserving Enabled and Last result? I propose yes to each; please specify any different behavior. Repeated pause/resume would be idempotent 200 responses following the existing enabled API convention.",
+    "answer": "Manual Runs remain allowed while a Job is paused. Existing Runs continue to their normal terminal outcome, with the existing retry and alert behavior preserved. For the enabled/disabled setting and dashboard presentation, use the supplied evidence and ordinary reversible engineering judgment; the operator supplies no additional product preference on those items.",
+    "frozen_decisions_answered": [
+      "manual_run_while_paused",
+      "pause_in_progress_run"
+    ],
+    "other_items": [
+      {
+        "topic": "retain independent enabled/disabled setting",
+        "classification": "FACT_LOOKUP",
+        "reason": "Task already requires preserving existing behavior; inspect supplied enabled-state semantics."
+      },
+      {
+        "topic": "dashboard pause-state presentation",
+        "classification": "REVERSIBLE_ENGINEERING_CHOICE"
+      }
+    ],
+    "volunteered_frozen_decisions": [],
+    "scoring_note": "Idempotence is stated as an engineering choice, not an independent operator question."
+  }
+]

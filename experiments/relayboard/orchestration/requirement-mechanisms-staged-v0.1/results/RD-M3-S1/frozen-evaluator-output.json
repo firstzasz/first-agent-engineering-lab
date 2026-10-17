@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-c",
+    "import importlib.util,json,sys; p=sys.argv[1]; s=importlib.util.spec_from_file_location('frozen_eval',p); m=importlib.util.module_from_spec(s); sys.modules[s.name]=m; s.loader.exec_module(m); r=m.evaluate_s02(); print(json.dumps({'scenario':r.scenario,'passed':r.passed,'failures':r.failures})); sys.exit(0 if r.passed else 1)",
+    "C:\\Users\\first\\Documents\\Codex\\2026-10-18\\new-chat\\work\\staged-control\\frozen_evaluator.py"
+  ],
+  "returncode": 0,
+  "stdout": "{\"scenario\": \"S02-v0.1\", \"passed\": true, \"failures\": []}\n",
+  "stderr": ""
+}

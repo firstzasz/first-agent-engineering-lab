@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_dashboard_preserves_result_and_shows_pause_separately (test_pause.PauseTests.test_dashboard_preserves_result_and_shows_pause_separately) ... ok\ntest_existing_schema_gets_unpaused_default (test_pause.PauseTests.test_existing_schema_gets_unpaused_default) ... ok\ntest_manual_runs_and_active_runs_keep_retries_and_alerts (test_pause.PauseTests.test_manual_runs_and_active_runs_keep_retries_and_alerts) ... ok\ntest_pause_and_resume_preserve_enabled_setting (test_pause.PauseTests.test_pause_and_resume_preserve_enabled_setting) ... ok\ntest_pause_blocks_scheduling_until_resume_without_creating_runs (test_pause.PauseTests.test_pause_blocks_scheduling_until_resume_without_creating_runs) ... ok\ntest_pause_state_survives_store_reconstruction (test_pause.PauseTests.test_pause_state_survives_store_reconstruction) ... ok\ntest_unknown_jobs_and_nonmatching_routes_return_404 (test_pause.PauseTests.test_unknown_jobs_and_nonmatching_routes_return_404) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.016s\n\nOK\n"
+}
