@@ -1,0 +1,49 @@
+{
+  "contexts": [
+    {
+      "task": "/root/contestant_01",
+      "run_id": "RD-M1-S1",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "helpers": [],
+      "fresh_independent_history": true
+    },
+    {
+      "task": "/root/contestant_02",
+      "run_id": "RD-M0-S1",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "helpers": [],
+      "fresh_independent_history": true
+    },
+    {
+      "task": "/root/contestant_03",
+      "run_id": "RD-M2-S1",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "helpers": [],
+      "fresh_independent_history": true
+    },
+    {
+      "task": "/root/contestant_04",
+      "run_id": "RD-M3-S1",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "helpers": [],
+      "fresh_independent_history": true
+    }
+  ],
+  "operator_channel": "collaboration.send_message to /root",
+  "all_finished_and_explicitly_interrupted_before_evaluation": true,
+  "full_tool_transcript_available": false,
+  "technical_access_denial_claimed": false,
+  "stage2_contexts_created": 0
+}

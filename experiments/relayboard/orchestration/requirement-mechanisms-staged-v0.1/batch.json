@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment": "EXP-0014",
   "execution_variant": "staged-screening-v0.1",
-  "status": "STAGE1_DISPOSITIONS_COMPLETE_AWAITING_SCREEN",
+  "status": "SCREEN_STOP_NO_STRONG_SIGNAL",
   "stage": 1,
   "completed_count": 4,
   "excluded_count": 0,
@@ -51,7 +51,7 @@
       "arm": "M0",
       "replicate": 2,
       "sha256": "3ea0227ec9474a448592afdd401cbbd476eb92be43508898f5216ec8632e9aa9",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     },
     {
       "position": 2,
@@ -59,7 +59,7 @@
       "arm": "M1",
       "replicate": 3,
       "sha256": "48928fcd80dbda03394cfa9864719feb9c6b59e08ebb2b308c64106b9a9dde5d",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     },
     {
       "position": 3,
@@ -67,7 +67,7 @@
       "arm": "M3",
       "replicate": 3,
       "sha256": "5b608fc0fa38296baafb263e34d43afc087b496c7f1c33841f4ba4ead39a2ea2",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     },
     {
       "position": 4,
@@ -75,7 +75,7 @@
       "arm": "M0",
       "replicate": 3,
       "sha256": "8bd810937e286e5a4b2290441ed1a393f2a0008d3ec6f77e3fa5ad363c651d24",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     },
     {
       "position": 5,
@@ -83,7 +83,7 @@
       "arm": "M2",
       "replicate": 2,
       "sha256": "8dec7be798ce9557ff3bff0ccbdf589adb5250792418f27fafa6356b3dcc76d1",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     },
     {
       "position": 6,
@@ -91,7 +91,7 @@
       "arm": "M2",
       "replicate": 3,
       "sha256": "bde7bd60a75d6a7c0e6954c684670f74dd1ed97671d0bf24cabe1ab446830990",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     },
     {
       "position": 7,
@@ -99,7 +99,7 @@
       "arm": "M3",
       "replicate": 2,
       "sha256": "da9e73ec07840cff7a506bc9a5a1cff34758ab0f00e9f7c86182ef56d065dae5",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     },
     {
       "position": 8,
@@ -107,9 +107,11 @@
       "arm": "M1",
       "replicate": 2,
       "sha256": "f21faba0ca49e27f21e56b51b98790849828f2ee515ce79500929346a0322e81",
-      "status": "CONDITIONAL_NOT_AUTHORIZED"
+      "status": "NOT_SELECTED_BY_STAGE1_SCREEN"
     }
   ],
   "stage1_disposition_count": 4,
-  "stage2_started_count": 0
+  "stage2_started_count": 0,
+  "screening_decision": "SCREENING_DECISION.json",
+  "stage2_execution_authorized_by_user": false
 }
