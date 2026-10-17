@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0017",
+  "run_id": "DG-C2-G2-001",
+  "scenario": "RD-C2-v0",
+  "arm": "G2",
+  "status": "CONDITIONAL_NOT_AUTHORIZED",
+  "treatment": "decision-generation-g2-v0",
+  "fixture_base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "packet": {
+    "task": {
+      "path": "experiments/relayboard/transfer-screen-v0/tasks/RD-C2-v0.md",
+      "blob": "aaa6228f39e1563ecd01e98dd44047a90ffa7c1c",
+      "public_test": "experiments/relayboard/decision-generation-design-v0/public_tests/RD-C2-v0/test_public_feature.py",
+      "public_blob": "ef97a3f8d8596c10226816cac33b9b8d26f2a5ec"
+    },
+    "method": {
+      "path": "experiments/relayboard/transfer-screen-v0/methods/G2_DEPENDENCY_GRAPH.md",
+      "blob": "9ece1910162dfa8d81de30c624476f9d78442c1d"
+    },
+    "method_delivery": "Deliver exact pinned method blob as METHOD.md.",
+    "independent_history": true,
+    "lab_remote": false,
+    "forbidden": [
+      "scenario operator oracle",
+      "transfer evaluator implementation",
+      "reference patches/reference solutions",
+      "benchmark scenario docs containing ambiguity classes",
+      "EXP-0014/0015/0016 outcome summaries",
+      "peer EXP-0017 outcomes",
+      "other-arm method packets"
+    ]
+  },
+  "operator_protocol": {
+    "answer_only_genuinely_asked_product_decisions": true,
+    "no_volunteered_requirements": true,
+    "fact_and_reversible_questions_receive_no_product_guidance": true
+  },
+  "evaluation": {
+    "after_all_same_run_contexts_terminate": true,
+    "evaluator_blob": "b7d00333f08527e13706cb68402e9749b8ec5e0d",
+    "hidden_feedback_to_same_run": false
+  },
+  "result": null,
+  "no_silent_retry": true,
+  "no_main_merge": true
+}
