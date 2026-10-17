@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0017",
+  "name": "decision-generation-transfer-screen-v0",
+  "status": "FROZEN_PRE_RUN",
+  "research_branch": "research/exp0017-transfer-screen",
+  "source_experiment": "EXP-0016",
+  "fixture_base_sha": "2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high"
+  },
+  "procedural_isolation": "Evaluator Protocol v0 principles: fresh fork_turns=none contexts, assigned packet only, no oracle/evaluator/reference/peer outcome delivery; public-repo access remains procedural not cryptographic.",
+  "scenarios": {
+    "RD-C1-v0": {
+      "task": {
+        "path": "experiments/relayboard/transfer-screen-v0/tasks/RD-C1-v0.md",
+        "blob": "ee7a8ac4f13d0dec6900462fff2be78fcfebf784"
+      },
+      "public_test": {
+        "path": "experiments/relayboard/decision-generation-design-v0/public_tests/RD-C1-v0/test_public_feature.py",
+        "blob": "5f1735ed175b47370d33ec7f7a0307e696b4438e"
+      },
+      "oracle": {
+        "path": "experiments/relayboard/transfer-screen-v0/oracles/RD-C1-v0.json",
+        "blob": "b865a35e7c50666dce50347fda97bca9ff2117c3",
+        "contestant_visible": false
+      }
+    },
+    "RD-C2-v0": {
+      "task": {
+        "path": "experiments/relayboard/transfer-screen-v0/tasks/RD-C2-v0.md",
+        "blob": "aaa6228f39e1563ecd01e98dd44047a90ffa7c1c"
+      },
+      "public_test": {
+        "path": "experiments/relayboard/decision-generation-design-v0/public_tests/RD-C2-v0/test_public_feature.py",
+        "blob": "ef97a3f8d8596c10226816cac33b9b8d26f2a5ec"
+      },
+      "oracle": {
+        "path": "experiments/relayboard/transfer-screen-v0/oracles/RD-C2-v0.json",
+        "blob": "7e288b72e455273b53983bcb062c56fbee618703",
+        "contestant_visible": false
+      }
+    }
+  },
+  "evaluator": {
+    "path": "experiments/relayboard/decision-generation-design-v0/harness/evaluate_transfer.py",
+    "blob": "b7d00333f08527e13706cb68402e9749b8ec5e0d",
+    "contestant_visible": false
+  },
+  "scoring": {
+    "path": "experiments/relayboard/transfer-screen-v0/SCORING_TRANSFER_V0.md",
+    "blob": "68adeddc969c64a4da78aa2927360729df25900a"
+  },
+  "arms": {
+    "G0": {
+      "name": "neutral",
+      "method": null
+    },
+    "G1": {
+      "name": "behavior-matrix-generation",
+      "method": {
+        "path": "experiments/relayboard/transfer-screen-v0/methods/G1_BEHAVIOR_MATRIX.md",
+        "blob": "6c3def27eb2c4fd1429610e6d887f5926e7a3c83"
+      }
+    },
+    "G2": {
+      "name": "dependency-decision-graph",
+      "method": {
+        "path": "experiments/relayboard/transfer-screen-v0/methods/G2_DEPENDENCY_GRAPH.md",
+        "blob": "9ece1910162dfa8d81de30c624476f9d78442c1d"
+      }
+    },
+    "G3": {
+      "name": "coverage-loop",
+      "method": {
+        "path": "experiments/relayboard/transfer-screen-v0/methods/G3_COVERAGE_LOOP.md",
+        "blob": "adbe6ddebdbe60e88b227950c7b2a448f2b41084"
+      }
+    }
+  },
+  "stage1": {
+    "scenario": "RD-C1-v0",
+    "runs": [
+      {
+        "position": 1,
+        "run_id": "DG-C1-G2-001",
+        "scenario": "RD-C1-v0",
+        "arm": "G2",
+        "digest": "133717fb79a48ae535a65a5915920e205177f2124565abd0c7e633743e8f139f"
+      },
+      {
+        "position": 2,
+        "run_id": "DG-C1-G1-001",
+        "scenario": "RD-C1-v0",
+        "arm": "G1",
+        "digest": "6a7a6ea594f16a9e09e7c5c0f2b0db82197cfea4e7636d27afa5e365e1fa4fcd"
+      },
+      {
+        "position": 3,
+        "run_id": "DG-C1-G0-001",
+        "scenario": "RD-C1-v0",
+        "arm": "G0",
+        "digest": "c98132ff4451523ed89760c88d2d0f349fc7c6b7f8dd4f18d9b28cbd6ca72cea"
+      },
+      {
+        "position": 4,
+        "run_id": "DG-C1-G3-001",
+        "scenario": "RD-C1-v0",
+        "arm": "G3",
+        "digest": "fce920f9f803ae1b347ad000ece24667699f729491c43f10f3a850cd870b6665"
+      }
+    ],
+    "valid_G0_required": true,
+    "selection_rule": {
+      "correctness_required": true,
+      "fact_burden_guard": "mechanism FACT_LOOKUP items <= G0 FACT_LOOKUP items + 1",
+      "qualifies_if_any": [
+        "mechanism surfaced=4 and silent=0 while G0 is not complete",
+        "mechanism surfaced >= G0 surfaced + 2",
+        "mechanism silent <= G0 silent - 2"
+      ],
+      "ceiling_rule": "If valid G0 itself is 4/4 surfaced and 0 silent, C1 is treated as a discovery ceiling and Stage 2 authorizes all valid mechanism arms plus G0.",
+      "no_signal_rule": "If G0 is valid and incomplete, and no valid mechanism qualifies, stop after Stage 1.",
+      "invalid_G0_rule": "Stop as inconclusive and redesign; do not silently retry.",
+      "invalid_mechanism_rule": "Preserve/exclude; it does not qualify for Stage 2."
+    }
+  },
+  "stage2": {
+    "scenario": "RD-C2-v0",
+    "conditional": true,
+    "possible_runs": [
+      {
+        "position": 1,
+        "run_id": "DG-C2-G3-001",
+        "scenario": "RD-C2-v0",
+        "arm": "G3",
+        "digest": "571265f6184e207715aa606d8722e95856307d16f32fdb6c00727d1973329d78"
+      },
+      {
+        "position": 2,
+        "run_id": "DG-C2-G1-001",
+        "scenario": "RD-C2-v0",
+        "arm": "G1",
+        "digest": "765a017b64929dd35072568bbbe82ca62d8b301b6ae9eda5f0899ea6b2001606"
+      },
+      {
+        "position": 3,
+        "run_id": "DG-C2-G2-001",
+        "scenario": "RD-C2-v0",
+        "arm": "G2",
+        "digest": "a567d88cf0345395ba0120a02e2ce7c36196c8acccb266be771b0061c52a7e3c"
+      },
+      {
+        "position": 4,
+        "run_id": "DG-C2-G0-001",
+        "scenario": "RD-C2-v0",
+        "arm": "G0",
+        "digest": "cb52ef49279fe14426f9e285592e8ead40b33d669f5ff4d075af2c9dea499b22"
+      }
+    ],
+    "order_rule": "Filter the frozen possible-run order to G0 plus Stage-1-authorized valid mechanism arms; do not reorder after outcomes.",
+    "max_additional_runs": 4
+  },
+  "multi_scenario_signal_rule": {
+    "label": "REPLICATION_ELIGIBLE",
+    "applies_only_to": "mechanisms with valid C1 and C2 runs",
+    "correctness_required_on_both": true,
+    "conditions_any": [
+      "Across C1+C2, total surfaced >= G0 total surfaced + 2 AND total silent <= G0 total silent",
+      "At least one scenario is 4/4 surfaced and 0 silent where G0 is incomplete, and the mechanism is not worse than G0 on surfaced/silent in the other scenario"
+    ],
+    "fact_burden_guard": "total FACT_LOOKUP items <= G0 total + 1",
+    "meaning": "Eligible for a later repeated-run cohort only; not causal proof and never automatic FIRST adoption."
+  },
+  "no_silent_retry": true,
+  "automatic_first_adoption": false,
+  "first_mode_modified": false
+}
