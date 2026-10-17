@@ -1,0 +1,19 @@
+# EXP-0017 Stage 1 measurement and evidence notes
+
+The contestant packet consists only of the fixture at Pilot Start State v0.1, the exact assigned TASK.md, tests/test_public_feature.py, and the exact assigned METHOD.md for G1/G2/G3. G0 receives no method file. The original lab fixture and frozen experiment sources are never edited; contestant changes live in separate independent Git histories and are archived under results/.
+
+Every contestant uses a fresh fork_turns=none context with requested gpt-6.1-sol/high, serially. The common host binding supplies an absolute workspace, the collaboration.send_message operator channel, procedural-isolation restrictions, local commit/completion evidence, and no helpers or remote publication. No scenario benchmark document, oracle, evaluator, reference solution, prior experiment conclusion, peer outcome, or other-arm method is supplied.
+
+Questions and answers are preserved verbatim. A grouped question receives distinct discovery credit only for separately requested frozen semantics. Repeating explicit prompt behavior does not discover a hidden product decision. Implementation guesses receive silent-assumption counts even when correct. FACT_LOOKUP and REVERSIBLE_ENGINEERING_CHOICE items are recorded separately and receive no extra product guidance. Classification rationales appear with any supplementary question items.
+
+For RD-C1, discovery is scored against the four unchanged oracle IDs: terminal_run_cancel, cancel_alert_behavior, cancelled_dashboard_last_result, repeated_cancel. Counts are unique decisions surfaced; operator exchange counts are separate. No unasked decision is volunteered. Exact exchanges and candidate decision notes/tests permit review of the classifications.
+
+G3 also asked about pre-existing alert retention and an in-progress Attempt boundary. Retention was classified FACT_LOOKUP because preserving existing alerts is already required by the task. The service/storage boundary was classified REVERSIBLE_ENGINEERING_CHOICE because the supplied synchronous fixture has no in-progress Attempt lifecycle/background worker; transaction and guard placement is implementation judgment. These are explicit orchestrator classifications, not automatic labels; the raw question and rationale are retained for review. Neither item received extra product guidance.
+
+After each contestant finishes and is explicitly interrupted, its exact local commit/tree, complete Git bundle, candidate files, and patch are frozen. Independent evaluation clones that bundle and runs the original public base tests, the supplied scenario feature test, the candidate's full suite, and the unchanged frozen transfer evaluator. Original base/feature test hashes and candidate immutability are checked. Hidden feedback is never sent back to the same contestant.
+
+Correctness is the conjunction of base-public, feature-public, and frozen-evaluator acceptance. The full candidate suite is also recorded. Acceptance is limited to these frozen fixtures and does not imply production quality, migration coverage, or extra hidden cases. Individual contestant limitations remain in completion.json.
+
+No raw complete host/tool transcript is available. Requested model/reasoning configuration is not independently attested. Token/cost/compute-time metrics remain unknown. Timing observations include host and operator delay. Procedural isolation does not claim cryptographic secrecy or exhaustive filesystem-access denial.
+
+The frozen Stage-1 rule is applied only after four dispositions are durable. Correctness, FACT burden, each discovery threshold, invalid-run handling, and the neutral-ceiling rule are recorded explicitly. Stage 2 is not launched in this task, regardless of protocol eligibility. One-shot screening does not establish cross-scenario transfer, replication eligibility, causality, generality, or FIRST adoption.

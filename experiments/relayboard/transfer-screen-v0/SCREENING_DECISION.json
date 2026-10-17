@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-0017",
+  "stage": 1,
+  "created_at_utc": "2026-10-17T23:30:45.484788+00:00",
+  "frozen_protocol_commit": "ad1ecf32eb6248d764a44157422257c330595f44",
+  "stage1_order": [
+    "DG-C1-G2-001",
+    "DG-C1-G1-001",
+    "DG-C1-G0-001",
+    "DG-C1-G3-001"
+  ],
+  "all_four_stage1_dispositions_durable": true,
+  "stage1_persistence_commits": {
+    "DG-C1-G2-001": "1142ca663e939ff510d0852c97a5c62c37d07a50",
+    "DG-C1-G1-001": "e353b11df1cc458d02e74486dba72aa333a24984",
+    "DG-C1-G0-001": "bbc12a1a375e1be5105607bdc14583666b3a55b5",
+    "DG-C1-G3-001": "c5402401e617d1dbfbc9ffb3c1807583e727bb8d"
+  },
+  "status": "STAGE1_CEILING_C2_SCREEN_ELIGIBLE",
+  "G0": {
+    "run_id": "DG-C1-G0-001",
+    "protocol_valid": true,
+    "correctness_pass": true,
+    "surfaced": 4,
+    "silent": 0,
+    "FACT_LOOKUP_items": 0,
+    "public_base_acceptance": "PASS",
+    "public_feature_acceptance": "PASS",
+    "frozen_evaluator_acceptance": "PASS"
+  },
+  "ceiling_rule_applies": true,
+  "arms": {
+    "G1": {
+      "run_id": "DG-C1-G1-001",
+      "protocol_valid": true,
+      "correctness_pass": true,
+      "FACT_LOOKUP_items": 0,
+      "fact_burden_limit_G0_plus_1": 1,
+      "fact_burden_guard_pass": true,
+      "arithmetic": {
+        "surfaced": 4,
+        "silent": 0,
+        "G0_surfaced": 4,
+        "G0_silent": 0,
+        "complete_where_G0_incomplete": false,
+        "surfaced_threshold": 6,
+        "surfaced_difference": 0,
+        "surfaced_threshold_met": false,
+        "silent_threshold": -2,
+        "silent_reduction": 0,
+        "silent_threshold_met": false,
+        "discovery_thresholds_combine": "OR"
+      },
+      "qualifies_by_discovery_rule": false,
+      "ceiling_rule_applies": true,
+      "continuation_eligible": true,
+      "screening": "CEILING_CONTINUATION_ELIGIBLE",
+      "public_base_acceptance": "PASS",
+      "public_feature_acceptance": "PASS",
+      "frozen_evaluator_acceptance": "PASS"
+    },
+    "G2": {
+      "run_id": "DG-C1-G2-001",
+      "protocol_valid": true,
+      "correctness_pass": true,
+      "FACT_LOOKUP_items": 0,
+      "fact_burden_limit_G0_plus_1": 1,
+      "fact_burden_guard_pass": true,
+      "arithmetic": {
+        "surfaced": 4,
+        "silent": 0,
+        "G0_surfaced": 4,
+        "G0_silent": 0,
+        "complete_where_G0_incomplete": false,
+        "surfaced_threshold": 6,
+        "surfaced_difference": 0,
+        "surfaced_threshold_met": false,
+        "silent_threshold": -2,
+        "silent_reduction": 0,
+        "silent_threshold_met": false,
+        "discovery_thresholds_combine": "OR"
+      },
+      "qualifies_by_discovery_rule": false,
+      "ceiling_rule_applies": true,
+      "continuation_eligible": true,
+      "screening": "CEILING_CONTINUATION_ELIGIBLE",
+      "public_base_acceptance": "PASS",
+      "public_feature_acceptance": "PASS",
+      "frozen_evaluator_acceptance": "PASS"
+    },
+    "G3": {
+      "run_id": "DG-C1-G3-001",
+      "protocol_valid": true,
+      "correctness_pass": true,
+      "FACT_LOOKUP_items": 1,
+      "fact_burden_limit_G0_plus_1": 1,
+      "fact_burden_guard_pass": true,
+      "arithmetic": {
+        "surfaced": 4,
+        "silent": 0,
+        "G0_surfaced": 4,
+        "G0_silent": 0,
+        "complete_where_G0_incomplete": false,
+        "surfaced_threshold": 6,
+        "surfaced_difference": 0,
+        "surfaced_threshold_met": false,
+        "silent_threshold": -2,
+        "silent_reduction": 0,
+        "silent_threshold_met": false,
+        "discovery_thresholds_combine": "OR"
+      },
+      "qualifies_by_discovery_rule": false,
+      "ceiling_rule_applies": true,
+      "continuation_eligible": true,
+      "screening": "CEILING_CONTINUATION_ELIGIBLE",
+      "public_base_acceptance": "PASS",
+      "public_feature_acceptance": "PASS",
+      "frozen_evaluator_acceptance": "PASS"
+    }
+  },
+  "continuation_eligible_mechanism_arms": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "authorized_stage2_run_ids": [
+    "DG-C2-G3-001",
+    "DG-C2-G1-001",
+    "DG-C2-G2-001",
+    "DG-C2-G0-001"
+  ],
+  "stage2_execution_authorized_by_user": false,
+  "stage2_runs_started": 0,
+  "stage2_launched": false,
+  "task_stop_reason": "User limited execution to Stage 1 and durable screening decision; no C2 contestant may be launched in this task.",
+  "cohort_stop_reason": null,
+  "multi_scenario_signal_evaluated": false,
+  "replication_eligible": false,
+  "automatic_first_adoption": false,
+  "first_mode_modified": false,
+  "interpretation": "One-shot screening; C2 eligibility is not evidence of cross-scenario transfer, causal proof, or FIRST adoption."
+}

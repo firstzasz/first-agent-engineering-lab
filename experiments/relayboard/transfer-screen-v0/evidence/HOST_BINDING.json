@@ -1,0 +1,51 @@
+{
+  "experiment": "EXP-0017",
+  "contexts": [
+    {
+      "run_id": "DG-C1-G2-001",
+      "task": "/root/transfer_01",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "independent_fixture_history": true,
+      "helpers": []
+    },
+    {
+      "run_id": "DG-C1-G1-001",
+      "task": "/root/transfer_02",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "independent_fixture_history": true,
+      "helpers": []
+    },
+    {
+      "run_id": "DG-C1-G0-001",
+      "task": "/root/transfer_03",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "independent_fixture_history": true,
+      "helpers": []
+    },
+    {
+      "run_id": "DG-C1-G3-001",
+      "task": "/root/transfer_04",
+      "fork_turns_requested": "none",
+      "model_requested": "gpt-6.1-sol",
+      "reasoning_effort_requested": "high",
+      "runtime_identity_attested": null,
+      "independent_fixture_history": true,
+      "helpers": []
+    }
+  ],
+  "serial": true,
+  "all_finished_and_explicitly_interrupted_before_hidden_evaluation": true,
+  "operator_channel": "collaboration.send_message to /root",
+  "full_raw_host_trace_available": false,
+  "technical_access_denial_claimed": false,
+  "stage2_contexts_created": 0
+}
