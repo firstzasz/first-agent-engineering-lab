@@ -1,0 +1,42 @@
+{
+  "experiment": "EXP-0017",
+  "stage": 2,
+  "checked_at_utc": "2026-10-18T00:04:41.555473+00:00",
+  "verified_stage1_commit": "fad7c39cfd5b56390fdb1525c1447a54ff0eb821",
+  "status": "PASS",
+  "checks": {
+    "verified_stage1_head": true,
+    "stage1_audit_pass": true,
+    "stage1_source_docs_exact": true,
+    "stage1_four_valid_correct_complete_runs": true,
+    "stage1_candidate_and_result_hashes": true,
+    "ceiling_decision_mechanically_matches_records": true,
+    "authorized_exact_frozen_C2_order": true,
+    "C2_order_digests_recomputed": true,
+    "C2_not_started": true,
+    "task_feature_oracle_method_evaluator_scoring_blobs_exact": true,
+    "all_C2_packet_pins_match_tree": true,
+    "four_frozen_C2_manifests_untouched": true,
+    "fixture_tree_exact_pilot_base": true,
+    "FIRST_MODE_V0_unchanged": true,
+    "protected_refs_unchanged": true
+  },
+  "passed": 15,
+  "total": 15,
+  "stage2_user_authorization": true,
+  "authorized_order": [
+    "DG-C2-G3-001",
+    "DG-C2-G1-001",
+    "DG-C2-G2-001",
+    "DG-C2-G0-001"
+  ],
+  "contestants_started": 0,
+  "refs_before": {
+    "main": "d7d277c0e684d1e9aed0c30259796deb48c7c207",
+    "research/batch-orchestration-pilot": "a700a3e52d1d8a66246806366d7f14eb7ba9b77a",
+    "research/batch-orchestration-round2": "226a03a883c65c81223ca49e00ddd058e1b38691"
+  },
+  "procedural_isolation": true,
+  "runtime_identity_attestation": null
+}
+
