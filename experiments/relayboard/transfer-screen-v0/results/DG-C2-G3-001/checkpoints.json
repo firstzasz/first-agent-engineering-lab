@@ -1,0 +1,20 @@
+[
+  {
+    "message": "Coverage matrix and dependency graph recorded in ARCHIVE_DECISIONS.md. The pending D1-D4 decisions cover new runs, existing runs/alerts, enabled state, and archived discovery; persistence/history/default hide and response conventions are resolved from task/code. Waiting on those product answers before implementing dependent behavior.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Resolved matrix: both new-run sources reject archived Jobs with 409; running Runs retain retries/alerts; archive preserves enabled and restore reveals that same state. To keep the pre-archive enabled value intact, I will reject enabled updates while archived (409). I will keep the public scope to the requested transition endpoints and normal list/dashboard; no new archived-list query interface. Store.get_job(id) retains archived access, and transitions return the Job including its archived flag. All material cells are now resolved; implementing.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Implementation is complete and 15 tests pass (6 supplied + 9 lifecycle tests). Verified both start sources are blocked, enabled state survives restore, running Runs retain existing retries/alerts, history remains intact, unknown/repeated transitions behave consistently, and existing SQLite schemas migrate without losing records. Reviewing the final diff and documenting endpoint behavior before the local commit.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_archived_jobs_block_both_run_sources_without_creating_runs (test_archive_lifecycle.ArchiveLifecycleTests.test_archived_jobs_block_both_run_sources_without_creating_runs) ... ok\ntest_enabled_edits_cannot_change_saved_state_while_archived (test_archive_lifecycle.ArchiveLifecycleTests.test_enabled_edits_cannot_change_saved_state_while_archived) ... ok\ntest_existing_run_retry_and_alert_behavior_is_unchanged (test_archive_lifecycle.ArchiveLifecycleTests.test_existing_run_retry_and_alert_behavior_is_unchanged) ... ok\ntest_existing_schema_migration_and_persisted_archive_state (test_archive_lifecycle.ArchiveLifecycleTests.test_existing_schema_migration_and_persisted_archive_state) ... ok\ntest_in_progress_success_and_history_survive_archive_restore (test_archive_lifecycle.ArchiveLifecycleTests.test_in_progress_success_and_history_survive_archive_restore) ... ok\ntest_new_jobs_visible_and_unarchived (test_archive_lifecycle.ArchiveLifecycleTests.test_new_jobs_visible_and_unarchived) ... ok\ntest_transition_routes_require_exact_path (test_archive_lifecycle.ArchiveLifecycleTests.test_transition_routes_require_exact_path) ... ok\ntest_transitions_are_idempotent_and_preserve_configuration (test_archive_lifecycle.ArchiveLifecycleTests.test_transitions_are_idempotent_and_preserve_configuration) ... ok\ntest_unknown_transitions_return_404_without_changes (test_archive_lifecycle.ArchiveLifecycleTests.test_unknown_transitions_return_404_without_changes) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_archive_hides_and_restore_reveals_job (test_public_feature.ArchiveJobPublicTests.test_archive_hides_and_restore_reveals_job) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.015s\n\nOK\n"
+}

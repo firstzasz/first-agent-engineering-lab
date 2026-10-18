@@ -1,0 +1,32 @@
+{
+  "frozen_at_utc": "2026-10-18T00:08:05.993482+00:00",
+  "run_id": "DG-C2-G3-001",
+  "candidate_sha": "18dfd0a2efa8bbceb72100aba7db49420fc3a9b1",
+  "candidate_tree": "26dbc880b17484b84810de6c9655c4e9d9a1d9c4",
+  "clean": true,
+  "commits_after_base": 1,
+  "diff_numstat": "35\t0\tARCHIVE_DECISIONS.md\n17\t0\tREADME.md\n1\t0\trelayboard/models.py\n20\t3\trelayboard/service.py\n26\t3\trelayboard/store.py\n20\t2\trelayboard/web.py\n143\t0\ttests/test_archive_lifecycle.py",
+  "task_unchanged": true,
+  "method_unchanged": true,
+  "public_feature_test_unchanged": true,
+  "public_base_test_unchanged": true,
+  "bundle_sha256": "bc3e57760c79dd65f02d9e19b9816dae18d7743e5111d30b7167ff2bf05eee16",
+  "tracked_files": [
+    "ARCHIVE_DECISIONS.md",
+    "GLOSSARY.md",
+    "METHOD.md",
+    "README.md",
+    "TASK.md",
+    "pyproject.toml",
+    "relayboard/__init__.py",
+    "relayboard/__main__.py",
+    "relayboard/models.py",
+    "relayboard/service.py",
+    "relayboard/store.py",
+    "relayboard/testing.py",
+    "relayboard/web.py",
+    "tests/test_archive_lifecycle.py",
+    "tests/test_public.py",
+    "tests/test_public_feature.py"
+  ]
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "recorded_at_utc": "2026-10-18 00:07:03 UTC",
+    "question_received_at_utc": null,
+    "question_messages": [
+      "Visible code separates enabled scheduling, manual starts, retries/alerts, and normal listing; no archive semantics exist. Product decisions needed: (1) While a Job is archived, should scheduled starts and manual starts each remain allowed or be rejected? (2) For a Run already running when archived, should attempts/retries and terminal failure alerts continue unchanged, or be stopped/suppressed? (3) Should archive/restore preserve the existing enabled flag, and should enabled updates while archived remain allowed? I will preserve Run records/history and hide archived Jobs from normal listing/dashboard as specified. Ordinary API details will follow existing 200 job envelope / 404 patterns with idempotent archive/restore.",
+      "One additional public-surface decision: should operators have an opt-in API listing for archived Jobs (e.g. GET /api/jobs?include_archived=true), or should this change expose only the two requested POST endpoints, with restore using a known Job id? Existing app has no Job detail route or archived discovery view. Baseline: 5 existing tests pass; new public archive test fails as expected (404)."
+    ],
+    "question": "Visible code separates enabled scheduling, manual starts, retries/alerts, and normal listing; no archive semantics exist. Product decisions needed: (1) While a Job is archived, should scheduled starts and manual starts each remain allowed or be rejected? (2) For a Run already running when archived, should attempts/retries and terminal failure alerts continue unchanged, or be stopped/suppressed? (3) Should archive/restore preserve the existing enabled flag, and should enabled updates while archived remain allowed? I will preserve Run records/history and hide archived Jobs from normal listing/dashboard as specified. Ordinary API details will follow existing 200 job envelope / 404 patterns with idempotent archive/restore.\n\nOne additional public-surface decision: should operators have an opt-in API listing for archived Jobs (e.g. GET /api/jobs?include_archived=true), or should this change expose only the two requested POST endpoints, with restore using a known Job id? Existing app has no Job detail route or archived discovery view. Baseline: 5 existing tests pass; new public archive test fails as expected (404).",
+    "answer": "Scheduled Runs and manual Runs are both blocked while a Job is archived. A Run already in progress continues normally to its terminal outcome, including the existing retry and alert behavior. On restore, preserve the Job's pre-archive enabled/disabled state.\n\nFor enabled updates while archived and optional archived-list discovery, use the supplied task/evidence and ordinary reversible engineering judgment. The operator supplies no additional product preference on those items.",
+    "frozen_decisions_answered": [
+      "scheduled_run_while_archived",
+      "manual_run_while_archived",
+      "existing_run_when_archived",
+      "restore_enabled_state"
+    ],
+    "other_items": [
+      {
+        "topic": "enabled updates while archived",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+        "oracle_scope": "outside_frozen_four",
+        "reason": "Externally visible policy for an existing mutation in the new archived state; the frozen oracle does not specify it. No specific product answer was supplied."
+      },
+      {
+        "topic": "optional opt-in archived Jobs listing",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+        "oracle_scope": "outside_frozen_four",
+        "reason": "An additional discovery surface beyond the requested endpoints/listing semantics; no oracle answer or added requirement was supplied."
+      }
+    ],
+    "volunteered_frozen_decisions": [],
+    "exchange_count_note": "Two contestant question messages were answered in one operator response; one Q/A exchange. Extra product items do not receive discovery credit toward the four frozen decisions."
+  }
+]
