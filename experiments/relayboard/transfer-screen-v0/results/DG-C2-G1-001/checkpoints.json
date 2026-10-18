@@ -1,0 +1,20 @@
+[
+  {
+    "message": "Baseline verification complete: 5 existing behavior tests pass; archive public feature test fails at POST archive (404), as expected. I will preserve archive state independently from enabled state and keep history records unless operator answers require a different lifecycle rule. Awaiting product semantics before implementation.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Matrix rescanned with operator answers. I will block both new Run sources with 409 while archived; existing Run processing stays unchanged; archive/restore preserve enabled state. I will reject enable/disable changes while archived (409) so restore can preserve the pre-archive state without an extra state snapshot. Repeated archive/restore will be idempotent; unknown IDs return existing-style 404. Archived Jobs remain addressable internally for history and restoration.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  },
+  {
+    "message": "Implementation and lifecycle verification are complete: archive/restore routes, persisted archive flag with legacy schema migration, filtered dashboard/list, blocked new manual/scheduled Runs, unchanged in-flight retries/alerts and history, enabled-state preservation. All 14 tests pass (6 supplied + 8 new lifecycle/API/migration tests). Reviewing diff and preparing local commit.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]

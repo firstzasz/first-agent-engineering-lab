@@ -1,0 +1,48 @@
+{
+  "run_id": "DG-C2-G1-001",
+  "candidate_diff": [
+    {
+      "path": "README.md",
+      "added": 18,
+      "deleted": 0,
+      "category": "documentation_or_process"
+    },
+    {
+      "path": "relayboard/models.py",
+      "added": 1,
+      "deleted": 0,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/service.py",
+      "added": 16,
+      "deleted": 3,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/store.py",
+      "added": 28,
+      "deleted": 4,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/web.py",
+      "added": 19,
+      "deleted": 0,
+      "category": "production"
+    },
+    {
+      "path": "tests/test_archive.py",
+      "added": 154,
+      "deleted": 0,
+      "category": "test"
+    }
+  ],
+  "files_changed": 6,
+  "production_files_changed": 4,
+  "test_files_changed": 1,
+  "documentation_or_process_files_changed": 1,
+  "total_lines_added": 236,
+  "total_lines_deleted": 7,
+  "note": "Descriptive footprint; supplied immutable task/method/public feature test excluded from changed-file counts."
+}

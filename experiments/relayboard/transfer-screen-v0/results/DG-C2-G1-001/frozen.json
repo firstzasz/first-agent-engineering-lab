@@ -1,0 +1,31 @@
+{
+  "frozen_at_utc": "2026-10-18T00:10:39.942181+00:00",
+  "run_id": "DG-C2-G1-001",
+  "candidate_sha": "e78c525341544a437203ea3cae96b931aa0c9baa",
+  "candidate_tree": "7a9863834be0308bafc81473effd4f0c5ad3ab38",
+  "clean": true,
+  "commits_after_base": 1,
+  "diff_numstat": "18\t0\tREADME.md\n1\t0\trelayboard/models.py\n16\t3\trelayboard/service.py\n28\t4\trelayboard/store.py\n19\t0\trelayboard/web.py\n154\t0\ttests/test_archive.py",
+  "task_unchanged": true,
+  "method_unchanged": true,
+  "public_feature_test_unchanged": true,
+  "public_base_test_unchanged": true,
+  "bundle_sha256": "9938792010f16060344461388dd5642a4f4bf4335714d829113f1e252665248e",
+  "tracked_files": [
+    "GLOSSARY.md",
+    "METHOD.md",
+    "README.md",
+    "TASK.md",
+    "pyproject.toml",
+    "relayboard/__init__.py",
+    "relayboard/__main__.py",
+    "relayboard/models.py",
+    "relayboard/service.py",
+    "relayboard/store.py",
+    "relayboard/testing.py",
+    "relayboard/web.py",
+    "tests/test_archive.py",
+    "tests/test_public.py",
+    "tests/test_public_feature.py"
+  ]
+}

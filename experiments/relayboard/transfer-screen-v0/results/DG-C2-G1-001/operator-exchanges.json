@@ -1,0 +1,23 @@
+[
+  {
+    "recorded_at_utc": "2026-10-18 00:09:24 UTC",
+    "question_received_at_utc": null,
+    "question": "I read TASK.md, METHOD.md, all source and public tests. Behavior matrix: Job active/archived × enabled/disabled; API archive/restore (including repeat/missing id); dashboard/list visibility; manual/scheduled starts before/while/after archive; existing Run attempts/retries/alerts while archived; enabled changes while archived and restore. Evidence fixes hide/show and history preservation; route response shape/idempotence/storage migration are reversible engineering choices. Exact operator question: While a Job is archived, should new scheduled Runs and new manual Runs each be allowed or blocked? Should Runs already in progress continue retries and alerts normally? Should archive/restore preserve the enabled state, and should the existing enable/disable endpoint remain usable while archived?",
+    "answer": "Scheduled Runs and manual Runs are both blocked while a Job is archived. A Run already in progress continues normally to its terminal outcome, including the existing retry and alert behavior. On restore, preserve the Job's pre-archive enabled/disabled state.\n\nFor enabled updates while archived, use the supplied task/evidence and ordinary reversible engineering judgment. The operator supplies no additional product preference on that item.",
+    "frozen_decisions_answered": [
+      "scheduled_run_while_archived",
+      "manual_run_while_archived",
+      "existing_run_when_archived",
+      "restore_enabled_state"
+    ],
+    "other_items": [
+      {
+        "topic": "enabled updates while archived",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+        "oracle_scope": "outside_frozen_four",
+        "reason": "Externally visible policy for an existing mutation in the new archived state; no specific product answer exists in the frozen oracle and none was supplied."
+      }
+    ],
+    "volunteered_frozen_decisions": []
+  }
+]

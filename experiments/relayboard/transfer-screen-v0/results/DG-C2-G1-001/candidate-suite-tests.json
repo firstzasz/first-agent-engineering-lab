@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_archive_all_jobs_gives_empty_normal_views (test_archive.ArchiveJobTests.test_archive_all_jobs_gives_empty_normal_views) ... ok\ntest_enable_update_while_archived_is_a_conflict (test_archive.ArchiveJobTests.test_enable_update_while_archived_is_a_conflict) ... ok\ntest_existing_run_retries_alerts_and_history_survive_archive (test_archive.ArchiveJobTests.test_existing_run_retries_alerts_and_history_survive_archive) ... ok\ntest_legacy_database_migration_preserves_data_and_archive_state (test_archive.ArchiveJobTests.test_legacy_database_migration_preserves_data_and_archive_state) ... ok\ntest_new_runs_blocked_while_archived_and_resume_after_restore (test_archive.ArchiveJobTests.test_new_runs_blocked_while_archived_and_resume_after_restore) ... ok\ntest_repeat_transitions_preserve_enabled_state_and_configuration (test_archive.ArchiveJobTests.test_repeat_transitions_preserve_enabled_state_and_configuration) ... ok\ntest_terminal_history_and_alerts_remain_accessible_while_archived (test_archive.ArchiveJobTests.test_terminal_history_and_alerts_remain_accessible_while_archived) ... ok\ntest_unknown_job_and_malformed_routes_return_404 (test_archive.ArchiveJobTests.test_unknown_job_and_malformed_routes_return_404) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_archive_hides_and_restore_reveals_job (test_public_feature.ArchiveJobPublicTests.test_archive_hides_and_restore_reveals_job) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.015s\n\nOK\n"
+}

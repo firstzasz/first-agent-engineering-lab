@@ -1,0 +1,349 @@
+diff --git a/README.md b/README.md
+index cf475bf..d740bfa 100644
+--- a/README.md
++++ b/README.md
+@@ -41,6 +41,24 @@ RelayBoard is a small job-control application with:
+ 
+ The implementation should remain small enough that a reviewer can inspect the whole system.
+ 
++## Archiving Jobs
++
++`POST /api/jobs/{id}/archive` hides a Job from `/api/jobs` and the Jobs
++dashboard. `POST /api/jobs/{id}/restore` reveals it again. Both endpoints
++return HTTP 200 with the Job, including its `archived` boolean; repeated
++requests are idempotent. Unknown Job IDs return HTTP 404.
++
++Archived Jobs reject new manual and scheduled Runs with HTTP 409. Runs
++already in progress continue with the existing retry and alert behavior,
++and Run history, Attempts and Alerts are retained. Archiving and restoring
++preserve the enabled/disabled state. Enable/disable updates while archived
++return HTTP 409; restore the Job before changing that state.
++
++Archive state is persisted in SQLite. Existing databases receive an
++`archived` column with all existing Jobs initially unarchived.
++
++Verify with `python -m unittest discover -s tests -v`.
++
+ ## Treatment isolation
+ 
+ Treatment agents receive the fixture workspace and scenario prompt.
+diff --git a/relayboard/models.py b/relayboard/models.py
+index c9c800a..4f26026 100644
+--- a/relayboard/models.py
++++ b/relayboard/models.py
+@@ -9,6 +9,7 @@ class Job:
+     name: str
+     enabled: bool
+     max_attempts: int
++    archived: bool = False
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/relayboard/service.py b/relayboard/service.py
+index e924be0..9728b11 100644
+--- a/relayboard/service.py
++++ b/relayboard/service.py
+@@ -1,6 +1,6 @@
+ from __future__ import annotations
+ 
+-from .models import Run
++from .models import Job, Run
+ from .store import Store
+ 
+ 
+@@ -17,18 +17,31 @@ class RelayBoardService:
+         self.store = store
+ 
+     def begin_manual_run(self, job_id: str) -> Run:
+-        self.store.get_job(job_id)
++        self._require_unarchived(job_id)
+         return self.store.create_run(job_id, "manual")
+ 
+     def begin_scheduled_run(self, job_id: str) -> Run:
+-        job = self.store.get_job(job_id)
++        job = self._require_unarchived(job_id)
+         if not job.enabled:
+             raise JobNotSchedulable(f"job {job_id} is disabled")
+         return self.store.create_run(job_id, "scheduled")
+ 
+     def set_job_enabled(self, job_id: str, enabled: bool) -> None:
++        self._require_unarchived(job_id)
+         self.store.set_job_enabled(job_id, enabled)
+ 
++    def archive_job(self, job_id: str) -> Job:
++        return self.store.set_job_archived(job_id, True)
++
++    def restore_job(self, job_id: str) -> Job:
++        return self.store.set_job_archived(job_id, False)
++
++    def _require_unarchived(self, job_id: str) -> Job:
++        job = self.store.get_job(job_id)
++        if job.archived:
++            raise JobNotSchedulable(f"job {job_id} is archived")
++        return job
++
+     def record_attempt(self, run_id: str, *, succeeded: bool) -> str:
+         run = self.store.get_run(run_id)
+         if run.status != "running":
+diff --git a/relayboard/store.py b/relayboard/store.py
+index 3a49cc1..cba7d86 100644
+--- a/relayboard/store.py
++++ b/relayboard/store.py
+@@ -18,7 +18,8 @@ class Store:
+                 id TEXT PRIMARY KEY,
+                 name TEXT NOT NULL,
+                 enabled INTEGER NOT NULL,
+-                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1)
++                max_attempts INTEGER NOT NULL CHECK(max_attempts >= 1),
++                archived INTEGER NOT NULL DEFAULT 0 CHECK(archived IN (0, 1))
+             );
+             CREATE TABLE IF NOT EXISTS runs (
+                 id TEXT PRIMARY KEY,
+@@ -41,6 +42,15 @@ class Store:
+             );
+             """
+         )
++        columns = {
++            row["name"]
++            for row in self.connection.execute("PRAGMA table_info(jobs)")
++        }
++        if "archived" not in columns:
++            self.connection.execute(
++                "ALTER TABLE jobs ADD COLUMN archived INTEGER NOT NULL "
++                "DEFAULT 0 CHECK(archived IN (0, 1))"
++            )
+         self.connection.commit()
+ 
+     def add_job(
+@@ -70,17 +80,31 @@ class Store:
+             row["name"],
+             bool(row["enabled"]),
+             row["max_attempts"],
++            bool(row["archived"]),
+         )
+ 
+-    def list_jobs(self) -> list[Job]:
++    def list_jobs(self, *, include_archived: bool = False) -> list[Job]:
+         rows = self.connection.execute(
+-            "SELECT * FROM jobs ORDER BY id"
++            "SELECT * FROM jobs WHERE (? OR archived = 0) ORDER BY id",
++            (include_archived,),
+         ).fetchall()
+         return [
+-            Job(r["id"], r["name"], bool(r["enabled"]), r["max_attempts"])
++            Job(
++                r["id"], r["name"], bool(r["enabled"]), r["max_attempts"],
++                bool(r["archived"]),
++            )
+             for r in rows
+         ]
+ 
++    def set_job_archived(self, job_id: str, archived: bool) -> Job:
++        self.get_job(job_id)
++        self.connection.execute(
++            "UPDATE jobs SET archived = ? WHERE id = ?",
++            (int(archived), job_id),
++        )
++        self.connection.commit()
++        return self.get_job(job_id)
++
+     def set_job_enabled(self, job_id: str, enabled: bool) -> Job:
+         self.get_job(job_id)
+         self.connection.execute(
+diff --git a/relayboard/web.py b/relayboard/web.py
+index 88aa15e..198a52b 100644
+--- a/relayboard/web.py
++++ b/relayboard/web.py
+@@ -51,6 +51,24 @@ class RelayBoardApp:
+                     },
+                 )
+ 
++            parts = path.split("/")
++            if (
++                method == "POST"
++                and len(parts) == 5
++                and parts[1:3] == ["api", "jobs"]
++                and parts[4] in ("archive", "restore")
++            ):
++                job_id = parts[3]
++                if parts[4] == "archive":
++                    job = self.service.archive_job(job_id)
++                else:
++                    job = self.service.restore_job(job_id)
++                return self._json(
++                    start_response,
++                    200,
++                    {"job": self._job_json(job)},
++                )
++
+             if (
+                 method == "POST"
+                 and path.startswith("/api/jobs/")
+@@ -163,6 +181,7 @@ class RelayBoardApp:
+             "name": job.name,
+             "enabled": job.enabled,
+             "max_attempts": job.max_attempts,
++            "archived": job.archived,
+         }
+ 
+     @staticmethod
+diff --git a/tests/test_archive.py b/tests/test_archive.py
+new file mode 100644
+index 0000000..57f1b7a
+--- /dev/null
++++ b/tests/test_archive.py
+@@ -0,0 +1,154 @@
++import sqlite3
++import unittest
++
++from relayboard.service import JobNotSchedulable
++from relayboard.store import Store
++from relayboard.testing import request
++from relayboard.web import create_seeded_app
++
++
++class ArchiveJobTests(unittest.TestCase):
++    def setUp(self) -> None:
++        self.app = create_seeded_app()
++
++    def test_new_runs_blocked_while_archived_and_resume_after_restore(self) -> None:
++        request(self.app, "POST", "/api/jobs/daily-report/archive")
++        for source in ("manual", "scheduled"):
++            with self.subTest(source=source):
++                code, payload = request(
++                    self.app, "POST", "/api/jobs/daily-report/runs",
++                    {"source": source},
++                )
++                self.assertEqual(code, 409)
++                self.assertIn("archived", payload["error"])
++        self.assertEqual(self.app.store.next_run_id(), "run-001")
++
++        request(self.app, "POST", "/api/jobs/daily-report/restore")
++        for source in ("manual", "scheduled"):
++            with self.subTest(source=source):
++                code, _ = request(
++                    self.app, "POST", "/api/jobs/daily-report/runs",
++                    {"source": source},
++                )
++                self.assertEqual(code, 201)
++
++    def test_existing_run_retries_alerts_and_history_survive_archive(self) -> None:
++        service = self.app.service
++        run = service.begin_manual_run("daily-report")
++        service.archive_job("daily-report")
++        self.assertEqual(service.record_attempt(run.id, succeeded=False), "retry")
++        self.assertEqual(service.record_attempt(run.id, succeeded=False), "failed")
++        self.assertEqual(self.app.store.get_run(run.id).status, "failed")
++        self.assertEqual(len(self.app.store.list_attempts(run.id)), 2)
++        # Preserve the existing alert behavior for every failed attempt.
++        self.assertEqual(len(self.app.store.list_alerts()), 2)
++
++        service.restore_job("daily-report")
++        self.assertEqual(self.app.store.get_run(run.id).status, "failed")
++        self.assertEqual(len(self.app.store.list_attempts(run.id)), 2)
++        code, body = request(self.app, "GET", "/dashboard")
++        self.assertEqual(code, 200)
++        self.assertIn("failed", body)
++
++    def test_terminal_history_and_alerts_remain_accessible_while_archived(self) -> None:
++        run = self.app.service.begin_manual_run("cleanup")
++        self.app.service.record_attempt(run.id, succeeded=False)
++        attempts = self.app.store.list_attempts(run.id)
++        alerts = self.app.store.list_alerts()
++        self.app.service.archive_job("cleanup")
++        self.assertEqual(self.app.store.get_run(run.id).status, "failed")
++        self.assertEqual(self.app.store.list_attempts(run.id), attempts)
++        self.assertEqual(self.app.store.list_alerts(), alerts)
++        code, payload = request(self.app, "GET", "/api/alerts")
++        self.assertEqual(code, 200)
++        self.assertEqual(payload["alerts"][0]["run_id"], run.id)
++
++    def test_repeat_transitions_preserve_enabled_state_and_configuration(self) -> None:
++        for job_id in ("daily-report", "cleanup"):
++            with self.subTest(job_id=job_id):
++                original = self.app.store.get_job(job_id)
++                for _ in range(2):
++                    code, payload = request(
++                        self.app, "POST", f"/api/jobs/{job_id}/archive",
++                    )
++                    self.assertEqual(code, 200)
++                    self.assertTrue(payload["job"]["archived"])
++                    self.assertEqual(payload["job"]["enabled"], original.enabled)
++                for _ in range(2):
++                    code, payload = request(
++                        self.app, "POST", f"/api/jobs/{job_id}/restore",
++                    )
++                    self.assertEqual(code, 200)
++                    self.assertFalse(payload["job"]["archived"])
++                self.assertEqual(self.app.store.get_job(job_id), original)
++        with self.assertRaises(JobNotSchedulable):
++            self.app.service.begin_scheduled_run("cleanup")
++        self.assertEqual(self.app.service.begin_manual_run("cleanup").source, "manual")
++
++    def test_enable_update_while_archived_is_a_conflict(self) -> None:
++        for job_id in ("daily-report", "cleanup"):
++            with self.subTest(job_id=job_id):
++                original = self.app.store.get_job(job_id)
++                self.app.service.archive_job(job_id)
++                code, _ = request(
++                    self.app, "POST", f"/api/jobs/{job_id}/enabled",
++                    {"enabled": not original.enabled},
++                )
++                self.assertEqual(code, 409)
++                self.app.service.restore_job(job_id)
++                self.assertEqual(self.app.store.get_job(job_id), original)
++                code, _ = request(
++                    self.app, "POST", f"/api/jobs/{job_id}/enabled",
++                    {"enabled": not original.enabled},
++                )
++                self.assertEqual(code, 200)
++
++    def test_unknown_job_and_malformed_routes_return_404(self) -> None:
++        for action in ("archive", "restore"):
++            for path in (
++                f"/api/jobs/missing/{action}",
++                f"/api/jobs/daily-report/extra/{action}",
++            ):
++                with self.subTest(path=path):
++                    code, _ = request(self.app, "POST", path)
++                    self.assertEqual(code, 404)
++            code, _ = request(self.app, "GET", f"/api/jobs/daily-report/{action}")
++            self.assertEqual(code, 404)
++        self.assertFalse(self.app.store.get_job("daily-report").archived)
++
++    def test_archive_all_jobs_gives_empty_normal_views(self) -> None:
++        for job in self.app.store.list_jobs():
++            self.app.service.archive_job(job.id)
++        code, payload = request(self.app, "GET", "/api/jobs")
++        self.assertEqual(code, 200)
++        self.assertEqual(payload["jobs"], [])
++        self.assertEqual(len(self.app.store.list_jobs(include_archived=True)), 2)
++        code, body = request(self.app, "GET", "/dashboard")
++        self.assertEqual(code, 200)
++        self.assertNotIn("Daily report", body)
++        self.assertNotIn("Cleanup", body)
++
++    def test_legacy_database_migration_preserves_data_and_archive_state(self) -> None:
++        connection = sqlite3.connect(":memory:")
++        self.addCleanup(connection.close)
++        connection.executescript(
++            "CREATE TABLE jobs (id TEXT PRIMARY KEY, name TEXT NOT NULL, "
++            "enabled INTEGER NOT NULL, max_attempts INTEGER NOT NULL);"
++            "INSERT INTO jobs VALUES ('legacy', 'Legacy', 0, 2);"
++        )
++        store = Store(connection)
++        self.assertFalse(store.get_job("legacy").archived)
++        run = store.create_run("legacy", "manual")
++        store.set_job_archived("legacy", True)
++
++        reopened = Store(connection)
++        self.assertTrue(reopened.get_job("legacy").archived)
++        self.assertFalse(reopened.get_job("legacy").enabled)
++        self.assertEqual(reopened.list_jobs(), [])
++        self.assertEqual(reopened.get_run(run.id), run)
++        reopened.set_job_archived("legacy", False)
++        self.assertEqual(reopened.list_jobs()[0].max_attempts, 2)
++
++
++if __name__ == "__main__":
++    unittest.main()

@@ -3,7 +3,7 @@
   "experiment": "EXP-0017",
   "status": "STAGE2_EXECUTING",
   "stage": 2,
-  "completed_count": 5,
+  "completed_count": 6,
   "excluded_count": 0,
   "stage1_runs": [
     {
@@ -59,7 +59,8 @@
       "scenario": "RD-C2-v0",
       "arm": "G1",
       "digest": "765a017b64929dd35072568bbbe82ca62d8b301b6ae9eda5f0899ea6b2001606",
-      "status": "PROTOCOL_ELIGIBLE_NOT_LAUNCHED"
+      "status": "COMPLETED_EVALUATED_PASS",
+      "result": "results/DG-C2-G1-001/run.json"
     },
     {
       "position": 3,
@@ -79,9 +80,9 @@
     }
   ],
   "stage1_disposition_count": 4,
-  "stage2_started_count": 1,
+  "stage2_started_count": 2,
   "screening_decision": "SCREENING_DECISION.json",
   "stage2_execution_authorized_by_user": true,
-  "stage2_disposition_count": 1,
+  "stage2_disposition_count": 2,
   "stage2_authorization_evidence": "evidence/stage2/stage2-preflight-verification.json"
 }
