@@ -1,0 +1,66 @@
+{
+  "run_id": "DG-C2-G2-001",
+  "candidate_diff": [
+    {
+      "path": "DECISIONS.md",
+      "added": 55,
+      "deleted": 0,
+      "category": "documentation_or_process"
+    },
+    {
+      "path": "README.md",
+      "added": 19,
+      "deleted": 0,
+      "category": "documentation_or_process"
+    },
+    {
+      "path": "relayboard/__init__.py",
+      "added": 2,
+      "deleted": 0,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/models.py",
+      "added": 1,
+      "deleted": 0,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/service.py",
+      "added": 16,
+      "deleted": 2,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/store.py",
+      "added": 28,
+      "deleted": 4,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/testing.py",
+      "added": 4,
+      "deleted": 1,
+      "category": "production"
+    },
+    {
+      "path": "relayboard/web.py",
+      "added": 27,
+      "deleted": 3,
+      "category": "production"
+    },
+    {
+      "path": "tests/test_archive.py",
+      "added": 160,
+      "deleted": 0,
+      "category": "test"
+    }
+  ],
+  "files_changed": 9,
+  "production_files_changed": 6,
+  "test_files_changed": 1,
+  "documentation_or_process_files_changed": 2,
+  "total_lines_added": 312,
+  "total_lines_deleted": 10,
+  "note": "Descriptive footprint; supplied immutable task/method/public feature test excluded from changed-file counts."
+}

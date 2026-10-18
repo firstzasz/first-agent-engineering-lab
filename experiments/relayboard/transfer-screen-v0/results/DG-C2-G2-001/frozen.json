@@ -1,0 +1,32 @@
+{
+  "frozen_at_utc": "2026-10-18T00:13:42.313933+00:00",
+  "run_id": "DG-C2-G2-001",
+  "candidate_sha": "3c04a761033dfe208060edd71a6cc61653c0f051",
+  "candidate_tree": "276d43b239703b9a5fccfb34ab38085d8d1bbab1",
+  "clean": true,
+  "commits_after_base": 1,
+  "diff_numstat": "55\t0\tDECISIONS.md\n19\t0\tREADME.md\n2\t0\trelayboard/__init__.py\n1\t0\trelayboard/models.py\n16\t2\trelayboard/service.py\n28\t4\trelayboard/store.py\n4\t1\trelayboard/testing.py\n27\t3\trelayboard/web.py\n160\t0\ttests/test_archive.py",
+  "task_unchanged": true,
+  "method_unchanged": true,
+  "public_feature_test_unchanged": true,
+  "public_base_test_unchanged": true,
+  "bundle_sha256": "0c7ef20958b7632eaf277437b78e466d93e12dbefd3e1f1cceac845350a9abe7",
+  "tracked_files": [
+    "DECISIONS.md",
+    "GLOSSARY.md",
+    "METHOD.md",
+    "README.md",
+    "TASK.md",
+    "pyproject.toml",
+    "relayboard/__init__.py",
+    "relayboard/__main__.py",
+    "relayboard/models.py",
+    "relayboard/service.py",
+    "relayboard/store.py",
+    "relayboard/testing.py",
+    "relayboard/web.py",
+    "tests/test_archive.py",
+    "tests/test_public.py",
+    "tests/test_public_feature.py"
+  ]
+}

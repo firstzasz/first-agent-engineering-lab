@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\first\\miniconda3\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_archive_restore_are_idempotent_and_preserve_configuration (test_archive.ArchiveTests.test_archive_restore_are_idempotent_and_preserve_configuration) ... ok\ntest_archived_discovery_is_explicit_and_does_not_change_dashboard (test_archive.ArchiveTests.test_archived_discovery_is_explicit_and_does_not_change_dashboard) ... ok\ntest_archived_jobs_block_new_runs_without_creating_history (test_archive.ArchiveTests.test_archived_jobs_block_new_runs_without_creating_history) ... ok\ntest_enabled_updates_while_archived_do_not_reveal_or_allow_runs (test_archive.ArchiveTests.test_enabled_updates_while_archived_do_not_reveal_or_allow_runs) ... ok\ntest_existing_runs_retries_alerts_and_history_survive_archiving (test_archive.ArchiveTests.test_existing_runs_retries_alerts_and_history_survive_archiving) ... ok\ntest_legacy_database_migrates_and_archive_survives_store_reopen (test_archive.ArchiveTests.test_legacy_database_migrates_and_archive_survives_store_reopen) ... ok\ntest_missing_ids_and_malformed_routes_do_not_mutate_jobs (test_archive.ArchiveTests.test_missing_ids_and_malformed_routes_do_not_mutate_jobs) ... ok\ntest_restore_preserves_disabled_scheduling_and_manual_behavior (test_archive.ArchiveTests.test_restore_preserves_disabled_scheduling_and_manual_behavior) ... ok\ntest_api_can_create_run_and_record_attempt (test_public.RelayBoardPublicTests.test_api_can_create_run_and_record_attempt) ... ok\ntest_dashboard_has_jobs_table (test_public.RelayBoardPublicTests.test_dashboard_has_jobs_table) ... ok\ntest_disabled_job_blocks_scheduled_run (test_public.RelayBoardPublicTests.test_disabled_job_blocks_scheduled_run) ... ok\ntest_disabled_job_still_allows_manual_run (test_public.RelayBoardPublicTests.test_disabled_job_still_allows_manual_run) ... ok\ntest_single_attempt_failure_emits_one_alert (test_public.RelayBoardPublicTests.test_single_attempt_failure_emits_one_alert) ... ok\ntest_archive_hides_and_restore_reveals_job (test_public_feature.ArchiveJobPublicTests.test_archive_hides_and_restore_reveals_job) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.013s\n\nOK\n"
+}

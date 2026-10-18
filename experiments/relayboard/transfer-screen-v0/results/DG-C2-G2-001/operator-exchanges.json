@@ -1,0 +1,40 @@
+[
+  {
+    "recorded_at_utc": "2026-10-18 00:11:53 UTC",
+    "question_received_at_utc": null,
+    "question": "The visible code has separate enabled scheduling state, manual run creation, and retries on existing Runs. Product decisions: (1) While a Job is archived, should it still permit new scheduled Runs and manual Runs, or should either be blocked? (2) Should operators have a way to list archived Jobs for restoration, such as GET /api/jobs?include_archived=true, or is restoration by known Job id sufficient? I will preserve existing Runs, retry/alert behavior, and enabled state independently.",
+    "answer": "Scheduled Runs and manual Runs are both blocked while a Job is archived.\n\nFor optional archived-list discovery, use the supplied task/evidence and ordinary reversible engineering judgment. The operator supplies no additional product preference on that item.",
+    "frozen_decisions_answered": [
+      "scheduled_run_while_archived",
+      "manual_run_while_archived"
+    ],
+    "other_items": [
+      {
+        "topic": "optional opt-in archived Jobs listing",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+        "oracle_scope": "outside_frozen_four",
+        "reason": "Additional discovery surface beyond the requested endpoints/listing semantics; no specific product answer exists in the frozen oracle and none was supplied."
+      }
+    ],
+    "volunteered_frozen_decisions": [],
+    "scoring_note": "Existing-Run continuation and enabled-state preservation were stated as intended implementation choices, not explicitly requested operator decisions; no discovery credit unless separately asked later."
+  },
+  {
+    "recorded_at_utc": "2026-10-18 00:12:32 UTC",
+    "question_received_at_utc": null,
+    "question": "Confirmed: both new Run sources will return 409 while archived. This exposes two remaining product leaves: (1) If the Job already has a running Run (including retry attempts remaining), should archiving be allowed and let that Run continue, reject archive until it finishes, or cancel it? (2) While archived, should POST /api/jobs/{id}/enabled still update its enabled state for later restoration, or be blocked? I will make archived discovery an opt-in include_archived=true listing and preserve normal listing behavior.",
+    "answer": "A Run already in progress continues normally to its terminal outcome, including the existing retry and alert behavior.\n\nFor enabled updates while archived, use the supplied task/evidence and ordinary reversible engineering judgment. The operator supplies no additional product preference on that item.",
+    "frozen_decisions_answered": [
+      "existing_run_when_archived"
+    ],
+    "other_items": [
+      {
+        "topic": "enabled updates while archived",
+        "classification": "PRODUCT_OR_PREFERENCE_DECISION",
+        "oracle_scope": "outside_frozen_four",
+        "reason": "As with G1/G3, this asks whether the enabled mutation endpoint is usable during archive. It does not explicitly ask which enabled/disabled state a restored Job must have; no restore-state oracle answer was volunteered."
+      }
+    ],
+    "volunteered_frozen_decisions": []
+  }
+]

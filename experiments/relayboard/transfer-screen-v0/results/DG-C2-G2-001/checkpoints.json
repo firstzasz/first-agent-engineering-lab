@@ -1,0 +1,8 @@
+[
+  {
+    "message": "All product branches are resolved. Implementation now passes all six supplied tests: persisted independent archive state, exact archive/restore routes, hidden normal listing/dashboard, opt-in archived discovery, and 409 for both new Run sources. Existing Runs continue; enabled updates remain allowed because archive preserves existing behavior and enabled state. I am adding regression coverage for history/retries, state preservation, migration, repeated requests, and discovery before committing.",
+    "classification": "LEGIBLE_CHECKPOINT",
+    "source": "collaboration.send_message",
+    "timestamp": null
+  }
+]
