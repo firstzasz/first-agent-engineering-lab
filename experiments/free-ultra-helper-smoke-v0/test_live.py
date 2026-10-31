@@ -11,6 +11,8 @@ class HostPreflightTests(unittest.TestCase):
             self.assertEqual(len(p["tools"]),1)
             self.assertEqual(p["tool_choice"],"auto")
             self.assertEqual(p["max_tokens"],320)
+            if role=="lead":
+                self.assertEqual(p["tools"][0]["function"]["parameters"]["required"],["ack"])
         self.assertEqual([MARKER in str(p) for p in payloads],[True,False,False])
         self.assertNotEqual(payloads[0]["messages"],payloads[1]["messages"])
 
@@ -21,7 +23,7 @@ class HostPreflightTests(unittest.TestCase):
         self.assertFalse(source_safe("def normalize_tag(s):\n    return open('/etc/passwd').read()")[0])
 
     def test_missing_role_results_cannot_pass(self):
-        grader=evaluate({"experiment":"FREE_ULTRA_HELPER_SMOKE_V0",
+        grader=evaluate({"experiment":"FREE_ULTRA_HELPER_SMOKE_V1",
                          "requested_model":MODEL,"rows":[]})
         self.assertFalse(grader["capability_verified"])
         self.assertFalse(grader["checks"]["three_sequential_roles"])
