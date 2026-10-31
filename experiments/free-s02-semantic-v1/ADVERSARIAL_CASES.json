@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "note": "Human-annotated examples used to audit future scoring systems; not a working NLP classifier. A valid replay is not proof that labels are correct.",
+  "cases": [
+    {
+      "id": "adv-01",
+      "question": "already running Run continues or is canceled when job paused?",
+      "expected_decision_ids": [
+        "pause_in_progress_run"
+      ],
+      "reason": "Asked fate of executing Run"
+    },
+    {
+      "id": "adv-02",
+      "question": "Does pausing block manual runs?",
+      "expected_decision_ids": [
+        "manual_run_while_paused"
+      ],
+      "reason": "Manual allow/block only"
+    },
+    {
+      "id": "adv-03",
+      "question": "When a scheduled trigger occurs while paused, is it dropped or queued?",
+      "expected_decision_ids": [
+        "scheduled_start_while_paused"
+      ],
+      "reason": "Skip vs queue a due event"
+    },
+    {
+      "id": "adv-04",
+      "question": "A paused Job must not start normal scheduled work, correct?",
+      "expected_decision_ids": [],
+      "reason": "Already explicit in prompt; no skip-vs-queue"
+    },
+    {
+      "id": "adv-05",
+      "question": "If a Job resumes, should missed scheduled triggers be replayed immediately or only future cycles run?",
+      "expected_decision_ids": [
+        "resume_behavior"
+      ],
+      "reason": "Catch-up vs future-only"
+    },
+    {
+      "id": "adv-06",
+      "question": "Does POST /resume return 200 or 204?",
+      "expected_decision_ids": [],
+      "reason": "Endpoint response unrelated to catch-up"
+    },
+    {
+      "id": "adv-07",
+      "question": "Should begin_manual_run be permitted while paused?",
+      "expected_decision_ids": [
+        "manual_run_while_paused"
+      ],
+      "reason": "Code identifier still manual policy"
+    },
+    {
+      "id": "adv-08",
+      "question": "Should manual runs be allowed during a pause?",
+      "expected_decision_ids": [
+        "manual_run_while_paused"
+      ],
+      "reason": "Plural form"
+    },
+    {
+      "id": "adv-09",
+      "question": "Can the pause flag be persisted in a jobs table?",
+      "expected_decision_ids": [],
+      "reason": "Implementation detail absent product semantics"
+    },
+    {
+      "id": "adv-10",
+      "question": "Should the dashboard show a paused badge?",
+      "expected_decision_ids": [],
+      "reason": "Additional possibly genuine product question but not these four frozen IDs"
+    },
+    {
+      "id": "adv-11",
+      "question": "When a job is paused, should scheduled starts stop or manual starts stop too?",
+      "expected_decision_ids": [
+        "manual_run_while_paused"
+      ],
+      "reason": "Does not ask what to do with missed schedule trigger"
+    },
+    {
+      "id": "adv-12",
+      "question": "An already-running Run has another retry attempt; should its retry counter persist?",
+      "expected_decision_ids": [],
+      "reason": "Retry counter not fate of existing Run itself"
+    },
+    {
+      "id": "adv-13",
+      "question": "What should happen to an in-progress Run when pause is called: cancel or finish?",
+      "expected_decision_ids": [
+        "pause_in_progress_run"
+      ],
+      "reason": "Fate of existing Run"
+    },
+    {
+      "id": "adv-14",
+      "question": "What should happen to a scheduled start occurring during pause: skip permanently or queue it?",
+      "expected_decision_ids": [
+        "scheduled_start_while_paused"
+      ],
+      "reason": "Missed event disposition"
+    },
+    {
+      "id": "adv-15",
+      "question": "When resume is called, should previous scheduled occurrences catch up or be ignored?",
+      "expected_decision_ids": [
+        "resume_behavior"
+      ],
+      "reason": "Missed work policy"
+    },
+    {
+      "id": "adv-16",
+      "question": "Should manual runs remain allowed during pause? What body does resume endpoint return?",
+      "expected_decision_ids": [
+        "manual_run_while_paused"
+      ],
+      "reason": "Avoid cross-clause resume false-positive"
+    },
+    {
+      "id": "adv-17",
+      "question": "How should retry errors be surfaced on dashboard?",
+      "expected_decision_ids": [],
+      "reason": "Neither in-flight run fate nor scheduled backlog"
+    },
+    {
+      "id": "adv-18",
+      "question": "If job paused mid-run, should the run continue? When a scheduled time arrives during pause, should that occurrence be skipped or queued?",
+      "expected_decision_ids": [
+        "pause_in_progress_run",
+        "scheduled_start_while_paused"
+      ],
+      "reason": "Two separately articulated decisions"
+    },
+    {
+      "id": "adv-19",
+      "question": "Can a manual run start while paused? On resume should missed schedule occurrences be run immediately or skipped?",
+      "expected_decision_ids": [
+        "manual_run_while_paused",
+        "resume_behavior"
+      ],
+      "reason": "Two explicit independent contrasts"
+    },
+    {
+      "id": "adv-20",
+      "question": "Can a job be both enabled and paused?",
+      "expected_decision_ids": [],
+      "reason": "Other product ambiguity, not frozen four IDs"
+    }
+  ]
+}
