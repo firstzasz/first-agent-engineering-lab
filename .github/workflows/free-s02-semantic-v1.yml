@@ -1,0 +1,66 @@
+name: S02 semantic adjudication V1 (no inference)
+
+on:
+  push:
+    branches:
+      - research/free-discovery-semantic-evaluator-v1
+    paths:
+      - .github/workflows/free-s02-semantic-v1.yml
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: free-s02-semantic-v1
+  cancel-in-progress: false
+
+jobs:
+  offline-adjudication:
+    if: github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-discovery-semantic-evaluator-v1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout isolated research branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Select Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline rubric / artifact-integrity selftests
+        run: |
+          python -m compileall -q experiments/free-s02-semantic-v1/
+          python -m unittest discover -s experiments/free-s02-semantic-v1 -p 'test_replay.py' -v
+      - name: Download historical NVIDIA question evidence
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 41222993755
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: discovery-nvidia
+          path: evidence/nvidia
+      - name: Download historical OpenRouter question evidence
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 41222993755
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: discovery-openrouter
+          path: evidence/openrouter
+      - name: Download original frozen matcher score as read-only evidence
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 41222993755
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: discovery-independent-grade
+          path: evidence
+      - name: Replay provisional semantics against exact frozen question sources (no API)
+        run: python experiments/free-s02-semantic-v1/replay.py
+      - name: Save provenance-checked reviewer packet
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: free-s02-semantic-v1-provisional
+          path: semantic-v1-replay.json
+          if-no-files-found: warn
+          retention-days: 14
