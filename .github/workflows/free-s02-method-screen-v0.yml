@@ -1,0 +1,97 @@
+name: Free S02 four-arm method screen v0
+
+on:
+  push:
+    branches:
+      - research/free-s02-method-screen-v0
+    paths:
+      - .github/workflows/free-s02-method-screen-v0.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-s02-method-screen-v0
+  cancel-in-progress: false
+
+jobs:
+  contestant:
+    if: github.event_name == 'push' && github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-s02-method-screen-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    strategy:
+      fail-fast: false
+      matrix:
+        provider: [nvidia, openrouter]
+    steps:
+      - name: Checkout research branch with pinned historic methods
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Preflight source syntax, frozen refs, and offline Docker image (no keys)
+        run: |
+          python -m py_compile experiments/free-s02-screen-v0/screen.py experiments/free-s02-screen-v0/grade.py experiments/free-s02-screen-v0/inside_grade.py
+          git cat-file -e 2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f^{commit}
+          git cat-file -e 226a03a883c65c81223ca49e00ddd058e1b38691^{commit}
+          docker pull python:3.12-slim
+      - name: Free NVIDIA NIM contestant cohort (max 36 requests)
+        if: matrix.provider == 'nvidia'
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: |
+          python experiments/free-s02-screen-v0/screen.py --provider nvidia --output screen-output/nvidia
+      - name: Free OpenRouter contestant cohort (max 36 requests)
+        if: matrix.provider == 'openrouter'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python experiments/free-s02-screen-v0/screen.py --provider openrouter --output screen-output/openrouter
+      - name: Save synthetic frozen candidates and sanitized action trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screen-${{ matrix.provider }}
+          path: screen-output/${{ matrix.provider }}/
+          if-no-files-found: warn
+          retention-days: 14
+
+  independent-grade:
+    needs: contestant
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pull offline sandbox (no API secrets)
+        run: docker pull python:3.12-slim
+      - name: Retrieve NVIDIA frozen candidates
+        uses: actions/download-artifact@v4
+        with:
+          name: screen-nvidia
+          path: evidence/nvidia
+      - name: Retrieve OpenRouter frozen candidates
+        uses: actions/download-artifact@v4
+        with:
+          name: screen-openrouter
+          path: evidence/openrouter
+      - name: Independently grade all S02 outcomes (no API keys)
+        run: python experiments/free-s02-screen-v0/grade.py
+      - name: Preserve summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: free-s02-independent-grades
+          path: grade-results.json
+          if-no-files-found: warn
+          retention-days: 14
