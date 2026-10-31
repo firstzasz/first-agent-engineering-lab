@@ -43,3 +43,9 @@ The differences are not small: V0's substring-based matcher often gave `resume_b
 2. Check that a future scoring system rejects all 20 gold/adversarial examples **semantically** (the current unit tests validate schema/fixture integrity, not language understanding). Human-review workflow can remain the primary scoring authority.
 3. For full-method comparisons, build a faithful host for **pstack / Matt Skills / FIRST-mode / Neutral** including method-specific skill loading and review/helper stages. Pure prompt proxies are insufficient to rank native approaches. Use the same Ultra/free provider, task, sandbox, evaluator, and fixed resource budget; record helper cost and latency. See [METHOD_COMPARISON_GATE.md](./METHOD_COMPARISON_GATE.md).
 4. Freeze and execute scored replications only after these gates pass. No new inference was launched from this V1 replay.
+
+## Subsequent offline helper-host calibration (same V1 research branch)
+
+The first mixed semantic+host run [#41230317054](https://github.com/firstzasz/first-agent-engineering-lab/actions/runs/41230317054) **FAILED** eight newly introduced host tests on a set/dict comparison error. That bug was fixed and preserved. The final corrected [run #41230351423](https://github.com/firstzasz/first-agent-engineering-lab/actions/runs/41230351423) passed **18/18** unit tests (9 semantic replay integrity + 9 mock helper-host role, isolation and budget checks) and recomputed all eight V1 preliminary outcomes from untouched source artifacts.
+
+This is a **mock host contract only**, not a live subagent capability or evidence of faithful pstack/Matt execution. Details in [HOST_CALIBRATION_RESULTS.md](./HOST_CALIBRATION_RESULTS.md). Scored full-method comparison remains GATED.
