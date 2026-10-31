@@ -1,0 +1,84 @@
+name: Free Agent Tool Loop v0 (NVIDIA NIM + OpenRouter)
+
+on:
+  push:
+    branches:
+      - research/free-agent-loop-v0
+    paths:
+      - .github/workflows/free-agent-loop-v0.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-agent-tool-loop-v0
+  cancel-in-progress: false
+
+jobs:
+  agent-loop:
+    if: github.event_name == 'push' && github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-agent-loop-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        provider: [nvidia, openrouter]
+    steps:
+      - name: Checkout isolated experiment branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run NVIDIA NIM bounded synthetic agent loop
+        if: matrix.provider == 'nvidia'
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: |
+          python experiments/free-agent-loop-v0/agent_loop.py --provider nvidia --output agent-output/nvidia
+      - name: Run OpenRouter bounded synthetic agent loop
+        if: matrix.provider == 'openrouter'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          python experiments/free-agent-loop-v0/agent_loop.py --provider openrouter --output agent-output/openrouter
+      - name: Upload sanitized synthetic code and tool-event evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-loop-${{ matrix.provider }}
+          path: agent-output/${{ matrix.provider }}/
+          if-no-files-found: warn
+          retention-days: 14
+
+  independent-grade:
+    needs: agent-loop
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout frozen grader
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download model output artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: agent-loop-*
+          path: evidence
+      - name: Independently verify real tests and tool traces without API secrets
+        run: python experiments/free-agent-loop-v0/grade.py
+      - name: Preserve separate grader verdict
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: free-agent-loop-grade
+          path: grade-results.json
+          if-no-files-found: warn
+          retention-days: 14
