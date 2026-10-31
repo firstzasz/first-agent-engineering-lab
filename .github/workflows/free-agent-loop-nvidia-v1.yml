@@ -1,0 +1,67 @@
+name: NVIDIA NIM free agent-loop diagnostic v1 (90s)
+
+on:
+  push:
+    branches:
+      - research/free-agent-loop-nvidia-v1
+    paths:
+      - .github/workflows/free-agent-loop-nvidia-v1.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-agent-loop-nvidia-diagnostic-v1
+  cancel-in-progress: false
+
+jobs:
+  nvidia-agent:
+    if: github.event_name == 'push' && github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-agent-loop-nvidia-v1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 17
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute separately frozen NVIDIA tool-loop V1 (90s network timeout)
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: python experiments/free-agent-loop-v0/nvidia_diagnostic_v1.py
+      - name: Upload sanitized synthetic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-loop-nvidia
+          path: agent-output/nvidia/
+          if-no-files-found: warn
+          retention-days: 14
+
+  independently-grade:
+    needs: nvidia-agent
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: agent-loop-nvidia
+          path: evidence/agent-loop-nvidia/
+      - name: Independently grade with no model API key
+        run: python experiments/free-agent-loop-v0/grade_nvidia_v1.py
+      - name: Save grader disposition
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nvidia-v1-grade
+          path: nvidia-v1-grade.json
+          if-no-files-found: warn
+          retention-days: 14
