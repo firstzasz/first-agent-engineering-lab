@@ -1,0 +1,103 @@
+name: Free S02 requirement discovery G0-G3 v0
+
+on:
+  push:
+    branches:
+      - research/free-s02-discovery-g0g3-v0
+    paths:
+      - .github/workflows/free-s02-discovery-g0g3-v0.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-s02-discovery-g0g3-v0
+  cancel-in-progress: false
+
+jobs:
+  protocol-preflight:
+    if: github.event_name == 'push' && github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-s02-discovery-g0g3-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check frozen protocol sources and question-scoring invariants (zero API calls)
+        run: |
+          python -m compileall -q experiments/free-s02-discovery-g0g3-v0/
+          python -m unittest discover -s experiments/free-s02-discovery-g0g3-v0 -p 'test_protocol.py' -v
+
+  contestants:
+    needs: protocol-preflight
+    if: needs.protocol-preflight.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    strategy:
+      fail-fast: false
+      matrix:
+        provider: [nvidia, openrouter]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run free NVIDIA Ultra four fresh G0-G3 discovery contexts (max 32 requests)
+        if: matrix.provider == 'nvidia'
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: python experiments/free-s02-discovery-g0g3-v0/runner.py --provider nvidia --output discovery-output/nvidia
+      - name: Run free OpenRouter Nemotron four fresh G0-G3 discovery contexts (max 32 requests)
+        if: matrix.provider == 'openrouter'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python experiments/free-s02-discovery-g0g3-v0/runner.py --provider openrouter --output discovery-output/openrouter
+      - name: Upload sanitized explicit questions and tool events
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-${{ matrix.provider }}
+          path: discovery-output/${{ matrix.provider }}/
+          if-no-files-found: warn
+          retention-days: 14
+
+  independent-grade:
+    needs: contestants
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download NVIDIA contestant evidence (no LLM keys available)
+        uses: actions/download-artifact@v4
+        with:
+          name: discovery-nvidia
+          path: evidence/nvidia
+      - name: Download OpenRouter contestant evidence (no LLM keys available)
+        uses: actions/download-artifact@v4
+        with:
+          name: discovery-openrouter
+          path: evidence/openrouter
+      - name: Independently classify only explicitly asked product questions
+        run: python experiments/free-s02-discovery-g0g3-v0/grade.py
+      - name: Preserve deterministic independent results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-independent-grade
+          path: discovery-grade.json
+          if-no-files-found: warn
+          retention-days: 14
