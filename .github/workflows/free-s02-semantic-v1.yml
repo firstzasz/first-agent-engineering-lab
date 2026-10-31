@@ -8,6 +8,7 @@ on:
       - .github/workflows/free-s02-semantic-v1.yml
       - experiments/free-s02-semantic-v1/test_replay.py
       - experiments/free-s02-semantic-v1/test_helper_host_contract.py
+      - experiments/free-s02-semantic-v1/helper_host_contract.py
 
 permissions:
   contents: read
