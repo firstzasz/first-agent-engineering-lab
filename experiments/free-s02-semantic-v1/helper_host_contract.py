@@ -97,7 +97,7 @@ class IsolatedHost:
         self._serial=0
         self.sessions=[]
     def spawn(self,role:str,scope:tuple[str,...],instruction:str):
-        if not set(scope)<=ALLOWED_FILES or not set(scope)<=self._base:
+        if not set(scope)<=ALLOWED_FILES or not set(scope)<=set(self._base):
             raise HostDenial("SCOPE_DENIED")
         if not isinstance(instruction,str) or not instruction.strip():
             raise HostDenial("EMPTY_TASK")
