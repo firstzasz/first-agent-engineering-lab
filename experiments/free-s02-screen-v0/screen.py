@@ -302,7 +302,9 @@ def run_one(provider,method,key,out):
         trace.append(item)
         if st["test_count"] and st["last_test"] and st["diff_seen"] and st["writes"]:
             stop="AGENT_FINISHED";break
-    source_changes=git("diff","HEAD","--name-only",cwd=wd).splitlines()
+    # Stage candidate changes so newly created allowlisted tests are included in evidence.
+    git("add","-A",cwd=wd)
+    source_changes=git("diff","--cached","HEAD","--name-only",cwd=wd).splitlines()
     diff=git("diff","HEAD","--","relayboard","tests",cwd=wd)
     changed={p:hashlib.sha256((wd/p).read_bytes()).hexdigest() for p in source_changes if (wd/p).is_file()}
     results={
