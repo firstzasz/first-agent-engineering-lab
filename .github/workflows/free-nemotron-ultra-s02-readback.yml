@@ -1,0 +1,39 @@
+name: Ultra S02 frozen trace readback (no inference)
+
+on:
+  push:
+    branches:
+      - research/free-nemotron-ultra-s02-v0
+    paths:
+      - .github/workflows/free-nemotron-ultra-s02-readback.yml
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  readback:
+    if: github.repository == 'firstzasz/first-agent-engineering-lab'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41218206140
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: ultra-s02-candidates
+          path: evidence/nvidia
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41218206140
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: ultra-s02-independent-grades
+          path: evidence
+      - name: Read only sanitized frozen traces and grade results
+        run: python experiments/free-nemotron-ultra-s02-v0/readback.py
