@@ -1,0 +1,105 @@
+name: Free NVIDIA Nemotron 3 Ultra S02 four-arm screen v0
+
+on:
+  push:
+    branches:
+      - research/free-nemotron-ultra-s02-v0
+    paths:
+      - .github/workflows/free-nemotron-ultra-s02-v0.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-nemotron-ultra-s02-v0
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    if: github.event_name == 'push' && github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-nemotron-ultra-s02-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify scripts, historical freeze and offline Docker image
+        run: |
+          python -m py_compile experiments/free-nemotron-ultra-s02-v0/*.py
+          git cat-file -e 2b2e67cb2de2e72e442bffc9fe4b5d7790c1ee4f^{commit}
+          git cat-file -e 226a03a883c65c81223ca49e00ddd058e1b38691^{commit}
+          docker pull python:3.12-slim
+      - name: One free Nemotron 3 Ultra function-call preflight
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: python experiments/free-nemotron-ultra-s02-v0/preflight.py
+      - name: Preserve preflight result (no credentials)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultra-preflight
+          path: ultra-preflight.json
+          retention-days: 14
+
+  contestant:
+    needs: preflight
+    if: needs.preflight.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pull Python sandbox before credentials are injected
+        run: docker pull python:3.12-slim
+      - name: Execute four frozen S02 arms using only free Ultra model (max 36 calls)
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: python experiments/free-nemotron-ultra-s02-v0/run_ultra.py
+      - name: Preserve sanitized candidates and tool traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultra-s02-candidates
+          path: screen-output/nvidia/
+          if-no-files-found: warn
+          retention-days: 14
+
+  independent-grade:
+    needs: contestant
+    if: needs.contestant.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare network-disabled grader image (no API key)
+        run: docker pull python:3.12-slim
+      - name: Download frozen candidate artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ultra-s02-candidates
+          path: evidence/nvidia
+      - name: Grade all four candidates independently with unchanged S02 oracle
+        run: python experiments/free-nemotron-ultra-s02-v0/grade_ultra.py
+      - name: Preserve independent grade results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultra-s02-independent-grades
+          path: grade-ultra.json
+          if-no-files-found: warn
+          retention-days: 14
