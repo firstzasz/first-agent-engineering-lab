@@ -1,0 +1,55 @@
+name: Inspect S02 frozen public regressions (no inference)
+
+on:
+  push:
+    branches:
+      - research/free-s02-method-screen-v0
+    paths:
+      - .github/workflows/free-s02-public-diagnostics.yml
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  diagnose:
+    if: github.repository == 'firstzasz/first-agent-engineering-lab'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41211207214
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: screen-openrouter
+          path: evidence/openrouter
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41211207214
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: screen-nvidia
+          path: evidence/nvidia
+      - name: Pull untrusted source offline test sandbox
+        run: docker pull python:3.12-slim
+      - name: Diagnose public failing tests from preserved frozen candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          for run in "openrouter:FREES02-OPENROUTER-MATT-001" "nvidia:FREES02-NVIDIA-PSTACK-001"; do
+            provider="${run%%:*}"
+            id="${run#*:}"
+            mkdir -p "/tmp/${id}"
+            tar -xzf "evidence/${provider}/${id}/candidate.tar.gz" -C "/tmp/${id}"
+            echo "BEGIN_PUBLIC_TEST_DIAG ${id}"
+            docker run --rm --pull=never --network none --read-only --cap-drop ALL \
+              --security-opt no-new-privileges --pids-limit 64 --memory 384m --cpus 1 \
+              --user 65534:65534 --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+              --mount "type=bind,src=${GITHUB_WORKSPACE},dst=/lab,readonly" \
+              --mount "type=bind,src=/tmp/${id},dst=/work,readonly" \
+              -e PYTHONDONTWRITEBYTECODE=1 -e PYTHONPATH=/work \
+              python:3.12-slim python /lab/experiments/free-s02-screen-v0/diagnose_public.py
+            echo "END_PUBLIC_TEST_DIAG ${id}"
+          done
