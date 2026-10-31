@@ -1,0 +1,45 @@
+name: Analyze frozen free S02 evidence (no inference)
+
+on:
+  push:
+    branches:
+      - research/free-s02-method-screen-v0
+    paths:
+      - .github/workflows/free-s02-evidence-analysis.yml
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  readback:
+    if: github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-s02-method-screen-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41211207214
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: screen-nvidia
+          path: evidence/nvidia
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41211207214
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: screen-openrouter
+          path: evidence/openrouter
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41211207214
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: free-s02-independent-grades
+          path: evidence
+      - name: Read back sanitized frozen traces and evaluator outcomes
+        run: python experiments/free-s02-screen-v0/inspect_evidence.py
