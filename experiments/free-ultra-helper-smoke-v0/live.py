@@ -23,8 +23,8 @@ TIMEOUT=90
 ROLES=("lead","implementer","reviewer")
 FUNCTIONS={
     "lead":("submit_plan",{"type":"object","properties":{
-        "steps":{"type":"array","items":{"type":"string"},"minItems":1,"maxItems":4}},
-        "required":["steps"],"additionalProperties":False}),
+        "ack":{"type":"boolean"}},
+        "required":["ack"],"additionalProperties":False}),
     "implementer":("submit_patch",{"type":"object","properties":{
         "source":{"type":"string"}},
         "required":["source"],"additionalProperties":False}),
@@ -70,7 +70,7 @@ def make_payload(role,source=None):
           "Use no dependencies or imports. This is synthetic, not production.")
     if role=="lead":
         messages=[{"role":"system","content":"You are an isolated synthetic planning lead. Marker: "+MARKER+
-                    ". Do not forward it. Use submit_plan only."},
+                    ". Do not forward it. Use submit_plan with ack=true only; no other fields."},
                   {"role":"user","content":task+" Reply with a submit_plan function call."}]
     elif role=="implementer":
         messages=[{"role":"system","content":"You are a fresh coding implementer with no conversation history. Use submit_patch only."},
@@ -167,9 +167,7 @@ def run():
             break
         args=valid[0]
         if role=="lead":
-            steps=args.get("steps")
-            row["plan_valid"]=isinstance(steps,list) and 1<=len(steps)<=4 and all(
-                isinstance(x,str) and len(x)<=500 for x in steps)
+            row["plan_valid"]=args.get("ack") is True
             if not row["plan_valid"]:
                 rows.append(row)
                 break
@@ -193,7 +191,7 @@ def run():
                 break
         rows.append(row)
     return {
-        "experiment":"FREE_ULTRA_HELPER_SMOKE_V0",
+        "experiment":"FREE_ULTRA_HELPER_SMOKE_V1",
         "timestamp_utc":datetime.now(timezone.utc).isoformat(),
         "requested_model":MODEL,
         "free_only":True,"no_fallback":True,
@@ -212,7 +210,7 @@ def main():
     try:
         result=run()
     except Stop as e:
-        result={"experiment":"FREE_ULTRA_HELPER_SMOKE_V0","host_event_status":e.code,
+        result={"experiment":"FREE_ULTRA_HELPER_SMOKE_V1","host_event_status":e.code,
                 "rows":[],"no_model_source_executed":True}
     Path("helper-smoke-report.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
     for row in result["rows"]:
