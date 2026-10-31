@@ -1,0 +1,45 @@
+name: Frozen discovery question audit (no inference)
+
+on:
+  push:
+    branches:
+      - research/free-s02-discovery-g0g3-v0
+    paths:
+      - .github/workflows/free-s02-discovery-question-audit.yml
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  audit-questions:
+    if: github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-s02-discovery-g0g3-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41222993755
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: discovery-nvidia
+          path: evidence/nvidia
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41222993755
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: discovery-openrouter
+          path: evidence/openrouter
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 41222993755
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: discovery-independent-grade
+          path: evidence
+      - name: Print frozen synthetic decision questions and exact matcher classifications
+        run: python experiments/free-s02-discovery-g0g3-v0/audit_questions.py
