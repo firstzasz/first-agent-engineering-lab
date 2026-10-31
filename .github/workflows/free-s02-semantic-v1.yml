@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/free-s02-semantic-v1.yml
       - experiments/free-s02-semantic-v1/test_replay.py
+      - experiments/free-s02-semantic-v1/test_helper_host_contract.py
 
 permissions:
   contents: read
@@ -33,7 +34,7 @@ jobs:
       - name: Run offline rubric / artifact-integrity selftests
         run: |
           python -m compileall -q experiments/free-s02-semantic-v1/
-          python -m unittest discover -s experiments/free-s02-semantic-v1 -p 'test_replay.py' -v
+          python -m unittest discover -s experiments/free-s02-semantic-v1 -p 'test_*.py' -v
       - name: Download historical NVIDIA question evidence
         uses: actions/download-artifact@v4
         with:
