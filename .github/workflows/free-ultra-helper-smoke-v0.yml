@@ -1,0 +1,85 @@
+name: Free NVIDIA Ultra actual helper roles smoke v0
+
+on:
+  push:
+    branches:
+      - research/free-ultra-helper-smoke-v0
+    paths:
+      - .github/workflows/free-ultra-helper-smoke-v0.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-ultra-helper-smoke-v0
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    if: github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-ultra-helper-smoke-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax-check and unit-test synthetic request isolation with no keys
+        run: |
+          python -m compileall -q experiments/free-ultra-helper-smoke-v0/
+          python -m unittest discover -s experiments/free-ultra-helper-smoke-v0 -p 'test_live.py' -v
+
+  live-helper:
+    needs: preflight
+    if: needs.preflight.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute strictly bounded three-role fresh-context NIM calls
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: python experiments/free-ultra-helper-smoke-v0/live.py
+      - name: Persist sanitized host evidence even on partial failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultra-helper-host-report
+          path: helper-smoke-report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  independent-grade:
+    needs: live-helper
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download sanitized live report (no provider API Secret)
+        uses: actions/download-artifact@v4
+        with:
+          name: ultra-helper-host-report
+          path: evidence
+      - name: Inspect host role/protocol and request cap evidence
+        run: python experiments/free-ultra-helper-smoke-v0/grade_live.py
+      - name: Save independent assessment
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultra-helper-host-grade
+          path: helper-smoke-grade.json
+          if-no-files-found: warn
+          retention-days: 14
