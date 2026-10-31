@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "source_run": 41222993755,
+  "review_date": "2026-11-01",
+  "reviewer_blinding": "UNBLINDED_SINGLE_ANALYST",
+  "authoritative": false,
+  "classification": "PROVISIONAL_UNBLINDED",
+  "criteria": [
+    "pause_in_progress_run",
+    "scheduled_start_while_paused",
+    "manual_run_while_paused",
+    "resume_behavior"
+  ],
+  "cases": {
+    "nvidia/G0": {
+      "pause_in_progress_run": {
+        "status": "EXPLICIT",
+        "index": 3,
+        "quote": "What happens to currently running runs when a job is paused?",
+        "rationale": "Explicit in-flight run fate"
+      },
+      "scheduled_start_while_paused": {
+        "status": "PARTIAL",
+        "index": 1,
+        "quote": "does pause also block manual runs",
+        "rationale": "Only scheduled-versus-manual gating; no skipped vs queued triggers"
+      },
+      "manual_run_while_paused": {
+        "status": "EXPLICIT",
+        "index": 1,
+        "quote": "does pause also block manual runs",
+        "rationale": "Direct manual starts during pause"
+      },
+      "resume_behavior": {
+        "status": "ABSENT",
+        "rationale": "No explicit catch-up of missed scheduled triggers versus future-only after resume"
+      }
+    },
+    "nvidia/G1": {
+      "pause_in_progress_run": {
+        "status": "EXPLICIT",
+        "index": 3,
+        "quote": "If a job is paused while a run is currently 'running', what happens to that run?",
+        "rationale": "Direct in-flight run fate"
+      },
+      "scheduled_start_while_paused": {
+        "status": "PARTIAL",
+        "index": 10,
+        "quote": "Scheduled run rejection during pause",
+        "rationale": "HTTP error code for known blocked scheduled start, not disposition of missed trigger"
+      },
+      "manual_run_while_paused": {
+        "status": "EXPLICIT",
+        "index": 1,
+        "quote": "Should a paused job still allow MANUAL runs",
+        "rationale": "Explicit manual allow/block"
+      },
+      "resume_behavior": {
+        "status": "ABSENT",
+        "rationale": "Only incidental resumes and retry cases; no missed-schedule catch-up contrast"
+      }
+    },
+    "nvidia/G2": {
+      "pause_in_progress_run": {
+        "status": "PARTIAL",
+        "index": 2,
+        "quote": "retries of already-running runs",
+        "rationale": "Asks whether retry attempts proceed, not whether the run is canceled/suspended"
+      },
+      "scheduled_start_while_paused": {
+        "status": "PARTIAL",
+        "index": 2,
+        "quote": "only scheduled runs",
+        "rationale": "Scheduled/manual gate, does not ask whether missed schedule triggers are queued"
+      },
+      "manual_run_while_paused": {
+        "status": "EXPLICIT",
+        "index": 6,
+        "quote": "should manual runs (POST /api/jobs/{id}/runs with source=manual) be allowed or blocked?",
+        "rationale": "Explicit allow/block manual runs; V0 classifier false negative"
+      },
+      "resume_behavior": {
+        "status": "ABSENT",
+        "rationale": "Resume questions about enabled flag, not missed scheduled work"
+      }
+    },
+    "nvidia/G3": {
+      "pause_in_progress_run": {
+        "status": "EXPLICIT",
+        "index": 3,
+        "quote": "What happens to an in-progress Run when pause is called?",
+        "rationale": "Direct in-flight run continuation question"
+      },
+      "scheduled_start_while_paused": {
+        "status": "PARTIAL",
+        "index": 1,
+        "quote": "or only scheduled runs?",
+        "rationale": "Manual-vs-scheduled block; trigger queue/skip not posed"
+      },
+      "manual_run_while_paused": {
+        "status": "EXPLICIT",
+        "index": 1,
+        "quote": "Does pausing a job block manual runs",
+        "rationale": "Explicit allow/block manual starts"
+      },
+      "resume_behavior": {
+        "status": "ABSENT",
+        "rationale": "No catch-up vs future-only scheduled work asked"
+      }
+    },
+    "openrouter/G0": {
+      "pause_in_progress_run": {
+        "status": "EXPLICIT",
+        "index": 3,
+        "quote": "what should happen to an already-running run",
+        "rationale": "Direct in-flight run status"
+      },
+      "scheduled_start_while_paused": {
+        "status": "EXPLICIT",
+        "index": 6,
+        "quote": "or allow queued runs to start once resumed?",
+        "rationale": "Explicit reject/discard versus queue for schedule events during pause"
+      },
+      "manual_run_while_paused": {
+        "status": "ABSENT",
+        "rationale": "No question about manual runs during pause"
+      },
+      "resume_behavior": {
+        "status": "PARTIAL",
+        "index": 6,
+        "quote": "allow queued runs to start once resumed",
+        "rationale": "Implies replay but does not independently contrast catch-up with future-only schedule after resume"
+      }
+    },
+    "openrouter/G1": {
+      "pause_in_progress_run": {
+        "status": "EXPLICIT",
+        "index": 2,
+        "quote": "What should happen to a Run that is already in 'running' state when the Job is paused?",
+        "rationale": "Explicit run fate"
+      },
+      "scheduled_start_while_paused": {
+        "status": "PARTIAL",
+        "index": 1,
+        "quote": "should it block both scheduled runs AND manual runs",
+        "rationale": "Scheduled-vs-manual gate, not skip-vs-queue"
+      },
+      "manual_run_while_paused": {
+        "status": "EXPLICIT",
+        "index": 14,
+        "quote": "should it block both scheduled and manual runs?",
+        "rationale": "Explicit manual block-vs-allow"
+      },
+      "resume_behavior": {
+        "status": "EXPLICIT",
+        "index": 3,
+        "quote": "should immediately pending scheduled runs be triggered, or only on next normal schedule cycle?",
+        "rationale": "Explicit pending work catch-up versus future cycle; V0 false negative"
+      }
+    },
+    "openrouter/G2": {
+      "pause_in_progress_run": {
+        "status": "ABSENT",
+        "rationale": "No in-flight run fate question"
+      },
+      "scheduled_start_while_paused": {
+        "status": "PARTIAL",
+        "index": 2,
+        "quote": "both scheduled and manual runs, or only scheduled runs",
+        "rationale": "Known scheduled block versus manual policy, not missed event handling"
+      },
+      "manual_run_while_paused": {
+        "status": "EXPLICIT",
+        "index": 2,
+        "quote": "both scheduled and manual runs, or only scheduled runs",
+        "rationale": "Clear manual allow/block distinction"
+      },
+      "resume_behavior": {
+        "status": "ABSENT",
+        "rationale": "No resume catch-up question"
+      }
+    },
+    "openrouter/G3": {
+      "pause_in_progress_run": {
+        "status": "ABSENT",
+        "rationale": "No in-flight run fate question"
+      },
+      "scheduled_start_while_paused": {
+        "status": "PARTIAL",
+        "index": 1,
+        "quote": "block both scheduled AND manual runs, or only scheduled runs?",
+        "rationale": "Known blocked scheduling contrasted with manual, not trigger skip/queue"
+      },
+      "manual_run_while_paused": {
+        "status": "EXPLICIT",
+        "index": 1,
+        "quote": "Should a paused job block both scheduled AND manual runs, or only scheduled runs?",
+        "rationale": "Manual allowed vs blocked"
+      },
+      "resume_behavior": {
+        "status": "ABSENT",
+        "rationale": "Mention of pause/resume endpoint return format does not ask missed-trigger catch-up"
+      }
+    }
+  }
+}
