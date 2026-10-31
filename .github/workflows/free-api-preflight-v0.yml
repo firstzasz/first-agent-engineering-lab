@@ -1,0 +1,43 @@
+name: Free API preflight (NVIDIA NIM + OpenRouter)
+
+on:
+  push:
+    branches:
+      - research/free-api-preflight-v0
+    paths:
+      - .github/workflows/free-api-preflight-v0.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-api-preflight-v0
+  cancel-in-progress: false
+
+jobs:
+  free-provider-smoke:
+    if: github.event_name == 'push' && github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-api-preflight-v0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout isolated research branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Use Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run free-only synthetic requests (max 4; no fallback)
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python experiments/free-api-preflight-v0/preflight.py
+      - name: Save sanitized result only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: free-api-preflight-report
+          path: api-preflight-result.json
+          if-no-files-found: warn
+          retention-days: 14
