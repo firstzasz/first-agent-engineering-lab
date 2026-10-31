@@ -1,9 +1,9 @@
-name: Free NVIDIA Ultra actual helper roles smoke v0
+name: Free NVIDIA Ultra actual helper roles smoke v1
 
 on:
   push:
     branches:
-      - research/free-ultra-helper-smoke-v0
+      - research/free-ultra-helper-smoke-v1
     paths:
       - .github/workflows/free-ultra-helper-smoke-v0.yml
 
@@ -11,12 +11,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: free-ultra-helper-smoke-v0
+  group: free-ultra-helper-smoke-v1
   cancel-in-progress: false
 
 jobs:
   preflight:
-    if: github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-ultra-helper-smoke-v0'
+    if: github.repository == 'firstzasz/first-agent-engineering-lab' && github.ref == 'refs/heads/research/free-ultra-helper-smoke-v1'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
