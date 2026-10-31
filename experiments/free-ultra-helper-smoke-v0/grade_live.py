@@ -8,7 +8,7 @@ def evaluate(report):
     rows=report.get("rows",[])
     ledger=report.get("shared_ledger",{})
     checks={
-        "expected_experiment":report.get("experiment")=="FREE_ULTRA_HELPER_SMOKE_V0",
+        "expected_experiment":report.get("experiment")=="FREE_ULTRA_HELPER_SMOKE_V1",
         "free_only_pinned":report.get("free_only") is True and report.get("no_fallback") is True
            and report.get("no_paid_provider") is True and report.get("no_groq") is True
            and report.get("no_deepseek_nvidia") is True,
@@ -35,7 +35,7 @@ def evaluate(report):
         "candidate_not_executed":report.get("no_model_source_executed") is True,
         "candidate_not_persisted":report.get("source_content_not_persisted") is True,
     }
-    return {"experiment":"FREE_ULTRA_HELPER_SMOKE_V0",
+    return {"experiment":"FREE_ULTRA_HELPER_SMOKE_V1",
             "independent_no_secret_grader":True,
             "host_attested_not_cryptographically_verified":True,
             "no_full_method_comparison":True,
@@ -49,7 +49,7 @@ def evaluate(report):
 def main():
     path=Path("evidence/helper-smoke-report.json")
     if not path.exists():
-        report={"experiment":"FREE_ULTRA_HELPER_SMOKE_V0","rows":[]}
+        report={"experiment":"FREE_ULTRA_HELPER_SMOKE_V1","rows":[]}
     else:
         report=json.loads(path.read_text("utf-8"))
     graded=evaluate(report)
