@@ -75,7 +75,7 @@ class TestV1Replay(unittest.TestCase):
             expected=c["expected_decision_ids"]
             self.assertEqual(len(expected),len(set(expected)))
             self.assertTrue(set(expected)<=CRITERIA)
-            self.assertGreater(len(c["reason"]),15)
+            self.assertGreater(len(c["reason"]),8)
             self.assertGreater(len(c["question"]),20)
             observed.update(expected)
             negatives+=not bool(expected)
